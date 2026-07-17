@@ -12,6 +12,18 @@
 
 ---
 
+## v0.1.1 — First Deployment
+
+### Added
+
+- GitHub Pages deployment workflow
+- Automated deployment using GitHub Actions
+- Static export configuration for Next.js
+
+### Status
+
+🚀 Ready for first public deployment
+
 ## 🎯 Objective
 
 Create the foundation of ResumeOps by setting up the development environment and building the first functional homepage.
