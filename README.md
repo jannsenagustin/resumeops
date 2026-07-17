@@ -1,5 +1,11 @@
 # ResumeOps
 
+> Engineering a portfolio.
+>
+> Documenting the journey.
+>
+> One commit at a time.
+
 > ⚠️ **This project is being built in public.**
 >
 > Every commit, milestone, and design decision represents a real step in my journey into modern web development.
@@ -30,9 +36,10 @@ It's to demonstrate **how I build, learn, and solve problems.**
 
 ---
 
-## 🚀 Building in Public
+## 🚀 Engineering Journal
 
-This repository documents the complete development of ResumeOps—from the very first commit to production.
+ResumeOps documents every engineering milestone from the first line of code to production.
+
 
 You'll find:
 
@@ -74,6 +81,33 @@ Status:
 🚧 Under Active Development
 
 ---
+
+## 🎯 Current Focus
+
+Learning:
+
+- React
+- Next.js
+- TypeScript
+
+Building:
+
+- ResumeOps v0.2 — Navigation
+
+## 📅 Development Timeline
+
+2026
+
+🌱 July
+Started ResumeOps
+
+✓ Installed Node.js
+✓ Learned React Components
+✓ Learned Tailwind CSS
+✓ Created GitHub Repository
+
+🚧 Current
+Building Navigation
 
 ## 🗺️ Roadmap
 
@@ -119,3 +153,23 @@ Currently exploring modern web development while continuing to build solutions i
 ---
 
 *"Every expert was once a beginner. This repository is where I document becoming one."*
+
+## 📊 Project Metrics
+
+Version
+v0.1.0
+
+Commits
+4
+
+Milestones
+1
+
+Features
+3
+
+Current Sprint
+Navigation
+
+Project Status
+🟢 Active
