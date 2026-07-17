@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ResumeOps
 
-## Getting Started
+> ⚠️ **This project is being built in public.**
+>
+> Every commit, milestone, and design decision represents a real step in my journey into modern web development.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 👋 Welcome
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Hi! I'm **Jannsen Agustin**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I'm a Splunk Administrator, Developer, and Architect with years of experience building enterprise data and observability solutions. While my background is rooted in enterprise platforms, ResumeOps marks the beginning of a new challenge—learning modern web development from the ground up.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Rather than building another generic portfolio website, I wanted to create something that reflects how I think as an engineer.
 
-## Learn More
+ResumeOps is that project.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 The Mission
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ResumeOps is an engineering-focused portfolio inspired by enterprise observability.
 
-## Deploy on Vercel
+Instead of presenting a traditional resume, this project aims to transform my professional experience into an interactive dashboard where projects, skills, and achievements are presented through concepts like monitoring, operations, system health, and telemetry.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The goal isn't simply to showcase what I've done.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+It's to demonstrate **how I build, learn, and solve problems.**
+
+---
+
+## 🚀 Building in Public
+
+This repository documents the complete development of ResumeOps—from the very first commit to production.
+
+You'll find:
+
+- Feature development
+- Design decisions
+- Milestone screenshots
+- Changelogs
+- Roadmaps
+- Lessons learned
+- Git history documenting every stage of development
+
+Nothing is hidden.
+
+The journey is just as important as the final product.
+
+---
+
+## 🛠 Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Git
+- GitHub
+
+As the project evolves, additional technologies and integrations will be added.
+
+---
+
+## 📈 Current Status
+
+**Current Version**
+
+> 🌱 **v0.1 — Genesis**
+
+Status:
+
+🚧 Under Active Development
+
+---
+
+## 🗺️ Roadmap
+
+- ✅ v0.1 — Genesis
+- 🚧 v0.2 — Navigation
+- ⬜ v0.3 — Identity
+- ⬜ v0.4 — Operations Dashboard
+- ⬜ v0.5 — Projects
+- ⬜ v0.6 — Experience
+- ⬜ v0.7 — Deployment
+- ⬜ v1.0 — Launch
+
+For a detailed roadmap, see **ROADMAP.md**.
+
+---
+
+## 📜 Changelog
+
+Every milestone is documented in **CHANGELOG.md**.
+
+---
+
+## 💡 Why ResumeOps?
+
+As someone who has spent years working with enterprise monitoring platforms like Splunk, I've always appreciated systems that tell a story through data.
+
+I wanted my portfolio to do the same.
+
+ResumeOps combines my background in observability with my journey into software engineering to create something that's both personal and practical.
+
+---
+
+## 👨‍💻 About Me
+
+**Jannsen Agustin**
+
+Splunk Administrator • Developer • Architect
+
+📍 Edmonton, Alberta, Canada
+
+Currently exploring modern web development while continuing to build solutions in observability, automation, and enterprise data platforms.
+
+---
+
+*"Every expert was once a beginner. This repository is where I document becoming one."*
