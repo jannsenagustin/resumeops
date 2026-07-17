@@ -1,5 +1,17 @@
 # ResumeOps
 
+![Version](https://img.shields.io/badge/version-v0.1.0-success?style=for-the-badge)
+
+![Status](https://img.shields.io/badge/status-Building%20in%20Public-blue?style=for-the-badge)
+
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
+
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+
 > Engineering a portfolio.
 >
 > Documenting the journey.
