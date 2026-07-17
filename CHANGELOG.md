@@ -20,9 +20,17 @@
 - Automated deployment using GitHub Actions
 - Static export configuration for Next.js
 
-### Status
 
-🚀 Ready for first public deployment
+🚀 First Public Deployment
+
+Status
+🟢 LIVE
+
+Deployment
+GitHub Pages
+
+URL
+https://jannsenagustin.github.io/resumeops/
 
 ## 🎯 Objective
 
