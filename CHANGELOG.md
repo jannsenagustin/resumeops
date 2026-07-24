@@ -141,3 +141,33 @@ Goals
 ### Notes
 
 - This marks the first feature implemented through the ChatGPT → Codex → PR Review workflow.
+
+## Foundation Refactor
+
+### Changed
+
+- Moved engineering case-study metadata into a typed shared data module.
+- Normalized case-study status, route, slug, and link metadata.
+- Expanded AGENTS.md into the ResumeOps engineering handbook.
+
+### Added
+
+- Architecture Decision Records under `docs/decisions`.
+- Codex prompting guide under `docs/PROMPTING.md`.
+
+### Notes
+
+- The ResumeOps case study remains in progress.
+
+## Case Study Content Refactor
+
+### Changed
+
+- Moved ResumeOps case-study content into a dedicated typed data module.
+- Reduced the case-study route to a presentation and composition layer.
+- Verified clean UTF-8 case-study content.
+- Verified internal case-study navigation for local and GitHub Pages builds.
+
+### Notes
+
+- Sprint 4 remains in progress.

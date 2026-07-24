@@ -140,6 +140,14 @@ For a detailed roadmap, see **ROADMAP.md**.
 
 Every milestone is documented in **CHANGELOG.md**.
 
+## Engineering Documentation
+
+ResumeOps publishes work as Engineering Case Studies backed by shared typed metadata in `data/caseStudies.ts`.
+
+- [Engineering handbook](AGENTS.md)
+- [Architecture Decision Records](docs/decisions/README.md)
+- [Codex prompting guide](docs/PROMPTING.md)
+
 ---
 
 ## 💡 Why ResumeOps?
