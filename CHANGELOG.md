@@ -126,3 +126,18 @@ Goals
 - Better spacing
 - Professional typography
 - Recruiter-focused UI
+
+## v0.2
+
+### Added
+
+- Introduced a new "Why I Build" section to establish the engineering philosophy behind ResumeOps.
+
+### Changed
+
+- Homepage now follows a narrative flow:
+  Hero → Why I Build → Projects
+
+### Notes
+
+- This marks the first feature implemented through the ChatGPT → Codex → PR Review workflow.

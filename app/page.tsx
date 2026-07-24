@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import WhyIBuild from "../components/WhyIBuild";
 import Projects from "../components/Projects";
 
 export default function Home() {
@@ -11,9 +12,8 @@ export default function Home() {
         title="Splunk Administrator • Developer • Architect"
         email="jannsenagustin.can@gmail.com"
       />
-
-      
-      <Projects />        
+      <WhyIBuild />
+      <Projects />
     </main>
   );
 }
