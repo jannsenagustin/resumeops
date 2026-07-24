@@ -11,7 +11,10 @@ export default function Projects() {
   );
 
   return (
-    <section id="projects" className="bg-black px-6 py-20 sm:px-8 sm:py-24">
+    <section
+      id="case-studies"
+      className="scroll-mt-24 bg-black px-6 py-20 sm:px-8 sm:py-24"
+    >
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           eyebrow="Engineering Portfolio"
