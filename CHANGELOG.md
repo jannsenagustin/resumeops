@@ -228,3 +228,24 @@ Goals
 - Updated browser title to reflect Observability Engineering positioning.
 - Updated metadata to align with ResumeOps branding.
 - Updated browser metadata and SEO.
+
+## v0.5.0 — Documentation Architecture
+
+### Added
+
+- Documentation homepage under `docs/README.md`.
+- Architecture documentation for the site and component structure.
+- Architecture Decision Records for observability branding and GitHub Pages static export.
+- Sprint 4A through Sprint 4D engineering journals.
+- v0.4.0 retrospective release notes.
+- Phased engineering roadmap under `docs/roadmap.md`.
+
+### Changed
+
+- Refactored the root README into a concise project entry point.
+- Moved the canonical roadmap into the documentation hierarchy.
+- Preserved the changelog and original decision archive as permanent history.
+
+### Notes
+
+- This release changes documentation architecture only. Application behavior and branding remain unchanged.

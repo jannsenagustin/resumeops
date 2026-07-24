@@ -2,10 +2,12 @@
 
 Architecture Decision Records (ADRs) capture significant technical and product decisions, the context behind them, and their consequences. ResumeOps records ADRs so its architecture remains explainable as the portfolio and case-study system evolve.
 
+This directory is the original decision archive. Its accepted records remain unchanged as project history. New records use the [current ADR directory](../adr/) and the `ADR-NNN-descriptive-slug.md` naming format.
+
 ## Convention
 
-- Store ADRs in `docs/decisions`.
-- Name files with a four-digit sequence and concise slug: `0001-decision-name.md`.
+- Preserve records in `docs/decisions` with their original four-digit names.
+- Store new records in `docs/adr` using the current ADR naming convention.
 - Use one of these statuses: Proposed, Accepted, Superseded, or Rejected.
 - Include the sections Status, Context, Decision, and Consequences.
 - Do not silently rewrite an accepted ADR.
