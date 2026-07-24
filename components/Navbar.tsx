@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <Navbar className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-5">
         <a
           href="#overview"
@@ -27,6 +27,6 @@ export default function Navbar() {
           </a>
         </div>
       </div>
-    </Navbar>
+    </nav>
   );
 }
