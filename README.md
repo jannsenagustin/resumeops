@@ -12,11 +12,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-> Engineering a portfolio.
->
-> Documenting the journey.
->
-> One commit at a time.
+> Turning operational data into engineering insight.
 
 > ⚠️ **This project is being built in public.**
 >
@@ -28,7 +24,7 @@
 
 Hi! I'm **Jannsen Agustin**.
 
-I'm a Splunk Administrator, Developer, and Architect with years of experience building enterprise data and observability solutions. While my background is rooted in enterprise platforms, ResumeOps marks the beginning of a new challenge—learning modern web development from the ground up.
+I'm an Observability Engineer specializing in Splunk Enterprise, with years of experience administering, enhancing, and supporting enterprise data and observability platforms. ResumeOps documents that experience alongside my continued development through software engineering and observability projects.
 
 Rather than building another generic portfolio website, I wanted to create something that reflects how I think as an engineer.
 
@@ -96,15 +92,14 @@ Status:
 
 ## 🎯 Current Focus
 
-Learning:
+Building ResumeOps as an engineering profile and case-study platform.
 
-- React
-- Next.js
-- TypeScript
+Current homepage architecture:
 
-Building:
-
-- ResumeOps v0.2 — Navigation
+- Engineering Case Studies
+- Enterprise Experience
+- Career Journey
+- Currently Building
 
 ## 📅 Development Timeline
 
@@ -119,7 +114,7 @@ Started ResumeOps
 ✓ Created GitHub Repository
 
 🚧 Current
-Building Navigation
+Developing the ResumeOps engineering portfolio
 
 ## 🗺️ Roadmap
 
@@ -140,6 +135,14 @@ For a detailed roadmap, see **ROADMAP.md**.
 
 Every milestone is documented in **CHANGELOG.md**.
 
+## Engineering Documentation
+
+ResumeOps publishes work as Engineering Case Studies backed by shared typed metadata in `data/caseStudies.ts`.
+
+- [Engineering handbook](AGENTS.md)
+- [Architecture Decision Records](docs/decisions/README.md)
+- [Codex prompting guide](docs/PROMPTING.md)
+
 ---
 
 ## 💡 Why ResumeOps?
@@ -156,7 +159,9 @@ ResumeOps combines my background in observability with my journey into software 
 
 **Jannsen Agustin**
 
-Splunk Administrator • Developer • Architect
+Observability Engineer
+
+Specializing in Splunk Enterprise
 
 📍 Edmonton, Alberta, Canada
 

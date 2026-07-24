@@ -126,3 +126,105 @@ Goals
 - Better spacing
 - Professional typography
 - Recruiter-focused UI
+
+## v0.2
+
+### Added
+
+- Introduced a new "Why I Build" section to establish the engineering philosophy behind ResumeOps.
+
+### Changed
+
+- Homepage now follows a narrative flow:
+  Hero → Why I Build → Projects
+
+### Notes
+
+- This marks the first feature implemented through the ChatGPT → Codex → PR Review workflow.
+
+## Foundation Refactor
+
+### Changed
+
+- Moved engineering case-study metadata into a typed shared data module.
+- Normalized case-study status, route, slug, and link metadata.
+- Expanded AGENTS.md into the ResumeOps engineering handbook.
+
+### Added
+
+- Architecture Decision Records under `docs/decisions`.
+- Codex prompting guide under `docs/PROMPTING.md`.
+
+### Notes
+
+- The ResumeOps case study remains in progress.
+
+## Case Study Content Refactor
+
+### Changed
+
+- Moved ResumeOps case-study content into a dedicated typed data module.
+- Reduced the case-study route to a presentation and composition layer.
+- Verified clean UTF-8 case-study content.
+- Verified internal case-study navigation for local and GitHub Pages builds.
+
+### Notes
+
+- Sprint 4 remains in progress.
+
+## Sprint 4B — Enterprise Experience
+
+### Added
+
+- Expanded Enterprise Experience into a structured engineering profile.
+- Added typed engineering-domain, enterprise-delivery, leadership, and technology-stack data.
+- Added verified Accenture delivery experience across selected global client environments.
+- Added leadership, mentoring, internal training, and reusable-asset contributions.
+
+### Changed
+
+- Replaced résumé-style experience presentation with engineering-domain and delivery-focused content.
+- Improved navigation focus treatment and semantics.
+
+### Notes
+
+- Accenture remains the employer of record for all listed client delivery.
+- Unsupported metrics, confidential implementation details, and unverified architecture claims were intentionally excluded.
+
+## Sprint 4C — Hero Redesign
+
+### Changed
+
+- Replaced the oversized résumé-style Hero with a compact engineering landing section.
+- Updated the professional capability line to “Splunk Administrator • Developer.”
+- Added clear case-study and résumé calls to action.
+- Added a static Currently Building summary.
+- Added concise metadata for experience, enterprise delivery, focus, and location.
+- Improved Hero responsiveness, hierarchy, and accessibility.
+
+### Removed
+
+- Removed unsupported title wording from the Hero capability line.
+- Removed full-screen vertical spacing that created excessive empty space.
+
+### Notes
+
+- The résumé control remains disabled until a verified downloadable asset is added.
+
+## Sprint 4D — Brand & Content Refinement
+
+### Added
+
+- Official ResumeOps tagline:
+  "Turning operational data into engineering insight."
+
+### Changed
+
+- Repositioned ResumeOps around Observability Engineering.
+- Updated the primary professional identity to "Observability Engineer."
+- Updated the supporting line to "Specializing in Splunk Enterprise."
+- Refined the Hero summary to reflect a broader observability focus while preserving the verified Splunk specialization.
+- Refined Hero messaging to accurately reflect verified enterprise experience.
+- Updated browser title to reflect Observability Engineering positioning.
+- Updated metadata to align with ResumeOps branding.
+- Updated browser metadata and SEO.
