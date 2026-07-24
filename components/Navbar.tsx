@@ -1,31 +1,39 @@
+const navigationItems = [
+  { label: "Overview", href: "#overview" },
+  { label: "Case Studies", href: "#case-studies" },
+  { label: "Experience", href: "#experience" },
+  { label: "Building", href: "#building" },
+];
+
+const linkClasses =
+  "rounded-sm transition-colors hover:text-green-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black";
+
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-5">
+    <nav
+      aria-label="Primary navigation"
+      className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md"
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
         <a
           href="#overview"
-          className="text-xl font-bold tracking-tight text-green-400"
+          className={`shrink-0 text-xl font-bold tracking-tight text-green-400 ${linkClasses}`}
         >
           ResumeOps
         </a>
 
-        <div className="flex items-center gap-6 text-sm text-gray-400">
-          <a href="#overview" className="transition-colors hover:text-green-400">
-            Overview
-          </a>
-
-          <a href="#projects" className="transition-colors hover:text-green-400">
-            Projects
-          </a>
-
-          <a href="#experience" className="transition-colors hover:text-green-400">
-            Experience
-          </a>
-
-          <a href="#contact" className="transition-colors hover:text-green-400">
-            Contact
-          </a>
-        </div>
+        <ul className="flex min-w-0 items-center gap-3 overflow-x-auto text-xs text-gray-400 [scrollbar-width:none] sm:gap-6 sm:text-sm [&::-webkit-scrollbar]:hidden">
+          {navigationItems.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <a
+                href={item.href}
+                className={linkClasses}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </nav>
   );
