@@ -100,8 +100,9 @@ Early case studies do not need every section, but omissions should be intentiona
 
 ## ADR Standard
 
-- Store Architecture Decision Records in `docs/decisions`.
-- Use a four-digit numeric prefix and descriptive slug.
+- Store new Architecture Decision Records in `docs/adr`.
+- Use the `ADR-NNN-descriptive-slug.md` naming format.
+- Preserve `docs/decisions` as the legacy decision archive.
 - Include `Status`, `Context`, `Decision`, and `Consequences`.
 - Do not silently rewrite an accepted decision.
 - Create a later ADR when a major change supersedes an earlier decision.

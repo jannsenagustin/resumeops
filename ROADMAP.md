@@ -1,24 +1,5 @@
-✔ Genesis
+# ResumeOps Roadmap
 
-⬜ Navigation
+The canonical roadmap has moved to [docs/roadmap.md](docs/roadmap.md).
 
-⬜ Identity
-
-⬜ Dashboard
-
-⬜ Projects
-
-⬜ Timeline
-
-⬜ Deployment
-
-## Current Direction
-
-- Complete — Sprint 4A: Homepage architecture
-- Complete — Sprint 4B: Enterprise Experience
-- Complete — Sprint 4C: Hero redesign
-- In progress — ResumeOps Engineering Platform
-- Planned — Career Journey development
-- Planned — Splunk engineering case studies
-
-Architecture decisions are recorded in `docs/decisions`, and implementation prompting standards are documented in `docs/PROMPTING.md`.
+The documentation roadmap organizes work by platform foundation, engineering projects, technical publishing, and future direction. Chronological project history remains in [CHANGELOG.md](CHANGELOG.md).
