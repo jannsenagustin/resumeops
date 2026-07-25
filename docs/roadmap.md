@@ -23,9 +23,19 @@ The roadmap separates completed platform foundations from active and future engi
 
 ## Phase 2 — Engineering Projects
 
+### In Progress
+
+#### v0.6.0 — Enterprise Observability Home Lab
+
+- **Current stage:** Sprint 6A — Architecture and Planning
+- **Status:** Architecture and planning only
+- **Current scope:** Define the containerized distributed Splunk design, Linux authentication monitoring use case, implementation sequence, security considerations, and deliberate limitations.
+- **Not yet complete:** Deployment, data onboarding, searches, dashboards, alerts, validation, and case-study release.
+
+See the [Enterprise Observability Home Lab project documentation](projects/enterprise-observability-home-lab/README.md).
+
 ### Planned
 
-- Enterprise Observability Home Lab
 - Detection Engineering
 - Splunk App Development
 - CI/CD for Splunk

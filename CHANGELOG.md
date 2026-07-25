@@ -4,6 +4,25 @@
 
 ---
 
+## Unreleased
+
+### Sprint 6A — Enterprise Observability Home Lab
+
+#### Added
+
+- Started the Enterprise Observability Home Lab project.
+- Defined the initial distributed Splunk architecture.
+- Established project scope and limitations.
+- Defined the Linux authentication monitoring use case.
+- Added architecture decisions and implementation planning.
+
+#### Notes
+
+- v0.6.0 remains in architecture and planning.
+- No Splunk deployment, data onboarding, search, dashboard, or alert is claimed as complete.
+
+---
+
 # v0.1.0 — Genesis 🌱
 
 **Release Date:** July 16, 2026

@@ -11,7 +11,13 @@ ResumeOps is an engineering portfolio and documentation platform focused on obse
 
 - [ADR-001: ResumeOps Repositioned as an Observability Engineering Platform](adr/ADR-001-observability-branding.md) records the product-positioning decision.
 - [ADR-002: Static Export Deployment using GitHub Pages](adr/ADR-002-static-export-github-pages.md) records the deployment architecture and its trade-offs.
+- [ADR-003: Use Containers to Simulate Distributed Splunk Roles](adr/ADR-003-containerized-home-lab.md) records the single-workstation container strategy.
+- [ADR-004: Begin the Home Lab Without Splunk Clustering](adr/ADR-004-start-without-clustering.md) records the decision to defer clustering and high availability.
 - [Legacy decision archive](decisions/README.md) preserves the original six product and engineering decisions.
+
+## Engineering Projects
+
+- [Enterprise Observability Home Lab](projects/enterprise-observability-home-lab/README.md) is in Sprint 6A architecture and planning for v0.6.0.
 
 ## Sprint Archive
 
