@@ -1,0 +1,352 @@
+RESUMEOPS SPRINT 6B REPORT
+PROJECT ATLAS — ENTERPRISE OBSERVABILITY HOME LAB
+================================================
+
+Sprint: Sprint 6B — Infrastructure
+Release: v0.6.0
+Status: In Progress
+Branch: feature/home-lab
+Starting Commit: 5c786e5
+
+
+1. OUTCOME
+----------
+
+Sprint 6B established the infrastructure foundation for Project Atlas, the
+Enterprise Observability Home Lab.
+
+The repository now contains a Docker Compose design for three separate Splunk
+Enterprise roles, a dedicated Docker network, persistent named volumes,
+environment-variable configuration, secret-handling controls, deployment
+instructions, a verification checklist, and troubleshooting guidance.
+
+This is a learning-lab foundation. It is not production-ready.
+
+Runtime deployment has not been completed or claimed.
+
+
+2. GIT SAFETY
+-------------
+
+- Current branch: feature/home-lab
+- Sprint 6A work was preserved.
+- No unrelated working-tree changes were present before Sprint 6B work began.
+- No branch merge was performed.
+- No tag was created.
+- No commit was created.
+- No push was performed.
+
+
+3. DIRECTORY STRUCTURE
+----------------------
+
+infrastructure/atlas/
+|-- .env.example
+|-- .gitignore
+|-- docker-compose.yml
+`-- README.md
+
+docs/projects/enterprise-observability-home-lab/infrastructure/
+|-- README.md
+|-- deployment-plan.md
+|-- environment-variables.md
+|-- sprint-6b-report.txt
+|-- troubleshooting.md
+`-- verification-checklist.md
+
+
+4. FILES CREATED
+----------------
+
+- infrastructure/atlas/docker-compose.yml
+- infrastructure/atlas/.env.example
+- infrastructure/atlas/.gitignore
+- infrastructure/atlas/README.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/README.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/deployment-plan.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/environment-variables.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/verification-checklist.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/troubleshooting.md
+- docs/projects/enterprise-observability-home-lab/infrastructure/sprint-6b-report.txt
+
+
+5. FILES MODIFIED
+-----------------
+
+- .gitignore
+- CHANGELOG.md
+- docs/projects/enterprise-observability-home-lab/README.md
+- docs/projects/enterprise-observability-home-lab/implementation-plan.md
+- docs/projects/enterprise-observability-home-lab/ports-and-networking.md
+- docs/roadmap.md
+
+
+6. DOCKER COMPOSE DESIGN
+------------------------
+
+Services:
+
+- atlas-search-head
+- atlas-indexer
+- atlas-deployment-server
+
+Dedicated network:
+
+- atlas-network
+
+Persistent named volumes:
+
+- atlas-search-head-var
+- atlas-search-head-etc
+- atlas-indexer-var
+- atlas-indexer-etc
+- atlas-deployment-server-var
+- atlas-deployment-server-etc
+
+Only the three Splunk Web interfaces are published to the Windows host.
+Host mappings are restricted to 127.0.0.1.
+
+Splunk management communication remains internal to atlas-network.
+
+The future Indexer receiving port is represented for Sprint 6C planning but
+receiving has not been enabled.
+
+No Universal Forwarder or Linux log-source container was added in Sprint 6B.
+
+
+7. ROLE RESPONSIBILITIES
+------------------------
+
+Search Head:
+
+- Intended user search interface
+- Future dashboards, reports, alerts, and knowledge objects
+- Initial Monitoring Console location
+- Future distributed searches against the Indexer
+
+Indexer:
+
+- Future forwarded-data receiver
+- Event parsing and indexing
+- Persistent event storage
+- Distributed-search peer
+
+Deployment Server:
+
+- Future Universal Forwarder configuration management
+- Future deployment-app distribution
+- Future server-class management
+
+The Deployment Server does not manage the Search Head or Indexer.
+No fake Universal Forwarder client was created.
+
+
+8. IMAGE AND VERSION STRATEGY
+-----------------------------
+
+The image repository is configured through:
+
+SPLUNK_IMAGE=splunk/splunk
+
+The image tag remains an explicit blocking placeholder:
+
+SPLUNK_VERSION=VERIFY_SUPPORTED_TAG
+
+The latest tag is not used silently.
+
+A supported tag must be selected from official Splunk sources before
+deployment.
+
+
+9. PORT STRATEGY
+----------------
+
+Verified internal Splunk defaults used in the design:
+
+- Splunk Web: TCP 8000
+- Splunk management/API: TCP 8089
+- Conventional forwarder receiving: TCP 9997
+
+Proposed localhost Web mappings:
+
+- Search Head: 127.0.0.1:8000
+- Indexer: 127.0.0.1:8001
+- Deployment Server: 127.0.0.1:8002
+
+The proposed host ports may be changed in the local .env file if a collision
+exists.
+
+Management and receiving ports are not published to the Windows host in the
+initial Compose design.
+
+
+10. SECRET MANAGEMENT
+---------------------
+
+- No real credentials were added to Git.
+- The administrator password is supplied through a local .env file.
+- The committed .env.example contains CHANGE_ME and blocking placeholders.
+- The local .env file is ignored by Git.
+- Splunk license files are ignored by Git.
+- No license file was committed.
+- License acceptance must be reviewed and configured locally.
+- Resolved Compose output containing a real password must not be committed.
+- A strong local administrator password is required.
+
+
+11. RESOURCE PLANNING
+---------------------
+
+The environment runs on one Windows gaming PC and shares its CPU, memory,
+storage, networking, and failure domain.
+
+Exact hardware capacity is not documented in the repository.
+
+CPU, memory, storage, and Docker Desktop limits remain proposed settings that
+must be adjusted after observing container health and host performance.
+
+
+12. STATIC VALIDATION RESULTS
+-----------------------------
+
+PASSED:
+
+- Current branch confirmed as feature/home-lab
+- npm run lint
+- npm run build
+- git diff --check
+- Docker Compose YAML parsing
+- Compose design audit
+- Three expected services confirmed
+- Six expected persistent volumes confirmed
+- Localhost-only Web publication confirmed
+- Thirty-six Markdown files checked for local links
+- All checked local documentation links resolved
+- Local .env ignore rule confirmed
+- Splunk license-file ignore rule confirmed
+- Secret-pattern matches reviewed
+- No real secret values found
+- No obsolete Sprint 6 identity labels found
+
+
+13. RUNTIME VALIDATION RESULTS
+------------------------------
+
+DEFERRED:
+
+- docker compose config
+- docker compose up -d
+- docker compose ps
+- Container log review
+- Search Head Web access
+- Indexer Web access
+- Deployment Server Web access
+- Docker network inspection
+- Persistent-volume inspection
+- Internal service-name resolution
+- Search Head-to-Indexer distributed-search configuration
+- Indexer search-peer validation
+- Monitoring Console validation
+- Deployment Server runtime readiness
+- Evidence screenshot capture
+
+Reason:
+
+The Docker CLI was unavailable in the authoring environment, and no local .env
+file with verified deployment values was configured.
+
+No containers were started automatically.
+No runtime success was fabricated or claimed.
+
+
+14. SECURITY AND SCOPE CONTROLS
+------------------------------
+
+- Dedicated Docker network
+- Limited localhost-only Web exposure
+- No committed credentials
+- No committed local .env file
+- No committed Splunk license
+- No personal or production data ingestion
+- No clustering
+- No high availability
+- No Heavy Forwarder
+- No Splunk SOAR
+- No external load balancer
+- No production TLS architecture
+- Destructive volume-reset commands include warnings
+- Future TLS hardening remains deferred
+
+
+15. BLOCKERS AND OPEN DECISIONS
+-------------------------------
+
+- Install Docker Desktop or make the Docker CLI available on PATH.
+- Select a supported splunk/splunk image tag.
+- Review and accept the applicable Splunk license and general terms.
+- Create a strong local administrator password.
+- Confirm that the proposed Web ports are available.
+- Select initial Docker Desktop CPU, memory, and storage limits.
+- Confirm whether temporary host management-port publication is ever needed.
+- Run and record all runtime verification steps.
+- Capture and sanitize the required evidence.
+
+
+16. NEXT MANUAL STEPS
+---------------------
+
+From infrastructure/atlas:
+
+1. Create the local environment file:
+
+   Copy-Item .env.example .env
+
+2. Edit .env and:
+
+   - select a verified Splunk image tag;
+   - replace CHANGE_ME with a strong local password;
+   - review and configure the applicable license-acceptance arguments;
+   - confirm or adjust the proposed localhost Web ports.
+
+3. Confirm the local file is ignored:
+
+   git check-ignore -v infrastructure/atlas/.env
+
+4. Start Docker Desktop.
+
+5. Validate the resolved Compose configuration:
+
+   docker compose config
+
+6. Start the environment:
+
+   docker compose up -d
+
+7. Inspect status and logs:
+
+   docker compose ps
+   docker compose logs --tail=100
+
+8. Complete:
+
+   docs/projects/enterprise-observability-home-lab/infrastructure/
+   verification-checklist.md
+
+
+17. COMPLETION STATUS
+---------------------
+
+Sprint 6B remains IN PROGRESS.
+
+It must not be marked complete until:
+
+- all three Splunk roles start successfully;
+- all three Web interfaces are accessible;
+- internal Docker networking works;
+- persistent storage is confirmed;
+- distributed search is validated;
+- the Deployment Server is ready for Sprint 6C;
+- evidence is captured;
+- documentation reflects actual runtime results;
+- no unsupported claims remain.
+

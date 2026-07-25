@@ -6,6 +6,22 @@
 
 ## Unreleased
 
+### Sprint 6B — Project Atlas Infrastructure
+
+#### Added
+
+- Started Project Atlas Sprint 6B.
+- Added the container infrastructure foundation.
+- Added the environment-variable and secret-management plan.
+- Added the deployment verification checklist.
+- Added troubleshooting documentation.
+- Prepared separate Splunk Search Head, Indexer, and Deployment Server roles.
+
+#### Notes
+
+- Sprint 6B remains in progress pending Docker runtime validation and evidence capture.
+- Data onboarding, dashboards, detections, and alerting remain out of scope.
+
 ### Sprint 6A — Enterprise Observability Home Lab
 
 #### Added

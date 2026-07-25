@@ -1,0 +1,74 @@
+name: ${ATLAS_PROJECT_NAME:-atlas}
+
+x-atlas-splunk-common: &atlas-splunk-common
+  image: ${SPLUNK_IMAGE:?Set SPLUNK_IMAGE in .env}:${SPLUNK_VERSION:?Set SPLUNK_VERSION in .env}
+  restart: unless-stopped
+  environment: &atlas-splunk-environment
+    SPLUNK_PASSWORD: ${SPLUNK_PASSWORD:?Set SPLUNK_PASSWORD in .env}
+    SPLUNK_START_ARGS: ${SPLUNK_START_ARGS:?Review and accept the license before setting SPLUNK_START_ARGS}
+    SPLUNK_GENERAL_TERMS: ${SPLUNK_GENERAL_TERMS:?Review and accept the general terms before setting SPLUNK_GENERAL_TERMS}
+  networks:
+    - atlas-network
+
+services:
+  atlas-search-head:
+    <<: *atlas-splunk-common
+    container_name: atlas-search-head
+    hostname: atlas-search-head
+    labels:
+      resumeops.atlas.role: search-head
+    ports:
+      - "127.0.0.1:${ATLAS_SEARCH_HEAD_WEB_PORT:?Set ATLAS_SEARCH_HEAD_WEB_PORT in .env}:8000"
+    expose:
+      - "8089"
+    volumes:
+      - atlas-search-head-var:/opt/splunk/var
+      - atlas-search-head-etc:/opt/splunk/etc
+
+  atlas-indexer:
+    <<: *atlas-splunk-common
+    container_name: atlas-indexer
+    hostname: atlas-indexer
+    labels:
+      resumeops.atlas.role: indexer
+    ports:
+      - "127.0.0.1:${ATLAS_INDEXER_WEB_PORT:?Set ATLAS_INDEXER_WEB_PORT in .env}:8000"
+    expose:
+      - "8089"
+      - "${ATLAS_INDEXER_RECEIVER_PORT:?Set ATLAS_INDEXER_RECEIVER_PORT in .env}"
+    volumes:
+      - atlas-indexer-var:/opt/splunk/var
+      - atlas-indexer-etc:/opt/splunk/etc
+
+  atlas-deployment-server:
+    <<: *atlas-splunk-common
+    container_name: atlas-deployment-server
+    hostname: atlas-deployment-server
+    labels:
+      resumeops.atlas.role: deployment-server
+    ports:
+      - "127.0.0.1:${ATLAS_DEPLOYMENT_SERVER_WEB_PORT:?Set ATLAS_DEPLOYMENT_SERVER_WEB_PORT in .env}:8000"
+    expose:
+      - "8089"
+    volumes:
+      - atlas-deployment-server-var:/opt/splunk/var
+      - atlas-deployment-server-etc:/opt/splunk/etc
+
+networks:
+  atlas-network:
+    name: atlas-network
+    driver: bridge
+
+volumes:
+  atlas-search-head-var:
+    name: atlas-search-head-var
+  atlas-search-head-etc:
+    name: atlas-search-head-etc
+  atlas-indexer-var:
+    name: atlas-indexer-var
+  atlas-indexer-etc:
+    name: atlas-indexer-etc
+  atlas-deployment-server-var:
+    name: atlas-deployment-server-var
+  atlas-deployment-server-etc:
+    name: atlas-deployment-server-etc

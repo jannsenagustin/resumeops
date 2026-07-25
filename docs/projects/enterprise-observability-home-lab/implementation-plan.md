@@ -2,7 +2,7 @@
 
 The implementation is divided into evidence-driven sprints. Later sprints remain planned until their completion criteria have been met and documented.
 
-## Sprint 6A — Architecture and Planning
+## Sprint 6A — Architecture
 
 ### Objective
 
@@ -30,7 +30,7 @@ Establish an accurate, bounded architecture and documentation foundation before 
 - No deployment files, credentials, or unsupported production claims are added.
 - Repository validation passes.
 
-## Sprint 6B — Core Deployment
+## Sprint 6B — Infrastructure
 
 ### Objective
 
@@ -41,9 +41,10 @@ Deploy the minimum distributed Splunk topology described by the approved Sprint 
 - Verify supported container images, versions, resource requirements, and exact ports against official documentation.
 - Define local secret handling and deployment configuration.
 - Create the dedicated Docker network.
-- Deploy the Search Head, Indexer, Deployment Server, Linux log source, and Universal Forwarder.
+- Deploy the Search Head, Indexer, and Deployment Server.
 - Configure the Monitoring Console on the Search Head.
 - Validate role-level connectivity and access.
+- Prepare the Deployment Server for the later Universal Forwarder without creating a fake client.
 
 ### Expected Evidence
 
@@ -60,7 +61,7 @@ Deploy the minimum distributed Splunk topology described by the approved Sprint 
 - Credentials and secret values remain outside Git.
 - Actual architecture differences are documented.
 
-## Sprint 6C — Data Onboarding
+## Sprint 6C — Data Engineering
 
 ### Objective
 
@@ -88,7 +89,7 @@ Onboard Linux authentication and system logs through the Universal Forwarder and
 - Connectivity, event count, event breaking, timestamps, host, source, and sourcetype are validated.
 - Any distribution-specific path changes are documented.
 
-## Sprint 6D — Operational Use Case
+## Sprint 6D — Observability
 
 ### Objective
 
@@ -116,7 +117,7 @@ Implement and validate Linux Authentication Monitoring using the onboarded data.
 - The dashboard and alert work against controlled lab data.
 - Search assumptions, thresholds, and limitations are documented.
 
-## Sprint 6E — Case Study and Release
+## Sprint 6E — Engineering Case Study
 
 ### Objective
 

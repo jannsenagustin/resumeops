@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+*.lic
+*.license
+secrets/

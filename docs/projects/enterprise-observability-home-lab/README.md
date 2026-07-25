@@ -1,5 +1,8 @@
 # Enterprise Observability Home Lab
 
+**Project Atlas**<br>
+Enterprise Observability Home Lab
+
 The Enterprise Observability Home Lab is a planned containerized learning environment designed to simulate distributed Splunk roles on a personal workstation. It provides a documented setting for learning how data collection, indexing, search, dashboards, alerts, and deployment management fit together.
 
 This project is not a production deployment and is not presented as production-ready.
@@ -35,21 +38,23 @@ See [Use Cases](use-cases.md) for the questions and outputs in scope.
 
 ## Sprint Roadmap
 
-- **Sprint 6A — Architecture and Planning:** define the design, scope, use case, constraints, and implementation sequence.
-- **Sprint 6B — Core Deployment:** deploy and validate the planned core Splunk roles.
-- **Sprint 6C — Data Onboarding:** connect the Universal Forwarder and validate Linux event metadata.
-- **Sprint 6D — Operational Use Case:** implement and validate the Linux authentication monitoring searches and outputs.
-- **Sprint 6E — Case Study and Release:** consolidate evidence, lessons, limitations, and release documentation.
+- **Sprint 6A — Architecture:** complete; design, scope, use case, constraints, and implementation sequence documented.
+- **Sprint 6B — Infrastructure:** active; create and validate the container infrastructure foundation.
+- **Sprint 6C — Data Engineering:** planned; connect the Universal Forwarder and validate Linux event metadata.
+- **Sprint 6D — Observability:** planned; implement and validate Linux authentication monitoring.
+- **Sprint 6E — Engineering Case Study:** planned; consolidate evidence, lessons, limitations, and release documentation.
 
 Detailed objectives, evidence, and completion criteria are in the [Implementation Plan](implementation-plan.md).
 
 ## Current Status
 
 - **Release:** v0.6.0
-- **Current Sprint:** Sprint 6A
-- **Status:** Architecture and Planning
+- **Codename:** Atlas
+- **Current Sprint:** Sprint 6B
+- **Sprint Theme:** Infrastructure
+- **Status:** In Progress
 
-Only the architecture and planning foundation is in place. No Splunk deployment, data onboarding, search, dashboard, or alert is claimed as complete.
+Sprint 6A documentation is complete. Sprint 6B infrastructure files now provide a static deployment foundation, but runtime deployment and validation have not occurred. No data onboarding, dashboard, detection, or alert is claimed as complete.
 
 ## Documentation
 
@@ -61,5 +66,10 @@ Only the architecture and planning foundation is in place. No Splunk deployment,
 - [Ports and Networking](ports-and-networking.md)
 - [Security Considerations](security-considerations.md)
 - [Limitations](limitations.md)
+- [Infrastructure Overview](infrastructure/README.md)
+- [Deployment Plan](infrastructure/deployment-plan.md)
+- [Environment Variables](infrastructure/environment-variables.md)
+- [Verification Checklist](infrastructure/verification-checklist.md)
+- [Troubleshooting](infrastructure/troubleshooting.md)
 - [ADR-003: Use Containers to Simulate Distributed Splunk Roles](../../adr/ADR-003-containerized-home-lab.md)
 - [ADR-004: Begin the Home Lab Without Splunk Clustering](../../adr/ADR-004-start-without-clustering.md)

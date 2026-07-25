@@ -27,9 +27,10 @@ The roadmap separates completed platform foundations from active and future engi
 
 #### v0.6.0 — Enterprise Observability Home Lab
 
-- **Current stage:** Sprint 6A — Architecture and Planning
-- **Status:** Architecture and planning only
-- **Current scope:** Define the containerized distributed Splunk design, Linux authentication monitoring use case, implementation sequence, security considerations, and deliberate limitations.
+- **Codename:** Atlas
+- **Current stage:** Sprint 6B — Infrastructure
+- **Status:** In Progress
+- **Current scope:** Build and validate a reproducible container foundation for separate Search Head, Indexer, and Deployment Server roles.
 - **Not yet complete:** Deployment, data onboarding, searches, dashboards, alerts, validation, and case-study release.
 
 See the [Enterprise Observability Home Lab project documentation](projects/enterprise-observability-home-lab/README.md).
