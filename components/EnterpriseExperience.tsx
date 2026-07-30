@@ -137,34 +137,6 @@ export default function EnterpriseExperience() {
           </div>
         </section>
 
-        <section className="mt-14" aria-labelledby="technology-stack">
-          <h3
-            id="technology-stack"
-            className="text-2xl font-bold tracking-tight text-white"
-          >
-            Technology Stack
-          </h3>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            {experience.technologyGroups.map((group) => (
-              <article
-                key={group.id}
-                className="rounded-xl border border-white/10 bg-black p-6"
-              >
-                <h4 className="font-semibold text-white">{group.title}</h4>
-                <ul
-                  className="mt-4 flex flex-wrap gap-2"
-                  aria-label={`${group.title} technologies`}
-                >
-                  {group.items.map((technology) => (
-                    <li key={technology}>
-                      <TechBadge technology={technology} />
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </section>
       </div>
     </section>
   );

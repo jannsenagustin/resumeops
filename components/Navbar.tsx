@@ -1,8 +1,10 @@
 const navigationItems = [
-  { label: "Overview", href: "#overview" },
-  { label: "Case Studies", href: "#case-studies" },
+  { label: "Home", href: "#overview" },
+  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "Building", href: "#building" },
+  { label: "Skills", href: "#skills" },
+  { label: "Journey", href: "#journey" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const linkClasses =
@@ -21,14 +23,10 @@ export default function Navbar() {
         >
           ResumeOps
         </a>
-
         <ul className="flex min-w-0 items-center gap-3 overflow-x-auto text-xs text-gray-400 [scrollbar-width:none] sm:gap-6 sm:text-sm [&::-webkit-scrollbar]:hidden">
           {navigationItems.map((item) => (
             <li key={item.href} className="shrink-0">
-              <a
-                href={item.href}
-                className={linkClasses}
-              >
+              <a href={item.href} className={linkClasses}>
                 {item.label}
               </a>
             </li>

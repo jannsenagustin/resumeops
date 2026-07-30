@@ -12,7 +12,7 @@ ResumeOps is:
 
 - an evolving engineering documentation platform;
 - a technical portfolio;
-- a case-study publishing system;
+- an engineering-project publishing system;
 - focused primarily on Splunk, observability, systems engineering, and documented technical work.
 
 ResumeOps is not:
@@ -61,14 +61,14 @@ ResumeOps is not:
 ### Shared component responsibilities
 
 - `SectionHeader`: renders a section eyebrow, title, and description.
-- `StatusBadge`: maps semantic case-study status to accessible labels and visual treatment.
+- `StatusBadge`: maps semantic project status to accessible labels and visual treatment.
 - `TechBadge`: renders a technology label consistently.
 - `ActionButton`: renders primary or secondary internal and external link actions.
-- `CaseStudyHeader`: composes a case-study subtitle, title, and status badge.
-- `ProjectCard`: presents featured and standard case-study summary data.
-- `CaseStudyNav`: renders responsive in-page case-study navigation.
+- `ProjectHeader`: composes a project subtitle, title, and status badge.
+- `ProjectCard`: presents featured and standard project summary data.
+- `ProjectNav`: renders responsive in-page project navigation.
 - `ArchitectureDiagram`: renders typed semantic component or system hierarchies.
-- `CaseStudyTimeline`: renders typed development milestones and their status.
+- `ProjectTimeline`: renders typed development milestones and their status when a project needs a timeline.
 - `DecisionCard`: presents one engineering decision and its rationale.
 - `LessonCard`: presents one grounded lesson from the repository.
 
@@ -83,9 +83,9 @@ ResumeOps is not:
 - Keep presentation labels and visual styling out of domain data.
 - Do not give planned content invented links, completion claims, dates, or metrics.
 
-## Case Study Standard
+## Engineering Project Standard
 
-A mature engineering case study should eventually cover:
+A mature engineering project page should eventually cover:
 
 - Overview
 - Architecture
@@ -96,13 +96,13 @@ A mature engineering case study should eventually cover:
 - Lessons Learned
 - Future Improvements or Roadmap
 
-Early case studies do not need every section, but omissions should be intentional.
+Early projects do not need every section, but omissions should be intentional.
 
 ## ADR Standard
 
 - Store new Architecture Decision Records in `docs/adr`.
 - Use the `ADR-NNN-descriptive-slug.md` naming format.
-- Preserve `docs/decisions` as the legacy decision archive.
+- Preserve superseded decision history in Git rather than an active legacy archive.
 - Include `Status`, `Context`, `Decision`, and `Consequences`.
 - Do not silently rewrite an accepted decision.
 - Create a later ADR when a major change supersedes an earlier decision.
@@ -166,11 +166,11 @@ Use local visual review when appropriate. Also verify:
 
 Use focused conventional messages, for example:
 
-- `feat: add ResumeOps case study`
-- `refactor: move case-study data into shared module`
+- `feat: add Atlas project page`
+- `refactor: move project data into shared module`
 - `docs: add architecture decision records`
-- `fix: correct GitHub Pages case-study link`
-- `style: align case-study section spacing`
+- `fix: correct GitHub Pages project link`
+- `style: align project section spacing`
 
 Avoid vague messages such as `update`, `changes`, or `fix stuff`.
 

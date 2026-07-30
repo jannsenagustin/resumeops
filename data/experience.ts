@@ -246,6 +246,6 @@ export const careerJourney: CareerJourneyItem[] = [
     title: "Documented Engineering Growth",
     context: "ResumeOps",
     description:
-      "ResumeOps records continued learning, engineering decisions, and the path toward documented Splunk and observability case studies.",
+      "ResumeOps presents continued engineering growth through practical Splunk and observability projects.",
   },
 ];

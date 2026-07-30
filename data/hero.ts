@@ -5,35 +5,12 @@ export type HeroMetadataItem = {
   supportingText: string;
 };
 
-export type HeroContent = {
-  status: string;
-  name: string;
-  primaryIdentity: string;
-  capabilities: string[];
-  tagline: string;
-  summary: string;
-  currentProject: {
-    projectId: string;
-    description: string;
-    nextFocusId: string;
-  };
-  metadata: HeroMetadataItem[];
-};
-
-export const heroContent: HeroContent = {
-  status: "I Love Splunking",
+export const heroContent = {
   name: "Jannsen Agustin",
-  primaryIdentity: "Observability Engineer",
-  capabilities: ["Specializing in Splunk Enterprise"],
-  tagline: "Turning operational data into engineering insight.",
+  primaryIdentity: "Splunk Administrator | Observability Engineer",
+  tagline: "Building practical observability systems.",
   summary:
-    "I administer, enhance, automate, and support enterprise observability platforms that help engineering teams monitor systems, investigate issues, and turn operational data into actionable insights. ResumeOps documents my enterprise experience, engineering decisions, ongoing technical work, and production-style projects.",
-  currentProject: {
-    projectId: "enterprise-splunk-home-lab",
-    description:
-      "Building a production-style Splunk environment for observability, platform operations, and future detection-engineering projects.",
-    nextFocusId: "detection-engineering",
-  },
+    "I work with Splunk, operational data, dashboards, platform administration, and automation. Atlas is my current hands-on project: a containerized lab for documenting distributed Splunk architecture honestly, from configuration through validation.",
   metadata: [
     {
       id: "splunk-experience",
@@ -48,10 +25,10 @@ export const heroContent: HeroContent = {
       supportingText: "Selected global delivery through Accenture",
     },
     {
-      id: "current-focus",
-      label: "Current Focus",
-      value: "Observability",
-      supportingText: "Splunk • Automation • Engineering",
+      id: "current-project",
+      label: "Current Project",
+      value: "Atlas",
+      supportingText: "Configuration complete; runtime validation pending",
     },
     {
       id: "location",
@@ -59,5 +36,5 @@ export const heroContent: HeroContent = {
       value: "Edmonton, Alberta",
       supportingText: "Canada",
     },
-  ],
+  ] satisfies HeroMetadataItem[],
 };
