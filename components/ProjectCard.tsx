@@ -3,36 +3,33 @@ import ActionButton from "./ActionButton";
 import CaseStudyHeader from "./CaseStudyHeader";
 import TechBadge from "./TechBadge";
 
-type ProjectCardProps = {
-  caseStudy: CaseStudy;
-};
-
-export default function ProjectCard({ caseStudy }: ProjectCardProps) {
+export default function ProjectCard({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
-    <article
-      className={`flex h-full flex-col border bg-zinc-950 transition-colors hover:border-green-400/40 ${
-        caseStudy.featured
-          ? "rounded-2xl border-green-400/30 p-7 sm:p-10"
-          : "rounded-xl border-white/10 p-6 sm:p-7"
-      }`}
-    >
+    <article className="flex h-full flex-col rounded-2xl border border-green-400/30 bg-zinc-950 p-7 transition-colors hover:border-green-400/50 sm:p-10">
       <CaseStudyHeader
         subtitle={caseStudy.subtitle}
         title={caseStudy.title}
         status={caseStudy.status}
-        featured={caseStudy.featured}
+        featured
       />
-
-      <p
-        className={`leading-7 text-gray-300 ${
-          caseStudy.featured
-            ? "mt-7 max-w-3xl text-base sm:text-lg"
-            : "mt-5 text-sm sm:text-base"
-        }`}
-      >
+      <p className="mt-7 max-w-3xl text-base leading-7 text-gray-300 sm:text-lg">
         {caseStudy.description}
       </p>
-
+      {caseStudy.outcomes && (
+        <div className="mt-7">
+          <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+            Engineering outcomes
+          </h4>
+          <ul className="mt-4 grid gap-3 text-sm leading-6 text-gray-300 sm:grid-cols-2">
+            {caseStudy.outcomes.map((outcome) => (
+              <li key={outcome} className="flex gap-3">
+                <span aria-hidden="true" className="text-green-400">✓</span>
+                <span>{outcome}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="mt-7">
         <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
           Technologies
@@ -45,17 +42,10 @@ export default function ProjectCard({ caseStudy }: ProjectCardProps) {
           ))}
         </ul>
       </div>
-
-      {caseStudy.links && caseStudy.links.length > 0 && (
+      {caseStudy.links && (
         <div className="mt-8 flex flex-wrap gap-3">
           {caseStudy.links.map((link) => (
-            <ActionButton
-              key={link.href}
-              href={link.href}
-              label={link.label}
-              variant={link.variant}
-              external={link.external}
-            />
+            <ActionButton key={link.href} {...link} />
           ))}
         </div>
       )}

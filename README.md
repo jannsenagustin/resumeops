@@ -1,169 +1,143 @@
 # ResumeOps
 
-> Turning operational data into engineering insight.
+> A recruiter-first engineering portfolio featuring Atlas, a containerized Splunk observability lab.
 
-ResumeOps is an engineering portfolio and documentation platform for enterprise experience, Engineering Case Studies, observability projects, and transparent technical growth.
+[Live portfolio](https://jannsenagustin.github.io/resumeops/) ·
+[Atlas project page](https://jannsenagustin.github.io/resumeops/case-studies/atlas/) ·
+[Architecture](docs/architecture.md) ·
+[Case study](CASE_STUDY.md) ·
+[Infrastructure source](infrastructure/atlas/docker-compose.yml)
 
-## Mission
+## What this repository demonstrates
 
-Document what was built, why decisions were made, how work was validated, and what was learned. ResumeOps favors technical accuracy, maintainable systems, and honest project status over promotional claims.
+ResumeOps is the presentation layer for Jannsen Agustin’s engineering work. Its
+flagship project, **Atlas**, models separate Splunk Search Head, Indexer, and
+Deployment Server responsibilities with Docker Compose on one workstation.
 
-## Professional Identity
+Atlas currently demonstrates:
 
-**Jannsen Agustin**
+- a typed three-service Compose configuration for separate Splunk roles;
+- a dedicated private bridge network with localhost-only Web mappings;
+- role-specific persistent storage for Splunk configuration and runtime data;
+- explicit environment-variable and secret-handling boundaries;
+- documented trade-offs, including the deliberate deferral of clustering.
 
-Observability Engineer
+**Current status:** architecture and Compose configuration are complete.
+Runtime deployment, Splunk role readiness, distributed search, data ingestion,
+dashboards, detections, and alerts have not yet been validated or implemented.
 
-Specializing in Splunk Enterprise
+## Architecture
 
-Edmonton, Alberta, Canada
+```mermaid
+flowchart TB
+    Host["Windows workstation<br/>Docker Desktop"]
+    Network["atlas-network<br/>Dedicated Docker bridge"]
+    SH["Search Head<br/>Configured"]
+    IDX["Indexer<br/>Configured"]
+    DS["Deployment Server<br/>Configured"]
+    Linux["Linux log source<br/>Planned"]
+    UF["Universal Forwarder<br/>Planned"]
 
-Professional experience includes Splunk Enterprise administration, development, support, troubleshooting, automation, operational monitoring, and platform improvement across selected global delivery through Accenture.
-
-## 🚀 Current Release
-
-**Version**
-
-v0.5.0
-
-**Release**
-
-Documentation Architecture
-
-**Status**
-
-🚧 Active Development
-
-ResumeOps has evolved from a portfolio website into a public engineering platform documenting my growth as an Observability Engineer specializing in Splunk Enterprise.
-
-Every release follows a structured engineering workflow:
-
-Planning → Development → Review → Release → Documentation
-
-## 🎯 Current Focus
-
-Building ResumeOps as a living engineering platform.
-
-Current priorities:
-
-- 🏠 Enterprise Observability Home Lab
-- 📊 Splunk Enterprise Projects
-- 🛡️ Detection Engineering
-- ⚙️ CI/CD for Splunk
-- 📝 Engineering Documentation
-
-## 📦 Release Timeline
-
-### 2026
-
-🌱 **v0.1.0 — Genesis**
-
-Started ResumeOps and established the project foundation.
-
-🚀 **v0.2.0**
-
-Built the homepage architecture and core UI components.
-
-💼 **v0.3.0**
-
-Added Enterprise Experience and Engineering Case Studies.
-
-🎯 **v0.4.0**
-
-Completed professional branding and repositioned ResumeOps as an Observability Engineering platform.
-
-📚 **v0.5.0**
-
-Documentation Architecture
-
-**Current Release**
-
-Preparing ResumeOps for long-term engineering growth through structured documentation, release management, and engineering records.
-
-🔜 **Next Release**
-
-Enterprise Observability Home Lab
-
-## 📦 Release History
-
-| Version | Release | Status |
-| --- | --- | --- |
-| v0.1.0 | Genesis | ✅ Released |
-| v0.2.0 | Homepage Architecture | ✅ Released |
-| v0.3.0 | Enterprise Experience | ✅ Released |
-| v0.4.0 | Brand & Content Refinement | ✅ Released |
-| v0.5.0 | Documentation Architecture | 🚧 In Progress |
-
-## Technology Stack
-
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS
-- Splunk Enterprise
-- Git and GitHub Actions
-
-## Features
-
-- Engineering Case Studies with typed metadata
-- Verified Enterprise Experience organized by engineering domain
-- Career Journey separated from technical credentials
-- Transparent Currently Building roadmap
-- Reusable component foundation
-- Static export deployed through GitHub Pages
-- Architecture decisions, sprint journals, and release notes
-
-## Project Structure
-
-```text
-app/          Next.js routes, layout, and global styles
-components/   Reusable sections and UI components
-data/         Typed content and domain models
-docs/         Architecture, ADRs, sprints, releases, and roadmap
-public/       Static assets
-.github/      GitHub Pages deployment workflow
+    Host --> Network
+    Network --> SH
+    Network --> IDX
+    Network --> DS
+    Linux --> UF
+    UF -. "Future forwarding path" .-> IDX
+    SH -. "Distributed search pending validation" .-> IDX
+    DS -. "Forwarder management planned" .-> UF
 ```
 
-## Getting Started
+The initial topology makes role boundaries visible without claiming production
+resilience. All services share one physical host. See
+[the architecture document](docs/architecture.md) for component
+responsibilities, networking, persistence, security boundaries, and validation
+status.
 
-Requirements: Node.js 20 or a compatible version supported by the project dependencies.
+## Technology stack
+
+| Area | Technologies |
+| --- | --- |
+| Observability | Splunk Enterprise, SPL |
+| Infrastructure | Docker Desktop, Docker Compose, Linux |
+| Portfolio | Next.js, React, TypeScript, Tailwind CSS |
+| Delivery | Git, GitHub Actions, GitHub Pages |
+
+## Engineering contribution
+
+Jannsen designed the initial Atlas topology, scoped the workstation constraints,
+defined the Compose services, network, and volumes, documented consequential
+architecture decisions, and established an evidence-driven validation sequence.
+ResumeOps presents that work alongside approximately seven years of verified
+Splunk administration and development experience delivered through Accenture.
+
+## Evidence
+
+The strongest evidence currently available is the repository itself:
+
+- [`docker-compose.yml`](infrastructure/atlas/docker-compose.yml) defines the
+  three Splunk roles, network, localhost bindings, and persistent volumes.
+- [`.env.example`](infrastructure/atlas/.env.example) documents required local
+  inputs without committing credentials.
+- [`docs/architecture.md`](docs/architecture.md) records the system boundary and
+  the status of every planned connection.
+- [`screenshots/docker-workstation-validation.png`](screenshots/docker-workstation-validation.png)
+  confirms Docker Desktop, WSL 2, and Docker Compose availability. It does **not**
+  prove that the Splunk environment is running.
+
+Runtime evidence will be added only after each check succeeds.
+
+## Run the portfolio
+
+Requirements: Node.js 20 or another version supported by the locked dependencies.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000` for local development.
-
-Validation commands:
+Validate the static site:
 
 ```bash
 npm run lint
+npm run typecheck
 npm run build
 ```
 
-The production build creates a static export in `out/`.
+The production build exports the homepage and Atlas route to `out/` with the
+GitHub Pages base path configured in `next.config.ts`.
 
-## Roadmap
+## Inspect the Atlas configuration
 
-The canonical [engineering roadmap](docs/roadmap.md) separates completed platform work from active, planned, and future observability projects.
+From `infrastructure/atlas`, copy `.env.example` to `.env`, select a supported
+Splunk image tag, set a strong local password, and review the applicable license
+terms before setting the required acceptance arguments.
 
-## Documentation
+```powershell
+Copy-Item .env.example .env
+docker compose config
+```
 
-Start with the [ResumeOps Documentation](docs/README.md) index.
+The local `.env` file is ignored. Do not commit resolved secrets or license
+material. Startup instructions and destructive-reset warnings are in the
+[infrastructure README](infrastructure/atlas/README.md).
 
-- [Site architecture](docs/architecture/site-architecture.md)
-- [Component structure](docs/architecture/component-structure.md)
-- [Architecture Decision Records](docs/README.md#architecture-decision-records)
-- [Sprint archive](docs/README.md#sprint-archive)
-- [Release notes](docs/releases/v0.4.0.md)
-- [Changelog](CHANGELOG.md)
-- [Engineering handbook](AGENTS.md)
+## Current limitations
 
-## Contributing
+- The Compose configuration has not completed runtime validation.
+- No Splunk container health or role-readiness result is claimed.
+- Distributed search and forwarder management are not configured as validated.
+- Linux ingestion, indexed events, dashboards, detections, and alerts are planned.
+- Atlas is a single-workstation learning lab, not a production deployment.
 
-ResumeOps is a personal engineering platform. Proposed changes should follow `AGENTS.md`, keep professional claims verifiable, preserve planned-work labels, and pass lint and production-build validation.
+## Next milestone
+
+Complete runtime deployment validation: render the resolved Compose
+configuration, start the three Splunk services, verify container health and Web
+access, confirm service-name resolution and persistent volumes, and capture
+sanitized evidence. See [milestones](docs/milestones.md) for the compact status
+record and [the case study](CASE_STUDY.md) for the complete engineering story.
 
 ## License
 
-A standalone repository license file has not yet been added.
+This repository is available under the [MIT License](LICENSE).

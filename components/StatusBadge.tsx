@@ -19,6 +19,10 @@ const statusConfig: Record<
     label: "Active Development",
     classes: "border-green-400/30 bg-green-400/10 text-green-300",
   },
+  configured: {
+    label: "Configuration complete · validation pending",
+    classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
+  },
   planned: {
     label: "Planned",
     classes: "border-slate-500/30 bg-slate-500/10 text-slate-300",

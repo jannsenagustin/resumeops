@@ -56,7 +56,9 @@ docker compose up -d
 docker compose ps
 ```
 
-Container startup does not prove role readiness. Complete the [verification checklist](../../docs/projects/enterprise-observability-home-lab/infrastructure/verification-checklist.md) and record actual results.
+Container startup does not prove role readiness. Follow the evidence sequence in
+the [case study](../../CASE_STUDY.md#validation-and-evidence) and update the
+[milestone record](../../docs/milestones.md) only after each result is verified.
 
 ## Stop the Environment
 
