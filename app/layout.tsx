@@ -13,7 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jannsen Agustin | Splunk Administrator & Observability Engineer",
+  title: {
+    default: "Jannsen Agustin | Engineering Projects",
+    template: "%s | Jannsen Agustin",
+  },
   description:
     "Explore Atlas, Jannsen Agustin's containerized Splunk observability lab, alongside verified enterprise Splunk experience.",
 };

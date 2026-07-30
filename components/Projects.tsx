@@ -1,9 +1,10 @@
-import { caseStudies } from "../data/caseStudies";
+import { projects } from "../data/projects";
+import Link from "next/link";
 import ProjectCard from "./ProjectCard";
 import SectionHeader from "./SectionHeader";
 
 export default function Projects() {
-  const atlas = caseStudies[0];
+  const atlas = projects[0];
 
   return (
     <section
@@ -17,8 +18,14 @@ export default function Projects() {
           description="The primary technical project in ResumeOps: a deliberately scoped Splunk environment designed to turn infrastructure decisions into verifiable engineering evidence."
         />
         <div className="mt-10">
-          <ProjectCard caseStudy={atlas} />
+          <ProjectCard project={atlas} />
         </div>
+        <Link
+          href="/projects/"
+          className="mt-8 inline-flex text-sm font-semibold text-green-300 transition-colors hover:text-green-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+        >
+          View project roadmap →
+        </Link>
       </div>
     </section>
   );

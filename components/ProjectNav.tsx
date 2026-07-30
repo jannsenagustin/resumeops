@@ -1,15 +1,15 @@
-export type CaseStudyNavItem = {
+export type ProjectNavItem = {
   label: string;
   href: `#${string}`;
 };
 
-type CaseStudyNavProps = {
-  items: CaseStudyNavItem[];
+type ProjectNavProps = {
+  items: ProjectNavItem[];
 };
 
-export default function CaseStudyNav({ items }: CaseStudyNavProps) {
+export default function ProjectNav({ items }: ProjectNavProps) {
   return (
-    <nav aria-label="Case study sections">
+    <nav aria-label="Project sections">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
         On this page
       </p>

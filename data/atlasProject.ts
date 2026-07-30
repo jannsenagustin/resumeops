@@ -1,5 +1,5 @@
 import { type ArchitectureNode } from "../components/ArchitectureDiagram";
-import { type CaseStudyNavItem } from "../components/CaseStudyNav";
+import { type ProjectNavItem } from "../components/ProjectNav";
 import { type EngineeringDecision } from "../components/DecisionCard";
 
 export const atlasStatus =
@@ -13,13 +13,17 @@ export const atlasTechnologies = [
   "Git",
 ];
 
-export const atlasNavigation: CaseStudyNavItem[] = [
+export const atlasNavigation: ProjectNavItem[] = [
+  { label: "Overview", href: "#overview" },
   { label: "Architecture", href: "#architecture" },
+  { label: "Current status", href: "#current-status" },
   { label: "Capabilities", href: "#capabilities" },
   { label: "Decisions", href: "#decisions" },
   { label: "Evidence", href: "#evidence" },
+  { label: "Challenges", href: "#challenges" },
   { label: "Limitations", href: "#limitations" },
-  { label: "Next milestone", href: "#next-milestone" },
+  { label: "Milestones", href: "#milestones" },
+  { label: "Source", href: "#source" },
 ];
 
 export const atlasArchitecture: ArchitectureNode = {

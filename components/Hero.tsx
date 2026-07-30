@@ -30,7 +30,7 @@ export default function Hero() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/case-studies/atlas/"
+                href="/projects/atlas/"
                 className={`${actionClasses} border-green-400/40 bg-green-400/10 text-green-300 transition-colors hover:border-green-400 hover:bg-green-400/15`}
               >
                 Explore Atlas
@@ -70,7 +70,7 @@ export default function Hero() {
               deployment and role validation are still pending.
             </p>
             <Link
-              href="/case-studies/atlas/"
+              href="/projects/atlas/"
               className="mt-7 inline-flex text-sm font-semibold text-green-300 hover:text-green-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
             >
               See architecture and evidence →

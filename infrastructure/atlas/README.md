@@ -57,7 +57,7 @@ docker compose ps
 ```
 
 Container startup does not prove role readiness. Follow the evidence sequence in
-the [case study](../../CASE_STUDY.md#validation-and-evidence) and update the
+the [engineering narrative](../../CASE_STUDY.md#validation-and-evidence) and update the
 [milestone record](../../docs/milestones.md) only after each result is verified.
 
 ## Stop the Environment

@@ -1,6 +1,6 @@
-import { type CaseStudyStatus } from "../data/caseStudies";
+import { type ProjectStatus } from "../data/projects";
 
-export type Status = CaseStudyStatus;
+export type Status = ProjectStatus;
 
 type StatusBadgeProps = {
   status: Status;
@@ -15,25 +15,25 @@ const statusConfig: Record<
     classes: string;
   }
 > = {
-  active: {
-    label: "Active Development",
+  "in-progress": {
+    label: "In Progress",
     classes: "border-green-400/30 bg-green-400/10 text-green-300",
   },
-  configured: {
-    label: "Configuration complete · validation pending",
+  "configuration-complete": {
+    label: "Configuration Complete",
     classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
   },
-  planned: {
-    label: "Planned",
+  "runtime-validation-pending": {
+    label: "Runtime Validation Pending",
+    classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
+  },
+  roadmap: {
+    label: "Roadmap",
     classes: "border-slate-500/30 bg-slate-500/10 text-slate-300",
   },
-  complete: {
-    label: "Complete",
+  validated: {
+    label: "Validated",
     classes: "border-green-300/30 bg-green-300/10 text-green-200",
-  },
-  archived: {
-    label: "Archived",
-    classes: "border-gray-600/30 bg-gray-600/10 text-gray-400",
   },
 };
 

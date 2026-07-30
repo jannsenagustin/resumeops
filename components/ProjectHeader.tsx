@@ -1,18 +1,18 @@
 import StatusBadge, { type Status } from "./StatusBadge";
 
-type CaseStudyHeaderProps = {
+type ProjectHeaderProps = {
   subtitle?: string;
   title: string;
   status: Status;
   featured?: boolean;
 };
 
-export default function CaseStudyHeader({
+export default function ProjectHeader({
   subtitle,
   title,
   status,
   featured = false,
-}: CaseStudyHeaderProps) {
+}: ProjectHeaderProps) {
   return (
     <div
       className={

@@ -3,9 +3,9 @@
 > A recruiter-first engineering portfolio featuring Atlas, a containerized Splunk observability lab.
 
 [Live portfolio](https://jannsenagustin.github.io/resumeops/) ·
-[Atlas project page](https://jannsenagustin.github.io/resumeops/case-studies/atlas/) ·
+[Atlas project page](https://jannsenagustin.github.io/resumeops/projects/atlas/) ·
 [Architecture](docs/architecture.md) ·
-[Case study](CASE_STUDY.md) ·
+[Engineering narrative](CASE_STUDY.md) ·
 [Infrastructure source](infrastructure/atlas/docker-compose.yml)
 
 ## What this repository demonstrates
@@ -136,7 +136,7 @@ Complete runtime deployment validation: render the resolved Compose
 configuration, start the three Splunk services, verify container health and Web
 access, confirm service-name resolution and persistent volumes, and capture
 sanitized evidence. See [milestones](docs/milestones.md) for the compact status
-record and [the case study](CASE_STUDY.md) for the complete engineering story.
+record and [the engineering narrative](CASE_STUDY.md) for the complete project story.
 
 ## License
 
