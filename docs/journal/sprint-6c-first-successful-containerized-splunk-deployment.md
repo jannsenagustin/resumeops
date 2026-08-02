@@ -62,6 +62,9 @@ deployment evidence captured for Atlas:
 - [Healthy `atlas-indexer` container](../../screenshots/history/2026-08-01_atlas_001_first_successful_container.png)
 - [Successful Splunk administrator login](../../screenshots/history/2026-08-01_atlas_002_first_successful_login.png)
 
+These files remain at their original paths. Their intended placement and
+preferred names are documented in the [Milestone 01 evidence plan](../evidence/milestone-01-first-containerized-deployment/README.md); they have not been moved as part of the evidence-repository setup.
+
 ## Lessons Learned
 
 - Validate the Compose model before attempting deployment.

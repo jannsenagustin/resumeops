@@ -1,7 +1,9 @@
 # Atlas Milestones
 
 Git history contains the detailed development record. This table is the active
-project status.
+project status. The [Atlas engineering evidence repository](evidence/README.md)
+defines how validation artifacts are organized without changing the statuses
+recorded below.
 
 | Milestone | Status | Outcome | Evidence |
 | --- | --- | --- | --- |
