@@ -56,14 +56,12 @@ health check subsequently passed.
 
 ## Evidence
 
-The following screenshots in `screenshots/history/` are the first operational
-deployment evidence captured for Atlas:
+The following files in the
+[Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/)
+are the first operational deployment evidence captured for Atlas:
 
-- [Healthy `atlas-indexer` container](../../screenshots/history/2026-08-01_atlas_001_first_successful_container.png)
-- [Successful Splunk administrator login](../../screenshots/history/2026-08-01_atlas_002_first_successful_login.png)
-
-These files remain at their original paths. Their intended placement and
-preferred names are documented in the [Milestone 01 evidence plan](../evidence/milestone-01-first-containerized-deployment/README.md); they have not been moved as part of the evidence-repository setup.
+- [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/2026-08-01_milestone-01_002_container_healthy.png)
+- [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/2026-08-01_milestone-01_004_first_successful_login.png)
 
 ## Lessons Learned
 
