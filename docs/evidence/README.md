@@ -19,17 +19,16 @@ that no additional README is required inside each folder.
 Use:
 
 ```text
-YYYY-MM-DD_milestone-##_###_description.png
+YYYY-MM-DD_###_description.png
 ```
 
 Examples:
 
 ```text
-2026-08-01_milestone-01_001_compose_validation.png
-2026-08-01_milestone-01_002_container_healthy.png
-2026-08-01_milestone-01_003_docker_desktop.png
-2026-08-01_milestone-01_004_first_successful_login.png
-2026-08-01_milestone-01_005_target_architecture.png
+2026-08-01_001_compose_validation.png
+2026-08-01_002_container_healthy.png
+2026-08-01_003_docker_desktop.png
+2026-08-01_004_first_successful_login.png
 ```
 
 Avoid generic names such as `Screenshot (12).png`, `image.png`, and
@@ -42,7 +41,6 @@ Milestone 01 may contain evidence of:
 - Compose validation;
 - healthy container status;
 - Docker Desktop operation;
-- the first successful Splunk login; and
-- the target architecture.
+- the first successful Splunk login.
 
 Do not add placeholders for evidence that has not been captured.

@@ -60,8 +60,10 @@ The following files in the
 [Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/)
 are the first operational deployment evidence captured for Atlas:
 
-- [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/2026-08-01_milestone-01_002_container_healthy.png)
-- [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/2026-08-01_milestone-01_004_first_successful_login.png)
+- [Compose configuration validation](../evidence/milestone-01-first-containerized-deployment/2026-08-01_001_compose_validation.png)
+- [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/2026-08-01_002_container_healthy.png)
+- [Docker Desktop container view](../evidence/milestone-01-first-containerized-deployment/2026-08-01_003_docker_desktop.png)
+- [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/2026-08-01_004_first_successful_login.png)
 
 ## Lessons Learned
 
