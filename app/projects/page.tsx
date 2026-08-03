@@ -19,12 +19,12 @@ export default function ProjectsPage() {
       <div className="mx-auto max-w-6xl">
         <Link
           href="/"
-          className="text-sm font-semibold text-gray-400 transition-colors hover:text-green-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+          className="motion-link text-sm font-semibold text-gray-400 hover:text-green-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
         >
           ← Back to portfolio
         </Link>
 
-        <div className="mt-12">
+        <div className="mt-12" data-motion-reveal>
           <SectionHeader
             eyebrow="Engineering Portfolio"
             title="Projects"
@@ -33,13 +33,13 @@ export default function ProjectsPage() {
         </div>
 
         {flagship && (
-          <section aria-labelledby="flagship-project" className="mt-12">
+          <section aria-labelledby="flagship-project" className="mt-12" data-motion-reveal>
             <h2 id="flagship-project" className="sr-only">Flagship project</h2>
             <ProjectCard project={flagship} />
           </section>
         )}
 
-        <section aria-labelledby="future-projects" className="mt-20">
+        <section aria-labelledby="future-projects" className="mt-20" data-motion-reveal>
           <h2 id="future-projects" className="text-2xl font-bold tracking-tight">
             Future projects
           </h2>

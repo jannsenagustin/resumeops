@@ -10,8 +10,9 @@ multi-host environment.
 The initial design separates three Splunk Enterprise roles: Search Head,
 Indexer, and Deployment Server. Docker Compose defines each role as its own
 service, connects them to a dedicated bridge network, and assigns independent
-persistent volumes. The architecture and configuration are complete. Runtime
-deployment and Splunk role validation are still pending.
+persistent volumes. Milestone 01 validated the first operational role: a
+healthy Splunk Indexer with persistent storage and verified Web access. The
+Search Head, Deployment Server, and multi-role relationships remain undeployed.
 
 Atlas is not presented as production-ready. Its purpose is to create a
 controlled environment where architecture, deployment, data onboarding,
@@ -84,30 +85,20 @@ terms rather than accidentally accepting defaults.
 
 ## Validation and evidence
 
-Current evidence is intentionally limited:
+Milestone 01 evidence now confirms:
 
 - the Compose source can be inspected statically;
 - the environment contract and secret exclusions are committed;
 - the architecture and consequential decisions are documented;
-- a sanitized screenshot confirms that WSL 2, Docker Desktop, Docker Engine,
-  and Docker Compose were available on the workstation.
+- the Compose configuration resolved successfully;
+- the official `splunk/splunk:10.0.8-rhel9` image started the Indexer;
+- Docker reported the container as healthy;
+- persistent Indexer volumes and the Atlas bridge network were created; and
+- Splunk Web and administrator access worked through `localhost:8001`.
 
-The workstation screenshot is setup evidence only. It does not prove Splunk
-image compatibility, service health, Web access, role readiness, distributed
-search, ingestion, dashboards, or alerts.
-
-Runtime validation should proceed in this order:
-
-1. Resolve `.env` locally and run `docker compose config`.
-2. Review the rendered service definitions without capturing secrets.
-3. Start the services and inspect container health and logs.
-4. Verify each localhost Web interface.
-5. Verify Docker DNS between services.
-6. Confirm the six persistent volumes.
-7. Configure and validate distributed search.
-8. Capture sanitized command and interface evidence.
-
-No unchecked item is represented as complete.
+[The Milestone 01 evidence](docs/evidence/milestone-01-first-containerized-deployment/)
+supports these claims. It does not prove Search Head or Deployment Server
+readiness, distributed search, ingestion, dashboards, detections, or alerts.
 
 ## Engineering challenge
 
@@ -142,11 +133,12 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 
 ## Current limitations
 
-- Runtime deployment is awaiting validation.
-- Search Head, Indexer, and Deployment Server readiness is unproven.
+- Only the Indexer role has been deployed and validated.
+- Search Head and Deployment Server remain undeployed.
 - Distributed search has not been configured and validated.
 - No Universal Forwarder or Linux data source is connected.
 - No data is claimed as indexed.
+- HEC and SC4S remain planned.
 - No dashboards, detections, or alerts exist.
 - High availability, clustering, TLS hardening, and production-grade secret
   management are out of scope.
@@ -154,16 +146,14 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 
 ## Results
 
-Atlas currently provides a reviewable, reproducible infrastructure design
-rather than a completed observability pipeline. It establishes clear service
-boundaries, persistence, networking, secret handling, scope constraints, and a
-validation sequence. This is the foundation required for credible runtime
-evidence in the next milestone.
+Atlas now combines a reviewable infrastructure design with its first validated
+runtime outcome. The Indexer milestone proves container health, persistence,
+networking, and administrator Web access, but it is not a completed
+observability pipeline.
 
 ## Next milestone
 
-The next milestone is runtime deployment validation. Success requires all three
-containers to start, the expected Web endpoints to respond locally, Docker DNS
-and volumes to match the design, and sanitized evidence to be committed.
-Distributed search and Linux ingestion remain later milestones and will not be
-marked complete until independently verified.
+The next milestone is Search Head Deployment. Before deployment, Atlas will
+inspect the running Indexer's network attachment, persistent mounts, labels,
+environment configuration, health check, and container metadata. Deployment
+Server, distributed search, and ingestion remain later milestones.

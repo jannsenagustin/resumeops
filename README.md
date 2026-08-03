@@ -16,43 +16,24 @@ Deployment Server responsibilities with Docker Compose on one workstation.
 
 Atlas currently demonstrates:
 
+- a healthy Splunk Enterprise Indexer running in Docker;
+- verified administrator access through Splunk Web on `localhost:8001`;
 - a typed three-service Compose configuration for separate Splunk roles;
 - a dedicated private bridge network with localhost-only Web mappings;
-- role-specific persistent storage for Splunk configuration and runtime data;
+- validated persistent storage for the Indexer;
 - explicit environment-variable and secret-handling boundaries;
 - documented trade-offs, including the deliberate deferral of clustering.
 
-**Current status:** architecture and Compose configuration are complete.
-Runtime deployment, Splunk role readiness, distributed search, data ingestion,
-dashboards, detections, and alerts have not yet been validated or implemented.
+**Current status:** In Progress. Milestone 01 is validated, and the Splunk
+Indexer is operational in Docker. Search Head and Deployment Server deployment,
+distributed search, ingestion, dashboards, detections, and alerts remain future
+work.
 
 ## Architecture
 
-```mermaid
-flowchart TB
-    Host["Windows workstation<br/>Docker Desktop"]
-    Network["atlas-network<br/>Dedicated Docker bridge"]
-    SH["Search Head<br/>Configured"]
-    IDX["Indexer<br/>Configured"]
-    DS["Deployment Server<br/>Configured"]
-    Linux["Linux log source<br/>Planned"]
-    UF["Universal Forwarder<br/>Planned"]
-
-    Host --> Network
-    Network --> SH
-    Network --> IDX
-    Network --> DS
-    Linux --> UF
-    UF -. "Future forwarding path" .-> IDX
-    SH -. "Distributed search pending validation" .-> IDX
-    DS -. "Forwarder management planned" .-> UF
-```
-
-The initial topology makes role boundaries visible without claiming production
-resilience. All services share one physical host. See
-[the architecture document](docs/architecture.md) for component
-responsibilities, networking, persistence, security boundaries, and validation
-status.
+[The Atlas architecture document](docs/architecture.md) is the single source of
+truth for the target topology, component responsibilities, operational status,
+networking, persistence, security boundaries, and validation state.
 
 ## Technology stack
 
@@ -81,11 +62,11 @@ The strongest evidence currently available is the repository itself:
   inputs without committing credentials.
 - [`docs/architecture.md`](docs/architecture.md) records the system boundary and
   the status of every planned connection.
-- [`screenshots/docker-workstation-validation.png`](screenshots/docker-workstation-validation.png)
-  confirms Docker Desktop, WSL 2, and Docker Compose availability. It does **not**
-  prove that the Splunk environment is running.
-
-Runtime evidence will be added only after each check succeeds.
+- [Milestone 01 evidence](docs/evidence/milestone-01-first-containerized-deployment/)
+  records Compose validation, the healthy Indexer container, Docker Desktop,
+  and successful administrator access.
+- [The Sprint 6C engineering log](docs/journal/sprint-6c-first-successful-containerized-splunk-deployment.md)
+  records the milestone context without duplicating it here.
 
 ## Run the portfolio
 
@@ -124,19 +105,18 @@ material. Startup instructions and destructive-reset warnings are in the
 
 ## Current limitations
 
-- The Compose configuration has not completed runtime validation.
-- No Splunk container health or role-readiness result is claimed.
-- Distributed search and forwarder management are not configured as validated.
-- Linux ingestion, indexed events, dashboards, detections, and alerts are planned.
+- Only the Indexer role has been deployed and validated.
+- Search Head and Deployment Server remain undeployed.
+- Distributed search and data ingestion have not been validated.
+- HEC, SC4S, dashboards, detections, and alerts remain planned.
 - Atlas is a single-workstation learning lab, not a production deployment.
 
 ## Next milestone
 
-Complete runtime deployment validation: render the resolved Compose
-configuration, start the three Splunk services, verify container health and Web
-access, confirm service-name resolution and persistent volumes, and capture
-sanitized evidence. See [milestones](docs/milestones.md) for the compact status
-record and [the engineering narrative](CASE_STUDY.md) for the complete project story.
+Deploy the Search Head after inspecting the running Indexer's networking,
+persistent mounts, labels, environment configuration, health check, and
+container metadata. See [milestones](docs/milestones.md) for the compact status
+record and [the engineering narrative](CASE_STUDY.md) for the project story.
 
 ## License
 

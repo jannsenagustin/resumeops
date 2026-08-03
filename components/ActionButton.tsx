@@ -22,7 +22,7 @@ export default function ActionButton({
   variant = "primary",
   external = true,
 }: ActionButtonProps) {
-  const className = `rounded-md border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${variantClasses[variant]}`;
+  const className = `motion-button rounded-md border px-4 py-2 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${variantClasses[variant]}`;
 
   if (!external) {
     return (

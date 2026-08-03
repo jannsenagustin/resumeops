@@ -2,11 +2,12 @@ import SectionHeader from "./SectionHeader";
 
 export default function Contact() {
   const linkClasses =
-    "rounded-md border px-5 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400";
+    "motion-button rounded-md border px-5 py-3 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400";
 
   return (
     <section
       id="contact"
+      data-motion-reveal
       className="scroll-mt-24 border-t border-white/10 bg-zinc-950 px-6 py-20 sm:px-8 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">

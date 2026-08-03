@@ -8,6 +8,7 @@ export default function EnterpriseExperience() {
   return (
     <section
       id="experience"
+      data-motion-reveal
       className="scroll-mt-24 border-t border-white/10 bg-zinc-950 px-6 py-20 sm:px-8 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
@@ -50,7 +51,7 @@ export default function EnterpriseExperience() {
             {experience.engineeringDomains.map((domain) => (
               <article
                 key={domain.id}
-                className="rounded-xl border border-white/10 bg-black p-6"
+                className="motion-card rounded-xl border border-white/10 bg-black p-6"
               >
                 <h4 className="text-lg font-semibold text-white">
                   {domain.title}
@@ -95,7 +96,7 @@ export default function EnterpriseExperience() {
           <ul className="mt-6 grid gap-5 md:grid-cols-2">
             {experience.deliveryExperience.map((delivery) => (
               <li key={delivery.id}>
-                <article className="h-full rounded-xl border border-white/10 bg-black p-6">
+                <article className="motion-card h-full rounded-xl border border-white/10 bg-black p-6">
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
                     <h4 className="text-lg font-semibold text-white">
                       {delivery.organization}
@@ -124,7 +125,7 @@ export default function EnterpriseExperience() {
             {experience.leadershipContributions.map((contribution) => (
               <article
                 key={contribution.id}
-                className="rounded-xl border border-white/10 bg-black p-6"
+                className="motion-card rounded-xl border border-white/10 bg-black p-6"
               >
                 <h4 className="text-lg font-semibold text-white">
                   {contribution.title}

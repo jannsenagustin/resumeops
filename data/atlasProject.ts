@@ -3,7 +3,7 @@ import { type ProjectNavItem } from "../components/ProjectNav";
 import { type EngineeringDecision } from "../components/DecisionCard";
 
 export const atlasStatus =
-  "Configuration complete; runtime validation pending";
+  "Milestone 01 validated — Splunk Indexer operational in Docker";
 
 export const atlasTechnologies = [
   "Splunk Enterprise",
@@ -32,9 +32,9 @@ export const atlasArchitecture: ArchitectureNode = {
     {
       label: "atlas-network · dedicated bridge",
       children: [
-        { label: "Search Head · configured" },
-        { label: "Indexer · configured" },
-        { label: "Deployment Server · configured" },
+        { label: "Search Head · not deployed", planned: true },
+        { label: "Indexer · operational", operational: true },
+        { label: "Deployment Server · not deployed", planned: true },
         { label: "Linux log source + Universal Forwarder", planned: true },
       ],
     },
@@ -44,41 +44,95 @@ export const atlasArchitecture: ArchitectureNode = {
 export type AtlasCapability = {
   title: string;
   description: string;
-  status: "Configured" | "Validation pending" | "Planned";
+  status: "Validated" | "Planned";
 };
 
 export const atlasCapabilities: AtlasCapability[] = [
   {
-    title: "Separated Splunk roles",
+    title: "Docker Compose configuration",
     description:
-      "Compose defines independent Search Head, Indexer, and Deployment Server services.",
-    status: "Configured",
+      "The resolved Compose configuration expanded successfully with the required environment values.",
+    status: "Validated",
   },
   {
-    title: "Persistent state",
+    title: "Indexer persistence",
     description:
-      "Role-specific named volumes preserve Splunk configuration and runtime data across container recreation.",
-    status: "Configured",
+      "Dedicated Indexer volumes preserve Splunk configuration and runtime data across container recreation.",
+    status: "Validated",
   },
   {
-    title: "Dedicated networking",
+    title: "Dedicated Atlas network",
     description:
-      "A private bridge network provides service-name resolution while Web interfaces bind only to localhost.",
-    status: "Configured",
+      "The Atlas bridge network was created while Splunk Web remained bound to localhost.",
+    status: "Validated",
   },
   {
-    title: "Runtime role readiness",
+    title: "Containerized Splunk Indexer",
     description:
-      "Container startup, Splunk Web access, service DNS, and role behavior have not yet been verified.",
-    status: "Validation pending",
+      "The official Splunk 10.0.8 RHEL 9 image is running as a healthy container with verified administrator access.",
+    status: "Validated",
   },
   {
-    title: "Linux authentication ingestion",
+    title: "Additional roles and ingestion",
     description:
-      "Universal Forwarder data onboarding, indexed events, dashboards, and alerts belong to later milestones.",
+      "Search Head, Deployment Server, distributed search, Universal Forwarder, HEC, SC4S, dashboards, detections, and alerts remain future work.",
     status: "Planned",
   },
 ];
+
+export type AtlasMilestone = {
+  id: string;
+  title: string;
+  status: "Validated" | "Next" | "Roadmap";
+  summary: string;
+};
+
+export const atlasMilestones: AtlasMilestone[] = [
+  {
+    id: "01",
+    title: "First Containerized Deployment",
+    status: "Validated",
+    summary:
+      "Deployed the first Splunk Enterprise service as a healthy Docker container and verified Splunk Web access.",
+  },
+  {
+    id: "02",
+    title: "Search Head Deployment",
+    status: "Next",
+    summary:
+      "Inspect the running Indexer, then deploy the Search Head and validate service communication.",
+  },
+  {
+    id: "03",
+    title: "Deployment Server",
+    status: "Roadmap",
+    summary: "Deploy and validate the forwarder-management role.",
+  },
+  {
+    id: "04",
+    title: "Distributed Search",
+    status: "Roadmap",
+    summary: "Configure and validate the Search Head-to-Indexer relationship.",
+  },
+  {
+    id: "05",
+    title: "Data Ingestion",
+    status: "Roadmap",
+    summary: "Implement and validate an evidence-backed ingestion path.",
+  },
+  {
+    id: "06",
+    title: "Detection Engineering",
+    status: "Roadmap",
+    summary: "Build detections only after validated data is searchable.",
+  },
+];
+
+export const atlasNextMilestone = {
+  title: "Search Head Deployment",
+  description:
+    "Inspect the running Indexer's network attachment, mounts, labels, environment, health check, and container metadata before deploying the Search Head.",
+};
 
 export const atlasDecisions: EngineeringDecision[] = [
   {
@@ -108,9 +162,10 @@ export const atlasDecisions: EngineeringDecision[] = [
 ];
 
 export const atlasLimitations = [
-  "The Compose file has not yet completed runtime validation.",
-  "No distributed-search peer relationship is claimed as working.",
-  "No Universal Forwarder, indexed Linux events, dashboard, detection, or alert is implemented.",
-  "The design is a workstation learning lab, not a production deployment.",
+  "Only the Indexer role has been deployed and validated; the Search Head and Deployment Server remain undeployed.",
+  "Distributed search has not been configured or validated.",
+  "No Universal Forwarder or other ingestion pipeline has been validated; HEC and SC4S remain planned.",
+  "Dashboards, detections, and alerts remain planned.",
+  "The environment is a local workstation learning lab, not a production deployment.",
   "Clustering, high availability, TLS hardening, and production secret management are deferred.",
 ];

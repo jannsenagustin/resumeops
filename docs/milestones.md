@@ -7,10 +7,9 @@ recorded below.
 
 | Milestone | Status | Outcome | Evidence |
 | --- | --- | --- | --- |
-| Architecture | Complete | Defined initial Splunk roles, boundaries, networking, persistence, and constraints | [Architecture](architecture.md), [ADRs](adr) |
-| Workstation setup | Complete | Confirmed WSL 2, Docker Engine, and Docker Compose availability | [Sanitized screenshot](../screenshots/docker-workstation-validation.png) |
-| Compose foundation | Validated | Defined three services, one network, localhost mappings, and six named volumes; configuration expansion and environment substitution passed validation | [Compose source](../infrastructure/atlas/docker-compose.yml), [Sprint 6C journal](journal/sprint-6c-first-successful-containerized-splunk-deployment.md) |
-| Runtime deployment | Indexer operational | Deployed the first Splunk Enterprise service; `atlas-indexer` passed its health check and administrator access through Splunk Web succeeded | [Sprint 6C journal](journal/sprint-6c-first-successful-containerized-splunk-deployment.md) |
-| Distributed search | Planned | — | — |
-| Linux data ingestion | Planned | — | — |
-| Dashboard and detection | Planned | — | — |
+| 01 · First Containerized Deployment | Validated | Deployed the first Splunk Enterprise service as a healthy Docker container and verified Splunk Web access | [Engineering log](journal/sprint-6c-first-successful-containerized-splunk-deployment.md), [evidence](evidence/milestone-01-first-containerized-deployment/) |
+| 02 · Search Head Deployment | Next | Inspect the running Indexer, deploy the Search Head, and validate service communication | Evidence added after validation |
+| 03 · Deployment Server | Roadmap | Deploy and validate the forwarder-management role | — |
+| 04 · Distributed Search | Roadmap | Configure and validate the Search Head-to-Indexer relationship | — |
+| 05 · Data Ingestion | Roadmap | Implement and validate an evidence-backed ingestion path | — |
+| 06 · Detection Engineering | Roadmap | Build detections only after validated data is searchable | — |

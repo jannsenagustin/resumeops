@@ -5,6 +5,7 @@ export default function CareerJourney() {
   return (
     <section
       id="journey"
+      data-motion-reveal
       className="scroll-mt-24 bg-black px-6 py-20 sm:px-8 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
@@ -18,7 +19,7 @@ export default function CareerJourney() {
           {careerJourney.map((item, index) => (
             <li
               key={item.id}
-              className="rounded-xl border border-white/10 bg-zinc-950 p-6"
+              className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6"
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="font-mono text-sm text-green-400">

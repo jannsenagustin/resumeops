@@ -4,16 +4,16 @@
 
 Atlas models separate Splunk responsibilities on one Windows workstation using
 Docker Desktop and Docker Compose. It is a learning lab, not a production
-deployment. The architecture and Compose configuration are complete; runtime
-behavior remains awaiting validation.
+deployment. The target architecture and Compose configuration are complete;
+only the Indexer has completed runtime deployment validation.
 
 ```mermaid
 flowchart TB
     Host["Windows workstation<br/>Docker Desktop + WSL 2"]
     Network["atlas-network<br/>Dedicated Docker bridge"]
-    SH["Search Head<br/>Configured<br/>Web: localhost:8000"]
-    IDX["Indexer<br/>Configured<br/>Web: localhost:8001"]
-    DS["Deployment Server<br/>Configured<br/>Web: localhost:8002"]
+    SH["Search Head<br/>Not deployed<br/>Web: localhost:8000"]
+    IDX["Indexer<br/>Operational<br/>Web: localhost:8001"]
+    DS["Deployment Server<br/>Not deployed<br/>Web: localhost:8002"]
     Linux["Linux log source<br/>Planned"]
     UF["Universal Forwarder<br/>Planned"]
 
@@ -32,9 +32,9 @@ flowchart TB
 | Component | Responsibility | Status |
 | --- | --- | --- |
 | Windows workstation | Hosts Docker Desktop and all lab resources | Docker availability evidenced |
-| Search Head | Planned search interface and distributed-search client | Configured; runtime validation pending |
-| Indexer | Planned receiving, indexing, and search peer | Configured; runtime validation pending |
-| Deployment Server | Planned forwarder configuration management | Configured; runtime validation pending |
+| Search Head | Planned search interface and distributed-search client | Configured; not deployed |
+| Indexer | Receiving, indexing, and future search peer | Operational; Milestone 01 validated |
+| Deployment Server | Planned forwarder configuration management | Configured; not deployed |
 | Linux source | Generates authentication events | Planned |
 | Universal Forwarder | Sends selected Linux events to the Indexer | Planned |
 
@@ -93,6 +93,7 @@ performance testing, and production security controls remain out of scope.
 ## Validation status
 
 Static source review confirms that the intended services, network, ports, and
-volumes are represented. Runtime checks—including image compatibility,
-container health, Web access, service DNS, Splunk role readiness, and persistent
-state—are pending.
+volumes are represented. Milestone 01 validated the Indexer image, container
+health, localhost Web access, administrator login, bridge network, and
+persistent volumes. Search Head and Deployment Server readiness, cross-service
+DNS, distributed search, and ingestion remain unvalidated.

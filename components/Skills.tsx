@@ -6,6 +6,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
+      data-motion-reveal
       className="scroll-mt-24 border-t border-white/10 bg-black px-6 py-20 sm:px-8 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
@@ -18,7 +19,7 @@ export default function Skills() {
           {enterpriseExperience.technologyGroups.map((group) => (
             <article
               key={group.id}
-              className="rounded-xl border border-white/10 bg-zinc-950 p-6"
+              className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6"
             >
               <h3 className="font-semibold text-white">{group.title}</h3>
               <ul className="mt-4 flex flex-wrap gap-2" aria-label={group.title}>

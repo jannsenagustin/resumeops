@@ -5,9 +5,9 @@ import TechBadge from "./TechBadge";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className={`flex h-full flex-col bg-zinc-950 transition-colors ${
+    <article className={`motion-card flex h-full flex-col bg-zinc-950 ${
       project.featured
-        ? "rounded-2xl border border-green-400/30 p-7 hover:border-green-400/50 sm:p-10"
+        ? "motion-card-featured rounded-2xl border border-green-400/30 p-7 hover:border-green-400/50 sm:p-10"
         : "rounded-xl border border-white/10 p-6 hover:border-green-400/30"
     }`}>
       <ProjectHeader

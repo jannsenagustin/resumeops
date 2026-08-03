@@ -1,7 +1,6 @@
 export type ProjectStatus =
   | "validated"
   | "configuration-complete"
-  | "runtime-validation-pending"
   | "in-progress"
   | "roadmap";
 
@@ -35,14 +34,14 @@ export const projects: Project[] = [
     title: "Atlas",
     subtitle: "Flagship Observability Project",
     description:
-      "A containerized enterprise observability lab that separates Splunk search, indexing, and deployment responsibilities on one workstation.",
-    status: "runtime-validation-pending",
+      "A containerized Splunk lab with its first operational Indexer milestone validated and additional distributed roles on the roadmap.",
+    status: "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [
-      "Defined separate Search Head, Indexer, and Deployment Server roles",
-      "Created dedicated networking and role-specific persistent volumes",
-      "Kept Splunk Web endpoints bound to localhost",
-      "Documented secret handling, constraints, and deferred clustering",
+      "Deployed the Splunk Indexer as a healthy Docker container",
+      "Validated dedicated networking and persistent Indexer storage",
+      "Verified administrator access through localhost-only Splunk Web",
+      "Kept Search Head, Deployment Server, and ingestion work on the roadmap",
     ],
     route: "/projects/atlas/",
     links: [

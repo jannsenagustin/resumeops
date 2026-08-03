@@ -23,10 +23,6 @@ const statusConfig: Record<
     label: "Configuration Complete",
     classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
   },
-  "runtime-validation-pending": {
-    label: "Runtime Validation Pending",
-    classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
-  },
   roadmap: {
     label: "Roadmap",
     classes: "border-slate-500/30 bg-slate-500/10 text-slate-300",

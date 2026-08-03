@@ -28,7 +28,7 @@ export const heroContent = {
       id: "current-project",
       label: "Current Project",
       value: "Atlas",
-      supportingText: "Configuration complete; runtime validation pending",
+      supportingText: "Milestone 01 validated; Indexer operational",
     },
     {
       id: "location",
