@@ -23,23 +23,37 @@ import composeValidationEvidence from "../../../docs/evidence/milestone-01-first
 import containerHealthyEvidence from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_002_container_healthy.png";
 import dockerDesktopEvidence from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_003_docker_desktop.png";
 import successfulLoginEvidence from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_004_first_successful_login.png";
+import multiServiceHealthyEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_001_search_head_and_indexer_healthy.png";
+import searchHeadLoginEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_002_search_head_first_login.png";
+import multiServiceDockerEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_003_docker_desktop_multi_service.png";
+import sharedNetworkEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_004_shared_network.png";
 
 const repositoryUrl = "https://github.com/jannsenagustin/resumeops";
 
-const primaryEvidence = [
+const milestoneOneEvidence = [
   { src: containerHealthyEvidence, alt: "Docker CLI showing the Atlas Indexer running with a healthy status.", caption: "Healthy atlas-indexer container" },
   { src: successfulLoginEvidence, alt: "Splunk Enterprise home page after successful administrator login to the Atlas Indexer.", caption: "Verified administrator access" },
 ];
 
-const supportingEvidence = [
+const milestoneOneSupportingEvidence = [
   { src: composeValidationEvidence, alt: "Docker Compose validation output for the Atlas infrastructure configuration.", caption: "Compose configuration validation" },
   { src: dockerDesktopEvidence, alt: "Docker Desktop showing the running Atlas Indexer container.", caption: "Docker Desktop container view" },
+];
+
+const milestoneTwoEvidence = [
+  { src: multiServiceHealthyEvidence, alt: "Docker CLI showing the Atlas Search Head and Indexer containers running with healthy status.", caption: "Healthy Search Head and Indexer containers" },
+  { src: searchHeadLoginEvidence, alt: "Splunk Enterprise home page after successful administrator login to the Atlas Search Head.", caption: "Verified Search Head administrator access" },
+];
+
+const milestoneTwoSupportingEvidence = [
+  { src: multiServiceDockerEvidence, alt: "Docker Desktop showing the Atlas Search Head and Indexer running together.", caption: "Docker Desktop multi-service runtime" },
+  { src: sharedNetworkEvidence, alt: "Docker network inspection showing the Atlas Search Head and Indexer attached to atlas-network.", caption: "Shared atlas-network membership" },
 ];
 
 export const metadata: Metadata = {
   title: "Atlas | Observability Engineering Project",
   description:
-    "Explore Atlas, a containerized Splunk observability project with separated search, indexing, and deployment roles.",
+    "Explore Atlas, a containerized Splunk observability project with operational Indexer and Search Head roles.",
 };
 
 export default function AtlasProjectPage() {
@@ -62,8 +76,8 @@ export default function AtlasProjectPage() {
                 Atlas
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                A containerized Splunk lab that has moved from static
-                architecture into its first validated operational milestone.
+                A containerized Splunk lab with two independently validated
+                operational roles and an evidence-driven roadmap.
               </p>
               <div className="mt-6">
                 <StatusBadge
@@ -109,7 +123,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Project overview"
               title="A practical distributed-role lab"
-              description="Atlas now runs a healthy Splunk Enterprise Indexer with persistent storage, dedicated Docker networking, localhost-only Web exposure, and verified administrator access."
+              description="Atlas now runs healthy Splunk Enterprise Indexer and Search Head services with independent persistent storage, shared Docker networking, localhost-only Web exposure, and verified administrator access."
             />
             <p className="mt-6 max-w-3xl text-base leading-8 text-gray-300">
               One Splunk instance would conceal the relationship between search,
@@ -143,14 +157,14 @@ export default function AtlasProjectPage() {
           <section id="current-status" className="scroll-mt-24" data-motion-reveal>
             <SectionHeader
               eyebrow="Current status"
-              title="Milestone 01 validated; Atlas remains in progress"
-              description="The Indexer is operational in Docker. The Search Head, Deployment Server, distributed search, ingestion, dashboards, detections, and alerts remain unvalidated future work."
+              title="Milestones 01 and 02 validated; Atlas remains in progress"
+              description="The Indexer and Search Head are operational in Docker. Distributed search is not configured; the Deployment Server and ingestion remain unvalidated."
             />
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {[
-                ["Indexer Operational", "Healthy container, persistent volumes, localhost Web access, and administrator login"],
-                ["Next", "Search Head deployment and service communication validation"],
-                ["Roadmap", "Deployment Server, distributed search, ingestion, dashboards, and detections"],
+                ["Two Roles Operational", "Healthy Indexer and Search Head containers with independent storage and administrator Web access"],
+                ["Next", "Distributed Search Configuration"],
+                ["Roadmap", "Deployment Server, ingestion, dashboards, detections, and alerts"],
               ].map(([status, detail]) => (
                 <article key={status} className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                   <h3 className="font-semibold text-white">{status}</h3>
@@ -164,7 +178,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Engineering scope"
               title="Capabilities"
-              description="Each capability distinguishes validated Milestone 01 outcomes from planned work."
+              description="Each capability distinguishes validated Milestone 01 and 02 outcomes from planned work."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               {atlasCapabilities.map((capability) => (
@@ -198,10 +212,11 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="What can be verified"
               title="Validation and evidence"
-              description="Milestone 01 evidence proves the first operational Splunk service without implying that the full target topology is deployed."
+              description="Evidence is grouped by milestone so independent role deployment is not mistaken for a configured distributed-search topology."
             />
+            <h3 className="mt-8 text-lg font-semibold text-white">Milestone 02 · Search Head deployment</h3>
             <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
-              {primaryEvidence.map((evidence) => (
+              {milestoneTwoEvidence.map((evidence) => (
                 <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
                   <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
                   <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
@@ -211,7 +226,28 @@ export default function AtlasProjectPage() {
               ))}
             </div>
             <div className="mt-5 grid items-start gap-4 sm:grid-cols-2">
-              {supportingEvidence.map((evidence) => (
+              {milestoneTwoSupportingEvidence.map((evidence) => (
+                <figure key={evidence.caption} className="motion-evidence overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
+                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
+                  <figcaption className="border-t border-white/10 px-4 py-3 text-xs text-gray-400">
+                    {evidence.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <h3 className="mt-12 text-lg font-semibold text-white">Milestone 01 · First Indexer deployment</h3>
+            <div className="mt-5 grid items-start gap-5 md:grid-cols-2">
+              {milestoneOneEvidence.map((evidence) => (
+                <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
+                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
+                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
+                    {evidence.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="mt-5 grid items-start gap-4 sm:grid-cols-2">
+              {milestoneOneSupportingEvidence.map((evidence) => (
                 <figure key={evidence.caption} className="motion-evidence overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
                   <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
                   <figcaption className="border-t border-white/10 px-4 py-3 text-xs text-gray-400">
@@ -226,7 +262,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Engineering challenge"
               title="Separating configuration from proof"
-              description="Milestone 01 demonstrates how Atlas separates validated runtime outcomes from the unvalidated target topology."
+              description="Milestones 01 and 02 demonstrate how Atlas separates validated runtime outcomes from the unconfigured target topology."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
@@ -239,9 +275,9 @@ export default function AtlasProjectPage() {
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                 <h3 className="font-semibold">Resolution and lesson</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-400">
-                  Atlas claims only the Indexer checks supported by captured
-                  evidence. Every additional role and data path requires its own
-                  validation milestone.
+                  Atlas claims only the independent Indexer and Search Head
+                  checks supported by captured evidence. Their relationship and
+                  every data path require separate validation.
                 </p>
               </article>
             </div>

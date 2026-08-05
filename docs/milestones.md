@@ -8,8 +8,8 @@ recorded below.
 | Milestone | Status | Outcome | Evidence |
 | --- | --- | --- | --- |
 | 01 · First Containerized Deployment | Validated | Deployed the first Splunk Enterprise service as a healthy Docker container and verified Splunk Web access | [Engineering log](journal/sprint-6c-first-successful-containerized-splunk-deployment.md), [evidence](evidence/milestone-01-first-containerized-deployment/) |
-| 02 · Search Head Deployment | Next | Inspect the running Indexer, deploy the Search Head, and validate service communication | Evidence added after validation |
-| 03 · Deployment Server | Roadmap | Deploy and validate the forwarder-management role | — |
-| 04 · Distributed Search | Roadmap | Configure and validate the Search Head-to-Indexer relationship | — |
+| 02 · Search Head Deployment | Validated | Deployed and validated a healthy Splunk Search Head alongside the existing Indexer on the shared Atlas Docker network | [Engineering log](journal/sprint-6d-search-head-deployment.md), [evidence](evidence/milestone-02-search-head/) |
+| 03 · Distributed Search Configuration | Next | Configure the Indexer as a search peer and validate a distributed search | — |
+| 04 · Deployment Server | Roadmap | Deploy and validate the forwarder-management role | — |
 | 05 · Data Ingestion | Roadmap | Implement and validate an evidence-backed ingestion path | — |
 | 06 · Detection Engineering | Roadmap | Build detections only after validated data is searchable | — |

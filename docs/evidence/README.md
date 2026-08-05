@@ -44,3 +44,9 @@ Milestone 01 may contain evidence of:
 - the first successful Splunk login.
 
 Do not add placeholders for evidence that has not been captured.
+
+## Milestone 02 Evidence
+
+Milestone 02 contains evidence of healthy Search Head and Indexer containers,
+successful Search Head administrator access, the multi-service Docker runtime,
+and shared `atlas-network` membership.

@@ -17,17 +17,16 @@ Deployment Server responsibilities with Docker Compose on one workstation.
 Atlas currently demonstrates:
 
 - a healthy Splunk Enterprise Indexer running in Docker;
-- verified administrator access through Splunk Web on `localhost:8001`;
+- a healthy Splunk Enterprise Search Head running alongside the Indexer;
+- verified administrator access through Splunk Web on `localhost:8000` and `localhost:8001`;
 - a typed three-service Compose configuration for separate Splunk roles;
 - a dedicated private bridge network with localhost-only Web mappings;
-- validated persistent storage for the Indexer;
+- validated persistent storage for the Indexer and Search Head;
 - explicit environment-variable and secret-handling boundaries;
 - documented trade-offs, including the deliberate deferral of clustering.
 
-**Current status:** In Progress. Milestone 01 is validated, and the Splunk
-Indexer is operational in Docker. Search Head and Deployment Server deployment,
-distributed search, ingestion, dashboards, detections, and alerts remain future
-work.
+**Current status:** In Progress — Indexer and Search Head Operational.
+Milestones 01 and 02 validated. Distributed search configuration is next.
 
 ## Architecture
 
@@ -67,6 +66,11 @@ The strongest evidence currently available is the repository itself:
   and successful administrator access.
 - [The Sprint 6C engineering log](docs/journal/sprint-6c-first-successful-containerized-splunk-deployment.md)
   records the milestone context without duplicating it here.
+- [Milestone 02 evidence](docs/evidence/milestone-02-search-head/) records both
+  healthy containers, Search Head administrator access, the multi-service
+  Docker runtime, and shared network membership.
+- [The Sprint 6D engineering log](docs/journal/sprint-6d-search-head-deployment.md)
+  records the Search Head deployment and its current limitations.
 
 ## Run the portfolio
 
@@ -105,17 +109,15 @@ material. Startup instructions and destructive-reset warnings are in the
 
 ## Current limitations
 
-- Only the Indexer role has been deployed and validated.
-- Search Head and Deployment Server remain undeployed.
-- Distributed search and data ingestion have not been validated.
+- The Indexer and Search Head are operational; the Deployment Server is not deployed.
+- Distributed search is not configured, and data ingestion has not been validated.
 - HEC, SC4S, dashboards, detections, and alerts remain planned.
 - Atlas is a single-workstation learning lab, not a production deployment.
 
 ## Next milestone
 
-Deploy the Search Head after inspecting the running Indexer's networking,
-persistent mounts, labels, environment configuration, health check, and
-container metadata. See [milestones](docs/milestones.md) for the compact status
+Configure the Indexer as a search peer for the Search Head and validate a
+distributed search. See [milestones](docs/milestones.md) for the compact status
 record and [the engineering narrative](CASE_STUDY.md) for the project story.
 
 ## License

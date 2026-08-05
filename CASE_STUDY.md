@@ -10,9 +10,10 @@ multi-host environment.
 The initial design separates three Splunk Enterprise roles: Search Head,
 Indexer, and Deployment Server. Docker Compose defines each role as its own
 service, connects them to a dedicated bridge network, and assigns independent
-persistent volumes. Milestone 01 validated the first operational role: a
-healthy Splunk Indexer with persistent storage and verified Web access. The
-Search Head, Deployment Server, and multi-role relationships remain undeployed.
+persistent volumes. Milestones 01 and 02 validated two operational roles: a
+healthy Splunk Indexer and Search Head with independent persistent storage and
+verified Web access. Their shared network membership is validated, but
+distributed search is not configured and the Deployment Server remains undeployed.
 
 Atlas is not presented as production-ready. Its purpose is to create a
 controlled environment where architecture, deployment, data onboarding,
@@ -41,8 +42,8 @@ The design therefore had to balance useful role separation with:
 Atlas uses Docker Desktop on Windows and a dedicated `atlas-network` bridge.
 Compose currently defines:
 
-- `atlas-search-head` for the planned search interface and distributed-search
-  relationship;
+- `atlas-search-head` for the operational search interface and future
+  distributed-search relationship;
 - `atlas-indexer` for the planned receiving, indexing, and searchable data;
 - `atlas-deployment-server` for planned forwarder configuration management.
 
@@ -97,8 +98,15 @@ Milestone 01 evidence now confirms:
 - Splunk Web and administrator access worked through `localhost:8001`.
 
 [The Milestone 01 evidence](docs/evidence/milestone-01-first-containerized-deployment/)
-supports these claims. It does not prove Search Head or Deployment Server
-readiness, distributed search, ingestion, dashboards, detections, or alerts.
+supports these claims.
+
+Milestone 02 evidence confirms the official image deployed the Search Head,
+container initialization completed, both Splunk services were healthy, Search
+Head administrator access worked through `localhost:8000`, and both containers
+shared `atlas-network` with separate private addresses and independent storage.
+[The Milestone 02 evidence](docs/evidence/milestone-02-search-head/) supports
+these claims. It does not prove a search-peer relationship, distributed search,
+ingestion, dashboards, detections, or alerts.
 
 ## Engineering challenge
 
@@ -133,8 +141,7 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 
 ## Current limitations
 
-- Only the Indexer role has been deployed and validated.
-- Search Head and Deployment Server remain undeployed.
+- The Indexer and Search Head are operational; the Deployment Server is not deployed.
 - Distributed search has not been configured and validated.
 - No Universal Forwarder or Linux data source is connected.
 - No data is claimed as indexed.
@@ -146,14 +153,14 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 
 ## Results
 
-Atlas now combines a reviewable infrastructure design with its first validated
-runtime outcome. The Indexer milestone proves container health, persistence,
-networking, and administrator Web access, but it is not a completed
-observability pipeline.
+Atlas now combines a reviewable infrastructure design with two validated
+runtime roles. The milestones prove a multi-container runtime, role-specific
+persistence, shared networking, and administrator Web access, but they do not
+prove a configured distributed Splunk deployment or completed observability
+pipeline.
 
 ## Next milestone
 
-The next milestone is Search Head Deployment. Before deployment, Atlas will
-inspect the running Indexer's network attachment, persistent mounts, labels,
-environment configuration, health check, and container metadata. Deployment
-Server, distributed search, and ingestion remain later milestones.
+The next milestone is Distributed Search Configuration: configure the Indexer
+as a search peer for the Search Head and validate a distributed search.
+Deployment Server and ingestion remain later milestones.

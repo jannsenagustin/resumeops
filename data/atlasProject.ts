@@ -3,7 +3,7 @@ import { type ProjectNavItem } from "../components/ProjectNav";
 import { type EngineeringDecision } from "../components/DecisionCard";
 
 export const atlasStatus =
-  "Milestone 01 validated — Splunk Indexer operational in Docker";
+  "Milestones 01 and 02 validated — Indexer and Search Head operational in Docker";
 
 export const atlasTechnologies = [
   "Splunk Enterprise",
@@ -32,7 +32,7 @@ export const atlasArchitecture: ArchitectureNode = {
     {
       label: "atlas-network · dedicated bridge",
       children: [
-        { label: "Search Head · not deployed", planned: true },
+        { label: "Search Head · operational", operational: true },
         { label: "Indexer · operational", operational: true },
         { label: "Deployment Server · not deployed", planned: true },
         { label: "Linux log source + Universal Forwarder", planned: true },
@@ -55,27 +55,27 @@ export const atlasCapabilities: AtlasCapability[] = [
     status: "Validated",
   },
   {
-    title: "Indexer persistence",
+    title: "Persistent role storage",
     description:
-      "Dedicated Indexer volumes preserve Splunk configuration and runtime data across container recreation.",
+      "Dedicated Indexer and Search Head volumes preserve each role's Splunk configuration and runtime data.",
     status: "Validated",
   },
   {
-    title: "Dedicated Atlas network",
+    title: "Dedicated Atlas bridge network",
     description:
-      "The Atlas bridge network was created while Splunk Web remained bound to localhost.",
+      "Docker inspection confirmed the Indexer and Search Head share atlas-network while Splunk Web remains bound to localhost.",
     status: "Validated",
   },
   {
-    title: "Containerized Splunk Indexer",
+    title: "Containerized Splunk roles",
     description:
-      "The official Splunk 10.0.8 RHEL 9 image is running as a healthy container with verified administrator access.",
+      "The official Splunk 10.0.8 RHEL 9 image runs as healthy Indexer and Search Head containers with verified Web access and administrator login.",
     status: "Validated",
   },
   {
-    title: "Additional roles and ingestion",
+    title: "Distributed search and ingestion",
     description:
-      "Search Head, Deployment Server, distributed search, Universal Forwarder, HEC, SC4S, dashboards, detections, and alerts remain future work.",
+      "Search peer configuration, distributed search, Deployment Server, Universal Forwarder, HEC, SC4S, indexed sample data, dashboards, detections, and alerts remain unvalidated.",
     status: "Planned",
   },
 ];
@@ -98,21 +98,21 @@ export const atlasMilestones: AtlasMilestone[] = [
   {
     id: "02",
     title: "Search Head Deployment",
-    status: "Next",
+    status: "Validated",
     summary:
-      "Inspect the running Indexer, then deploy the Search Head and validate service communication.",
+      "Deployed and validated a healthy Splunk Search Head alongside the existing Indexer on the shared Atlas Docker network.",
   },
   {
     id: "03",
-    title: "Deployment Server",
-    status: "Roadmap",
-    summary: "Deploy and validate the forwarder-management role.",
+    title: "Distributed Search Configuration",
+    status: "Next",
+    summary: "Configure and validate the Search Head-to-Indexer relationship.",
   },
   {
     id: "04",
-    title: "Distributed Search",
+    title: "Deployment Server",
     status: "Roadmap",
-    summary: "Configure and validate the Search Head-to-Indexer relationship.",
+    summary: "Deploy and validate the forwarder-management role.",
   },
   {
     id: "05",
@@ -129,9 +129,9 @@ export const atlasMilestones: AtlasMilestone[] = [
 ];
 
 export const atlasNextMilestone = {
-  title: "Search Head Deployment",
+  title: "Distributed Search Configuration",
   description:
-    "Inspect the running Indexer's network attachment, mounts, labels, environment, health check, and container metadata before deploying the Search Head.",
+    "Configure the Indexer as a search peer for the Search Head and validate a distributed search.",
 };
 
 export const atlasDecisions: EngineeringDecision[] = [
@@ -162,7 +162,7 @@ export const atlasDecisions: EngineeringDecision[] = [
 ];
 
 export const atlasLimitations = [
-  "Only the Indexer role has been deployed and validated; the Search Head and Deployment Server remain undeployed.",
+  "The Indexer and Search Head are healthy but are not yet connected as a Splunk distributed-search topology; the Deployment Server remains undeployed.",
   "Distributed search has not been configured or validated.",
   "No Universal Forwarder or other ingestion pipeline has been validated; HEC and SC4S remain planned.",
   "Dashboards, detections, and alerts remain planned.",
