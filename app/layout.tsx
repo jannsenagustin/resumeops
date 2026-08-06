@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import CloudflareAnalytics from "../components/analytics/CloudflareAnalytics";
 import MotionObserver from "../components/MotionObserver";
 import "./globals.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <MotionObserver />
+        <CloudflareAnalytics />
       </body>
     </html>
   );
