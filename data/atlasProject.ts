@@ -3,7 +3,7 @@ import { type ProjectNavItem } from "../components/ProjectNav";
 import { type EngineeringDecision } from "../components/DecisionCard";
 
 export const atlasStatus =
-  "Milestones 01 and 02 validated — Indexer and Search Head operational in Docker";
+  "Milestone 03 validated — distributed search operational";
 
 export const atlasTechnologies = [
   "Splunk Enterprise",
@@ -32,8 +32,22 @@ export const atlasArchitecture: ArchitectureNode = {
     {
       label: "atlas-network · dedicated bridge",
       children: [
-        { label: "Search Head · operational", operational: true },
-        { label: "Indexer · operational", operational: true },
+        {
+          label: "Search Head · operational · Web localhost:8000",
+          operational: true,
+          children: [
+            {
+              label: "Distributed search · HTTPS 8089",
+              operational: true,
+              children: [
+                {
+                  label: "Indexer · search peer · Web localhost:8001",
+                  operational: true,
+                },
+              ],
+            },
+          ],
+        },
         { label: "Deployment Server · not deployed", planned: true },
         { label: "Linux log source + Universal Forwarder", planned: true },
       ],
@@ -73,9 +87,15 @@ export const atlasCapabilities: AtlasCapability[] = [
     status: "Validated",
   },
   {
-    title: "Distributed search and ingestion",
+    title: "Distributed search",
     description:
-      "Search peer configuration, distributed search, Deployment Server, Universal Forwarder, HEC, SC4S, indexed sample data, dashboards, detections, and alerts remain unvalidated.",
+      "The Search Head resolves atlas-indexer through Docker DNS, reaches its management interface on HTTPS 8089, and coordinates searches that execute remotely on the Indexer.",
+    status: "Validated",
+  },
+  {
+    title: "Ingestion and detection workflow",
+    description:
+      "Deployment Server, Universal Forwarder, HEC, SC4S, dedicated data onboarding, dashboards, detections, and alerts remain unvalidated.",
     status: "Planned",
   },
 ];
@@ -104,9 +124,10 @@ export const atlasMilestones: AtlasMilestone[] = [
   },
   {
     id: "03",
-    title: "Distributed Search Configuration",
-    status: "Next",
-    summary: "Configure and validate the Search Head-to-Indexer relationship.",
+    title: "Distributed Search",
+    status: "Validated",
+    summary:
+      "Registered the Indexer as a healthy search peer and verified remote execution from the Search Head through Job Inspector.",
   },
   {
     id: "04",
@@ -129,9 +150,9 @@ export const atlasMilestones: AtlasMilestone[] = [
 ];
 
 export const atlasNextMilestone = {
-  title: "Distributed Search Configuration",
+  title: "Deployment Server",
   description:
-    "Configure the Indexer as a search peer for the Search Head and validate a distributed search.",
+    "Deploy and validate the forwarder-management role without implying that ingestion is already operational.",
 };
 
 export const atlasDecisions: EngineeringDecision[] = [
@@ -162,8 +183,7 @@ export const atlasDecisions: EngineeringDecision[] = [
 ];
 
 export const atlasLimitations = [
-  "The Indexer and Search Head are healthy but are not yet connected as a Splunk distributed-search topology; the Deployment Server remains undeployed.",
-  "Distributed search has not been configured or validated.",
+  "Distributed search is validated between one Search Head and one Indexer; the Deployment Server remains undeployed.",
   "No Universal Forwarder or other ingestion pipeline has been validated; HEC and SC4S remain planned.",
   "Dashboards, detections, and alerts remain planned.",
   "The environment is a local workstation learning lab, not a production deployment.",

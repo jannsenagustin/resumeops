@@ -27,6 +27,9 @@ import multiServiceHealthyEvidence from "../../../docs/evidence/milestone-02-sea
 import searchHeadLoginEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_002_search_head_first_login.png";
 import multiServiceDockerEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_003_docker_desktop_multi_service.png";
 import sharedNetworkEvidence from "../../../docs/evidence/milestone-02-search-head/2026-08-05_004_shared_network.png";
+import searchPeerEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_search_peer_configuration.png";
+import distributedSearchEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_distributed_spl_ search_results.png";
+import jobInspectorEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_search_job_inspector_results.png";
 
 const repositoryUrl = "https://github.com/jannsenagustin/resumeops";
 
@@ -50,10 +53,28 @@ const milestoneTwoSupportingEvidence = [
   { src: sharedNetworkEvidence, alt: "Docker network inspection showing the Atlas Search Head and Indexer attached to atlas-network.", caption: "Shared atlas-network membership" },
 ];
 
+const milestoneThreeEvidence = [
+  {
+    src: searchPeerEvidence,
+    alt: "Splunk Search Peers page showing atlas-indexer on port 8089 as Up, Healthy, and Enabled with no health-check failures.",
+    caption: "Search peer healthy and enabled",
+  },
+  {
+    src: distributedSearchEvidence,
+    alt: "Search Head results for the metadata hosts query showing atlas-indexer and atlas-search-head.",
+    caption: "Distributed metadata search returns both Atlas hosts",
+  },
+  {
+    src: jobInspectorEvidence,
+    alt: "Splunk Search Job Inspector showing dispatch.stream.remote.atlas-indexer activity for the distributed metadata search.",
+    caption: "Job Inspector confirms remote Indexer execution",
+  },
+];
+
 export const metadata: Metadata = {
   title: "Atlas | Observability Engineering Project",
   description:
-    "Explore Atlas, a containerized Splunk observability project with operational Indexer and Search Head roles.",
+    "Explore Atlas, a containerized Splunk observability project with operational Indexer and Search Head roles connected through validated distributed search.",
 };
 
 export default function AtlasProjectPage() {
@@ -76,8 +97,8 @@ export default function AtlasProjectPage() {
                 Atlas
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                A containerized Splunk lab with two independently validated
-                operational roles and an evidence-driven roadmap.
+                A containerized Splunk lab with operational Indexer and Search
+                Head roles connected through validated distributed search.
               </p>
               <div className="mt-6">
                 <StatusBadge
@@ -123,7 +144,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Project overview"
               title="A practical distributed-role lab"
-              description="Atlas now runs healthy Splunk Enterprise Indexer and Search Head services with independent persistent storage, shared Docker networking, localhost-only Web exposure, and verified administrator access."
+              description="Atlas progressed from one operational Splunk role, to two independent roles, to a functioning distributed-search architecture backed by peer health, SPL results, and Job Inspector evidence."
             />
             <p className="mt-6 max-w-3xl text-base leading-8 text-gray-300">
               One Splunk instance would conceal the relationship between search,
@@ -137,7 +158,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="System design"
               title="Architecture"
-              description="The initial design isolates core Splunk responsibilities while keeping the lab achievable on a single workstation."
+              description="The Search Head coordinates remote search execution with the Indexer over HTTPS 8089 on atlas-network while host-facing Splunk Web remains on localhost ports 8000 and 8001."
             />
             <div className="mt-8">
               <ArchitectureDiagram
@@ -146,25 +167,24 @@ export default function AtlasProjectPage() {
               />
             </div>
             <p className="mt-6 text-sm leading-7 text-gray-400">
-              Compose defines one dedicated bridge network and six named
-              volumes: separate <code className="text-green-300">etc</code> and{" "}
-              <code className="text-green-300">var</code> storage for each
-              Splunk role. Only Splunk Web ports are published, and they bind
-              to localhost.
+              Docker DNS resolves <code className="text-green-300">atlas-indexer</code>{" "}
+              inside the bridge network. Distributed search uses the internal
+              Splunk management interface at <code className="text-green-300">https://atlas-indexer:8089</code>,
+              not either host-facing Splunk Web port.
             </p>
           </section>
 
           <section id="current-status" className="scroll-mt-24" data-motion-reveal>
             <SectionHeader
               eyebrow="Current status"
-              title="Milestones 01 and 02 validated; Atlas remains in progress"
-              description="The Indexer and Search Head are operational in Docker. Distributed search is not configured; the Deployment Server and ingestion remain unvalidated."
+              title="Milestone 03 validated; Atlas remains in progress"
+              description="The Indexer and Search Head are operational, and their distributed-search relationship is functionally validated. Deployment Server and ingestion remain unvalidated."
             />
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {[
-                ["Two Roles Operational", "Healthy Indexer and Search Head containers with independent storage and administrator Web access"],
-                ["Next", "Distributed Search Configuration"],
-                ["Roadmap", "Deployment Server, ingestion, dashboards, detections, and alerts"],
+                ["Indexer", "Operational search peer with independent persistent storage"],
+                ["Search Head", "Operational search interface and distributed-search coordinator"],
+                ["Distributed Search", "Validated through peer health, SPL results, and remote execution evidence"],
               ].map(([status, detail]) => (
                 <article key={status} className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                   <h3 className="font-semibold text-white">{status}</h3>
@@ -178,7 +198,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Engineering scope"
               title="Capabilities"
-              description="Each capability distinguishes validated Milestone 01 and 02 outcomes from planned work."
+              description="Each capability distinguishes validated Milestone 01 through 03 outcomes from planned work."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               {atlasCapabilities.map((capability) => (
@@ -212,8 +232,19 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="What can be verified"
               title="Validation and evidence"
-              description="Evidence is grouped by milestone so independent role deployment is not mistaken for a configured distributed-search topology."
+              description="Evidence follows the validation chain from healthy search peer, to successful distributed SPL, to Job Inspector proof of remote execution."
             />
+            <h3 className="mt-8 text-lg font-semibold text-white">Milestone 03 · Distributed Search</h3>
+            <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
+              {milestoneThreeEvidence.map((evidence) => (
+                <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
+                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
+                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
+                    {evidence.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
             <h3 className="mt-8 text-lg font-semibold text-white">Milestone 02 · Search Head deployment</h3>
             <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
               {milestoneTwoEvidence.map((evidence) => (
@@ -261,23 +292,25 @@ export default function AtlasProjectPage() {
           <section id="challenges" className="scroll-mt-24" data-motion-reveal>
             <SectionHeader
               eyebrow="Engineering challenge"
-              title="Separating configuration from proof"
-              description="Milestones 01 and 02 demonstrate how Atlas separates validated runtime outcomes from the unconfigured target topology."
+              title="Correcting configuration with minimal container impact"
+              description="Milestone 03 turned a stanza-placement error into a repeatable lesson in inspection, minimal tooling, scoped restarts, and layered validation."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                 <h3 className="font-semibold">Problem</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-400">
-                  A valid Compose file does not prove that every defined role is
-                  deployed, healthy, reachable, or correctly integrated.
+                  The initial shell user could not read server.conf, the minimal
+                  container lacked common editors, and an appended setting
+                  landed under the wrong Splunk stanza.
                 </p>
               </article>
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                 <h3 className="font-semibold">Resolution and lesson</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-400">
-                  Atlas claims only the independent Indexer and Search Head
-                  checks supported by captured evidence. Their relationship and
-                  every data path require separate validation.
+                  The file was inspected as root, corrected through docker cp
+                  and a host editor, verified before restart, and applied with
+                  an Indexer-only restart. Peer health and Job Inspector then
+                  validated configuration and remote execution separately.
                 </p>
               </article>
             </div>

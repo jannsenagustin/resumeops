@@ -4,28 +4,27 @@
 
 Atlas models separate Splunk responsibilities on one Windows workstation using
 Docker Desktop and Docker Compose. It is a learning lab, not a production
-deployment. The target architecture and Compose configuration are complete.
-The Indexer and Search Head have completed independent runtime deployment
-validation; distributed search is not configured.
+deployment. Milestones 01 through 03 validate an operational Indexer, an
+operational Search Head, and distributed search between them. The Deployment
+Server and ingestion pipeline remain planned.
 
 ```mermaid
 flowchart TB
-    Host["Windows workstation<br/>Docker Desktop + WSL 2"]
-    Network["atlas-network<br/>Dedicated Docker bridge"]
-    SH["Search Head<br/>Operational<br/>Web: localhost:8000"]
-    IDX["Indexer<br/>Operational<br/>Web: localhost:8001"]
-    DS["Deployment Server<br/>Not deployed<br/>Web: localhost:8002"]
-    Linux["Linux log source<br/>Planned"]
-    UF["Universal Forwarder<br/>Planned"]
+    Browser["Browser"]
+    SHWeb["localhost:8000<br/>Search Head Splunk Web"]
+    SH["atlas-search-head<br/>Operational"]
+    IDX["atlas-indexer<br/>Operational search peer"]
+    IDXWeb["localhost:8001<br/>Indexer Splunk Web"]
+    Network["atlas-network<br/>Dedicated Docker bridge + internal DNS"]
+    DS["Deployment Server<br/>Not deployed"]
 
-    Host --> Network
-    Network --> SH
-    Network --> IDX
-    Network --> DS
-    Linux --> UF
-    UF -. "Forwarding planned" .-> IDX
-    SH -. "Distributed search pending" .-> IDX
-    DS -. "Management planned" .-> UF
+    Browser --> SHWeb --> SH
+    SH -->|"Distributed search<br/>HTTPS / TCP 8089"| IDX
+    IDX -->|"Search results"| SH
+    Browser -. "Direct administrative Web access" .-> IDXWeb --> IDX
+    Network --- SH
+    Network --- IDX
+    Network --- DS
 ```
 
 ## Component responsibilities
@@ -33,71 +32,57 @@ flowchart TB
 | Component | Responsibility | Status |
 | --- | --- | --- |
 | Windows workstation | Hosts Docker Desktop and all lab resources | Docker availability evidenced |
-| Search Head | Search interface and future distributed-search client | Operational; Milestone 02 validated |
-| Indexer | Future receiving, indexing, and search-peer role | Operational; Milestone 01 validated |
-| Deployment Server | Planned forwarder configuration management | Configured; not deployed |
-| Linux source | Generates authentication events | Planned |
-| Universal Forwarder | Sends selected Linux events to the Indexer | Planned |
+| Search Head | Search interface and distributed-search coordinator | Operational; Milestones 02 and 03 validated |
+| Indexer | Stores Splunk data and executes remote search work | Operational; Milestones 01 and 03 validated |
+| Deployment Server | Planned forwarder configuration management | Configured in Compose; not deployed |
+| Linux source | Planned authentication-event source | Planned |
+| Universal Forwarder | Planned data forwarding to the Indexer | Planned |
 
-## Data and control flow
+## Validated distributed-search flow
 
-The present runtime includes the Search Head and Indexer as independently
-operational services. Their distributed-search management relationship is
-intended to use internal Docker DNS and port `8089`, but it has not been
-configured or validated.
+The Search Head registers `https://atlas-indexer:8089` as its search peer.
+Docker DNS resolves the stable `atlas-indexer` service hostname on
+`atlas-network`; a changeable `172.x.x.x` container address is not hardcoded.
+TCP 8089 is Splunk's management communication path inside the Docker network,
+not a published host Web port.
 
-The future data path is Linux authentication logs → Universal Forwarder →
-Indexer → searchable results on the Search Head. Deployment Server management
-of the Universal Forwarder is also planned. No event, index, dashboard, alert,
-or detection is claimed to exist.
+The configured peer was `Up`, `Healthy`, and `Enabled`, with no health-check
+failures. A metadata search launched from the Search Head returned both Atlas
+hosts. Job Inspector then showed `dispatch.stream.remote.atlas-indexer`, which
+is the decisive point-in-time evidence that the Indexer participated remotely
+in execution coordinated by the Search Head.
 
-## Networking
+## Host-facing access versus internal communication
 
-The operational Search Head and Indexer join the dedicated `atlas-network`
-bridge with separate private Docker addresses. Docker service names are intended
-to provide internal resolution. Splunk management communication stays inside
-this network.
+| Purpose | Address | Boundary |
+| --- | --- | --- |
+| Search Head Splunk Web | `localhost:8000` | Host-facing, loopback only |
+| Indexer Splunk Web | `localhost:8001` | Host-facing, loopback only |
+| Distributed-search management | `https://atlas-indexer:8089` | Container-to-container on `atlas-network` |
 
-Only Splunk Web interfaces are published to the host, with explicit
-`127.0.0.1` bindings. The proposed host ports are 8000 for the Search Head, 8001
-for the Indexer, and 8002 for the Deployment Server. The receiving port is not
-published and receiving is not yet enabled.
+Port 8089 is not claimed as publicly published to the host. Remote
+administrative authentication was used to establish the peer relationship;
+credentials are intentionally excluded from repository documentation.
 
 ## Persistence
 
-Each role owns two named volumes: `atlas-<role>-etc` for Splunk configuration
-and `atlas-<role>-var` for runtime data. Milestones 01 and 02 validated this
-role-specific persistence for the operational Indexer and Search Head.
+The operational roles each own `etc` and `var` named volumes. These preserve
+instance-specific Splunk configuration and runtime data independently of the
+disposable container layer. Instance overrides belong in `system/local`, not
+`system/default`.
 
-`docker compose down` preserves the volumes. `docker compose down --volumes`
-is intentionally documented as destructive.
+## Constraints and deferred capabilities
 
-## Secrets and licensing
-
-The repository commits `.env.example`, never the resolved `.env`. Password,
-image tag, license acceptance, and general-terms inputs must be resolved
-locally. Compose uses required-variable expressions so absent inputs stop
-configuration rendering.
-
-Screenshots and logs must be reviewed for credentials, license material,
-tokens, addresses, or resolved environment values before being committed.
-
-## Constraints and deferred clustering
-
-All services share one workstation, so the lab has a single CPU, storage,
-network, and failure domain. Search Head and Indexer clustering are deferred
-until the basic topology and data path are operationally validated. Adding
-cluster roles now would increase resource demand and failure modes without
-providing genuine host-level high availability.
-
-TLS hardening, replication, high availability, production secret management,
-performance testing, and production security controls remain out of scope.
+The lab has one Search Head, one Indexer, one workstation, and one failure
+domain. It does not demonstrate Indexer clustering, Search Head clustering,
+replication, a cluster manager, a deployer, a Deployment Server, production
+high availability, or enterprise production readiness. Ingestion, dashboards,
+detections, alerts, TLS hardening, and production secret management remain
+future work.
 
 ## Validation status
 
-Static source review confirms that the intended services, network, ports, and
-volumes are represented. Milestone 01 validated the Indexer; Milestone 02
-validated the Search Head, continued Indexer health, localhost Web access,
-administrator login, shared bridge-network membership, and independent
-persistent storage. The distributed-search relationship remains unconfigured.
-Deployment Server and ingestion services are not deployed or validated.
+Milestone 01 validated the Indexer. Milestone 02 validated the Search Head.
+Milestone 03 validated their distributed-search relationship through peer
+health, functional SPL results, and Job Inspector evidence of remote Indexer
+execution. No later Atlas capability is marked complete.

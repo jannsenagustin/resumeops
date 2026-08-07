@@ -34,14 +34,15 @@ export const projects: Project[] = [
     title: "Atlas",
     subtitle: "Flagship Observability Project",
     description:
-      "A containerized Splunk lab with operational Indexer and Search Head roles; distributed search configuration is next.",
+      "A containerized Splunk lab with operational Indexer and Search Head roles and a validated distributed-search relationship.",
     status: "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [
       "Deployed the Splunk Indexer and Search Head as healthy Docker containers",
       "Validated shared bridge networking and independent persistent storage",
       "Verified administrator access through localhost-only Splunk Web for both roles",
-      "Kept distributed search, Deployment Server, and ingestion work unvalidated",
+      "Validated remote Indexer participation in searches coordinated by the Search Head",
+      "Kept Deployment Server, ingestion, clustering, and high availability explicitly unvalidated",
     ],
     route: "/projects/atlas/",
     links: [

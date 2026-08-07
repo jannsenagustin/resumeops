@@ -50,3 +50,14 @@ Do not add placeholders for evidence that has not been captured.
 Milestone 02 contains evidence of healthy Search Head and Indexer containers,
 successful Search Head administrator access, the multi-service Docker runtime,
 and shared `atlas-network` membership.
+
+## Milestone 03 Evidence
+
+Milestone 03 contains the validation chain for distributed search: an enabled,
+healthy Indexer search peer; a metadata search launched from the Search Head
+that returns both Atlas hosts; and Job Inspector evidence showing
+`dispatch.stream.remote.atlas-indexer`.
+
+A local `server.conf` screenshot was deliberately excluded because it exposes
+secret-bearing configuration values. The troubleshooting outcome is documented
+textually without publishing those values.
