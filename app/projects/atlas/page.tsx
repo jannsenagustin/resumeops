@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import ActionButton from "../../../components/ActionButton";
 import ArchitectureDiagram from "../../../components/ArchitectureDiagram";
 import DecisionCard from "../../../components/DecisionCard";
+import EvidenceViewer from "../../../components/EvidenceViewer";
 import ProjectNav from "../../../components/ProjectNav";
 import SectionHeader from "../../../components/SectionHeader";
 import StatusBadge from "../../../components/StatusBadge";
@@ -237,54 +237,29 @@ export default function AtlasProjectPage() {
             <h3 className="mt-8 text-lg font-semibold text-white">Milestone 03 · Distributed Search</h3>
             <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
               {milestoneThreeEvidence.map((evidence) => (
-                <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
-                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
-                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
-                    {evidence.caption}
-                  </figcaption>
-                </figure>
+                <EvidenceViewer key={evidence.caption} {...evidence} />
               ))}
             </div>
             <h3 className="mt-8 text-lg font-semibold text-white">Milestone 02 · Search Head deployment</h3>
             <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
               {milestoneTwoEvidence.map((evidence) => (
-                <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
-                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
-                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
-                    {evidence.caption}
-                  </figcaption>
-                </figure>
+                <EvidenceViewer key={evidence.caption} {...evidence} />
               ))}
             </div>
             <div className="mt-5 grid items-start gap-4 sm:grid-cols-2">
               {milestoneTwoSupportingEvidence.map((evidence) => (
-                <figure key={evidence.caption} className="motion-evidence overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
-                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
-                  <figcaption className="border-t border-white/10 px-4 py-3 text-xs text-gray-400">
-                    {evidence.caption}
-                  </figcaption>
-                </figure>
+                <EvidenceViewer key={evidence.caption} {...evidence} prominence="supporting" />
               ))}
             </div>
             <h3 className="mt-12 text-lg font-semibold text-white">Milestone 01 · First Indexer deployment</h3>
             <div className="mt-5 grid items-start gap-5 md:grid-cols-2">
               {milestoneOneEvidence.map((evidence) => (
-                <figure key={evidence.caption} className="motion-card motion-evidence overflow-hidden rounded-xl border border-green-400/20 bg-zinc-950">
-                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 768px) 50vw, 100vw" />
-                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm font-medium text-gray-300">
-                    {evidence.caption}
-                  </figcaption>
-                </figure>
+                <EvidenceViewer key={evidence.caption} {...evidence} />
               ))}
             </div>
             <div className="mt-5 grid items-start gap-4 sm:grid-cols-2">
               {milestoneOneSupportingEvidence.map((evidence) => (
-                <figure key={evidence.caption} className="motion-evidence overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
-                  <Image src={evidence.src} alt={evidence.alt} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
-                  <figcaption className="border-t border-white/10 px-4 py-3 text-xs text-gray-400">
-                    {evidence.caption}
-                  </figcaption>
-                </figure>
+                <EvidenceViewer key={evidence.caption} {...evidence} prominence="supporting" />
               ))}
             </div>
           </section>

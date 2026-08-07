@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Evidence viewing
+
+- Added an accessible click-to-enlarge lightbox for Atlas evidence screenshots,
+  with keyboard controls, focus restoration, backdrop and Escape dismissal,
+  responsive sizing, scroll locking, and reduced-motion support.
+
 ### 2026-08-06 — Atlas Milestone 03
 
 - Established the Search Head-to-Indexer distributed-search relationship over
