@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Resume download
+
+- Enabled the public resume download action using the canonical Splunk / Observability resume PDF.
+
 ### Evidence viewing
 
 - Added an accessible click-to-enlarge lightbox for Atlas evidence screenshots,

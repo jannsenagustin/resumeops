@@ -35,6 +35,14 @@ export default function Hero() {
               >
                 Explore Atlas
               </Link>
+              <Link
+                href="/resume/Jannsen-Agustin-Resume.pdf"
+                download="Jannsen-Agustin-Resume.pdf"
+                prefetch={false}
+                className={`${actionClasses} border-white/15 text-gray-300 transition-colors hover:border-green-400/60 hover:text-green-300`}
+              >
+                Download Resume
+              </Link>
               <a
                 href="https://github.com/jannsenagustin/resumeops"
                 target="_blank"
