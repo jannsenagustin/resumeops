@@ -11,8 +11,9 @@
 ## What this repository demonstrates
 
 ResumeOps is the presentation layer for Jannsen Agustin’s engineering work. Its
-flagship project, **Atlas**, models separate Splunk Search Head, Indexer, and
-Deployment Server responsibilities with Docker Compose on one workstation.
+flagship project, **Atlas**, models separate Splunk Search Head and Indexer
+responsibilities in Docker while a Windows-host Universal Forwarder supplies
+external Event Log telemetry.
 
 Atlas currently demonstrates:
 
@@ -22,11 +23,15 @@ Atlas currently demonstrates:
 - a typed three-service Compose configuration for separate Splunk roles;
 - a dedicated private bridge network with localhost-only Web mappings;
 - validated persistent storage for the Indexer and Search Head;
+- distributed search from `atlas-search-head` to `atlas-indexer` over Docker DNS;
+- a loopback-published TCP 9997 receiver for host-to-container forwarding;
+- active Universal Forwarder ingestion of Windows Application, Security, and System logs;
+- end-to-end SPL and Job Inspector evidence from host `JNNSN`;
 - explicit environment-variable and secret-handling boundaries;
 - documented trade-offs, including the deliberate deferral of clustering.
 
-**Current status:** In Progress — Indexer and Search Head Operational.
-Milestones 01 and 02 validated. Distributed search configuration is next.
+**Current status:** In Progress — Milestone 04 validated. Indexer, Search Head,
+distributed search, and Windows Event Log ingestion are operational.
 
 ## Architecture
 
@@ -71,6 +76,11 @@ The strongest evidence currently available is the repository itself:
   Docker runtime, and shared network membership.
 - [The Sprint 6D engineering log](docs/journal/sprint-6d-search-head-deployment.md)
   records the Search Head deployment and its current limitations.
+- [Milestone 04 evidence](docs/evidence/milestone-04-windows-event-ingestion/)
+  verifies the Windows service, TCP path, active forward, searchable Event Logs,
+  and remote Indexer execution.
+- [The Sprint 6F engineering log](docs/journal/sprint-6f-windows-event-ingestion.md)
+  records the host-to-container ingestion boundary and validation sequence.
 
 ## Run the portfolio
 
@@ -109,16 +119,16 @@ material. Startup instructions and destructive-reset warnings are in the
 
 ## Current limitations
 
-- The Indexer and Search Head are operational; the Deployment Server is not deployed.
-- Distributed search is not configured, and data ingestion has not been validated.
-- HEC, SC4S, dashboards, detections, and alerts remain planned.
+- The Indexer, Search Head, distributed search, and three Windows Event Log inputs are operational; the Deployment Server is not deployed.
+- Forwarder configuration is direct; no Deployment Server or app-based management exists.
+- Additional sources, performance inputs, HEC, SC4S, dashboards, detections, and alerts remain planned.
 - Atlas is a single-workstation learning lab, not a production deployment.
 
 ## Next milestone
 
-Configure the Indexer as a search peer for the Search Head and validate a
-distributed search. See [milestones](docs/milestones.md) for the compact status
-record and [the engineering narrative](CASE_STUDY.md) for the project story.
+Further data onboarding and configuration management remain roadmap work. See
+[milestones](docs/milestones.md) for the compact status record and [the
+engineering narrative](CASE_STUDY.md) for the project story.
 
 ## License
 

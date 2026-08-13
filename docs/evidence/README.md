@@ -61,3 +61,11 @@ that returns both Atlas hosts; and Job Inspector evidence showing
 A local `server.conf` screenshot was deliberately excluded because it exposes
 secret-bearing configuration values. The troubleshooting outcome is documented
 textually without publishing those values.
+
+## Milestone 04 Evidence
+
+Milestone 04 contains only the five reviewed artifacts for Windows Event Log
+ingestion: the running `SplunkForwarder` service, TCP 9997 loopback
+connectivity, an active Splunk forwarding destination, searchable Application,
+Security, and System data, and Job Inspector evidence of remote Indexer
+execution. Secret-bearing `server.conf` and installer screenshots are excluded.

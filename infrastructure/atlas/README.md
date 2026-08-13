@@ -17,9 +17,10 @@ The configuration is an infrastructure foundation, not evidence of a successful 
 - A verified, supported `splunk/splunk` image tag
 - Review and acceptance of the applicable Splunk license and general terms
 - A strong local administrator password that meets the selected Splunk version's requirements
-- Available localhost ports for the three Web interfaces
+- Available localhost ports for the Web interfaces and Indexer receiver
 
-Docker was not available in the authoring environment, so the Compose file has not yet been validated or run with Docker.
+Milestones 01 through 04 validate the Indexer, Search Head, distributed search,
+and Windows Event Log ingestion. The Deployment Server remains undeployed.
 
 ## Local Secret Setup
 
@@ -46,6 +47,16 @@ docker compose config
 ```
 
 Review the resolved output for the selected image tag, localhost port mappings, volume names, and absence of unintended values. Do not paste resolved secret values into tickets, screenshots, or committed evidence.
+
+The Indexer receiver mapping is deliberately loopback-bound:
+
+```text
+127.0.0.1:${ATLAS_INDEXER_RECEIVER_PORT}:9997
+```
+
+This lets the Windows-host Universal Forwarder reach the containerized Indexer
+without exposing the receiving port to the LAN. The forwarder target is
+`127.0.0.1:9997`; Docker service DNS names apply only inside `atlas-network`.
 
 ## Start the Environment
 

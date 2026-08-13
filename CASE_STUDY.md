@@ -10,10 +10,10 @@ multi-host environment.
 The initial design separates three Splunk Enterprise roles: Search Head,
 Indexer, and Deployment Server. Docker Compose defines each role as its own
 service, connects them to a dedicated bridge network, and assigns independent
-persistent volumes. Milestones 01 through 03 show a deliberate progression:
-one operational Indexer, two independently operational roles, and finally a
-functioning distributed-search relationship between the Search Head and
-Indexer. The Deployment Server remains undeployed.
+persistent volumes. Milestones 01 through 04 show a deliberate progression:
+one operational Indexer, two independently operational roles, distributed
+search, and an external Windows Event Log ingestion path through Universal
+Forwarder. The Deployment Server remains undeployed.
 
 Atlas is not presented as production-ready. Its purpose is to create a
 controlled environment where architecture, deployment, data onboarding,
@@ -51,15 +51,15 @@ Each service has separate `/opt/splunk/etc` and `/opt/splunk/var` named volumes.
 This preserves configuration and runtime state across container recreation and
 makes storage ownership explicit.
 
-Only the three Splunk Web interfaces are mapped to the host, and each mapping
-binds to `127.0.0.1`. Splunk management port `8089` remains exposed only inside
-the Docker network. The conventional receiving port is represented as a future
-internal input; receiving is not claimed as enabled.
+Splunk Web mappings bind to `127.0.0.1`. Management port `8089` remains inside
+the Docker network for distributed search. The existing Indexer receiver on
+TCP 9997 is also published to Windows loopback, allowing a host-based Splunk
+Universal Forwarder 10.0.8 to send Application, Security, and System Event Logs
+from `JNNSN` without exposing the receiver to the LAN.
 
-The next data-onboarding stage adds a Linux log source and Universal Forwarder.
-Authentication data would then travel from Linux through the forwarder to the
-Indexer and become searchable from the Search Head. That path has not been
-implemented.
+These are distinct network contexts: the Search Head uses Docker DNS and
+`atlas-indexer:8089`, while the Windows forwarder uses the host-published
+`127.0.0.1:9997` endpoint.
 
 See [the consolidated architecture](docs/architecture.md) for the primary
 diagram and detailed boundaries.
@@ -78,6 +78,8 @@ The completed implementation is the infrastructure foundation in
 5. Six named volumes separate configuration and runtime data for each role.
 6. `.env.example` documents required local values while `.gitignore` excludes
    the resolved `.env` file and sensitive material.
+7. The Indexer receiver port is published only on Windows loopback for the
+   external Universal Forwarder.
 
 The configuration deliberately blocks casual startup through required
 environment expressions and visible placeholder values. A user must select a
@@ -116,6 +118,16 @@ counts are point-in-time observations, not fixed architectural values. [The
 Milestone 03 evidence](docs/evidence/milestone-03-deployment-server/) supports
 these claims.
 
+Milestone 04 validates the external telemetry path. Windows showed the
+`SplunkForwarder` service running and TCP connectivity to `127.0.0.1:9997`.
+The Universal Forwarder CLI then reported that destination as active, which is
+stronger than generic reachability alone. Search Head SPL returned
+`WinEventLog:Application`, `WinEventLog:Security`, and `WinEventLog:System` for
+`JNNSN`; Job Inspector showed `dispatch.stream.remote.atlas-indexer`. Captured
+counts are point-in-time observations. [The Milestone 04
+evidence](docs/evidence/milestone-04-windows-event-ingestion/) supports the
+end-to-end claim.
+
 ## Engineering challenge
 
 Milestone 03's main challenge was enabling remote administrative login without
@@ -130,10 +142,16 @@ setting was placed in the existing `[general]` stanza under `system/local`, its
 placement was verified, and only the Indexer was restarted. Both roles were
 healthy before the peer configuration was retried successfully.
 
-The lesson is to inspect stanza structure before editing, use the
-instance-specific override layer, keep containers minimal, validate before
-restart, restart the smallest scope, and require functional evidence beyond a
-healthy configuration screen.
+Milestone 04 added a separate troubleshooting lesson. An initially inactive
+forward coincided with unavailable downstream Docker services. Universal
+Forwarder CLI authentication also required a lab-specific
+`allowRemoteLogin = always` adjustment before administrative validation. After
+the services were available and the forwarder restarted, its destination became
+active. Secret-bearing `server.conf` evidence was deliberately excluded.
+
+Together, the lessons are to inspect stanza structure, restart the smallest
+scope, distinguish transport reachability from application-session health, and
+require functional evidence beyond configuration or network screens.
 
 ## Key decisions
 
@@ -153,8 +171,8 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 ## Current limitations
 
 - The Indexer, Search Head, and their single-peer distributed-search relationship are operational; the Deployment Server is not deployed.
-- No Universal Forwarder or Linux data source is connected.
-- No external or sample-data ingestion path is claimed as implemented.
+- The Windows Universal Forwarder is configured directly; no Deployment Server or app-based configuration management exists.
+- Only Application, Security, and System Event Logs are validated; performance inputs and additional sources remain future work.
 - HEC and SC4S remain planned.
 - No dashboards, detections, or alerts exist.
 - High availability, clustering, TLS hardening, and production-grade secret
@@ -163,14 +181,16 @@ those decisions. Full records are kept in [`docs/adr`](docs/adr).
 
 ## Results
 
-Atlas now combines a reviewable infrastructure design with a validated
-distributed-search path. The milestones prove healthy Indexer and Search Head
-roles, role-specific persistence, shared networking, peer health, functional
-distributed SPL results, and remote Indexer execution. They do not prove a
-completed ingestion or observability pipeline.
+Atlas now combines a reviewable infrastructure design with validated
+distributed search and external Windows telemetry ingestion. The evidence
+connects the Windows service, active Splunk forwarding session, loopback-bound
+host-to-container receiver, indexed Event Logs, Search Head results, and remote
+Indexer execution. This is an evidence-backed lab pipeline, not a production or
+high-availability architecture.
 
 ## Next milestone
 
-The next milestone is Deployment Server implementation and validation.
-Ingestion remains later. Clustering, replication, high availability,
-dashboards, detections, and alerts are intentionally unimplemented.
+Deployment Server, app-based configuration management, additional data sources,
+performance telemetry, custom indexes where appropriate, dashboards,
+detections, alerts, TLS/PKI hardening, clustering, high availability, Azure
+DevOps CI/CD, and Kubernetes/Splunk Operator exploration remain future work.

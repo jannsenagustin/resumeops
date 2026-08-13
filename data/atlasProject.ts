@@ -3,12 +3,14 @@ import { type ProjectNavItem } from "../components/ProjectNav";
 import { type EngineeringDecision } from "../components/DecisionCard";
 
 export const atlasStatus =
-  "Milestone 03 validated — distributed search operational";
+  "Milestone 04 validated — Windows Event Log ingestion operational";
 
 export const atlasTechnologies = [
   "Splunk Enterprise",
   "Docker Desktop",
   "Docker Compose",
+  "Universal Forwarder",
+  "Windows Event Logs",
   "Linux",
   "Git",
 ];
@@ -27,10 +29,24 @@ export const atlasNavigation: ProjectNavItem[] = [
 ];
 
 export const atlasArchitecture: ArchitectureNode = {
-  label: "Windows workstation · Docker Desktop",
+  label: "Windows workstation · JNNSN",
   children: [
     {
-      label: "atlas-network · dedicated bridge",
+      label: "Universal Forwarder 10.0.8 · Windows service",
+      operational: true,
+      children: [
+        { label: "Application · Security · System Event Logs", operational: true },
+        {
+          label: "Active forward · 127.0.0.1:9997",
+          operational: true,
+          children: [
+            { label: "Docker published port · loopback only", operational: true },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Docker Desktop · atlas-network",
       children: [
         {
           label: "Search Head · operational · Web localhost:8000",
@@ -49,7 +65,6 @@ export const atlasArchitecture: ArchitectureNode = {
           ],
         },
         { label: "Deployment Server · not deployed", planned: true },
-        { label: "Linux log source + Universal Forwarder", planned: true },
       ],
     },
   ],
@@ -93,9 +108,15 @@ export const atlasCapabilities: AtlasCapability[] = [
     status: "Validated",
   },
   {
-    title: "Ingestion and detection workflow",
+    title: "Windows Event Log ingestion",
     description:
-      "Deployment Server, Universal Forwarder, HEC, SC4S, dedicated data onboarding, dashboards, detections, and alerts remain unvalidated.",
+      "A Windows-host Universal Forwarder sends Application, Security, and System logs through the loopback-published TCP 9997 receiver to the Indexer, where they are searchable from the Search Head.",
+    status: "Validated",
+  },
+  {
+    title: "Managed forwarding and detection workflow",
+    description:
+      "Deployment Server, app-based forwarder management, HEC, SC4S, dashboards, detections, and alerts remain unimplemented.",
     status: "Planned",
   },
 ];
@@ -131,9 +152,10 @@ export const atlasMilestones: AtlasMilestone[] = [
   },
   {
     id: "04",
-    title: "Deployment Server",
-    status: "Roadmap",
-    summary: "Deploy and validate the forwarder-management role.",
+    title: "Windows Event Ingestion via Universal Forwarder",
+    status: "Validated",
+    summary:
+      "Forwarded Windows Application, Security, and System Event Logs to the Dockerized Indexer and validated remote search execution.",
   },
   {
     id: "05",
@@ -150,9 +172,9 @@ export const atlasMilestones: AtlasMilestone[] = [
 ];
 
 export const atlasNextMilestone = {
-  title: "Deployment Server",
+  title: "Managed data onboarding",
   description:
-    "Deploy and validate the forwarder-management role without implying that ingestion is already operational.",
+    "Future work may add Deployment Server and app-based forwarder management; neither is part of Milestone 04.",
 };
 
 export const atlasDecisions: EngineeringDecision[] = [
@@ -180,11 +202,18 @@ export const atlasDecisions: EngineeringDecision[] = [
     reason:
       "Container DNS supports explicit service communication while management traffic remains inside the lab boundary.",
   },
+  {
+    id: "005",
+    title: "Publish the receiver on loopback only",
+    reason:
+      "The Windows-host forwarder needs a host-published endpoint, while a 127.0.0.1 binding keeps TCP 9997 unavailable to the LAN.",
+  },
 ];
 
 export const atlasLimitations = [
   "Distributed search is validated between one Search Head and one Indexer; the Deployment Server remains undeployed.",
-  "No Universal Forwarder or other ingestion pipeline has been validated; HEC and SC4S remain planned.",
+  "The Windows Universal Forwarder is configured directly; Deployment Server and app-based configuration management remain future work.",
+  "Only Windows Application, Security, and System Event Logs are validated; performance inputs and additional sources remain future work.",
   "Dashboards, detections, and alerts remain planned.",
   "The environment is a local workstation learning lab, not a production deployment.",
   "Clustering, high availability, TLS hardening, and production secret management are deferred.",

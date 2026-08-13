@@ -30,6 +30,11 @@ import sharedNetworkEvidence from "../../../docs/evidence/milestone-02-search-he
 import searchPeerEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_search_peer_configuration.png";
 import distributedSearchEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_distributed_spl_ search_results.png";
 import jobInspectorEvidence from "../../../docs/evidence/milestone-03-deployment-server/2026-08-06_001_search_job_inspector_results.png";
+import forwarderServiceEvidence from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-01-universal-forwarder-service-running.png";
+import receiverConnectivityEvidence from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-02-indexer-receiver-connectivity.png";
+import activeForwardEvidence from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-03-universal-forwarder-active-connection.png";
+import windowsIngestionEvidence from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-04-windows-event-ingestion.png";
+import windowsDistributedExecutionEvidence from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-05-distributed-search-execution.png";
 
 const repositoryUrl = "https://github.com/jannsenagustin/resumeops";
 
@@ -71,10 +76,38 @@ const milestoneThreeEvidence = [
   },
 ];
 
+const milestoneFourEvidence = [
+  {
+    src: forwarderServiceEvidence,
+    alt: "Windows PowerShell showing the SplunkForwarder service in the Running state.",
+    caption: "Universal Forwarder Windows service verified running.",
+  },
+  {
+    src: receiverConnectivityEvidence,
+    alt: "Windows PowerShell Test-NetConnection output showing TCP connectivity to 127.0.0.1 on port 9997.",
+    caption: "Windows reaches the loopback-published Splunk receiver on TCP 9997.",
+  },
+  {
+    src: activeForwardEvidence,
+    alt: "Universal Forwarder CLI showing 127.0.0.1 port 9997 under active forwards and no inactive forwards.",
+    caption: "Universal Forwarder reports 127.0.0.1:9997 as an active destination.",
+  },
+  {
+    src: windowsIngestionEvidence,
+    alt: "Search Head results listing Application, Security, and System Windows Event Log sources for host JNNSN.",
+    caption: "Search Head returns Application, Security, and System telemetry from JNNSN.",
+  },
+  {
+    src: windowsDistributedExecutionEvidence,
+    alt: "Search Job Inspector showing dispatch.stream.remote.atlas-indexer for the Windows telemetry search.",
+    caption: "Job Inspector confirms remote execution against atlas-indexer.",
+  },
+];
+
 export const metadata: Metadata = {
   title: "Atlas | Observability Engineering Project",
   description:
-    "Explore Atlas, a containerized Splunk observability project with operational Indexer and Search Head roles connected through validated distributed search.",
+    "Explore Atlas, a containerized Splunk lab with distributed search and evidence-backed Windows Event Log ingestion through Universal Forwarder.",
 };
 
 export default function AtlasProjectPage() {
@@ -97,8 +130,9 @@ export default function AtlasProjectPage() {
                 Atlas
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                A containerized Splunk lab with operational Indexer and Search
-                Head roles connected through validated distributed search.
+                A containerized Splunk lab with distributed search and
+                evidence-backed Windows Event Log ingestion through Universal
+                Forwarder.
               </p>
               <div className="mt-6">
                 <StatusBadge
@@ -144,7 +178,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Project overview"
               title="A practical distributed-role lab"
-              description="Atlas progressed from one operational Splunk role, to two independent roles, to a functioning distributed-search architecture backed by peer health, SPL results, and Job Inspector evidence."
+              description="Atlas progressed from separate containerized Splunk roles to distributed search and an end-to-end external Windows telemetry path backed by forwarding, SPL, and Job Inspector evidence."
             />
             <p className="mt-6 max-w-3xl text-base leading-8 text-gray-300">
               One Splunk instance would conceal the relationship between search,
@@ -158,7 +192,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="System design"
               title="Architecture"
-              description="The Search Head coordinates remote search execution with the Indexer over HTTPS 8089 on atlas-network while host-facing Splunk Web remains on localhost ports 8000 and 8001."
+              description="Distributed search uses atlas-indexer:8089 inside Docker, while the Windows-host Universal Forwarder reaches the Indexer through loopback-published TCP 9997."
             />
             <div className="mt-8">
               <ArchitectureDiagram
@@ -170,21 +204,22 @@ export default function AtlasProjectPage() {
               Docker DNS resolves <code className="text-green-300">atlas-indexer</code>{" "}
               inside the bridge network. Distributed search uses the internal
               Splunk management interface at <code className="text-green-300">https://atlas-indexer:8089</code>,
-              not either host-facing Splunk Web port.
+              while the external Windows forwarder uses <code className="text-green-300">127.0.0.1:9997</code>.
             </p>
           </section>
 
           <section id="current-status" className="scroll-mt-24" data-motion-reveal>
             <SectionHeader
               eyebrow="Current status"
-              title="Milestone 03 validated; Atlas remains in progress"
-              description="The Indexer and Search Head are operational, and their distributed-search relationship is functionally validated. Deployment Server and ingestion remain unvalidated."
+              title="Milestone 04 validated; Atlas remains in progress"
+              description="The Indexer, Search Head, distributed search, and Windows Event Log ingestion path are validated. Deployment Server and managed forwarder configuration remain future work."
             />
-            <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 ["Indexer", "Operational search peer with independent persistent storage"],
                 ["Search Head", "Operational search interface and distributed-search coordinator"],
                 ["Distributed Search", "Validated through peer health, SPL results, and remote execution evidence"],
+                ["Windows Ingestion", "Application, Security, and System logs validated through an active host-based forwarder"],
               ].map(([status, detail]) => (
                 <article key={status} className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                   <h3 className="font-semibold text-white">{status}</h3>
@@ -198,7 +233,7 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="Engineering scope"
               title="Capabilities"
-              description="Each capability distinguishes validated Milestone 01 through 03 outcomes from planned work."
+              description="Each capability distinguishes validated Milestone 01 through 04 outcomes from planned work."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               {atlasCapabilities.map((capability) => (
@@ -232,8 +267,14 @@ export default function AtlasProjectPage() {
             <SectionHeader
               eyebrow="What can be verified"
               title="Validation and evidence"
-              description="Evidence follows the validation chain from healthy search peer, to successful distributed SPL, to Job Inspector proof of remote execution."
+              description="Evidence progresses from the Windows service and network path to an active Splunk session, searchable telemetry, and remote Indexer execution."
             />
+            <h3 className="mt-8 text-lg font-semibold text-white">Milestone 04 · Windows Event Ingestion via Universal Forwarder</h3>
+            <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
+              {milestoneFourEvidence.map((evidence) => (
+                <EvidenceViewer key={evidence.caption} {...evidence} />
+              ))}
+            </div>
             <h3 className="mt-8 text-lg font-semibold text-white">Milestone 03 · Distributed Search</h3>
             <div className="mt-8 grid items-start gap-5 md:grid-cols-2">
               {milestoneThreeEvidence.map((evidence) => (
@@ -267,25 +308,26 @@ export default function AtlasProjectPage() {
           <section id="challenges" className="scroll-mt-24" data-motion-reveal>
             <SectionHeader
               eyebrow="Engineering challenge"
-              title="Correcting configuration with minimal container impact"
-              description="Milestone 03 turned a stanza-placement error into a repeatable lesson in inspection, minimal tooling, scoped restarts, and layered validation."
+              title="Separating transport health from forwarding health"
+              description="Milestone 04 showed why a reachable port, an available downstream receiver, and an active Splunk forwarding session must be validated separately."
             />
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                 <h3 className="font-semibold">Problem</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-400">
-                  The initial shell user could not read server.conf, the minimal
-                  container lacked common editors, and an appended setting
-                  landed under the wrong Splunk stanza.
+                  The configured destination appeared inactive while the
+                  downstream Docker services were unavailable, and the
+                  Universal Forwarder CLI required a lab-specific remote-login
+                  adjustment before administrative validation could proceed.
                 </p>
               </article>
               <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-6">
                 <h3 className="font-semibold">Resolution and lesson</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-400">
-                  The file was inspected as root, corrected through docker cp
-                  and a host editor, verified before restart, and applied with
-                  an Indexer-only restart. Peer health and Job Inspector then
-                  validated configuration and remote execution separately.
+                  After the Atlas services were available and the forwarder
+                  restarted, Splunk CLI showed an active destination. SPL and
+                  Job Inspector then proved data arrival and remote execution;
+                  secret-bearing configuration evidence was excluded.
                 </p>
               </article>
             </div>

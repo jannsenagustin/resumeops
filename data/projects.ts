@@ -34,7 +34,7 @@ export const projects: Project[] = [
     title: "Atlas",
     subtitle: "Flagship Observability Project",
     description:
-      "A containerized Splunk lab with operational Indexer and Search Head roles and a validated distributed-search relationship.",
+      "A containerized Splunk lab with distributed search and evidence-backed Windows Event Log ingestion through a host-based Universal Forwarder.",
     status: "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [
@@ -42,7 +42,8 @@ export const projects: Project[] = [
       "Validated shared bridge networking and independent persistent storage",
       "Verified administrator access through localhost-only Splunk Web for both roles",
       "Validated remote Indexer participation in searches coordinated by the Search Head",
-      "Kept Deployment Server, ingestion, clustering, and high availability explicitly unvalidated",
+      "Ingested Windows Application, Security, and System logs through an active Universal Forwarder connection",
+      "Kept Deployment Server, clustering, and high availability explicitly unimplemented",
     ],
     route: "/projects/atlas/",
     links: [

@@ -33,6 +33,7 @@ services:
       resumeops.atlas.role: indexer
     ports:
       - "127.0.0.1:${ATLAS_INDEXER_WEB_PORT:?Set ATLAS_INDEXER_WEB_PORT in .env}:8000"
+      - "127.0.0.1:${ATLAS_INDEXER_RECEIVER_PORT:?Set ATLAS_INDEXER_RECEIVER_PORT in .env}:9997"
     expose:
       - "8089"
       - "${ATLAS_INDEXER_RECEIVER_PORT:?Set ATLAS_INDEXER_RECEIVER_PORT in .env}"

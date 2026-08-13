@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### 2026-08-12 — Atlas Milestone 04
+
+- Completed Windows Event Log ingestion through Splunk Universal Forwarder 10.0.8.
+- Published the Indexer's existing TCP 9997 receiver through a loopback-only Docker host mapping.
+- Validated Application, Security, and System telemetry from `JNNSN` through an active forwarding session.
+- Verified distributed execution against `atlas-indexer` through Search Job Inspector.
+- Added the Milestone 04 engineering journal, architecture updates, and five reviewed evidence artifacts.
+
 ### Resume download
 
 - Enabled the public resume download action using the canonical Splunk / Observability resume PDF.
