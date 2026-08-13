@@ -121,6 +121,16 @@ export const atlasCapabilities: AtlasCapability[] = [
   },
 ];
 
+export const atlasHomepageRecord = {
+  checkpoint: "04 / Windows Event Ingestion",
+  status: "Complete",
+  ingestion: "Validated",
+  search: "Validated",
+  splunkVersion: "10.0.8",
+  evidenceCount: 17,
+  updated: "2026-08-12",
+} as const;
+
 export type AtlasMilestone = {
   id: string;
   title: string;

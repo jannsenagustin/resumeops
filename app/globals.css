@@ -28,6 +28,64 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ResumeOps V2 record system */
+:root { --record-green: #4ade68; --record-bg: #07090a; --record-panel: #0d1012; --record-rule: #293036; --record-muted: #9aa3aa; }
+body { background: var(--record-bg); font-family: var(--font-geist-sans), Arial, sans-serif; }
+.site-wordmark span, .state-value, .record-label, .atlas-node__state { color: var(--record-green); }
+.site-header a { letter-spacing: .08em; }
+.site-resume-link { border: 1px solid #3b8e4e; padding: .55rem .8rem; color: #e9f8ed; }
+.record-label { margin: 0; font: 600 .7rem/1.3 var(--font-geist-mono); letter-spacing: .14em; }
+.atlas-opening { display: grid; grid-template-columns: minmax(260px, .72fr) minmax(700px, 2fr); gap: 2rem; max-width: 1360px; margin: 0 auto; padding: 2.25rem 2rem 1.5rem; }
+.atlas-opening__intro { padding-top: .3rem; }
+.atlas-opening h1 { margin: .7rem 0; font-size: clamp(2.65rem, 4vw, 4.4rem); line-height: .95; letter-spacing: -.055em; }
+.atlas-opening h1 span { display: block; color: #afb6bb; font-size: .46em; letter-spacing: .06em; }
+.atlas-opening__lede { max-width: 30rem; margin: 1rem 0 1.35rem; color: #d4d8db; font-size: 1.05rem; line-height: 1.65; }
+.record-metadata, .component-inspector dl, .engineer-facts, .selected-record dl { font-family: var(--font-geist-mono); }
+.record-metadata > div, .component-inspector dl > div, .engineer-facts > div { display: grid; grid-template-columns: 7.4rem 1fr; gap: .8rem; padding: .3rem 0; }
+dt { color: #7f8990; font-size: .69rem; letter-spacing: .09em; } dd { margin: 0; color: #e8ebed; font-size: .78rem; }
+.record-action { display: inline-flex; justify-content: space-between; gap: 2.5rem; min-width: 15rem; margin-top: 1.3rem; border-bottom: 1px solid #3b8e4e; padding: .65rem 0; color: #dff7e4; font: 600 .76rem var(--font-geist-mono); letter-spacing: .08em; }
+.system-explorer { min-width: 0; border: 1px solid var(--record-rule); border-radius: 4px; background: #0a0d0f; padding: 1rem; }
+.system-explorer__topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.system-explorer h2 { margin: .3rem 0 0; font-size: 1.15rem; }
+.system-explorer__mode { color: #89939a; font: .65rem var(--font-geist-mono); letter-spacing: .08em; }
+.atlas-schematic { display: grid; grid-template-columns: 1.35fr 20px .48fr 20px 1.5fr; align-items: center; gap: .3rem; min-height: 185px; margin-top: .85rem; }
+.atlas-boundary { position: relative; display: grid; align-items: center; gap: 1rem; min-width: 0; border: 1px dashed #3a454d; border-radius: 3px; padding: 1.8rem .75rem .75rem; }
+.atlas-boundary--host { grid-template-columns: 1fr 18px 1fr; }
+.atlas-boundary--docker { grid-template-columns: 1fr 40px 1fr; }
+.atlas-boundary__label { position: absolute; top: .5rem; left: .75rem; color: #8b969d; font: .61rem var(--font-geist-mono); letter-spacing: .08em; }
+.atlas-node { min-width: 0; min-height: 102px; border: 1px solid #3a4248; border-radius: 3px; background: #101417; padding: .7rem; text-align: left; color: #aab1b6; transition: border-color 150ms ease, opacity 150ms ease, background 150ms ease; }
+.atlas-node:hover, .atlas-node:focus-visible, .atlas-node.is-selected { border-color: #7a858c; outline: none; background: #14191c; }
+.atlas-node.is-selected { box-shadow: inset 3px 0 0 var(--record-green); }
+.atlas-node.is-traced { border-color: #3c9f53; color: #dfe9e2; }
+.atlas-node__eyebrow { display: block; margin-bottom: .45rem; color: #7f8990; font: .55rem var(--font-geist-mono); letter-spacing: .1em; }
+.atlas-node strong { display: block; overflow-wrap: anywhere; color: #f2f4f5; font-size: .78rem; }
+.atlas-node > span:not(.atlas-node__eyebrow):not(.atlas-node__state) { display: block; margin-top: .3rem; font-size: .67rem; }
+.atlas-node__state { display: block; margin-top: .55rem; font: .56rem var(--font-geist-mono); letter-spacing: .06em; }
+.atlas-connector { color: #647078; text-align: center; font-family: var(--font-geist-mono); }
+.atlas-connector small { display: block; font-size: .48rem; white-space: nowrap; }
+.trace-ingestion .atlas-connector--one, .trace-ingestion .atlas-connector--two, .trace-ingestion .atlas-connector--three, .trace-search .atlas-connector--four { color: var(--record-green); }
+.trace-ingestion .atlas-node:not(.is-traced), .trace-search .atlas-node:not(.is-traced) { opacity: .48; }
+.system-explorer__controls { display: flex; gap: .5rem; padding-top: .8rem; border-top: 1px solid var(--record-rule); }
+.system-explorer__controls button { border: 1px solid #3a4248; border-radius: 2px; padding: .55rem .8rem; color: #cbd0d3; background: transparent; font: 600 .64rem var(--font-geist-mono); letter-spacing: .07em; }
+.system-explorer__controls button:last-child { margin-left: auto; }
+.system-explorer__controls button:hover, .system-explorer__controls button:focus-visible, .system-explorer__controls button.is-active { border-color: #3c9f53; color: var(--record-green); outline: none; }
+.component-inspector { display: grid; grid-template-columns: 1.1fr 2fr auto; align-items: center; gap: 1rem; margin-top: .8rem; border-top: 1px solid var(--record-rule); padding-top: .8rem; }
+.component-inspector h3 { margin: .2rem 0; font-size: .95rem; }.component-inspector p:not(.record-label) { margin: 0; color: var(--record-muted); font-size: .7rem; }
+.component-inspector dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: .25rem 1rem; }.component-inspector dl > div { grid-template-columns: 6.7rem 1fr; padding: 0; }
+.component-inspector > a { color: #dff7e4; font: 600 .65rem var(--font-geist-mono); white-space: nowrap; }
+.milestone-record { max-width: 1360px; margin: 0 auto; padding: 0 2rem 1.5rem; }
+.section-line { display: flex; justify-content: space-between; border-top: 1px solid var(--record-rule); padding: .7rem 0; }.section-line > span { color: #869097; font: .65rem var(--font-geist-mono); }
+.milestone-record ol { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--record-rule); border-bottom: 1px solid var(--record-rule); }
+.milestone-record li { display: grid; grid-template-columns: 2.2rem 1fr; gap: .8rem; min-width: 0; padding: .9rem; border-right: 1px solid var(--record-rule); }.milestone-record li:last-child { border: 0; }
+.milestone-id { color: var(--record-green); font: 1.45rem var(--font-geist-mono); }.milestone-record strong, .milestone-record li div span { display: block; }.milestone-record strong { font-size: .72rem; text-transform: uppercase; }.milestone-record li div span { margin-top: .35rem; font: .58rem var(--font-geist-mono); }
+.home-record-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; max-width: 1360px; margin: 0 auto; padding: 1rem 2rem 4rem; }.home-record-grid section { border-top: 1px solid var(--record-rule); padding-top: 1rem; }
+.home-record-grid h2 { margin: .5rem 0; font-size: 2rem; }.engineer-role { color: var(--record-green) !important; font-weight: 600; }.home-record-grid p { max-width: 42rem; color: #aeb5ba; line-height: 1.7; }
+.engineer-facts { margin-top: 1rem; }.record-links { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 1rem; }.record-links a { color: #dfe3e5; font: 600 .7rem var(--font-geist-mono); }
+.selected-record dl { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1.5rem; border-top: 1px solid var(--record-rule); border-bottom: 1px solid var(--record-rule); }.selected-record dl > div { padding: .8rem; border-right: 1px solid var(--record-rule); }.selected-record dl > div:last-child { border: 0; }.selected-record dd { margin-top: .3rem; }
+
+@media (max-width: 1100px) { .atlas-opening { grid-template-columns: 1fr; }.atlas-opening__intro { display: grid; grid-template-columns: 1.2fr 1fr; column-gap: 2rem; }.atlas-opening__intro .record-label, .atlas-opening__intro h1, .atlas-opening__intro .atlas-opening__lede { grid-column: 1; }.atlas-opening__intro .record-metadata { grid-column: 2; grid-row: 1 / span 4; }.atlas-opening__intro .record-action { grid-column: 1; }.milestone-record ol { grid-template-columns: repeat(2, 1fr); }.milestone-record li:nth-child(2) { border-right: 0; }.milestone-record li:nth-child(-n+2) { border-bottom: 1px solid var(--record-rule); } }
+@media (max-width: 760px) { .site-wordmark span { display: none; }.atlas-opening { padding: 1.4rem 1rem 1rem; }.atlas-opening__intro { display: block; }.atlas-opening h1 { font-size: 3rem; }.system-explorer { padding: .8rem; }.system-explorer__topline { display: block; }.atlas-schematic { display: flex; flex-direction: column; min-height: 0; }.atlas-boundary { width: 100%; }.atlas-boundary--host, .atlas-boundary--docker { grid-template-columns: 1fr; padding-top: 2rem; }.atlas-connector { transform: rotate(90deg); }.atlas-boundary .atlas-connector { transform: rotate(90deg); }.atlas-node { width: 100%; min-height: 0; }.component-inspector { grid-template-columns: 1fr; }.component-inspector dl { grid-template-columns: 1fr; }.system-explorer__controls { flex-wrap: wrap; }.system-explorer__controls button { flex: 1; }.system-explorer__controls button:last-child { margin-left: 0; }.milestone-record { padding: 0 1rem 1rem; }.milestone-record ol { grid-template-columns: 1fr; }.milestone-record li { border-right: 0; border-bottom: 1px solid var(--record-rule); }.home-record-grid { grid-template-columns: 1fr; padding: 1rem 1rem 3rem; }.selected-record dl { grid-template-columns: 1fr; }.selected-record dl > div { border-right: 0; border-bottom: 1px solid var(--record-rule); }.selected-record dl > div:last-child { border-bottom: 0; } }
+
 html {
   scroll-behavior: smooth;
 }

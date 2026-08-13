@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### ResumeOps V2 — Pass 1
+
+- Rebuilt the ResumeOps homepage around an interactive engineering-record presentation.
+- Added the Atlas System Explorer with ingestion and search tracing plus component inspection.
+- Reworked the homepage hierarchy to lead with validated engineering work before biography.
+- Introduced semantic status color, wider technical layouts, and compact milestone progression.
+
 ### 2026-08-12 — Atlas Milestone 04
 
 - Completed Windows Event Log ingestion through Splunk Universal Forwarder 10.0.8.
