@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  distDir: ".next-v2",
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   output: "export",
   trailingSlash: true,
 
