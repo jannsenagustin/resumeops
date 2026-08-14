@@ -21,14 +21,15 @@ export default function ProjectsPage() {
           href="/"
           className="motion-link text-sm font-semibold text-gray-400 hover:text-green-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
         >
-          ← Back to portfolio
+          ← Back to ResumeOps
         </Link>
 
         <div className="mt-12" data-motion-reveal>
           <SectionHeader
-            eyebrow="Engineering Portfolio"
+            eyebrow="Engineering Projects"
             title="Projects"
             description="Atlas is the flagship implementation. Future work remains explicitly on the roadmap until scope, source, and evidence exist."
+            headingLevel="h1"
           />
         </div>
 

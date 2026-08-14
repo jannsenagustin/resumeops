@@ -1,7 +1,7 @@
 export const atlasSectionNav = [
-  ["00", "Current State", "current-state"], ["01", "System", "system"],
-  ["02", "Decision Trail", "decision-trail"], ["03", "Validation", "validation"],
-  ["04", "Build Record", "build-record"], ["05", "Field Notes", "field-notes"],
+  ["00", "Current State", "current-state"], ["01", "Milestones", "milestones"],
+  ["02", "System", "system"], ["03", "Decision Trail", "decision-trail"],
+  ["04", "Validation", "validation"], ["05", "Field Notes", "field-notes"],
   ["06", "Limitations", "limitations"], ["07", "Source of Truth", "source-of-truth"],
 ] as const;
 

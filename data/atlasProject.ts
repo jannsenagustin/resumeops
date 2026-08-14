@@ -134,45 +134,69 @@ export const atlasHomepageRecord = {
 export type AtlasMilestone = {
   id: string;
   title: string;
-  status: "Validated" | "Next" | "Roadmap";
+  status: "Validated" | "Planned" | "Roadmap";
   summary: string;
+  href?: string;
+  linkLabel?: string;
+  external?: boolean;
+  evidenceLabel?: string;
 };
 
 export const atlasMilestones: AtlasMilestone[] = [
   {
     id: "01",
-    title: "First Containerized Deployment",
+    title: "Containerized Splunk Foundation",
     status: "Validated",
     summary:
-      "Deployed the first Splunk Enterprise service as a healthy Docker container and verified Splunk Web access.",
+      "Established the first containerized Splunk runtime, confirmed a healthy Indexer, and created the Docker foundation for Atlas.",
+    href: "https://github.com/jannsenagustin/resumeops/blob/main/docs/journal/sprint-6c-first-successful-containerized-splunk-deployment.md",
+    linkLabel: "Engineering Record",
+    external: true,
+    evidenceLabel: "4 artifacts",
   },
   {
     id: "02",
     title: "Search Head Deployment",
     status: "Validated",
     summary:
-      "Deployed and validated a healthy Splunk Search Head alongside the existing Indexer on the shared Atlas Docker network.",
+      "Introduced a healthy Search Head as a separate role on the shared Docker network, preparing Atlas for Distributed Search.",
+    href: "https://github.com/jannsenagustin/resumeops/blob/main/docs/journal/sprint-6d-search-head-deployment.md",
+    linkLabel: "Engineering Record",
+    external: true,
+    evidenceLabel: "4 artifacts",
   },
   {
     id: "03",
     title: "Distributed Search",
     status: "Validated",
     summary:
-      "Registered the Indexer as a healthy search peer and verified remote execution from the Search Head through Job Inspector.",
+      "Connected Search Head and Indexer over HTTPS/8089 and proved remote execution.",
+    href: "https://github.com/jannsenagustin/resumeops/blob/main/docs/journal/sprint-6e-distributed-search.md",
+    linkLabel: "Engineering Record",
+    external: true,
+    evidenceLabel: "3 public artifacts",
   },
   {
     id: "04",
     title: "Windows Event Ingestion via Universal Forwarder",
     status: "Validated",
     summary:
-      "Forwarded Windows Application, Security, and System Event Logs to the Dockerized Indexer and validated remote search execution.",
+      "Installed UF on Windows, selected three Event Log inputs, configured direct forwarding, resolved inactive forwarding, and proved end-to-end search.",
+    href: "https://github.com/jannsenagustin/resumeops/blob/main/docs/journal/sprint-6f-windows-event-ingestion.md",
+    linkLabel: "Engineering Record",
+    external: true,
+    evidenceLabel: "5 artifacts",
   },
   {
     id: "05",
     title: "Rocky Linux Deployment Server & Configuration Management",
-    status: "Roadmap",
+    status: "Planned",
     summary:
       "Plan centralized forwarder configuration management through a Rocky Linux Deployment Server; implementation has not begun.",
+    href: "/projects/atlas/#limitations",
+    linkLabel: "Planned Scope",
+    external: false,
+    evidenceLabel: "Implementation not begun",
   },
   {
     id: "06",

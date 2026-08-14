@@ -34,7 +34,7 @@ export const projects: Project[] = [
     title: "Atlas",
     subtitle: "Flagship Observability Project",
     description:
-      "A containerized Splunk lab with distributed search and evidence-backed Windows Event Log ingestion through a host-based Universal Forwarder.",
+      "A Splunk lab evolved from a containerized Indexer to a separate Search Head, validated Distributed Search, and evidence-backed Windows Event Log ingestion.",
     status: "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Complete Atlas Public Chronology
+
+- Added Milestones 01 and 02 to the public Atlas progression.
+- Added Milestone 01 and 02 evidence to the Atlas validation sequence.
+- Unified public milestone terminology around Milestones and Engineering Records.
+- Preserved Milestone 05 as planned and unimplemented.
+
 ### Atlas Documentation Foundation
 
 - Introduced `ATLAS_PRINCIPLES.md` as the engineering constitution.

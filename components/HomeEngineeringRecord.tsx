@@ -27,7 +27,7 @@ const capabilities = [
   { name: "Distributed search", source: "Atlas validation", href: "/projects/atlas/#validation" },
   { name: "Windows Event ingestion", source: "Atlas Milestone 04", href: "/projects/atlas/#validation" },
   { name: "Troubleshooting", source: "Atlas field notes", href: "/projects/atlas/#field-notes" },
-  { name: "Operational documentation", source: "Experience and Atlas", href: "/projects/atlas/#build-record" },
+  { name: "Operational documentation", source: "Experience and Atlas", href: "/projects/atlas/#milestones" },
 ] as const;
 
 const research = [

@@ -9,8 +9,8 @@ const atlasSummary = [
 ];
 
 export default function ResumeOpsHome() {
-  const completedMilestones = atlasMilestones.filter(
-    (milestone) => milestone.status === "Validated",
+  const publicMilestones = atlasMilestones.filter(
+    (milestone) => milestone.status !== "Roadmap",
   );
 
   return (
@@ -49,7 +49,7 @@ export default function ResumeOpsHome() {
           <h2 id="atlas-title">Architecture before documentation</h2>
           <p className="atlas-opening__lede">
             Follow the ingestion and search paths first. The project record then
-            exposes the decisions, validation, field notes, build history, and
+            exposes the decisions, validation, field notes, milestone chronology, and
             repository behind the system.
           </p>
           <dl className="record-metadata">
@@ -66,15 +66,30 @@ export default function ResumeOpsHome() {
 
       <section className="milestone-record" aria-labelledby="milestone-title">
         <div className="section-line">
-          <p className="record-label">BUILD PROGRESS</p>
-          <h2 id="milestone-title" className="sr-only">Completed Atlas milestones</h2>
-          <span>04 / 04 VALIDATED</span>
+          <p className="record-label">MILESTONE PROGRESSION</p>
+          <h2 id="milestone-title" className="sr-only">Atlas milestone chronology</h2>
+          <span>04 VALIDATED / 05 PLANNED</span>
         </div>
         <ol>
-          {completedMilestones.map((milestone) => (
+          {publicMilestones.map((milestone) => (
             <li key={milestone.id}>
               <span className="milestone-id">{milestone.id}</span>
-              <div><strong>{milestone.title}</strong><span className="state-value">COMPLETE / VALIDATED</span></div>
+              <div>
+                <strong>{milestone.title}</strong>
+                <p>{milestone.summary}</p>
+                <span className={milestone.status === "Validated" ? "state-value" : undefined}>
+                  {milestone.status === "Validated" ? "COMPLETE / VALIDATED" : "PLANNED"}
+                </span>
+                {milestone.href && milestone.external ? (
+                  <a href={milestone.href} target="_blank" rel="noopener noreferrer">
+                    {milestone.linkLabel} →
+                  </a>
+                ) : milestone.href ? (
+                  <Link href={milestone.href}>
+                    {milestone.linkLabel} →
+                  </Link>
+                ) : null}
+              </div>
             </li>
           ))}
         </ol>
