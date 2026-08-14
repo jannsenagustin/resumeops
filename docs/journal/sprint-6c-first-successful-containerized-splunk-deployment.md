@@ -1,107 +1,151 @@
-# Build Record 01 — Indexer Deployment
+# Milestone 01 — Containerized Splunk Foundation
 
-## Summary
+**Milestone:** 01
+**Date:** 2026-08-01
+**Status:** Complete / Validated
 
-Atlas successfully deployed its first Splunk Enterprise service with Docker
-Compose. Docker Desktop was installed and operational, WSL was configured, and
-the Compose configuration validated successfully before deployment. The
-environment variables were configured, the official Splunk image was pulled,
-and Docker created the Atlas network and persistent volumes.
+## Engineering Summary
 
-The `atlas-indexer` service was deployed and reported a healthy status. Splunk
-Web was accessible, and an administrator login completed successfully.
+**Abstract:** Atlas moved from a documented architecture to its first validated
+Splunk Enterprise runtime.
 
-This milestone validates one containerized Splunk Enterprise service. It does
-not validate distributed search, clustering, HTTP Event Collector (HEC), SC4S,
-dashboards, detections, or production workloads.
+### Engineering Problem
 
-## Engineering Decisions
+Atlas had a reviewable container design, but no Splunk service had completed
+runtime validation.
 
-### Fixed Splunk image
+### Engineering Change
 
-Atlas uses `splunk/splunk:10.0.8-rhel9`. A fixed patch release was selected
-instead of a floating major tag so that deployments remain reproducible.
+Docker Compose created the Atlas network, Indexer storage, and
+`atlas-indexer`, publishing Splunk Web through `localhost:8001`.
 
-### Compose-managed infrastructure
+### Validated Outcome
 
-Infrastructure is defined as code with Docker Compose. Service and
-infrastructure definitions remain in `docker-compose.yml`, while environment-
-specific values remain in `.env`. This separation keeps the deployment model
-reviewable without embedding environment values in the Compose definition.
+- The Compose model resolved successfully.
+- Docker reported `atlas-indexer` healthy.
+- Docker Desktop showed the running container.
+- Splunk Web was reachable through `localhost:8001`.
+- Administrator authentication succeeded.
 
-## Validation
+### Next Engineering Question
 
-The following command was run before deployment:
+How could Atlas separate search coordination from indexing without claiming a
+relationship between the roles before that relationship was validated?
 
-```text
-docker compose config
-```
+---
 
-The command expanded the configuration correctly, substituted the configured
-environment variables, and completed successfully. This confirmed that Compose
-could parse and resolve the deployment definition before containers were
-created.
+## Engineering Record
 
-## Deployment
+### Objective
 
-The Indexer was started with:
+Establish the first operational Splunk Enterprise role in the Atlas Docker
+Compose environment and confirm that the containerized Indexer could start,
+reach a healthy state, and provide authenticated Splunk Web access.
 
-```text
-docker compose up atlas-indexer
-```
+### Starting State
 
-During deployment, Docker downloaded the image, created the Atlas network and
-persistent volumes, and created the `atlas-indexer` container. The container's
-health check subsequently passed.
+Atlas had architecture documentation and a reviewable Compose definition, but
+no Splunk service had completed runtime validation. Docker Desktop and WSL were
+available on the Windows workstation, and the local environment values still
+needed to be resolved before deployment.
 
-## Evidence
+### Architecture Change
 
-The following files in the
-[Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/)
-are the first operational deployment evidence captured for Atlas:
+#### Runtime Boundary
+
+The milestone introduced one running Splunk Enterprise role:
+`atlas-indexer`. The Search Head and Deployment Server remained outside the
+deployed boundary.
+
+#### Network and Access
+
+Docker Compose created the dedicated `atlas-network`. Indexer Splunk Web was
+published to the Windows host through `localhost:8001`.
+
+#### Storage Ownership
+
+The Indexer received role-specific named volumes for configuration and runtime
+data. This established separate storage ownership without proving persistence
+through container recreation.
+
+
+### Implementation
+
+The deployment used the fixed `splunk/splunk:10.0.8-rhel9` image. Shared
+infrastructure remained in `docker-compose.yml`, while environment-specific
+values remained in the excluded local `.env` file. The resolved Compose model
+was checked before `atlas-indexer` was started.
+
+Docker then pulled the image, created the Atlas network and Indexer volumes,
+and started the service. The deployment was limited to the Indexer; the Search
+Head and Deployment Server were not deployed.
+
+### Engineering Decisions
+
+- Atlas modeled Splunk roles as separate services on one workstation, following
+  [ADR-001](../adr/ADR-001-containerized-splunk-roles.md). Milestone 01
+  implemented only the first role in that model.
+- Clustering and high availability were deferred under
+  [ADR-002](../adr/ADR-002-start-without-clustering.md).
+- A fixed image patch release was used instead of a floating major tag so the
+  selected runtime was explicit.
+- Compose configuration and local environment values were kept separate so
+  secrets and workstation-specific values were not embedded in the committed
+  service definition.
+
+### Validation
+
+#### Validated
+
+- `docker compose config` parsed the definition and resolved the configured
+  environment values successfully.
+- Docker reported `atlas-indexer` healthy.
+- Docker Desktop showed the running container.
+- Splunk Web was reachable through `localhost:8001`.
+- An administrator login completed successfully.
+
+#### Not Yet Validated
+
+- Search Head deployment or operation
+- Distributed Search or search-peer registration
+- Windows Event ingestion or any other external ingestion path
+- Deployment Server operation
+- Persistence after container recreation
+- Clustering, high availability, or production readiness
+
+### Evidence
+
+The existing public artifacts remain in the
+[Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/):
 
 - [Compose configuration validation](../evidence/milestone-01-first-containerized-deployment/2026-08-01_001_compose_validation.png)
 - [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/2026-08-01_002_container_healthy.png)
 - [Docker Desktop container view](../evidence/milestone-01-first-containerized-deployment/2026-08-01_003_docker_desktop.png)
 - [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/2026-08-01_004_first_successful_login.png)
 
-## Lessons Learned
+### Result
 
-- Validate the Compose model before attempting deployment.
-- Keep infrastructure configuration separate from environment-specific
-  deployment values.
-- Use persistent volumes so Splunk state is independent of the container
-  lifecycle.
-- Publish only ports required for host access.
-- Keep internal management ports internal unless troubleshooting requires
-  temporary host access.
+Atlas gained one operational, authenticated, containerized Splunk Enterprise
+Indexer backed by a validated Compose configuration. The milestone mattered
+because every later Atlas capability depended on first proving that the
+documented container model could produce a healthy, accessible runtime.
 
-## Current Project Status
+### Lessons Learned
 
-| Capability | Status |
-| --- | --- |
-| Docker | Operational |
-| Indexer | Operational |
-| Search Head | Not yet deployed |
-| Deployment Server | Not yet deployed |
-| Distributed Search | Planned |
-| HEC | Planned |
-| SC4S | Planned |
-| Detection Engineering | Planned |
+The repository records no failed deployment sequence for this milestone. The
+work established two engineering observations:
 
-## Subsequent checkpoint
+- resolving the Compose model before startup separated configuration errors
+  from runtime behavior; and
+- container health and authenticated Splunk Web access proved different parts
+  of readiness, so both were required.
 
-Milestone 02 subsequently:
+The milestone also left persistence after recreation explicitly unproven even
+though named volumes were configured.
 
-- inspect the running container;
-- study Docker networking, volumes, labels, and health checks;
-- deployed the Search Head; and
-- validated shared-network membership between services.
+### Transition
 
-## Engineering Verdict
-
-Atlas successfully transitioned from architecture documentation to an
-operational Docker-based deployment. The deployment architecture, Compose
-configuration, networking, persistence strategy, and container lifecycle were
-validated through the successful deployment of the first Splunk Enterprise
-service. Atlas is ready for expansion with additional Splunk roles.
+One healthy Indexer proved the container foundation, but Atlas still had no
+separate search tier. The next chapter therefore had to add an independent
+Search Head, give it separate storage, and establish network co-membership
+without prematurely claiming Distributed Search.

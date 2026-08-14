@@ -5,7 +5,7 @@
 [Live engineering record](https://jannsenagustin.github.io/resumeops/) ·
 [Project Atlas](https://jannsenagustin.github.io/resumeops/projects/atlas/) ·
 [Architecture](docs/architecture.md) ·
-[Build record](CASE_STUDY.md) ·
+[Engineering overview](CASE_STUDY.md) ·
 [Roadmap](ROADMAP.md)
 
 ## Engineering record
@@ -33,7 +33,7 @@ ingestion are operational.
 - loopback-bound TCP 9997 transport from Windows to the containerized Indexer;
 - active Universal Forwarder ingestion from host `JNNSN`;
 - searchable Windows Event Logs and Job Inspector proof of remote execution;
-- evidence-linked architecture, decisions, build records, and field notes;
+- evidence-linked architecture, decisions, milestones, and field notes;
 - explicit secret-handling and production-readiness boundaries.
 
 ## Architecture summary
@@ -57,7 +57,7 @@ validation status.
 | `app/` | Next.js routes for the public engineering record |
 | `components/` | Shared presentation and interaction components |
 | `data/` | Typed ResumeOps and Atlas domain records |
-| `docs/` | Architecture, decisions, build records, milestones, and evidence |
+| `docs/` | Architecture, decisions, milestones, journals, DEA, and evidence |
 | `infrastructure/atlas/` | Reviewable Docker Compose source for Atlas |
 | `public/resume/` | Published resume artifact |
 
@@ -66,10 +66,11 @@ Generated directories such as `.next/` and `out/` are not source material.
 ## Documentation map
 
 - [Architecture](docs/architecture.md) — current topology and validated paths
-- [Production record](CASE_STUDY.md) — implementation narrative and outcomes
+- [Engineering overview](CASE_STUDY.md) — project-level technical narrative and outcomes
 - [Atlas milestones](docs/milestones.md) — compact engineering milestone status
 - [Decision trail](docs/adr/) — architecture decision records
-- [Build records](docs/journal/) — milestone-specific implementation notes
+- [Engineering journals](docs/journal/) — milestone-specific historical records
+- [Documentation Experience Architecture](docs/dea/) — reader discovery and documentation-governance decisions
 - [Evidence map](docs/evidence/README.md) — validation artifact conventions
 - [Roadmap](ROADMAP.md) — separate ResumeOps and Project Atlas evolution
 - [Changelog](CHANGELOG.md) — delivered repository changes

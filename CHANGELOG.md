@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Atlas Documentation Foundation
+
+- Introduced `ATLAS_PRINCIPLES.md` as the engineering constitution.
+- Added Documentation Experience Architecture and the Engineering Discovery Map.
+- Introduced the milestone Engineering Summary pattern.
+- Normalized Milestones 01–04 as canonical engineering chapters.
+- Established a reader-first documentation architecture.
+
 ### ResumeOps V2 Editorial Refinement
 
 - Refined homepage editorial flow.
