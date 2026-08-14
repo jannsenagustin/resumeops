@@ -386,3 +386,463 @@ html {
 .availability-record>div { display:grid; grid-template-columns:1.3fr 1fr; gap:2rem; }.availability-record dl { border-top:1px solid var(--lower-rule); }.availability-record dl>div { display:grid; grid-template-columns:8rem 1fr; gap:1rem; padding:.75rem 0; border-bottom:1px solid var(--lower-rule); }.availability-record dt { color:#7e898f; font:.58rem var(--font-geist-mono); }.availability-record dd { color:#b6bec2; font-size:.76rem; }.availability-record nav { display:grid; align-content:start; border-top:1px solid var(--lower-rule); }.availability-record nav a { min-height:44px; padding:.8rem 0; border-bottom:1px solid var(--lower-rule); color:#dce3df; font:600 .65rem var(--font-geist-mono); }
 @media(max-width:1000px){.production-entry{grid-template-columns:220px 1fr}.production-domains{grid-column:1/-1}.production-domains ul{display:grid;grid-template-columns:repeat(2,1fr);gap:0 1.5rem}.production-entry ol li{grid-template-columns:2rem minmax(100px,.6fr) 5rem 1fr}}
 @media(max-width:760px){.home-engineering-record{padding:1rem 1rem 3rem}.record-section>header{grid-template-columns:1fr}.production-entry{grid-template-columns:1fr}.production-domains{grid-column:auto}.production-domains ul{grid-template-columns:1fr}.production-entry ol li{grid-template-columns:2rem 1fr 5rem}.production-entry ol p{grid-column:2/-1}.capability-table{grid-template-columns:1fr}.capability-table article>p{min-height:0}.research-record dl>div{grid-template-columns:1fr;gap:.4rem}.research-record dd{text-align:left}.availability-record>div{grid-template-columns:1fr}}
+
+/* Typography normalization — dense engineering record, 12px production floor */
+:root {
+  --type-micro: .75rem;
+  --type-metadata: .875rem;
+  --type-technical: .9375rem;
+  --type-body: 1rem;
+}
+
+.record-label,
+.system-explorer__mode,
+.atlas-boundary__label,
+.atlas-node__eyebrow,
+.atlas-node__state,
+.atlas-connector small,
+.system-explorer__controls button,
+.component-inspector > a,
+.section-line > span,
+.milestone-record li div span,
+.record-links a,
+.production-employer > span,
+.production-entry > div > h3,
+.production-domains h3,
+.production-entry ol li > span,
+.production-entry ol em,
+.capability-table h3,
+.capability-table a,
+.research-record > a,
+.evolution-record li > span,
+.research-record dd,
+.availability-record dt,
+.availability-record nav a {
+  font-size: var(--type-micro);
+}
+
+dt,
+.atlas-node > span:not(.atlas-node__eyebrow):not(.atlas-node__state),
+.component-inspector p:not(.record-label),
+.milestone-record strong,
+.record-section > header > p:last-child,
+.production-employer p,
+.production-entry ol strong,
+.production-entry ol p,
+.production-domains strong,
+.production-domains span,
+.capability-table li,
+.capability-table article > p,
+.evolution-record li p,
+.research-record dt strong,
+.research-record dt span,
+.availability-record dd {
+  font-size: var(--type-metadata);
+}
+
+dd,
+.atlas-node strong {
+  font-size: var(--type-technical);
+}
+
+.production-entry ol p,
+.capability-table article > p {
+  line-height: 1.6;
+}
+
+dt,
+.system-explorer__mode,
+.atlas-boundary__label,
+.atlas-node__eyebrow,
+.section-line > span,
+.production-employer > span,
+.production-entry ol em,
+.production-domains span,
+.evolution-record li p,
+.research-record dt span,
+.availability-record dt {
+  color: #98a2a8;
+}
+
+dt,
+.atlas-v2-boundary > label,
+.atlas-v2-node > span,
+.atlas-v2-inspector > span {
+  letter-spacing: .06em;
+}
+
+.record-section > header h2,
+.atlas-v2-section > header h2 {
+  font-size: 1.5rem;
+}
+
+.record-metadata > div {
+  grid-template-columns: 8.25rem 1fr;
+}
+
+.atlas-v2-index > div > a,
+.atlas-v2-index > div span,
+.atlas-v2-index li a,
+.atlas-v2-section > header > p,
+.atlas-v2-kicker,
+.atlas-source > p:first-child,
+.atlas-method span,
+.atlas-v2-lenses button,
+.atlas-trace-controls button,
+.atlas-v2-boundary > label,
+.atlas-v2-node > span,
+.atlas-v2-node > em,
+.atlas-v2-path,
+.atlas-v2-path small,
+.atlas-storage,
+.atlas-v2-inspector > p:first-child,
+.atlas-v2-inspector > span,
+.atlas-related a,
+.decision-trail article b,
+.field-notes article > b,
+.validation-chains article > b,
+.evidence-record b,
+.build-record span,
+.limitations-list dd,
+.atlas-source > a {
+  font-size: var(--type-micro);
+}
+
+.atlas-v2-section > header > span,
+.atlas-v2-node > small,
+.atlas-v2-inspector > span + p,
+.decision-trail dd,
+.field-notes dd,
+.validation-chains li,
+.evidence-record dd,
+.limitations-list dt,
+.atlas-source li {
+  font-size: var(--type-metadata);
+}
+
+.atlas-v2-current dd,
+.atlas-v2-inspector dd {
+  font-size: var(--type-technical);
+}
+
+.atlas-v2-current-grid > div > p:last-child,
+.build-record p,
+.atlas-source > p:nth-of-type(2) {
+  font-size: var(--type-body);
+}
+
+.atlas-v2-node > strong {
+  font-size: var(--type-technical);
+}
+
+.decision-trail h3,
+.field-notes h3,
+.validation-chains h3,
+.evidence-record h3,
+.build-record h3 {
+  font-size: 1.125rem;
+}
+
+.atlas-v2-current dt,
+.atlas-v2-inspector dt,
+.evidence-record dt,
+.decision-trail dt,
+.field-notes dt,
+.atlas-v2-node > span,
+.atlas-v2-inspector > span {
+  color: #98a2a8;
+  font-size: var(--type-micro);
+}
+
+.atlas-v2 {
+  --av2-muted: #a2abb0;
+}
+
+/* Adaptive canvas — gradual expansion without widening reading measures */
+:root {
+  --home-canvas: 1360px;
+  --atlas-canvas: 1540px;
+}
+
+.site-header > div,
+.atlas-opening,
+.milestone-record,
+.home-record-grid,
+.home-engineering-record {
+  max-width: var(--home-canvas);
+}
+
+.atlas-v2-main {
+  max-width: var(--atlas-canvas);
+}
+
+.atlas-v2-system {
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 15vw, 380px);
+}
+
+.evidence-record figure {
+  width: 100%;
+  max-width: 1040px;
+  justify-self: end;
+}
+
+@media (min-width: 2000px) {
+  :root {
+    --home-canvas: 1560px;
+    --atlas-canvas: 1760px;
+  }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --home-canvas: 1840px;
+    --atlas-canvas: 2040px;
+  }
+
+  .decision-trail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 3200px) {
+  :root {
+    --home-canvas: 2200px;
+    --atlas-canvas: 2400px;
+  }
+}
+
+/* Metadata and collision hardening */
+dt,
+dd,
+.component-inspector > *,
+.atlas-v2-inspector > *,
+.milestone-record li > div,
+.build-record li > div,
+.production-entry > div,
+.production-entry ol li > *,
+.research-record dt,
+.research-record dd {
+  min-width: 0;
+}
+
+.record-metadata > div,
+.engineer-facts > div {
+  grid-template-columns: minmax(min(8.25rem, 42%), 42%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.component-inspector {
+  container-type: inline-size;
+}
+
+.component-inspector dl {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  width: 100%;
+}
+
+.component-inspector dl > div {
+  grid-template-columns: minmax(min(9.5rem, 45%), 45%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.atlas-v2-inspector {
+  container-type: inline-size;
+}
+
+.atlas-v2-inspector dl div {
+  grid-template-columns: minmax(min(7rem, 42%), 42%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.decision-trail dl div,
+.field-notes dl div {
+  grid-template-columns: minmax(min(7rem, 32%), 32%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.evidence-record dl div {
+  grid-template-columns: minmax(min(7rem, 38%), 38%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.availability-record dl > div {
+  grid-template-columns: minmax(min(8rem, 38%), 38%) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.research-record dl > div,
+.limitations-list div {
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.component-inspector dt,
+.atlas-v2-inspector dt,
+.record-metadata dt,
+.engineer-facts dt,
+.decision-trail dt,
+.field-notes dt,
+.evidence-record dt,
+.availability-record dt {
+  overflow-wrap: anywhere;
+}
+
+.component-inspector dd,
+.atlas-v2-inspector dd,
+.atlas-v2-current dd,
+.evidence-record dd,
+.limitations-list dd,
+.record-metadata dd,
+.engineer-facts dd {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.decision-trail dd,
+.field-notes dd,
+.production-entry ol p,
+.production-domains span,
+.capability-table article > p,
+.research-record dt span {
+  overflow-wrap: break-word;
+}
+
+.atlas-related {
+  gap: .5rem .75rem;
+  align-items: baseline;
+}
+
+.atlas-related a {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atlas-node,
+.atlas-v2-node {
+  height: auto;
+}
+
+.atlas-node > span,
+.atlas-v2-node > span,
+.atlas-v2-node > small,
+.atlas-v2-node > em,
+.atlas-storage,
+.atlas-v2-path {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atlas-connector small {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.milestone-record strong,
+.milestone-record li div span,
+.build-record h3,
+.build-record p,
+.build-record span,
+.limitations-list dt,
+.research-record dt strong,
+.research-record dt span,
+.research-record dd {
+  overflow-wrap: break-word;
+}
+
+@container (max-width: 320px) {
+  .atlas-v2-inspector dl div {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: .25rem;
+  }
+}
+
+@media (max-width: 1500px) {
+  .atlas-v2-system {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-v2-inspector {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    gap: 0 1.5rem;
+  }
+
+  .atlas-v2-inspector dl {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+  }
+
+  .atlas-v2-inspector .atlas-related {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 1100px) {
+  .component-inspector {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  }
+
+  .component-inspector > a {
+    grid-column: 1 / -1;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 900px) {
+  .atlas-schematic,
+  .atlas-v2-diagram {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .atlas-boundary,
+  .atlas-v2-boundary,
+  .atlas-v2-boundary.docker {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-boundary--host,
+  .atlas-boundary--docker,
+  .atlas-v2-boundary,
+  .atlas-v2-boundary.docker {
+    padding-top: 2.2rem;
+  }
+
+  .atlas-node,
+  .atlas-v2-node,
+  .atlas-v2-path,
+  .atlas-storage {
+    width: 100%;
+  }
+
+  .atlas-connector,
+  .atlas-v2-boundary > i {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .component-inspector {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .component-inspector dl,
+  .component-inspector dl > div,
+  .atlas-v2-inspector dl div,
+  .decision-trail dl div,
+  .field-notes dl div,
+  .evidence-record dl div,
+  .availability-record dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: .25rem;
+  }
+}
