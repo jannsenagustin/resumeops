@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+### Repository coherence
+
+- Reframed the repository as the source record for ResumeOps and Project Atlas.
+- Separated ResumeOps publishing evolution from Atlas engineering milestones.
+- Aligned public documentation with Production Record, Build Record, evidence,
+  validation, and current-state terminology.
+- Removed obsolete prototype screenshots and normalized the Milestone 03
+  distributed-search evidence naming.
+
+### ResumeOps V2 — Homepage Pass 3 (local visual checkpoint)
+
+- Reworked the homepage below Atlas into a continuous engineering record.
+- Replaced portfolio-style experience, skills, journey, and contact sections with Production Record, Engineering Capabilities, Technical Evolution, Current Research, and Availability.
+- Removed repeated card grids, technology pills, and marketing-oriented contact language from the lower homepage.
+
+### ResumeOps V2 — Pass 2 (local visual checkpoint)
+
+- Rebuilt the Project Atlas page as a system-first engineering record.
+- Added an explorable architecture, Decision Trail, validation chains, evidence exhibits, Build Record, and concise Field Notes.
+- Cross-linked components, decisions, evidence, milestones, and troubleshooting records.
+- Standardized the Milestone 03 Distributed Search evidence path and public Atlas terminology.
+
 ### ResumeOps V2 — Pass 1
 
 - Rebuilt the ResumeOps homepage around an interactive engineering-record presentation.

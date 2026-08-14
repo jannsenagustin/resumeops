@@ -1,8 +1,12 @@
 # Project Atlas Infrastructure
 
-This directory contains the reproducible Docker Compose foundation for Project Atlas, the Enterprise Observability Home Lab. It defines three separate Splunk Enterprise containers, a dedicated bridge network, and role-specific persistent volumes.
+This directory contains the reproducible Docker Compose foundation for Project
+Atlas. It defines three separate Splunk Enterprise roles, a dedicated bridge
+network, and role-specific persistent volumes.
 
-The configuration is an infrastructure foundation, not evidence of a successful deployment. It is intended for a learning lab on one Windows workstation and is not production-ready.
+The configuration is the source definition, not evidence of successful runtime
+behavior. Atlas is an engineering lab on one Windows workstation and is not a
+production deployment.
 
 ## Contents
 
@@ -68,7 +72,7 @@ docker compose ps
 ```
 
 Container startup does not prove role readiness. Follow the evidence sequence in
-the [engineering narrative](../../CASE_STUDY.md#validation-and-evidence) and update the
+the [Production Record](../../CASE_STUDY.md#validation-and-evidence) and update the
 [milestone record](../../docs/milestones.md) only after each result is verified.
 
 ## Stop the Environment

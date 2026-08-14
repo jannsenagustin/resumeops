@@ -1,4 +1,4 @@
-# Sprint 6D — Search Head Deployment
+# Build Record 02 — Search Head Deployment
 
 ## Summary
 

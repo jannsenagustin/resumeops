@@ -1,4 +1,4 @@
-# Sprint 6F — Windows Event Ingestion via Universal Forwarder
+# Build Record 04 — Windows Event Ingestion via Universal Forwarder
 
 ## Objective
 

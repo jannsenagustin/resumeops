@@ -1,4 +1,4 @@
-# Sprint 6C – First Successful Containerized Splunk Deployment
+# Build Record 01 — Indexer Deployment
 
 ## Summary
 
@@ -89,14 +89,14 @@ are the first operational deployment evidence captured for Atlas:
 | SC4S | Planned |
 | Detection Engineering | Planned |
 
-## Next Sprint
+## Subsequent checkpoint
 
-Sprint 6D is planned to:
+Milestone 02 subsequently:
 
 - inspect the running container;
 - study Docker networking, volumes, labels, and health checks;
-- deploy the Search Head; and
-- validate communication between services.
+- deployed the Search Head; and
+- validated shared-network membership between services.
 
 ## Engineering Verdict
 

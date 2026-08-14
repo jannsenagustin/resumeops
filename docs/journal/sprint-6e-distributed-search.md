@@ -1,4 +1,4 @@
-# Sprint 6E — Distributed Search
+# Build Record 03 — Distributed Search
 
 ## Objective
 
@@ -113,9 +113,9 @@ Splunk Web. Port 8089 is not claimed as host-published.
 
 ## Evidence
 
-- [Search Peer status](../evidence/milestone-03-deployment-server/2026-08-06_001_search_peer_configuration.png)
-- [Distributed SPL results](../evidence/milestone-03-deployment-server/2026-08-06_001_distributed_spl_%20search_results.png)
-- [Search Job Inspector](../evidence/milestone-03-deployment-server/2026-08-06_001_search_job_inspector_results.png)
+- [Search Peer status](../evidence/milestone-03-distributed-search/2026-08-06_001_search_peer_configuration.png)
+- [Distributed SPL results](../evidence/milestone-03-distributed-search/2026-08-06_001_distributed_search_results.png)
+- [Search Job Inspector](../evidence/milestone-03-distributed-search/2026-08-06_001_search_job_inspector_results.png)
 
 The local `server.conf` screenshot was omitted because it exposes secret-bearing
 values. The textual record preserves the engineering lesson without publishing

@@ -1,4 +1,4 @@
-# Atlas: Containerized Splunk Observability Lab
+# Project Atlas Production Record
 
 ## Executive summary
 
@@ -115,7 +115,7 @@ from the Search Head returned both Atlas hosts, and Job Inspector explicitly
 showed `dispatch.stream.remote.atlas-indexer`. That component confirms remote
 Indexer participation in execution coordinated by the Search Head. The shown
 counts are point-in-time observations, not fixed architectural values. [The
-Milestone 03 evidence](docs/evidence/milestone-03-deployment-server/) supports
+Milestone 03 evidence](docs/evidence/milestone-03-distributed-search/) supports
 these claims.
 
 Milestone 04 validates the external telemetry path. Windows showed the
@@ -188,9 +188,10 @@ host-to-container receiver, indexed Event Logs, Search Head results, and remote
 Indexer execution. This is an evidence-backed lab pipeline, not a production or
 high-availability architecture.
 
-## Next milestone
+## Roadmap
 
-Deployment Server, app-based configuration management, additional data sources,
-performance telemetry, custom indexes where appropriate, dashboards,
-detections, alerts, TLS/PKI hardening, clustering, high availability, Azure
-DevOps CI/CD, and Kubernetes/Splunk Operator exploration remain future work.
+Managed data onboarding is the next planned Atlas milestone. Additional data
+sources, performance telemetry, dashboards, detections, alerts, security
+hardening, resilience, and delivery automation remain future considerations.
+They are separated from ResumeOps publishing work in the
+[repository roadmap](ROADMAP.md).

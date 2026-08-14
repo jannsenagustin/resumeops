@@ -102,7 +102,7 @@ export default function EvidenceViewer({
         <button
           ref={triggerRef}
           type="button"
-          className="group relative block w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green-400"
+          className="evidence-preview-frame group relative flex w-full cursor-zoom-in items-center justify-center overflow-hidden bg-[#080b0d] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green-400"
           aria-label={`View enlarged evidence: ${caption}`}
           aria-haspopup="dialog"
           onClick={() => setIsOpen(true)}
@@ -110,7 +110,7 @@ export default function EvidenceViewer({
           <Image
             src={src}
             alt={alt}
-            className="h-auto w-full"
+            className="evidence-preview-image"
             sizes={isPrimary ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
           />
           <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/80 px-3 py-1.5 text-xs font-semibold text-gray-200 shadow-lg backdrop-blur-sm transition-colors group-hover:border-green-400/50 group-hover:text-green-300 group-focus-visible:border-green-400/50 group-focus-visible:text-green-300">

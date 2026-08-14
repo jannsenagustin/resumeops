@@ -43,4 +43,4 @@ yarn-error.log*
 next-env.d.ts
 
 # Local Atlas evidence containing secret-bearing Splunk configuration
-/docs/evidence/milestone-03-deployment-server/2026-08-06_001_server.conf_configuration.png
+/docs/evidence/milestone-03-distributed-search/2026-08-06_001_server.conf_configuration.png

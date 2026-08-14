@@ -1,19 +1,13 @@
 import Navbar from "../components/Navbar";
 import ResumeOpsHome from "../components/ResumeOpsHome";
-import EnterpriseExperience from "../components/EnterpriseExperience";
-import Skills from "../components/Skills";
-import CareerJourney from "../components/CareerJourney";
-import Contact from "../components/Contact";
+import HomeEngineeringRecord from "../components/HomeEngineeringRecord";
 
 export default function Home() {
   return (
     <main id="overview" className="min-h-screen scroll-mt-24 bg-black text-white">
       <Navbar />
       <ResumeOpsHome />
-      <EnterpriseExperience />
-      <Skills />
-      <CareerJourney />
-      <Contact />
+      <HomeEngineeringRecord />
     </main>
   );
 }
