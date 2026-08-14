@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### ResumeOps V2 Editorial Refinement
+
+- Refined homepage editorial flow.
+- Strengthened the recruiter-first experience.
+- Curated Production Proof.
+- Added concise enterprise contribution summaries.
+- Simplified homepage information hierarchy.
+- Preserved Atlas as the primary engineering proof.
+- Improved homepage pacing while retaining engineering depth.
+
 ### Repository coherence
 
 - Reframed the repository as the source record for ResumeOps and Project Atlas.

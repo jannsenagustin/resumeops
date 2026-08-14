@@ -169,9 +169,10 @@ export const atlasMilestones: AtlasMilestone[] = [
   },
   {
     id: "05",
-    title: "Data Ingestion",
+    title: "Rocky Linux Deployment Server & Configuration Management",
     status: "Roadmap",
-    summary: "Implement and validate an evidence-backed ingestion path.",
+    summary:
+      "Plan centralized forwarder configuration management through a Rocky Linux Deployment Server; implementation has not begun.",
   },
   {
     id: "06",
@@ -182,9 +183,9 @@ export const atlasMilestones: AtlasMilestone[] = [
 ];
 
 export const atlasNextMilestone = {
-  title: "Managed data onboarding",
+  title: "Rocky Linux Deployment Server & Configuration Management",
   description:
-    "Future work may add Deployment Server and app-based forwarder management; neither is part of Milestone 04.",
+    "Milestone 05 plans a Rocky Linux Deployment Server and app-based forwarder configuration management; neither is implemented.",
 };
 
 export const atlasDecisions: EngineeringDecision[] = [

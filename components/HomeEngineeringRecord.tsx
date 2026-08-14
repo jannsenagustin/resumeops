@@ -1,33 +1,180 @@
 import Link from "next/link";
 import { enterpriseExperience } from "../data/experience";
 
-const capabilityGroups = [
-  { id:"observability", title:"OBSERVABILITY", items:["Distributed Search","Windows Event Ingestion","Dashboard Development","SPL","Alerting","Reporting"], note:"Distributed Search and Windows Event Ingestion are demonstrated publicly in Atlas.", href:"/projects/atlas/#validation" },
-  { id:"platform", title:"PLATFORM", items:["Splunk Administration","Data Onboarding","Index Management","Troubleshooting","Platform Operations","Configuration Deployment"], note:"Enterprise delivery and Atlas build documentation provide supporting context.", href:"/projects/atlas/#build-record" },
-  { id:"data", title:"DATA", items:["Parsing Validation","Field Extractions","Sourcetypes","Search Validation","Lookups","Data Models"], note:"Capabilities are grounded in production experience; no separate public exhibit is claimed.", href:null },
-] as const;
+const selectedEnvironmentIds = [
+  "shell",
+  "ameren",
+  "carlsberg",
+  "loreal",
+  "hawaiian-telecom",
+  "kering",
+];
 
-const evolution = [
-  ["01","Enterprise Foundation","Application support, data workflows, and operational delivery"], ["02","Production Delivery","Global enterprise environments through Accenture"],
-  ["03","Dashboard Engineering","Operational reporting, analytics, and migration views"], ["04","Splunk Platform","Administration, data onboarding, configuration, and support"],
-  ["05","Observability","Searchable operational data, monitoring, and validation"], ["06","Canada","Continued technical development after relocation"],
-  ["07","ResumeOps","Engineering work published as structured records"], ["08","Project Atlas","Evidence-backed distributed Splunk proving ground"],
-  ["09","Current Research","Managed forwarding, configuration intelligence, and telemetry systems"],
+const representativeWork = [
+  "Data onboarding",
+  "Dashboard engineering",
+  "Platform support",
+  "Monitoring and alerting",
+  "Configuration deployment through existing pipelines",
+  "Technical documentation",
+];
+
+const capabilities = [
+  { name: "Splunk administration", source: "Production experience", href: "#experience" },
+  { name: "Data onboarding", source: "Production experience", href: "#experience" },
+  { name: "SPL development", source: "Production experience", href: "#experience" },
+  { name: "Dashboards and reporting", source: "Production experience", href: "#experience" },
+  { name: "Distributed search", source: "Atlas validation", href: "/projects/atlas/#validation" },
+  { name: "Windows Event ingestion", source: "Atlas Milestone 04", href: "/projects/atlas/#validation" },
+  { name: "Troubleshooting", source: "Atlas field notes", href: "/projects/atlas/#field-notes" },
+  { name: "Operational documentation", source: "Experience and Atlas", href: "/projects/atlas/#build-record" },
 ] as const;
 
 const research = [
-  ["Deployment Server","PLANNING","Defined as the next Atlas capability; not implemented."],
-  ["Splunk Config Intelligence","DESIGN","Roadmap concept for inspecting and explaining configuration changes."],
-  ["OpenTelemetry","RESEARCH","Vendor-neutral telemetry collection remains a future learning project."],
-  ["Kubernetes / Splunk Operator","EXPLORATION","Explicitly exploratory; no implementation claim."],
+  {
+    name: "Rocky Linux Deployment Server & Configuration Management",
+    state: "PLANNED",
+    detail: "Atlas Milestone 05; implementation has not begun.",
+  },
+  {
+    name: "Splunk Config Intelligence",
+    state: "DESIGN",
+    detail: "A concept for inspecting and explaining configuration changes.",
+  },
+  {
+    name: "OpenTelemetry",
+    state: "RESEARCH",
+    detail: "Future study of vendor-neutral telemetry collection.",
+  },
+  {
+    name: "Kubernetes / Splunk Operator",
+    state: "EXPLORATORY",
+    detail: "Exploration only; no implementation claim.",
+  },
 ] as const;
 
 export default function HomeEngineeringRecord() {
-  return <div className="home-engineering-record">
-    <section id="experience" className="record-section production-record" aria-labelledby="production-title"><header><p className="record-label">01 / PRODUCTION RECORD</p><h2 id="production-title">Enterprise Delivery</h2><p>Where has this engineering been applied?</p></header><div className="production-entry"><div className="production-employer"><span>ORGANIZATION</span><h3>{enterpriseExperience.company}</h3><p>{enterpriseExperience.period}</p><p>{enterpriseExperience.role}</p></div><div><h3>Production environments supported</h3><ol>{enterpriseExperience.deliveryExperience.map((delivery,index)=><li key={delivery.id}><span>{String(index+1).padStart(2,"0")}</span><strong>{delivery.organization}</strong><em>{delivery.region}</em><p>{delivery.focus}</p></li>)}</ol></div><div className="production-domains"><h3>Engineering domains</h3><ul>{enterpriseExperience.engineeringDomains.map(domain=><li key={domain.id}><strong>{domain.title}</strong><span>{domain.description}</span></li>)}</ul></div></div></section>
-    <section id="skills" className="record-section capability-record" aria-labelledby="capabilities-title"><header><p className="record-label">02 / ENGINEERING CAPABILITIES</p><h2 id="capabilities-title">Demonstrated disciplines</h2><p>What can be demonstrated?</p></header><div className="capability-table">{capabilityGroups.map(group=><article key={group.id}><h3>{group.title}</h3><ul>{group.items.map(item=><li key={item}>{item}</li>)}</ul><p>{group.note}</p>{group.href&&<Link href={group.href}>VIEW SUPPORTING RECORD →</Link>}</article>)}</div></section>
-    <section id="journey" className="record-section evolution-record" aria-labelledby="evolution-title"><header><p className="record-label">03 / TECHNICAL EVOLUTION</p><h2 id="evolution-title">Engineering progression</h2><p>How has the engineering grown?</p></header><ol>{evolution.map(([id,title,detail])=><li key={id}><span>{id}</span><div><h3>{title}</h3><p>{detail}</p></div></li>)}</ol></section>
-    <section id="research" className="record-section research-record" aria-labelledby="research-title"><header><p className="record-label">04 / CURRENT RESEARCH</p><h2 id="research-title">Active learning record</h2><p>What is currently being learned?</p></header><dl>{research.map(([name,state,detail])=><div key={name}><dt><strong>{name}</strong><span>{detail}</span></dt><dd>{state}</dd></div>)}</dl><Link href="/projects/">VIEW PROJECT ROADMAP →</Link></section>
-    <section id="contact" className="record-section availability-record" aria-labelledby="availability-title"><header><p className="record-label">05 / AVAILABILITY</p><h2 id="availability-title">Available for engineering work</h2><p>How can this engineer be reached?</p></header><div><dl><div><dt>DISCIPLINES</dt><dd>Splunk Engineering · Observability · Platform Operations</dd></div><div><dt>LOCATION</dt><dd>Canada</dd></div><div><dt>WORK MODE</dt><dd>Remote</dd></div></dl><nav aria-label="Availability links"><a href="https://github.com/jannsenagustin" target="_blank" rel="noopener noreferrer">GITHUB →</a><a href="https://www.linkedin.com/in/jannsen-agustin/" target="_blank" rel="noopener noreferrer">LINKEDIN →</a><Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>RESUME ↓</Link></nav></div></section>
-  </div>;
+  const selectedEnvironments = enterpriseExperience.deliveryExperience.filter(
+    (delivery) => selectedEnvironmentIds.includes(delivery.id),
+  );
+
+  return (
+    <div className="home-engineering-record">
+      <section id="experience" className="editorial-section production-proof" aria-labelledby="production-title">
+        <header className="editorial-heading">
+          <p className="record-label">01 / PRODUCTION PROOF</p>
+          <div>
+            <h2 id="production-title">Enterprise experience behind Atlas</h2>
+            <p>Where has this engineering been applied?</p>
+          </div>
+        </header>
+        <div className="production-proof__lead">
+          <div className="production-proof__employer">
+            <p className="record-label">EMPLOYER / PERIOD</p>
+            <h3>{enterpriseExperience.company}</h3>
+            <p>{enterpriseExperience.period}</p>
+          </div>
+          <p>{enterpriseExperience.summary}</p>
+        </div>
+        <div className="production-proof__selections">
+          <div>
+            <h3>Selected environments</h3>
+            <ul className="environment-index">
+              {selectedEnvironments.map((delivery, index) => (
+                <li key={delivery.id}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <div className="environment-index__heading">
+                      <strong>{delivery.organization}</strong>
+                      <em>{delivery.region}</em>
+                    </div>
+                    <p>{delivery.focus}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3>Representative work</h3>
+            <ul className="representative-index">
+              {representativeWork.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+        <Link className="editorial-link" href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>
+          VIEW COMPLETE EXPERIENCE IN RESUME ↓
+        </Link>
+      </section>
+
+      <section id="skills" className="editorial-section capability-editorial" aria-labelledby="capabilities-title">
+        <header className="editorial-heading">
+          <p className="record-label">02 / DEMONSTRATED CAPABILITY</p>
+          <div>
+            <h2 id="capabilities-title">Selected Splunk and observability work</h2>
+            <p>What can this engineer actually do?</p>
+          </div>
+        </header>
+        <ol className="capability-index">
+          {capabilities.map((capability, index) => (
+            <li key={capability.name}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{capability.name}</strong>
+              <Link href={capability.href}>{capability.source} →</Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="research" className="editorial-section research-editorial" aria-labelledby="research-title">
+        <header className="editorial-heading">
+          <p className="record-label">03 / TECHNICAL DIRECTION</p>
+          <div>
+            <h2 id="research-title">Current research</h2>
+            <p>What is being rebuilt or learned next?</p>
+          </div>
+        </header>
+        <div className="research-editorial__lead">
+          <p className="record-label">NEXT ATLAS MILESTONE</p>
+          <h3>05 — Rocky Linux Deployment Server &amp; Configuration Management</h3>
+          <p>Planned work toward centralized forwarder configuration management. No implementation is claimed.</p>
+        </div>
+        <dl className="research-index">
+          {research.map((item) => (
+            <div key={item.name}>
+              <dt><strong>{item.name}</strong><span>{item.detail}</span></dt>
+              <dd>{item.state}</dd>
+            </div>
+          ))}
+        </dl>
+        <Link className="editorial-link" href="/projects/">VIEW PROJECT ROADMAP →</Link>
+      </section>
+
+      <section id="contact" className="editorial-section continue-editorial" aria-labelledby="continue-title">
+        <header className="editorial-heading">
+          <p className="record-label">04 / CONTINUE INVESTIGATING</p>
+          <div>
+            <h2 id="continue-title">Follow the engineering record</h2>
+            <p>Where should an interested visitor go next?</p>
+          </div>
+        </header>
+        <div className="continue-editorial__body">
+          <div>
+            <p>Architecture decisions, validation, field notes, evidence, and source remain available in the full Atlas dossier.</p>
+            <dl>
+              <div><dt>DISCIPLINES</dt><dd>Splunk Engineering · Observability · Platform Operations</dd></div>
+              <div><dt>LOCATION</dt><dd>Canada</dd></div>
+              <div><dt>WORK MODE</dt><dd>Remote</dd></div>
+            </dl>
+          </div>
+          <nav aria-label="Investigation and availability links">
+            <Link href="/projects/atlas/">ATLAS PROJECT RECORD →</Link>
+            <Link href="/projects/">PROJECT ROADMAP →</Link>
+            <Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>RESUME ↓</Link>
+            <a href="https://github.com/jannsenagustin" target="_blank" rel="noopener noreferrer">GITHUB →</a>
+            <a href="https://www.linkedin.com/in/jannsen-agustin/" target="_blank" rel="noopener noreferrer">LINKEDIN →</a>
+          </nav>
+        </div>
+      </section>
+    </div>
+  );
 }
