@@ -1,6 +1,12 @@
 import { type ProjectStatus } from "../data/projects";
 
-export type Status = ProjectStatus;
+export type Status =
+  | ProjectStatus
+  | "planned"
+  | "future"
+  | "failed"
+  | "active"
+  | "inactive";
 
 type StatusBadgeProps = {
   status: Status;
@@ -17,19 +23,39 @@ const statusConfig: Record<
 > = {
   "in-progress": {
     label: "In Progress",
-    classes: "border-green-400/30 bg-green-400/10 text-green-300",
+    classes: "atlas-status--active",
   },
   "configuration-complete": {
     label: "Configuration Complete",
-    classes: "border-amber-400/30 bg-amber-400/10 text-amber-200",
+    classes: "atlas-status--planned",
   },
   roadmap: {
     label: "Roadmap",
-    classes: "border-slate-500/30 bg-slate-500/10 text-slate-300",
+    classes: "atlas-status--future",
   },
   validated: {
     label: "Validated",
-    classes: "border-green-300/30 bg-green-300/10 text-green-200",
+    classes: "atlas-status--validated",
+  },
+  planned: {
+    label: "Planned",
+    classes: "atlas-status--planned",
+  },
+  future: {
+    label: "Future",
+    classes: "atlas-status--future",
+  },
+  failed: {
+    label: "Failed",
+    classes: "atlas-status--failed",
+  },
+  active: {
+    label: "Active",
+    classes: "atlas-status--active",
+  },
+  inactive: {
+    label: "Inactive",
+    classes: "atlas-status--inactive",
   },
 };
 
@@ -42,7 +68,7 @@ export default function StatusBadge({
 
   return (
     <span
-      className={`inline-flex w-fit rounded-full border px-3 py-1 text-xs font-medium ${config.classes} ${className}`}
+      className={`atlas-status ${config.classes} ${className}`}
     >
       {label ?? config.label}
     </span>

@@ -7,7 +7,15 @@ import { projects } from "../../data/projects";
 export const metadata: Metadata = {
   title: "Engineering Projects",
   description:
-    "Explore Atlas and the engineering project roadmap presented through ResumeOps.",
+    "Explore Project Atlas and its evidence-backed engineering project roadmap.",
+  openGraph: {
+    title: "Engineering Projects | Project Atlas",
+    description: "Explore Project Atlas and its evidence-backed engineering project roadmap.",
+  },
+  twitter: {
+    title: "Engineering Projects | Project Atlas",
+    description: "Explore Project Atlas and its evidence-backed engineering project roadmap.",
+  },
 };
 
 export default function ProjectsPage() {
@@ -21,7 +29,7 @@ export default function ProjectsPage() {
           href="/"
           className="motion-link text-sm font-semibold text-gray-400 hover:text-green-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
         >
-          ← Back to ResumeOps
+          ← Back to Project Atlas
         </Link>
 
         <div className="mt-12" data-motion-reveal>

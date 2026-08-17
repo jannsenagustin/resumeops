@@ -19,8 +19,16 @@ import windowsIngestion from "../../../docs/evidence/milestone-04-windows-event-
 import windowsExecution from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-05-distributed-search-execution.png";
 
 export const metadata: Metadata = {
-  title: "Project Atlas | Engineering Record",
+  title: "Engineering Record",
   description: "Explore Atlas through its milestone chronology, system architecture, decision trail, validation evidence, field notes, and source.",
+  openGraph: {
+    title: "Engineering Record | Project Atlas",
+    description: "Explore Atlas through its milestone chronology, system architecture, decision trail, validation evidence, field notes, and source.",
+  },
+  twitter: {
+    title: "Engineering Record | Project Atlas",
+    description: "Explore Atlas through its milestone chronology, system architecture, decision trail, validation evidence, field notes, and source.",
+  },
 };
 
 const evidence = [

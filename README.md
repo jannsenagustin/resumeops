@@ -1,6 +1,6 @@
-# ResumeOps
+# Project Atlas
 
-> Public engineering record for building, validating, and explaining systems work.
+> Evidence-backed Engineering Console for building, validating, and explaining systems work.
 
 [Live engineering record](https://jannsenagustin.github.io/resumeops/) ·
 [Project Atlas](https://jannsenagustin.github.io/resumeops/projects/atlas/) ·
@@ -10,10 +10,14 @@
 
 ## Engineering record
 
-ResumeOps publishes implemented work, validation evidence, engineering
+Project Atlas publishes implemented work, validation evidence, engineering
 decisions, and current limitations. The website is the interactive reading
 layer; this repository is the source of truth for the application,
 documentation, and reproducible configuration.
+
+Project Atlas originated as ResumeOps. As the project expanded beyond a resume
+portfolio into an evidence-backed Engineering Console, its public identity
+evolved while its engineering history and repository paths remained intact.
 
 ## Project Atlas
 
@@ -21,7 +25,7 @@ Project Atlas is the flagship record: a workstation-scale Splunk environment
 with separate Search Head and Indexer roles in Docker and a Windows-host
 Universal Forwarder supplying external Event Log telemetry.
 
-**Current state:** ResumeOps V2. Atlas Milestone 04 is complete and validated.
+**Current state:** Project Atlas Engineering Console. Milestone 04 is complete and validated.
 Distributed search and Windows Application, Security, and System Event Log
 ingestion are operational.
 
@@ -56,7 +60,7 @@ validation status.
 | --- | --- |
 | `app/` | Next.js routes for the public engineering record |
 | `components/` | Shared presentation and interaction components |
-| `data/` | Typed ResumeOps and Atlas domain records |
+| `data/` | Typed Project Atlas domain records |
 | `docs/` | Architecture, decisions, milestones, journals, DEA, and evidence |
 | `infrastructure/atlas/` | Reviewable Docker Compose source for Atlas |
 | `public/resume/` | Published resume artifact |
@@ -72,7 +76,7 @@ Generated directories such as `.next/` and `out/` are not source material.
 - [Engineering journals](docs/journal/) — milestone-specific historical records
 - [Documentation Experience Architecture](docs/dea/) — reader discovery and documentation-governance decisions
 - [Evidence map](docs/evidence/README.md) — validation artifact conventions
-- [Roadmap](ROADMAP.md) — separate ResumeOps and Project Atlas evolution
+- [Roadmap](ROADMAP.md) — Project Atlas publication and engineering evolution
 - [Changelog](CHANGELOG.md) — delivered repository changes
 - [Infrastructure guide](infrastructure/atlas/README.md) — local Atlas operation
 
@@ -138,7 +142,7 @@ Claims are tied to repository artifacts rather than fixed counters:
 
 ## Roadmap
 
-ResumeOps publishing work and Atlas engineering milestones are tracked
+Project Atlas publication work and engineering milestones are tracked
 separately in [ROADMAP.md](ROADMAP.md). Planned work is not presented as
 implemented capability.
 

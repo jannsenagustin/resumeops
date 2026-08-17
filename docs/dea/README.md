@@ -1,7 +1,9 @@
 # Documentation Experience Architecture
 
 Documentation Experience Architecture (DEA) governs how readers discover,
-understand, verify, and inspect ResumeOps and Project Atlas engineering work.
+understand, verify, and inspect Project Atlas engineering work. Project Atlas
+originated as ResumeOps, and historical DEA records may retain that name where
+it describes the earlier project identity.
 It governs the reading experience rather than the technical implementation.
 
 This directory exists to define that experience before documentation,

@@ -2,11 +2,12 @@
 
 ## 01. Mission
 
-ResumeOps exists to publish engineering work as a reviewable record. Project
-Atlas is its primary engineering publication: a real Splunk environment whose
+Project Atlas originated as ResumeOps, a system for publishing engineering work
+as a reviewable record. It is now an Engineering Console centered on a real
+Splunk environment whose
 capabilities are implemented, validated, and documented over time.
 
-Atlas proves engineering capability through evidence rather than résumé
+Atlas proves engineering capability through evidence rather than resume
 claims. Engineering itself is the product. Documentation is part of that
 engineering, not a summary added after the work is complete.
 
@@ -203,7 +204,7 @@ unvalidated behavior creates credibility.
 Write like engineering documentation. Use precise terms, direct sentences,
 stable names, and explicit validation boundaries.
 
-Avoid marketing, sales language, résumé language, AI buzzwords, and empty
+Avoid marketing, sales language, resume language, AI buzzwords, and empty
 adjectives. Do not use phrases such as:
 
 - cutting-edge;
@@ -301,7 +302,7 @@ Every page has one primary purpose:
 - The homepage introduces.
 - Atlas documents.
 - Project pages showcase defined engineering work.
-- The résumé summarizes.
+- The resume summarizes.
 - The repository proves.
 
 Do not duplicate information across pages merely to fill space. Give readers

@@ -2,7 +2,7 @@
 
 **Status:** Draft / Architectural Review
 
-**Scope:** Project Atlas and ResumeOps engineering documentation
+**Scope:** Project Atlas (formerly ResumeOps) engineering documentation
 
 **North Star:** “I feel like I’m learning with you.”
 
@@ -71,7 +71,7 @@ The experience follows reader questions rather than repository filenames.
 **Primary question:** Is Jannsen the right fit for the role?
 
 **Needs:** Identity, specialization, enterprise experience, demonstrated proof,
-current focus, résumé, and availability.
+current focus, resume, and availability.
 
 **Does not initially need:** Docker internals, Splunk configuration, detailed
 ADRs, evidence metadata, or command output.
@@ -194,7 +194,7 @@ The canonical sequence is:
 
 | Layer | Reader question | Information allowed | Information prohibited at this layer | Expected time | Primary interface | Transition |
 | --- | --- | --- | --- | --- | --- | --- |
-| 0 — Identity | Who built this? | Name, role, specialization, current focus, résumé path | System internals and evidence metadata | 5–10 seconds | Homepage | What is Atlas? |
+| 0 — Identity | Who built this? | Name, role, specialization, current focus, resume path | System internals and evidence metadata | 5–10 seconds | Homepage | What is Atlas? |
 | 1 — Context | What is Atlas? | Purpose, system category, current scope, honest status | Port tables, configuration, and detailed chronology | 15–30 seconds | Homepage and Atlas overview | Why is it different? |
 | 2 — Differentiation | Why is Atlas different? | Engineering evolution, evidence model, human ownership, transparent AI assistance | Full milestone prose and implementation detail | 30–60 seconds | Atlas overview | How did it evolve? |
 | 3 — Evolution | How did Atlas become this? | Ordered milestones, starting states, changes, outcomes, transitions | Raw evidence dumps and low-level configuration | 1–3 minutes | Atlas overview and milestone index | Can the claims be proven? |
@@ -264,7 +264,7 @@ DEA exists to correct that experience without removing the underlying detail.
 | Architecture document | What exists and how is it connected? | Current and historical topology |
 | Repository | How was it implemented? | Source of truth |
 | README | What is in this repository and where should I begin? | Repository entry point |
-| Résumé | Is this engineer professionally relevant to the role? | Concise employment and qualification summary |
+| Resume | Is this engineer professionally relevant to the role? | Concise employment and qualification summary |
 
 No document should attempt to answer all reader questions. Cross-references
 connect responsibilities; duplicated narratives blur them.
@@ -276,7 +276,7 @@ connect responsibilities; duplicated narratives blur them.
 **Audience:** Recruiter or first-time visitor.
 
 The reader must understand Jannsen’s professional identity, what Atlas is, that
-its claims are supported by validation, and where to view the résumé or
+its claims are supported by validation, and where to view the resume or
 continue.
 
 ### 3 Minutes
@@ -501,7 +501,7 @@ DEA-01 succeeds when the proposed architecture enables the following outcomes:
 
 - Identifies who Jannsen is.
 - Understands what Atlas proves.
-- Knows where to view the résumé or continue.
+- Knows where to view the resume or continue.
 
 ### Hiring Manager Outcome
 

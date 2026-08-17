@@ -1,26 +1,39 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import CloudflareAnalytics from "../components/analytics/CloudflareAnalytics";
-import MotionObserver from "../components/MotionObserver";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jannsenagustin.github.io/resumeops/"),
   title: {
-    default: "Jannsen Agustin | Engineering Projects",
-    template: "%s | Jannsen Agustin",
+    default: "Project Atlas | Engineering Console",
+    template: "%s | Project Atlas",
   },
   description:
-    "Explore Atlas, Jannsen Agustin's containerized Splunk observability lab, alongside verified enterprise Splunk experience.",
+    "Project Atlas is an Engineering Console documenting architecture, evidence, validation, infrastructure, and engineering decisions.",
+  openGraph: {
+    title: "Project Atlas | Engineering Console",
+    description: "An Engineering Console documenting architecture, evidence, validation, infrastructure, and engineering decisions.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Project Atlas | Engineering Console",
+    description: "An Engineering Console documenting architecture, evidence, validation, infrastructure, and engineering decisions.",
+  },
 };
 
 export default function RootLayout({
@@ -31,11 +44,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <MotionObserver />
         <CloudflareAnalytics />
       </body>
     </html>

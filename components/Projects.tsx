@@ -16,7 +16,7 @@ export default function Projects() {
         <SectionHeader
           eyebrow="Featured Project"
           title="Atlas"
-          description="The primary technical project in ResumeOps: a deliberately scoped Splunk environment designed to turn infrastructure decisions into verifiable engineering evidence."
+          description="The primary technical system in Project Atlas: a deliberately scoped Splunk environment designed to turn infrastructure decisions into verifiable engineering evidence."
         />
         <div className="mt-10">
           <ProjectCard project={atlas} />

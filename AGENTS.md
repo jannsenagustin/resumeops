@@ -4,18 +4,18 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# ResumeOps Engineering Handbook
+# Project Atlas Engineering Handbook
 
 ## Project Identity
 
-ResumeOps is:
+Project Atlas is:
 
 - an evolving engineering documentation platform;
 - a technical portfolio;
 - an engineering-project publishing system;
 - focused primarily on Splunk, observability, systems engineering, and documented technical work.
 
-ResumeOps is not:
+Project Atlas is not:
 
 - a generic developer template;
 - a chronological resume replica;

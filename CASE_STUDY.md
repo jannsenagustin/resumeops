@@ -2,7 +2,8 @@
 
 ## Executive summary
 
-Atlas is the flagship engineering project presented through ResumeOps. It is a
+Project Atlas originated as ResumeOps and evolved into the Engineering Console
+that presents this flagship engineering system. It is a
 workstation-scale lab designed to make Splunk platform responsibilities,
 network relationships, persistence, and validation visible without requiring a
 multi-host environment.
@@ -193,5 +194,5 @@ high-availability architecture.
 Managed data onboarding is the next planned Atlas milestone. Additional data
 sources, performance telemetry, dashboards, detections, alerts, security
 hardening, resilience, and delivery automation remain future considerations.
-They are separated from ResumeOps publishing work in the
+They are separated from Project Atlas publication work in the
 [repository roadmap](ROADMAP.md).

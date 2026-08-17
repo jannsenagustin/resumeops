@@ -8,7 +8,7 @@ const atlasSummary = [
   ["VALIDATION", `${atlasHomepageRecord.evidenceCount} public artifacts`],
 ];
 
-export default function ResumeOpsHome() {
+export default function ProjectAtlasHome() {
   const publicMilestones = atlasMilestones.filter(
     (milestone) => milestone.status !== "Roadmap",
   );

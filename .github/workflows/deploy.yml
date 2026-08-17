@@ -1,4 +1,4 @@
-name: Deploy ResumeOps
+name: Deploy Project Atlas
 
 on:
   push:

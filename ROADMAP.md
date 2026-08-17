@@ -1,9 +1,12 @@
-# ResumeOps Roadmap
+# Project Atlas Roadmap
 
 This roadmap separates publishing-platform evolution from Project Atlas
 engineering work. A roadmap entry is a direction, not a completion claim.
 
-## ResumeOps evolution
+## Publication evolution
+
+Project Atlas originated as ResumeOps. The entries below preserve the original
+name where it identifies a historical release or checkpoint.
 
 ### Current state
 

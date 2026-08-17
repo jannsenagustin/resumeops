@@ -14,14 +14,14 @@ export default function SectionHeader({
   const Heading = headingLevel;
 
   return (
-    <div className="max-w-2xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-400">
+    <div className="atlas-section-header max-w-2xl">
+      <p className="atlas-eyebrow">
         {eyebrow}
       </p>
-      <Heading className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+      <Heading className="atlas-section-title">
         {title}
       </Heading>
-      <p className="mt-5 text-base leading-7 text-gray-400 sm:text-lg">
+      <p className="atlas-section-description">
         {description}
       </p>
     </div>

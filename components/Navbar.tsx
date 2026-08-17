@@ -19,7 +19,7 @@ export default function Navbar() {
           href="#overview"
           className={`site-wordmark shrink-0 text-base font-semibold tracking-tight text-white ${linkClasses}`}
         >
-          RESUMEOPS <span>/ J.A.</span>
+          PROJECT ATLAS <span>/ J.A.</span>
         </a>
         <ul className="flex min-w-0 items-center gap-3 overflow-x-auto text-xs text-gray-400 [scrollbar-width:none] sm:gap-6 sm:text-sm [&::-webkit-scrollbar]:hidden">
           {navigationItems.map((item) => (

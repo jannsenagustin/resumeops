@@ -1,8 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --atlas-bg: #0b0e11;
+  --atlas-surface: #12161b;
+  --atlas-surface-2: #161b21;
+  --atlas-surface-raised: #1a2027;
+  --atlas-line: #232a31;
+  --atlas-line-strong: #303840;
+  --atlas-text: #e7ecef;
+  --atlas-text-muted: #98a2a8;
+  --atlas-text-faint: #6f7a84;
+  --atlas-validated: #3fb88a;
+  --atlas-validated-muted: #1c3b30;
+  --atlas-planned: #e3a548;
+  --atlas-planned-muted: #3a2e18;
+  --atlas-future: #737b84;
+  --atlas-danger: #d96c6c;
+  --atlas-space-1: .25rem;
+  --atlas-space-2: .5rem;
+  --atlas-space-3: .75rem;
+  --atlas-space-4: 1rem;
+  --atlas-space-6: 1.5rem;
+  --atlas-space-8: 2rem;
+  --atlas-space-12: 3rem;
+  --atlas-space-16: 4rem;
+  --atlas-space-20: 5rem;
+  --atlas-radius-sm: 2px;
+  --atlas-radius-md: 4px;
+  --atlas-radius-lg: 6px;
+  --atlas-focus: #79d6b4;
+  --font-geist-sans: var(--font-ibm-plex-sans);
+  --font-geist-mono: var(--font-ibm-plex-mono);
+  --background: var(--atlas-bg);
+  --foreground: var(--atlas-text);
   --motion-duration-fast: 180ms;
   --motion-duration-base: 320ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -11,8 +41,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,7 +55,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-ibm-plex-sans), Arial, Helvetica, sans-serif;
 }
 
 a[href],
@@ -39,9 +69,9 @@ button:disabled,
   cursor: not-allowed;
 }
 
-/* ResumeOps V2 record system */
-:root { --record-green: #4ade68; --record-bg: #07090a; --record-panel: #0d1012; --record-rule: #293036; --record-muted: #9aa3aa; }
-body { background: var(--record-bg); font-family: var(--font-geist-sans), Arial, sans-serif; }
+/* Project Atlas record system */
+:root { --record-green: var(--atlas-validated); --record-bg: var(--atlas-bg); --record-panel: var(--atlas-surface); --record-rule: var(--atlas-line); --record-muted: var(--atlas-text-muted); }
+body { background: var(--record-bg); font-family: var(--font-ibm-plex-sans), Arial, sans-serif; }
 .site-wordmark span, .state-value, .record-label, .atlas-node__state { color: var(--record-green); }
 .site-header a { letter-spacing: .08em; }
 .site-resume-link { border: 1px solid #3b8e4e; padding: .55rem .8rem; color: #e9f8ed; }
@@ -343,7 +373,880 @@ html {
   }
 }
 
-/* ResumeOps V2 — Project Atlas engineering record */
+/* DEA-05 Phase 4 — permanent console shell and Resume Viewer */
+.console-shell {
+  display: grid;
+  grid-template-columns: 17.5rem minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--atlas-bg);
+}
+
+.console-shell__content {
+  min-width: 0;
+}
+
+.atlas-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--atlas-line-strong);
+  background: var(--atlas-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-line-strong) transparent;
+}
+
+.atlas-sidebar__identity {
+  padding: var(--atlas-space-6);
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.atlas-sidebar__identity p,
+.atlas-sidebar__identity span,
+.atlas-sidebar__identity small {
+  display: block;
+}
+
+.atlas-sidebar__identity p {
+  color: var(--atlas-text);
+  font: 600 var(--type-technical) var(--font-ibm-plex-mono);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.atlas-sidebar__identity span {
+  margin-top: var(--atlas-space-2);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+}
+
+.atlas-sidebar__identity small {
+  margin-top: var(--atlas-space-4);
+  color: var(--atlas-text-faint);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.atlas-sidebar__section {
+  padding: var(--atlas-space-4) 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.atlas-sidebar__section > h2,
+.atlas-sidebar__principle > span {
+  display: block;
+  padding: 0 var(--atlas-space-4) var(--atlas-space-3);
+  color: var(--atlas-text-faint);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.console-section-nav--sidebar li,
+.console-section-nav--drawer li {
+  min-width: 0;
+}
+
+.console-section-nav--sidebar a,
+.console-section-nav--drawer a,
+.atlas-sidebar__actions a,
+.atlas-sidebar__actions button,
+.atlas-sidebar__shortcuts a {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  min-height: 44px;
+  align-items: center;
+  border-left: 2px solid transparent;
+  padding: var(--atlas-space-2) var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  text-align: left;
+}
+
+.console-section-nav--sidebar a > span,
+.console-section-nav--drawer a > span,
+.atlas-sidebar__shortcuts a > span {
+  color: var(--atlas-text-faint);
+  font-size: var(--type-micro);
+}
+
+.console-section-nav--sidebar a:hover,
+.console-section-nav--drawer a:hover,
+.atlas-sidebar__actions a:hover,
+.atlas-sidebar__actions button:hover,
+.atlas-sidebar__shortcuts a:hover {
+  background: var(--atlas-surface);
+  color: var(--atlas-text);
+}
+
+.console-section-nav--sidebar a[aria-current="location"],
+.console-section-nav--drawer a[aria-current="location"] {
+  border-left-color: var(--atlas-text-muted);
+  background: var(--atlas-surface);
+  color: var(--atlas-text);
+  font-weight: 600;
+}
+
+.atlas-sidebar__actions {
+  margin-top: var(--atlas-space-2);
+  border-top: 1px solid var(--atlas-line);
+}
+
+.atlas-sidebar__actions a,
+.atlas-sidebar__actions button {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 44px;
+  width: 100%;
+}
+
+.atlas-sidebar__lab li {
+  position: relative;
+  padding: var(--atlas-space-2) var(--atlas-space-4) var(--atlas-space-2) var(--atlas-space-8);
+}
+
+.atlas-sidebar__lab li::before {
+  position: absolute;
+  top: .9rem;
+  left: var(--atlas-space-4);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--atlas-future);
+  content: "";
+}
+
+.atlas-sidebar__lab li[data-state="validated"]::before {
+  background: var(--atlas-validated);
+}
+
+.atlas-sidebar__lab li[data-state="planned"]::before {
+  background: var(--atlas-planned);
+}
+
+.atlas-sidebar__lab span,
+.atlas-sidebar__lab small {
+  display: block;
+}
+
+.atlas-sidebar__lab span {
+  color: var(--atlas-text-muted);
+  font-size: var(--type-micro);
+  line-height: 1.35;
+}
+
+.atlas-sidebar__lab small {
+  margin-top: var(--atlas-space-1);
+  color: var(--atlas-text-faint);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  line-height: 1.35;
+}
+
+.atlas-sidebar__lab li[data-state="validated"] small {
+  color: var(--atlas-validated);
+}
+
+.atlas-sidebar__lab li[data-state="planned"] small {
+  color: var(--atlas-planned);
+}
+
+.atlas-sidebar__shortcuts a {
+  min-height: 44px;
+}
+
+.atlas-sidebar__principle {
+  margin: var(--atlas-space-4);
+  border: 1px solid var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-4);
+  background: var(--atlas-surface);
+}
+
+.atlas-sidebar__principle > span {
+  padding: 0;
+}
+
+.atlas-sidebar__principle p {
+  margin-top: var(--atlas-space-3);
+  color: var(--atlas-text);
+  font-size: var(--type-metadata);
+  line-height: 1.5;
+}
+
+.atlas-sidebar__principle a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-top: var(--atlas-space-3);
+  border-bottom: 1px solid var(--atlas-line-strong);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+.console-mobile-bar {
+  display: none;
+}
+
+.atlas-drawer__backdrop,
+.resume-viewer__backdrop {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: flex;
+  background: rgb(0 0 0 / .82);
+}
+
+.atlas-drawer__backdrop {
+  justify-content: flex-start;
+}
+
+.atlas-drawer {
+  width: min(90vw, 24rem);
+  height: 100dvh;
+  overflow-y: auto;
+  border-right: 1px solid var(--atlas-line-strong);
+  background: var(--atlas-bg);
+}
+
+.atlas-drawer > header {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--atlas-space-4);
+  padding: var(--atlas-space-4);
+  border-bottom: 1px solid var(--atlas-line-strong);
+  background: var(--atlas-bg);
+}
+
+.atlas-drawer > header h2 {
+  color: var(--atlas-text);
+  font: 600 var(--type-metadata) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.atlas-drawer > header button,
+.console-mobile-bar > button,
+.resume-viewer__close {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-2) var(--atlas-space-3);
+  color: var(--atlas-text);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.atlas-drawer .atlas-sidebar__identity {
+  display: none;
+}
+
+.atlas-drawer__external {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: var(--atlas-space-4);
+  border-top: 1px solid var(--atlas-line);
+  border-left: 1px solid var(--atlas-line);
+}
+
+.atlas-drawer__external a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--atlas-line);
+  border-bottom: 1px solid var(--atlas-line);
+  padding: var(--atlas-space-3);
+  color: var(--atlas-text);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.resume-viewer__backdrop {
+  z-index: 110;
+  align-items: center;
+  justify-content: center;
+  padding: var(--atlas-space-4);
+}
+
+.resume-viewer {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(96vw, 82rem);
+  height: min(94dvh, 64rem);
+  border: 1px solid var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-md);
+  background: var(--atlas-surface);
+}
+
+.resume-viewer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--atlas-space-6);
+  padding: var(--atlas-space-4) var(--atlas-space-6);
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.resume-viewer__header p,
+.resume-viewer__header span {
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+.resume-viewer__header p {
+  text-transform: uppercase;
+}
+
+.resume-viewer__header h2 {
+  margin: var(--atlas-space-1) 0;
+  color: var(--atlas-text);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.resume-viewer__document {
+  min-height: 0;
+  padding: var(--atlas-space-3);
+  background: var(--atlas-bg);
+}
+
+.resume-viewer__document iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 28rem;
+  border: 1px solid var(--atlas-line);
+  background: #fff;
+}
+
+.resume-viewer__mobile-fallback {
+  display: none;
+}
+
+.resume-viewer__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-3);
+  padding: var(--atlas-space-4) var(--atlas-space-6);
+  border-top: 1px solid var(--atlas-line-strong);
+}
+
+.console-footer > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--atlas-space-3) var(--atlas-space-6);
+  align-items: center;
+}
+
+.console-footer button,
+.console-footer a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--atlas-text);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+@media (max-width: 1500px) and (min-width: 1180px) {
+  .console-shell {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+
+  .atlas-sidebar__identity,
+  .atlas-sidebar__section {
+    padding-top: var(--atlas-space-3);
+    padding-bottom: var(--atlas-space-3);
+  }
+}
+
+@media (max-width: 1179px) {
+  .console-shell {
+    display: block;
+  }
+
+  .atlas-sidebar {
+    display: none;
+  }
+
+  .console-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--atlas-space-4);
+    min-height: 56px;
+    padding: var(--atlas-space-2) var(--atlas-space-4);
+    border-bottom: 1px solid var(--atlas-line-strong);
+    background: var(--atlas-bg);
+  }
+
+  .console-mobile-bar span,
+  .console-mobile-bar small {
+    display: block;
+    font-family: var(--font-ibm-plex-mono);
+  }
+
+  .console-mobile-bar span {
+    color: var(--atlas-text);
+    font-size: var(--type-metadata);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .console-mobile-bar small {
+    margin-top: var(--atlas-space-1);
+    color: var(--atlas-text-faint);
+    font-size: var(--type-micro);
+  }
+}
+
+@media (max-width: 760px) {
+  .console-nav-wrap nav {
+    display: none;
+  }
+
+  .console-nav-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .console-footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-footer > div {
+    justify-content: flex-start;
+  }
+
+  .resume-viewer__backdrop {
+    padding: 0;
+  }
+
+  .resume-viewer {
+    width: 100vw;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .resume-viewer__header,
+  .resume-viewer__controls {
+    padding: var(--atlas-space-3) var(--atlas-space-4);
+  }
+
+  .resume-viewer__header span {
+    display: none;
+  }
+
+  .resume-viewer__controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resume-viewer__controls .atlas-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .resume-viewer__document {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .resume-viewer__document iframe {
+    display: none;
+  }
+
+  .resume-viewer__mobile-fallback {
+    display: block;
+    max-width: 28rem;
+    border: 1px solid var(--atlas-line-strong);
+    padding: var(--atlas-space-6);
+    color: var(--atlas-text-muted);
+    font-size: var(--type-body);
+    line-height: 1.7;
+  }
+}
+
+/* DEA-05 Phase 4.5 — Engineering Console convergence */
+.console-icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  color: var(--atlas-text-faint);
+}
+
+.console-section-nav--sidebar a,
+.console-section-nav--drawer a {
+  grid-template-columns: 2rem 1.25rem minmax(0, 1fr);
+}
+
+.console-section-nav a[aria-current="location"] .console-icon,
+.atlas-sidebar a:hover .console-icon,
+.atlas-sidebar button:hover .console-icon,
+.atlas-v2-index a[aria-current="location"] .console-icon,
+.atlas-v2-index a:hover .console-icon,
+.atlas-v2-index button:hover .console-icon {
+  color: currentColor;
+}
+
+.atlas-sidebar__actions a,
+.atlas-sidebar__actions button {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--atlas-space-3);
+}
+
+.atlas-sidebar__shortcuts a {
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  gap: var(--atlas-space-3);
+}
+
+.atlas-sidebar__lab li {
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+}
+
+.atlas-sidebar__lab li::before {
+  grid-column: 1 / -1;
+}
+
+.atlas-sidebar__lab li .console-icon {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+  align-self: center;
+}
+
+.atlas-sidebar__lab li span,
+.atlas-sidebar__lab li small {
+  grid-column: 2;
+}
+
+.atlas-sidebar__principle > span {
+  display: flex;
+  align-items: center;
+  gap: var(--atlas-space-2);
+}
+
+.atlas-v2 {
+  --av2-rule: var(--atlas-line);
+  --av2-panel: var(--atlas-surface);
+  --av2-muted: var(--atlas-text-muted);
+  grid-template-columns: 17.5rem minmax(0, 1fr);
+  background: var(--atlas-bg);
+  color: var(--atlas-text);
+}
+
+.atlas-v2-index {
+  border-color: var(--atlas-line);
+  background: var(--atlas-surface);
+}
+
+.atlas-v2-index > div {
+  padding: var(--atlas-space-6);
+  border-color: var(--atlas-line);
+}
+
+.atlas-v2-index > div > a,
+.atlas-v2-index > div p,
+.atlas-v2-index > div span,
+.atlas-v2-index li a,
+.atlas-v2-index-actions a,
+.atlas-v2-index-actions button {
+  font: 600 var(--type-micro)/1.35 var(--font-ibm-plex-mono);
+  letter-spacing: .045em;
+}
+
+.atlas-v2-index > div p {
+  margin: var(--atlas-space-8) 0 var(--atlas-space-3);
+  font-size: var(--type-technical);
+}
+
+.atlas-v2-index > div .atlas-status {
+  font-size: var(--type-micro);
+}
+
+.atlas-v2-index ol {
+  padding: var(--atlas-space-3) 0;
+}
+
+.atlas-v2-index li a {
+  min-height: 44px;
+  grid-template-columns: 2rem 1.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--atlas-space-2);
+  padding: var(--atlas-space-3) var(--atlas-space-6);
+  border-left-color: transparent;
+  color: var(--atlas-text-muted);
+}
+
+.atlas-v2-index li a:hover,
+.atlas-v2-index li a[aria-current="location"] {
+  border-color: var(--atlas-text-muted);
+  background: var(--atlas-surface-2);
+  color: var(--atlas-text);
+}
+
+.atlas-v2-index-actions {
+  display: grid;
+  gap: var(--atlas-space-1);
+  border-top: 1px solid var(--atlas-line);
+}
+
+.atlas-v2-index-actions a,
+.atlas-v2-index-actions button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--atlas-space-3);
+  border: 0;
+  padding: var(--atlas-space-3);
+  background: transparent;
+  color: var(--atlas-text-muted);
+  text-align: left;
+}
+
+.atlas-v2-main {
+  padding: 0 var(--atlas-space-8) var(--atlas-space-12);
+}
+
+.atlas-v2-section {
+  padding: var(--atlas-space-12) 0;
+  border-color: var(--atlas-line);
+}
+
+.atlas-v2-section > header {
+  grid-template-columns: 13.75rem minmax(0, 1fr) minmax(15rem, .75fr);
+  gap: var(--atlas-space-6);
+  margin-bottom: var(--atlas-space-6);
+  padding-bottom: var(--atlas-space-4);
+  border-color: var(--atlas-line);
+}
+
+.atlas-v2-section > header > p,
+.atlas-v2-kicker,
+.atlas-source > p:first-child,
+.atlas-method span {
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-metadata)/1.4 var(--font-ibm-plex-mono);
+  letter-spacing: .06em;
+}
+
+.atlas-v2-section > header h2 {
+  font-size: var(--type-heading-l);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.1;
+}
+
+.atlas-v2-section > header > span {
+  font-size: var(--type-metadata);
+  line-height: 1.6;
+}
+
+.atlas-v2-current {
+  padding-top: var(--atlas-space-16);
+}
+
+.atlas-v2-current-grid {
+  gap: var(--atlas-space-12);
+}
+
+.atlas-v2-current h1 {
+  font: 600 var(--type-heading-xl)/1.02 var(--font-ibm-plex-sans);
+  letter-spacing: -.045em;
+}
+
+.atlas-v2-subtitle {
+  font-size: var(--type-metadata);
+}
+
+.atlas-v2-current dl,
+.atlas-v2-diagram,
+.atlas-v2-inspector,
+.decision-trail,
+.field-notes,
+.validation-chains,
+.evidence-record figure {
+  border-color: var(--atlas-line);
+  border-radius: var(--atlas-radius-md);
+  background: var(--atlas-surface);
+}
+
+.atlas-v2-current dl div,
+.atlas-v2-inspector dl div,
+.decision-trail article,
+.field-notes article,
+.validation-chains article,
+.validation-chains li {
+  border-color: var(--atlas-line);
+}
+
+.atlas-v2-current dl div,
+.atlas-v2-inspector,
+.decision-trail article,
+.field-notes article,
+.validation-chains article {
+  padding: var(--atlas-space-4);
+}
+
+.atlas-v2-current dt,
+.atlas-v2-inspector dt,
+.evidence-record dt,
+.decision-trail dt,
+.field-notes dt {
+  color: var(--atlas-text-muted);
+  font: var(--type-micro)/1.4 var(--font-ibm-plex-mono);
+}
+
+.atlas-v2-current dd,
+.atlas-v2-inspector dd {
+  font-size: var(--type-technical);
+}
+
+.atlas-v2-lenses,
+.atlas-trace-controls {
+  gap: var(--atlas-space-2);
+}
+
+.atlas-v2-lenses button,
+.atlas-trace-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--atlas-space-2);
+  border-color: var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-micro);
+}
+
+.atlas-v2-lenses button[aria-pressed="true"],
+.atlas-trace-controls button[aria-pressed="true"] {
+  border-color: var(--atlas-validated);
+  background: var(--atlas-validated-muted);
+  color: #c9f3e3;
+}
+
+.atlas-v2-node,
+.atlas-v2-boundary,
+.atlas-storage {
+  border-color: var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-sm);
+  background: var(--atlas-surface-2);
+}
+
+.atlas-v2-node {
+  padding: var(--atlas-space-4);
+}
+
+.atlas-v2-inspector h3,
+.decision-trail h3,
+.field-notes h3,
+.validation-chains h3,
+.evidence-record h3,
+.build-record h3 {
+  font-size: var(--type-heading-m);
+}
+
+.build-record > li,
+.evidence-record,
+.limitations-list div,
+.atlas-source ul,
+.atlas-source li {
+  border-color: var(--atlas-line);
+}
+
+.build-record > li {
+  padding: var(--atlas-space-6) 0;
+}
+
+.build-record p,
+.atlas-source > p:nth-of-type(2) {
+  color: var(--atlas-text-muted);
+  font-size: var(--type-body);
+}
+
+.atlas-related a,
+.atlas-source > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-color: var(--atlas-line-strong);
+  color: var(--atlas-text);
+  font-size: var(--type-micro);
+}
+
+@media (max-width: 1180px) {
+  .atlas-v2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-v2-index {
+    position: sticky;
+    z-index: 30;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-right: 0;
+    border-bottom: 1px solid var(--atlas-line);
+  }
+
+  .atlas-v2-index > div:first-child {
+    display: none;
+  }
+
+  .atlas-v2-index nav {
+    overflow-x: auto;
+  }
+
+  .atlas-v2-index ol {
+    display: flex;
+    width: max-content;
+    padding: 0;
+  }
+
+  .atlas-v2-index li a {
+    display: flex;
+    padding: var(--atlas-space-3);
+  }
+
+  .atlas-v2-index-actions {
+    display: flex !important;
+    padding: var(--atlas-space-2) var(--atlas-space-4) !important;
+    border-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .atlas-v2-main {
+    padding: 0 var(--atlas-space-4) var(--atlas-space-8);
+  }
+
+  .atlas-v2-section {
+    padding: var(--atlas-space-8) 0;
+  }
+
+  .atlas-v2-section > header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-v2-index-actions {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .atlas-v2-index-actions a,
+  .atlas-v2-index-actions button {
+    justify-content: center;
+    padding: var(--atlas-space-2);
+    font-size: var(--type-micro);
+  }
+}
+
+/* Project Atlas engineering record */
 .atlas-v2 { --av2-rule:#283138; --av2-panel:#0b0f11; --av2-muted:#8e999f; display:grid; grid-template-columns:230px minmax(0,1fr); min-height:100vh; background:#07090a; color:#edf1f2; }
 .atlas-v2 a,.atlas-v2 button { text-underline-offset:3px; }
 .atlas-v2 a:focus-visible,.atlas-v2 button:focus-visible { outline:2px solid var(--record-green); outline-offset:3px; }
@@ -517,6 +1420,9 @@ html {
   --type-metadata: .875rem;
   --type-technical: .9375rem;
   --type-body: 1rem;
+  --type-heading-xl: clamp(2.25rem, 5vw, 4rem);
+  --type-heading-l: clamp(1.875rem, 4vw, 2.25rem);
+  --type-heading-m: 1.125rem;
 }
 
 .record-label,
@@ -715,6 +1621,228 @@ dt,
   :root {
     --home-canvas: 1560px;
     --atlas-canvas: 1760px;
+  }
+}
+
+/* DEA-05 Phase 1 — shared Atlas Engineering Console foundation */
+:where(a[href], button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 2px solid var(--atlas-focus);
+  outline-offset: 3px;
+}
+
+.motion-button,
+.motion-card,
+.motion-card-featured {
+  box-shadow: none;
+}
+
+.motion-button:hover,
+.motion-button:active,
+.motion-card:hover,
+.motion-card-featured:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.atlas-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--atlas-space-2);
+  border: 1px solid var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  background: transparent;
+  color: var(--atlas-text);
+  font: 600 var(--type-metadata)/1.2 var(--font-ibm-plex-mono);
+  letter-spacing: .035em;
+  text-decoration: none;
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease),
+    background-color var(--motion-duration-fast) var(--motion-ease),
+    color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.atlas-button--primary {
+  border-color: var(--atlas-validated);
+  background: var(--atlas-validated-muted);
+  color: #c9f3e3;
+}
+
+.atlas-button--primary:hover {
+  background: #244b3e;
+  color: #effbf6;
+}
+
+.atlas-button--secondary:hover,
+.atlas-button--icon:hover {
+  border-color: var(--atlas-text-muted);
+  background: var(--atlas-surface-2);
+}
+
+.atlas-button--text {
+  min-height: 44px;
+  border-color: transparent;
+  border-bottom-color: var(--atlas-line-strong);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.atlas-button--text:hover {
+  border-bottom-color: var(--atlas-text);
+}
+
+.atlas-button--icon {
+  width: 44px;
+  padding: 0;
+}
+
+.atlas-status {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 28px;
+  align-items: center;
+  border: 1px solid var(--atlas-line-strong);
+  border-radius: var(--atlas-radius-lg);
+  padding: var(--atlas-space-1) var(--atlas-space-3);
+  font: 600 var(--type-micro)/1.2 var(--font-ibm-plex-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.atlas-status--validated,
+.atlas-status--active {
+  border-color: var(--atlas-validated);
+  background: var(--atlas-validated-muted);
+  color: #bcebd9;
+}
+
+.atlas-status--planned {
+  border-color: var(--atlas-planned);
+  background: var(--atlas-planned-muted);
+  color: #f4ca87;
+}
+
+.atlas-status--future,
+.atlas-status--inactive {
+  border-color: var(--atlas-future);
+  background: var(--atlas-surface-2);
+  color: #b5bdc5;
+}
+
+.atlas-status--failed {
+  border-color: var(--atlas-danger);
+  background: #3a2022;
+  color: #f4b4b4;
+}
+
+.atlas-eyebrow,
+.atlas-panel__eyebrow,
+.atlas-panel__metadata {
+  margin: 0;
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-metadata)/1.4 var(--font-ibm-plex-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.atlas-section-title {
+  margin-top: var(--atlas-space-3);
+  color: var(--atlas-text);
+  font-size: clamp(1.875rem, 4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.1;
+}
+
+.atlas-section-description {
+  margin-top: var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-body);
+  line-height: 1.7;
+}
+
+.atlas-metadata-chip {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  border: 1px solid var(--atlas-line);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-1) var(--atlas-space-2);
+  background: var(--atlas-surface-2);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro)/1.25 var(--font-ibm-plex-mono);
+}
+
+.atlas-panel {
+  border: 1px solid var(--atlas-line);
+  border-radius: var(--atlas-radius-md);
+  background: var(--atlas-surface);
+  box-shadow: none;
+}
+
+.atlas-panel--selected {
+  border-color: var(--atlas-line-strong);
+  box-shadow: inset 3px 0 0 var(--atlas-text-muted);
+}
+
+.atlas-panel--validated {
+  border-color: var(--atlas-validated);
+}
+
+.atlas-panel--planned {
+  border-color: var(--atlas-planned);
+}
+
+.atlas-panel--future {
+  border-color: var(--atlas-future);
+}
+
+.atlas-panel--failed {
+  border-color: var(--atlas-danger);
+}
+
+.atlas-panel__header,
+.atlas-panel__footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--atlas-space-4);
+  padding: var(--atlas-space-4);
+}
+
+.atlas-panel__header {
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.atlas-panel__footer {
+  border-top: 1px solid var(--atlas-line);
+}
+
+.atlas-panel__title {
+  margin-top: var(--atlas-space-2);
+  color: var(--atlas-text);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.atlas-panel__body {
+  padding: var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+}
+
+.evidence-lightbox-panel {
+  border-color: var(--atlas-line-strong) !important;
+  border-radius: var(--atlas-radius-lg) !important;
+  background: var(--atlas-surface) !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  .atlas-panel__header,
+  .atlas-panel__footer {
+    flex-direction: column;
   }
 }
 
@@ -969,5 +2097,1332 @@ dd,
   .availability-record dl > div {
     grid-template-columns: minmax(0, 1fr);
     row-gap: .25rem;
+  }
+}
+
+/* DEA-05 Phase 2 — Atlas Engineering Console homepage */
+.console-skip-link {
+  position: fixed;
+  z-index: 100;
+  top: var(--atlas-space-3);
+  left: var(--atlas-space-3);
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  border: 1px solid var(--atlas-focus);
+  border-radius: var(--atlas-radius-sm);
+  background: var(--atlas-bg);
+  color: var(--atlas-text);
+  font: 600 var(--type-metadata) var(--font-ibm-plex-mono);
+  transform: translateY(-160%);
+}
+
+.console-skip-link:focus {
+  transform: translateY(0);
+}
+
+.console-header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  border-bottom: 1px solid var(--atlas-line-strong);
+  background: var(--atlas-bg);
+}
+
+.console-status {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-status > div {
+  min-width: 0;
+  padding: var(--atlas-space-2) var(--atlas-space-3);
+  border-right: 1px solid var(--atlas-line);
+  font-family: var(--font-ibm-plex-mono);
+}
+
+.console-status > div:last-child {
+  border-right: 0;
+}
+
+.console-status span,
+.console-status strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.console-status span {
+  color: var(--atlas-text-faint);
+  font-size: var(--type-micro);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.console-status strong {
+  margin-top: var(--atlas-space-1);
+  color: var(--atlas-text);
+  font-size: var(--type-micro);
+  font-weight: 500;
+}
+
+.console-status > div:nth-child(3) strong {
+  color: var(--atlas-validated);
+}
+
+.console-status > div:nth-child(4) strong {
+  color: var(--atlas-planned);
+}
+
+.console-nav-wrap {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--atlas-space-6);
+  width: min(100%, var(--home-canvas));
+  margin: 0 auto;
+  padding: var(--atlas-space-3) var(--atlas-space-8);
+}
+
+.console-wordmark,
+.console-header__resume,
+.console-nav-wrap nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--atlas-text-muted);
+  font: 500 var(--type-micro) var(--font-ibm-plex-mono);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.console-wordmark {
+  gap: var(--atlas-space-2);
+  color: var(--atlas-text);
+  font-size: var(--type-metadata);
+}
+
+.console-wordmark span {
+  color: var(--atlas-text-faint);
+  font-size: var(--type-micro);
+}
+
+.console-nav-wrap nav {
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.console-nav-wrap nav::-webkit-scrollbar {
+  display: none;
+}
+
+.console-nav-wrap nav ul {
+  display: flex;
+  width: max-content;
+  gap: var(--atlas-space-6);
+}
+
+.console-nav-wrap nav a:hover,
+.console-header__resume:hover {
+  color: var(--atlas-text);
+}
+
+.console-header__resume {
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.console-home {
+  width: min(100%, var(--home-canvas));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 var(--atlas-space-8);
+  background: var(--atlas-bg);
+  color: var(--atlas-text);
+}
+
+.console-current {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+  gap: clamp(var(--atlas-space-8), 6vw, var(--atlas-space-20));
+  align-items: start;
+  scroll-margin-top: 8rem;
+  padding: clamp(var(--atlas-space-12), 7vw, var(--atlas-space-20)) 0;
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.console-kicker,
+.console-section__index {
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.console-current h1 {
+  max-width: 46rem;
+  margin: var(--atlas-space-4) 0 var(--atlas-space-6);
+  font-size: clamp(2.5rem, 5.2vw, 5.25rem);
+  font-weight: 500;
+  letter-spacing: -.05em;
+  line-height: .98;
+}
+
+.console-current__intro > p:last-of-type {
+  max-width: 48rem;
+  color: var(--atlas-text-muted);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.7;
+}
+
+.console-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-3);
+  margin-top: var(--atlas-space-8);
+}
+
+.console-current__panel {
+  align-self: stretch;
+}
+
+.console-current__panel .atlas-panel__body {
+  padding: 0 var(--atlas-space-4);
+}
+
+.console-state-list > div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) minmax(0, 1fr);
+  gap: var(--atlas-space-4);
+  padding: var(--atlas-space-4) 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-state-list > div:last-child {
+  border-bottom: 0;
+}
+
+.console-state-list dt,
+.console-state-list dd {
+  font-family: var(--font-ibm-plex-mono);
+  font-size: var(--type-metadata);
+}
+
+.console-state-list dt {
+  color: var(--atlas-text-muted);
+}
+
+.console-state-list dd {
+  color: var(--atlas-text);
+  text-align: right;
+}
+
+.console-state-list [data-state="validated"] dd {
+  color: var(--atlas-validated);
+}
+
+.console-state-list [data-state="planned"] dd {
+  color: var(--atlas-planned);
+}
+
+.console-section {
+  scroll-margin-top: 8rem;
+  padding: clamp(var(--atlas-space-12), 7vw, var(--atlas-space-20)) 0;
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.console-section__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, .65fr);
+  gap: var(--atlas-space-8);
+  align-items: end;
+  margin-bottom: var(--atlas-space-8);
+  padding-bottom: var(--atlas-space-4);
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-section__header h2 {
+  margin-top: var(--atlas-space-2);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.08;
+}
+
+.console-section__header > p {
+  max-width: 36rem;
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+  line-height: 1.6;
+}
+
+.console-pipeline__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--atlas-space-4) var(--atlas-space-6);
+  margin-bottom: var(--atlas-space-4);
+}
+
+.console-pipeline__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--atlas-space-2);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-pipeline__legend span::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--atlas-future);
+  content: "";
+}
+
+.console-pipeline__legend [data-state="validated"]::before {
+  background: var(--atlas-validated);
+}
+
+.console-pipeline__legend [data-state="planned"]::before {
+  background: var(--atlas-planned);
+}
+
+.console-pipeline__path {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  border-top: 1px solid var(--atlas-line);
+}
+
+.console-pipeline__path:last-of-type {
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-pipeline__label {
+  padding: var(--atlas-space-6) var(--atlas-space-4) var(--atlas-space-6) 0;
+  border-right: 1px solid var(--atlas-line);
+  font-family: var(--font-ibm-plex-mono);
+}
+
+.console-pipeline__label span,
+.console-pipeline__label strong {
+  display: block;
+}
+
+.console-pipeline__label span {
+  color: var(--atlas-text);
+  font-size: var(--type-metadata);
+}
+
+.console-pipeline__label strong {
+  margin-top: var(--atlas-space-2);
+  color: var(--atlas-validated);
+  font-size: var(--type-micro);
+  font-weight: 500;
+}
+
+.console-pipeline__path--management .console-pipeline__label strong {
+  color: var(--atlas-planned);
+}
+
+.console-pipeline__path ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.console-pipeline__path--management ol {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.console-pipeline__node {
+  position: relative;
+  min-width: 0;
+  min-height: 10rem;
+  padding: var(--atlas-space-6);
+  border-right: 1px solid var(--atlas-line);
+  background: var(--atlas-surface);
+}
+
+.console-pipeline__node::after {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -6px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--atlas-bg);
+  border-radius: 50%;
+  background: var(--atlas-validated);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.console-pipeline__node:last-child::after {
+  display: none;
+}
+
+.console-pipeline__node--planned::after {
+  background: var(--atlas-planned);
+}
+
+.console-pipeline__node p,
+.console-pipeline__node span,
+.console-pipeline__node strong {
+  display: block;
+}
+
+.console-pipeline__node p {
+  color: var(--atlas-text);
+  font: 600 var(--type-technical) var(--font-ibm-plex-mono);
+}
+
+.console-pipeline__node span {
+  margin-top: var(--atlas-space-3);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+  line-height: 1.5;
+}
+
+.console-pipeline__node strong {
+  margin-top: var(--atlas-space-4);
+  color: var(--atlas-validated);
+  font: 500 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-pipeline__node--planned {
+  border-color: var(--atlas-planned);
+}
+
+.console-pipeline__node--planned strong {
+  color: var(--atlas-planned);
+}
+
+.console-pipeline__node--future {
+  border-right-color: var(--atlas-line);
+  background: transparent;
+}
+
+.console-pipeline__node--future strong {
+  color: var(--atlas-text-muted);
+}
+
+.console-inline-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--atlas-space-4);
+  margin-top: var(--atlas-space-6);
+  border-bottom: 1px solid var(--atlas-line-strong);
+  color: var(--atlas-text);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-milestones > ol {
+  position: relative;
+  border-top: 1px solid var(--atlas-line);
+}
+
+.console-milestones > ol::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2rem;
+  width: 1px;
+  background: var(--atlas-line-strong);
+  content: "";
+}
+
+.console-milestones > ol > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  min-width: 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-milestone__number {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  width: 2.5rem;
+  margin-top: var(--atlas-space-6);
+  margin-left: .75rem;
+  padding: var(--atlas-space-1) 0;
+  background: var(--atlas-bg);
+  color: var(--atlas-validated);
+  font: 600 1.125rem var(--font-ibm-plex-mono);
+  text-align: center;
+}
+
+.console-milestones li[data-state="planned"] .console-milestone__number {
+  color: var(--atlas-planned);
+}
+
+.console-milestones li > div {
+  min-width: 0;
+  padding: var(--atlas-space-6);
+}
+
+.console-milestone__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--atlas-space-4);
+  align-items: baseline;
+}
+
+.console-milestone__heading h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.console-milestone__heading > span,
+.console-milestone__meta {
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-milestone__heading > span {
+  color: var(--atlas-validated);
+  text-align: right;
+}
+
+.console-milestones li[data-state="planned"] .console-milestone__heading > span {
+  color: var(--atlas-planned);
+}
+
+.console-milestones li p {
+  max-width: 62rem;
+  margin-top: var(--atlas-space-3);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+  line-height: 1.6;
+}
+
+.console-milestone__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-4) var(--atlas-space-8);
+  margin-top: var(--atlas-space-4);
+  color: var(--atlas-text-faint);
+}
+
+.console-milestone__meta a {
+  color: var(--atlas-text);
+}
+
+.console-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr);
+  gap: var(--atlas-space-4);
+  padding: clamp(var(--atlas-space-12), 7vw, var(--atlas-space-20)) 0;
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.console-summary-panel {
+  position: relative;
+}
+
+.console-anchor {
+  position: absolute;
+  top: -8rem;
+}
+
+.console-summary-panel .atlas-panel__body {
+  padding: 0 var(--atlas-space-4) var(--atlas-space-4);
+}
+
+.console-evidence-list li,
+.console-record-list li {
+  display: grid;
+  min-width: 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-evidence-list li {
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--atlas-space-3);
+  padding: var(--atlas-space-4) 0;
+}
+
+.console-evidence-list > li > span,
+.console-record-list > li > span {
+  color: var(--atlas-validated);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+.console-evidence-list li:last-child > span {
+  color: var(--atlas-planned);
+}
+
+.console-evidence-list strong,
+.console-evidence-list small {
+  display: block;
+}
+
+.console-evidence-list strong {
+  font-size: var(--type-metadata);
+}
+
+.console-evidence-list small {
+  margin-top: var(--atlas-space-1);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+.console-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-4);
+  padding-top: var(--atlas-space-4);
+}
+
+.console-panel-actions a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--atlas-text);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-record-list li {
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  gap: var(--atlas-space-4);
+  align-items: start;
+  padding: var(--atlas-space-4) 0;
+}
+
+.console-record-list strong {
+  font-size: var(--type-metadata);
+}
+
+.console-record-list p {
+  margin-top: var(--atlas-space-1);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+  line-height: 1.5;
+}
+
+.console-record-list a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--atlas-text);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-activity__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+  border-top: 1px solid var(--atlas-line);
+  border-left: 1px solid var(--atlas-line);
+}
+
+.console-activity__grid > div {
+  padding: var(--atlas-space-6);
+  border-right: 1px solid var(--atlas-line);
+  border-bottom: 1px solid var(--atlas-line);
+  background: var(--atlas-surface);
+}
+
+.console-activity__grid > div[data-state="planned"] {
+  border-top: 1px solid var(--atlas-planned);
+}
+
+.console-activity h3,
+.console-engineer__experience h3 {
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-metadata) var(--font-ibm-plex-mono);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.console-activity li {
+  position: relative;
+  padding: var(--atlas-space-3) 0 var(--atlas-space-3) var(--atlas-space-6);
+  border-bottom: 1px solid var(--atlas-line);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-metadata);
+}
+
+.console-activity li::before {
+  position: absolute;
+  top: 1.05rem;
+  left: 0;
+  color: var(--atlas-validated);
+  font-family: var(--font-ibm-plex-mono);
+  content: "✓";
+}
+
+.console-activity [data-state="planned"] li::before {
+  color: var(--atlas-planned);
+  content: "→";
+}
+
+.console-engineer__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr) minmax(180px, .45fr);
+  gap: var(--atlas-space-8);
+}
+
+.console-engineer__identity > p {
+  margin-bottom: var(--atlas-space-6);
+  color: var(--atlas-text);
+  font-size: 1.25rem;
+}
+
+.console-engineer dl {
+  border-top: 1px solid var(--atlas-line);
+}
+
+.console-engineer dl > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--atlas-space-3);
+  padding: var(--atlas-space-3) 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.console-engineer dt,
+.console-engineer dd {
+  font-size: var(--type-metadata);
+}
+
+.console-engineer__experience > p {
+  max-width: 52rem;
+  margin-top: var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+  line-height: 1.7;
+}
+
+.console-engineer__experience ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-2) var(--atlas-space-4);
+  margin-top: var(--atlas-space-6);
+}
+
+.console-engineer__experience li {
+  padding-bottom: var(--atlas-space-1);
+  border-bottom: 1px solid var(--atlas-line-strong);
+  color: var(--atlas-text-muted);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+}
+
+.console-engineer__links {
+  display: grid;
+  align-content: start;
+  border-top: 1px solid var(--atlas-line);
+}
+
+.console-engineer__links a {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  border-bottom: 1px solid var(--atlas-line);
+  color: var(--atlas-text);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-transform: uppercase;
+}
+
+.console-footer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--atlas-space-8);
+  align-items: center;
+  padding: var(--atlas-space-6) max(var(--atlas-space-8), calc((100% - var(--home-canvas)) / 2 + var(--atlas-space-8)));
+  border-top: 1px solid var(--atlas-line-strong);
+  background: var(--atlas-bg);
+  color: var(--atlas-text-muted);
+  font-size: var(--type-micro);
+}
+
+.console-footer span,
+.console-footer a {
+  color: var(--atlas-text);
+  font-family: var(--font-ibm-plex-mono);
+}
+
+@media (max-width: 1100px) {
+  .console-status {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .console-status > div:nth-child(3) {
+    border-right: 0;
+  }
+
+  .console-status > div:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--atlas-line);
+  }
+
+  .console-current,
+  .console-summary-grid,
+  .console-engineer__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-current__panel {
+    max-width: 48rem;
+  }
+
+  .console-pipeline__path {
+    grid-template-columns: 10rem minmax(0, 1fr);
+  }
+
+  .console-record-list li {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .console-record-list a {
+    grid-column: 2;
+  }
+
+  .console-engineer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .console-engineer__links a {
+    border-right: 1px solid var(--atlas-line);
+    padding-right: var(--atlas-space-4);
+  }
+}
+
+@media (max-width: 760px) {
+  .console-header {
+    position: relative;
+  }
+
+  .console-status {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .console-status > div:nth-child(n) {
+    border-right: 1px solid var(--atlas-line);
+    border-bottom: 1px solid var(--atlas-line);
+  }
+
+  .console-status > div:nth-child(even) {
+    border-right: 0;
+  }
+
+  .console-nav-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--atlas-space-3);
+    padding: var(--atlas-space-2) var(--atlas-space-4);
+  }
+
+  .console-nav-wrap nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border-top: 1px solid var(--atlas-line);
+  }
+
+  .console-nav-wrap nav ul {
+    gap: var(--atlas-space-4);
+  }
+
+  .console-header__resume {
+    justify-self: end;
+  }
+
+  .console-home {
+    padding: 0 var(--atlas-space-4);
+  }
+
+  .console-current {
+    scroll-margin-top: var(--atlas-space-4);
+    padding: var(--atlas-space-12) 0;
+  }
+
+  .console-current h1 {
+    font-size: clamp(2.35rem, 12vw, 3.5rem);
+  }
+
+  .console-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-actions .atlas-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .console-state-list > div,
+  .console-section__header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-state-list dd {
+    text-align: left;
+  }
+
+  .console-section {
+    scroll-margin-top: var(--atlas-space-4);
+    padding: var(--atlas-space-12) 0;
+  }
+
+  .console-section__header {
+    gap: var(--atlas-space-4);
+  }
+
+  .console-pipeline__legend {
+    justify-content: flex-start;
+  }
+
+  .console-pipeline__path {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-pipeline__label {
+    padding: var(--atlas-space-4) 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--atlas-line);
+  }
+
+  .console-pipeline__path ol,
+  .console-pipeline__path--management ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-pipeline__node {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--atlas-line);
+  }
+
+  .console-pipeline__node::after {
+    top: auto;
+    right: auto;
+    bottom: -6px;
+    left: var(--atlas-space-6);
+    transform: none;
+  }
+
+  .console-milestone__heading {
+    display: block;
+  }
+
+  .console-milestone__heading > span {
+    display: block;
+    margin-top: var(--atlas-space-2);
+    text-align: left;
+  }
+
+  .console-milestones li > div {
+    padding-right: 0;
+  }
+
+  .console-summary-grid {
+    padding: var(--atlas-space-12) 0;
+  }
+
+  .console-record-list li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .console-activity__grid,
+  .console-engineer__links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .console-engineer dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--atlas-space-1);
+  }
+
+  .console-engineer__links a {
+    border-right: 0;
+  }
+
+  .console-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--atlas-space-3);
+    padding: var(--atlas-space-6) var(--atlas-space-4);
+  }
+}
+
+/* DEA-05 Phase 3 — operational state, section awareness, and path motion */
+.console-status > div {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: var(--atlas-space-2);
+  align-items: baseline;
+}
+
+.console-status > div::before {
+  width: 6px;
+  height: 6px;
+  align-self: center;
+  border-radius: 50%;
+  background: var(--atlas-future);
+  content: "";
+}
+
+.console-status > div[data-state="validated"]::before {
+  background: var(--atlas-validated);
+}
+
+.console-status > div[data-state="planned"]::before {
+  background: var(--atlas-planned);
+}
+
+.console-status > div > span,
+.console-status > div > strong {
+  grid-column: 2;
+}
+
+.console-status > div > span {
+  grid-row: 1;
+}
+
+.console-status > div > strong {
+  grid-row: 2;
+}
+
+.console-status > div[data-state="validated"] strong {
+  color: var(--atlas-validated);
+}
+
+.console-status > div[data-state="planned"] strong {
+  color: var(--atlas-planned);
+}
+
+.console-nav-wrap nav a {
+  position: relative;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--motion-duration-fast) var(--motion-ease),
+    border-color var(--motion-duration-fast) var(--motion-ease),
+    background-color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.console-nav-wrap nav a:hover {
+  border-bottom-color: var(--atlas-line-strong);
+  color: var(--atlas-text);
+}
+
+.console-nav-wrap nav a[aria-current="location"] {
+  border-bottom-color: var(--atlas-text-muted);
+  color: var(--atlas-text);
+}
+
+.console-nav-wrap nav a[aria-current="location"]::before {
+  width: 6px;
+  height: 6px;
+  margin-right: var(--atlas-space-2);
+  border-radius: 50%;
+  background: var(--atlas-text-muted);
+  content: "";
+}
+
+.console-pipeline__path {
+  --console-pipeline-label: 12rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.console-pipeline__node p a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid var(--atlas-line-strong);
+}
+
+.console-pipeline__node p a:hover {
+  border-bottom-color: currentColor;
+}
+
+.console-pipeline__flow {
+  position: absolute;
+  z-index: 3;
+  right: var(--atlas-space-6);
+  bottom: var(--atlas-space-3);
+  left: calc(var(--console-pipeline-label) + var(--atlas-space-6));
+}
+
+@keyframes atlas-documented-flow {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: calc(100% - 9px);
+  }
+}
+
+.console-pipeline__path--management ol {
+  position: relative;
+  border-bottom: 1px dashed var(--atlas-planned);
+}
+
+@media (max-width: 1100px) {
+  .console-pipeline__path {
+    --console-pipeline-label: 10rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .console-status > div {
+    min-height: 66px;
+    padding: var(--atlas-space-3);
+  }
+
+  .console-nav-wrap nav a[aria-current="location"] {
+    background: var(--atlas-surface);
+  }
+
+  .console-pipeline__flow {
+    display: none;
+  }
+
+  .console-pipeline__path--management ol {
+    border-bottom: 1px dashed var(--atlas-planned);
+    border-left: 1px dashed var(--atlas-planned);
+  }
+}
+
+/* Explicit navigation and status-row grid primitives */
+.console-icon-link.console-icon-link {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  grid-template-areas: "icon label";
+  column-gap: var(--atlas-space-2);
+  align-items: center;
+}
+
+.console-icon-link--indexed.console-icon-link--indexed {
+  grid-template-columns: 2rem 17px minmax(0, 1fr);
+  grid-template-areas: "index icon label";
+}
+
+.console-icon-link > b,
+.console-icon-link > span[aria-hidden="true"] {
+  grid-area: index;
+}
+
+.console-icon-link > .console-icon {
+  grid-area: icon;
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+}
+
+.console-icon-link > .console-label {
+  grid-area: label;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.console-lab-row.console-lab-row {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  grid-template-areas: "icon content";
+  column-gap: 10px;
+  align-items: start;
+  padding: 6px var(--atlas-space-4);
+}
+
+.atlas-sidebar__lab {
+  display: grid;
+  gap: 2px;
+}
+
+.console-lab-icon {
+  grid-area: icon;
+  display: block;
+  width: 17px;
+  height: 17px;
+  align-self: start;
+  margin-top: 3px;
+}
+
+.console-lab-row[data-state="validated"] .console-lab-icon,
+.console-lab-row[data-state="validated"] .console-lab-status {
+  color: var(--atlas-validated);
+}
+
+.console-lab-row[data-state="planned"] .console-lab-icon,
+.console-lab-row[data-state="planned"] .console-lab-status {
+  color: var(--atlas-planned);
+}
+
+.console-lab-row[data-state="future"] .console-lab-icon,
+.console-lab-row[data-state="future"] .console-lab-status {
+  color: var(--atlas-future);
+}
+
+.console-lab-content {
+  grid-area: content;
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.console-lab-label {
+  min-width: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.atlas-sidebar__lab li.console-lab-row::before {
+  content: none;
+}
+
+.atlas-sidebar__lab li .console-lab-icon,
+.atlas-sidebar__lab li .console-lab-content,
+.atlas-sidebar__lab li .console-lab-content > span,
+.atlas-sidebar__lab li .console-lab-content > small {
+  grid-row: auto;
+  grid-column: auto;
+}
+
+.atlas-sidebar__lab li .console-lab-icon {
+  grid-area: icon;
+}
+
+.atlas-sidebar__lab li .console-lab-content {
+  grid-area: content;
+}
+
+.atlas-sidebar__lab li .console-lab-status {
+  margin-top: 0;
+  font-family: var(--font-ibm-plex-mono);
+  line-height: 1.35;
+}
+
+/* Shared documented-path motion */
+.telemetry-flow {
+  height: 1px;
+  overflow: visible;
+  background: var(--atlas-line-strong);
+  pointer-events: none;
+}
+
+.telemetry-flow i {
+  position: absolute;
+  z-index: 1;
+  top: -4px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--atlas-bg);
+  border-radius: 50%;
+  background: var(--atlas-validated);
+  animation: atlas-documented-flow 8s linear infinite;
+}
+
+.telemetry-flow i:last-child {
+  animation-delay: -4s;
+}
+
+.atlas-v2-diagram {
+  position: relative;
+  padding-bottom: var(--atlas-space-12);
+}
+
+.atlas-telemetry-caption {
+  position: absolute;
+  right: var(--atlas-space-4);
+  bottom: var(--atlas-space-6);
+  left: var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-micro)/1.3 var(--font-ibm-plex-mono);
+  letter-spacing: .045em;
+}
+
+.atlas-telemetry-caption strong {
+  margin-left: var(--atlas-space-2);
+  color: var(--atlas-validated);
+}
+
+.atlas-telemetry-flow {
+  position: absolute;
+  z-index: 3;
+  right: var(--atlas-space-4);
+  bottom: var(--atlas-space-3);
+  left: var(--atlas-space-4);
+}
+
+.atlas-management-path {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: var(--atlas-space-4);
+  margin-top: var(--atlas-space-4);
+  border: 1px dashed var(--atlas-planned);
+  border-radius: var(--atlas-radius-sm);
+  padding: var(--atlas-space-4);
+  color: var(--atlas-text-muted);
+}
+
+.atlas-management-path > div span,
+.atlas-management-path > div strong {
+  display: block;
+  font: 600 var(--type-micro)/1.4 var(--font-ibm-plex-mono);
+}
+
+.atlas-management-path > div strong {
+  margin-top: var(--atlas-space-1);
+  color: var(--atlas-planned);
+}
+
+.atlas-management-path ol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--atlas-space-3);
+  font-size: var(--type-metadata);
+}
+
+.atlas-management-path ol li:nth-child(2) {
+  color: var(--atlas-planned);
+}
+
+@media (max-width: 900px) {
+  .atlas-v2-diagram {
+    padding-bottom: var(--atlas-space-4);
+  }
+
+  .atlas-telemetry-caption {
+    position: static;
+    width: 100%;
+  }
+
+  .atlas-telemetry-flow {
+    display: none;
+  }
+
+  .atlas-management-path {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .atlas-management-path ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-management-path ol li:nth-child(2) {
+    transform: rotate(90deg);
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .telemetry-flow i {
+    animation: none;
+  }
+
+  .telemetry-flow i:first-child {
+    left: 33%;
+  }
+
+  .telemetry-flow i:last-child {
+    left: 66%;
   }
 }

@@ -244,8 +244,8 @@ export const careerJourney: CareerJourneyItem[] = [
   {
     id: "documented-growth",
     title: "Documented Engineering Growth",
-    context: "ResumeOps",
+    context: "Project Atlas",
     description:
-      "ResumeOps presents continued engineering growth through practical Splunk and observability projects.",
+      "Project Atlas presents continued engineering growth through practical Splunk and observability projects.",
   },
 ];

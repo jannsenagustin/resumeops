@@ -10,8 +10,8 @@ type DecisionCardProps = {
 
 export default function DecisionCard({ decision }: DecisionCardProps) {
   return (
-    <article className="motion-card rounded-xl border border-white/10 bg-zinc-950 p-5 sm:p-6">
-      <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-green-400">
+    <article className="atlas-panel motion-card p-5 sm:p-6">
+      <p className="atlas-eyebrow">
         Decision {decision.id}
       </p>
       <h3 className="mt-3 text-xl font-semibold text-white">

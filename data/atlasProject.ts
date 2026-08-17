@@ -127,14 +127,14 @@ export const atlasHomepageRecord = {
   ingestion: "Validated",
   search: "Validated",
   splunkVersion: "10.0.8",
-  evidenceCount: 17,
+  evidenceCount: 16,
   updated: "2026-08-12",
 } as const;
 
 export type AtlasMilestone = {
   id: string;
   title: string;
-  status: "Validated" | "Planned" | "Roadmap";
+  status: "Validated" | "In Progress" | "Planned" | "Roadmap";
   summary: string;
   href?: string;
   linkLabel?: string;
@@ -190,13 +190,13 @@ export const atlasMilestones: AtlasMilestone[] = [
   {
     id: "05",
     title: "Rocky Linux Deployment Server & Configuration Management",
-    status: "Planned",
+    status: "In Progress",
     summary:
-      "Plan centralized forwarder configuration management through a Rocky Linux Deployment Server; implementation has not begun.",
+      "Infrastructure provisioning is underway; Rocky Linux installation and Deployment Server implementation are not yet validated.",
     href: "/projects/atlas/#limitations",
-    linkLabel: "Planned Scope",
+    linkLabel: "Current Boundary",
     external: false,
-    evidenceLabel: "Implementation not begun",
+    evidenceLabel: "No evidence yet",
   },
   {
     id: "06",
@@ -209,7 +209,7 @@ export const atlasMilestones: AtlasMilestone[] = [
 export const atlasNextMilestone = {
   title: "Rocky Linux Deployment Server & Configuration Management",
   description:
-    "Milestone 05 plans a Rocky Linux Deployment Server and app-based forwarder configuration management; neither is implemented.",
+    "Milestone 05 infrastructure provisioning is underway. Rocky Linux installation, Splunk Deployment Server, and managed forwarder configuration remain unvalidated.",
 };
 
 export const atlasDecisions: EngineeringDecision[] = [
@@ -247,7 +247,7 @@ export const atlasDecisions: EngineeringDecision[] = [
 
 export const atlasLimitations = [
   "Distributed search is validated between one Search Head and one Indexer; the Deployment Server remains undeployed.",
-  "The Windows Universal Forwarder is configured directly; Deployment Server and app-based configuration management remain future work.",
+  "The Windows Universal Forwarder is configured directly; Deployment Server and app-based configuration management are in progress but not validated.",
   "Only Windows Application, Security, and System Event Logs are validated; performance inputs and additional sources remain future work.",
   "Dashboards, detections, and alerts remain planned.",
   "The environment is a local workstation learning lab, not a production deployment.",

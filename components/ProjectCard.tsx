@@ -5,10 +5,10 @@ import TechBadge from "./TechBadge";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className={`motion-card flex h-full flex-col bg-zinc-950 ${
+    <article className={`atlas-panel motion-card flex h-full flex-col ${
       project.featured
-        ? "motion-card-featured rounded-2xl border border-green-400/30 p-7 hover:border-green-400/50 sm:p-10"
-        : "rounded-xl border border-white/10 p-6 hover:border-green-400/30"
+        ? "atlas-panel--validated motion-card-featured p-7 sm:p-10"
+        : "p-6"
     }`}>
       <ProjectHeader
         subtitle={project.subtitle}
