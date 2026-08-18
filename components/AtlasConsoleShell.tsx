@@ -90,9 +90,48 @@ function SidebarActions({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="atlas-sidebar__actions">
       <Link className="console-icon-link" href="/projects/atlas/#system" onClick={onNavigate}><ConsoleIcon name="server" /><span className="console-label">Systems</span></Link>
-      <ResumeViewerTrigger className="console-icon-link" onActivate={onNavigate}><ConsoleIcon name="resume" /><span className="console-label">View Resume</span></ResumeViewerTrigger>
       <a className="console-icon-link" href={repositoryUrl} target="_blank" rel="noopener noreferrer" onClick={onNavigate}><ConsoleIcon name="repository" /><span className="console-label">Repository</span></a>
     </div>
+  );
+}
+
+function FeaturedArtifact({
+  idPrefix,
+  onNavigate,
+}: {
+  idPrefix: string;
+  onNavigate?: () => void;
+}) {
+  const descriptionId = `${idPrefix}-resume-description`;
+
+  return (
+    <section
+      className="atlas-sidebar__featured"
+      aria-labelledby={`${idPrefix}-featured-title`}
+    >
+      <h2 id={`${idPrefix}-featured-title`}>Featured Artifact</h2>
+      <div className="atlas-sidebar__featured-record">
+        <div className="atlas-sidebar__featured-heading">
+          <ConsoleIcon name="resume" />
+          <div>
+            <h3>Professional Resume</h3>
+            <span>Latest Version</span>
+          </div>
+        </div>
+        <p>Updated Aug 2026</p>
+        <div id={descriptionId} className="atlas-sidebar__featured-details">
+          <span>Latest professional resume</span>
+          <span>PDF Preview Available</span>
+        </div>
+        <ResumeViewerTrigger
+          className="atlas-sidebar__featured-action"
+          aria-describedby={descriptionId}
+          onActivate={onNavigate}
+        >
+          View Professional Resume
+        </ResumeViewerTrigger>
+      </div>
+    </section>
   );
 }
 
@@ -115,6 +154,7 @@ function SidebarContent({
         <AtlasConsoleNav variant="sidebar" onNavigate={onNavigate} />
         <SidebarActions onNavigate={onNavigate} />
       </section>
+      <FeaturedArtifact idPrefix={idPrefix} onNavigate={onNavigate} />
       <LabState idPrefix={idPrefix} />
       <ShortcutList idPrefix={idPrefix} onNavigate={onNavigate} />
       <aside className="atlas-sidebar__principle" aria-label="Atlas principle">

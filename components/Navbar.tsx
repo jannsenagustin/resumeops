@@ -30,7 +30,7 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
-        <Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false} download className="site-resume-link hidden shrink-0 text-xs font-semibold sm:inline-flex">RESUME ↓</Link>
+        <Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false} download className="site-resume-link hidden shrink-0 text-xs font-semibold sm:inline-flex">PROFESSIONAL RESUME ↓</Link>
       </div>
     </nav>
   );

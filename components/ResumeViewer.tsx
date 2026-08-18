@@ -89,10 +89,10 @@ export default function ResumeViewer() {
       >
         <header className="resume-viewer__header">
           <div>
-            <p>Resume Viewer</p>
-            <h2 id="resume-viewer-title">Jannsen Agustin Resume</h2>
+            <p>Professional Resume Viewer</p>
+            <h2 id="resume-viewer-title">Jannsen Agustin Professional Resume</h2>
             <span id="resume-viewer-description">
-              Preview the published Resume PDF, open it full size, or download a copy.
+              Preview the published Professional Resume PDF, open it full size, or download a copy.
             </span>
           </div>
           <button
@@ -108,11 +108,11 @@ export default function ResumeViewer() {
         <div className="resume-viewer__document">
           <iframe
             src={resumeDocumentPath}
-            title="Jannsen Agustin Resume Preview"
+            title="Jannsen Agustin Professional Resume Preview"
           />
           <div className="resume-viewer__mobile-fallback">
             <p>
-              Embedded PDF previews vary by mobile browser. Open the Resume PDF
+              Embedded PDF previews vary by mobile browser. Open the Professional Resume PDF
               full size for the most reliable reading experience.
             </p>
           </div>

@@ -102,7 +102,7 @@ export default function HomeEngineeringRecord() {
           </div>
         </div>
         <Link className="editorial-link" href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>
-          VIEW COMPLETE EXPERIENCE IN RESUME ↓
+          VIEW COMPLETE EXPERIENCE IN PROFESSIONAL RESUME ↓
         </Link>
       </section>
 
@@ -169,7 +169,7 @@ export default function HomeEngineeringRecord() {
           <nav aria-label="Investigation and availability links">
             <Link href="/projects/atlas/">ATLAS PROJECT RECORD →</Link>
             <Link href="/projects/">PROJECT ROADMAP →</Link>
-            <Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>RESUME ↓</Link>
+            <Link href="/resume/Jannsen-Agustin-Resume.pdf" prefetch={false}>PROFESSIONAL RESUME ↓</Link>
             <a href="https://github.com/jannsenagustin" target="_blank" rel="noopener noreferrer">GITHUB →</a>
             <a href="https://www.linkedin.com/in/jannsen-agustin/" target="_blank" rel="noopener noreferrer">LINKEDIN →</a>
           </nav>

@@ -499,6 +499,97 @@ html {
   width: 100%;
 }
 
+.atlas-sidebar__featured {
+  padding: var(--atlas-space-4);
+  border-bottom: 1px solid var(--atlas-line);
+}
+
+.atlas-sidebar__featured > h2 {
+  color: var(--atlas-text-faint);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.atlas-sidebar__featured-record {
+  margin-top: var(--atlas-space-3);
+  border-left: 2px solid var(--atlas-line-strong);
+  padding-left: var(--atlas-space-3);
+}
+
+.atlas-sidebar__featured-heading {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.atlas-sidebar__featured-heading .console-icon {
+  margin-top: 2px;
+}
+
+.atlas-sidebar__featured-heading h3 {
+  color: var(--atlas-text);
+  font: 600 var(--type-metadata) var(--font-ibm-plex-mono);
+  line-height: 1.35;
+}
+
+.atlas-sidebar__featured-heading span,
+.atlas-sidebar__featured-record > p,
+.atlas-sidebar__featured-details {
+  color: var(--atlas-text-faint);
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  line-height: 1.4;
+}
+
+.atlas-sidebar__featured-heading span {
+  display: block;
+  margin-top: 2px;
+  color: var(--atlas-text-muted);
+}
+
+.atlas-sidebar__featured-record > p {
+  margin-top: var(--atlas-space-2);
+  color: var(--atlas-text-muted);
+}
+
+.atlas-sidebar__featured-details {
+  display: grid;
+  max-height: 0;
+  gap: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 160ms ease, margin-top 160ms ease, opacity 160ms ease;
+}
+
+.atlas-sidebar__featured-record:hover .atlas-sidebar__featured-details,
+.atlas-sidebar__featured-record:focus-within .atlas-sidebar__featured-details {
+  max-height: 3rem;
+  margin-top: calc(var(--atlas-space-2) + 3px);
+  opacity: 1;
+}
+
+.atlas-sidebar__featured-action {
+  min-height: 44px;
+  margin-top: var(--atlas-space-2);
+  border-bottom: 1px solid var(--atlas-line-strong);
+  color: var(--atlas-text-muted);
+  font: 600 var(--type-micro) var(--font-ibm-plex-mono);
+  text-align: left;
+}
+
+.atlas-sidebar__featured-action:hover,
+.atlas-sidebar__featured-action:focus-visible {
+  color: var(--atlas-text);
+  border-bottom-color: var(--atlas-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-sidebar__featured-details {
+    transition: none;
+  }
+}
+
 .atlas-sidebar__lab li {
   position: relative;
   padding: var(--atlas-space-2) var(--atlas-space-4) var(--atlas-space-2) var(--atlas-space-8);
@@ -3424,5 +3515,79 @@ dd,
 
   .telemetry-flow i:last-child {
     left: 66%;
+  }
+}
+
+/* Release candidate: stable Atlas architecture frame */
+.atlas-v2-system {
+  --atlas-architecture-stable-height: 24rem;
+  align-items: stretch;
+}
+
+.atlas-v2-diagram {
+  min-block-size: var(--atlas-architecture-stable-height);
+}
+
+.atlas-v2-inspector {
+  display: flex;
+  min-width: 0;
+  min-block-size: var(--atlas-architecture-stable-height);
+  max-block-size: var(--atlas-architecture-stable-height);
+  flex-direction: column;
+  align-self: start;
+  overflow: hidden;
+}
+
+.atlas-v2-inspector > header,
+.atlas-v2-inspector__body,
+.atlas-v2-inspector > footer {
+  min-width: 0;
+}
+
+.atlas-v2-inspector > header > p,
+.atlas-v2-inspector__role > span,
+.atlas-v2-inspector > footer > span {
+  display: block;
+  color: #98a2a8;
+  font: var(--type-micro) var(--font-ibm-plex-mono);
+  letter-spacing: .06em;
+}
+
+.atlas-v2-inspector > header > p {
+  color: var(--record-green);
+  font-weight: 600;
+}
+
+.atlas-v2-inspector > header h3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atlas-v2-inspector__body {
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+.atlas-v2-inspector__role > p {
+  margin: .35rem 0 1rem;
+  color: #b3bbc0;
+  font-size: var(--type-metadata);
+  line-height: 1.55;
+}
+
+.atlas-v2-inspector > footer {
+  margin-top: auto;
+  padding-top: .8rem;
+}
+
+@media (max-width: 1500px) {
+  .atlas-v2-inspector {
+    display: flex;
+  }
+
+  .atlas-v2-inspector dl,
+  .atlas-v2-inspector .atlas-related {
+    grid-column: auto;
+    grid-row: auto;
   }
 }
