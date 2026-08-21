@@ -74,6 +74,7 @@ Generated directories such as `.next/` and `out/` are not source material.
 - [Atlas milestones](docs/milestones.md) — compact engineering milestone status
 - [Decision trail](docs/adr/) — architecture decision records
 - [Engineering journals](docs/journal/) — milestone-specific historical records
+- [Atlas EOS planning system](docs/planning/README.md) — canonical proposals, backlog, active-batch, decisions, lessons, and execution-report governance
 - [Documentation Experience Architecture](docs/dea/) — reader discovery and documentation-governance decisions
 - [Evidence map](docs/evidence/README.md) — validation artifact conventions
 - [Roadmap](ROADMAP.md) — Project Atlas publication and engineering evolution
