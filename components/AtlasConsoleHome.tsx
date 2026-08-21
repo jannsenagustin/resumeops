@@ -52,6 +52,12 @@ function CurrentSystemState() {
       <div className="console-current__intro">
         <p className="console-kicker">PROJECT ATLAS / CURRENT SYSTEM STATE</p>
         <h1 id="console-title">An evidence-backed Splunk engineering record</h1>
+        <p className="console-current__summary">
+          I built Project Atlas to demonstrate how I approach Splunk and
+          infrastructure engineering. It documents each system I build, the
+          decisions behind it, how I validate it, and the evidence that proves
+          it works.
+        </p>
         <p>
           Project Atlas documents the construction and validation of a Splunk
           platform from its first containerized runtime through distributed

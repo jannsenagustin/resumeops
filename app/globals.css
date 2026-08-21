@@ -8,6 +8,7 @@
   --atlas-line: #232a31;
   --atlas-line-strong: #303840;
   --atlas-text: #e7ecef;
+  --atlas-text-strong: #f4f7f8;
   --atlas-text-muted: #98a2a8;
   --atlas-text-faint: #6f7a84;
   --atlas-validated: #3fb88a;
@@ -515,6 +516,7 @@ html {
   margin-top: var(--atlas-space-3);
   border-left: 2px solid var(--atlas-line-strong);
   padding-left: var(--atlas-space-3);
+  transition: border-color 200ms ease-out;
 }
 
 .atlas-sidebar__featured-heading {
@@ -526,12 +528,29 @@ html {
 
 .atlas-sidebar__featured-heading .console-icon {
   margin-top: 2px;
+  transition: color 200ms ease-out;
 }
 
 .atlas-sidebar__featured-heading h3 {
   color: var(--atlas-text);
   font: 600 var(--type-metadata) var(--font-ibm-plex-mono);
   line-height: 1.35;
+  transition: color 200ms ease-out;
+}
+
+.atlas-sidebar__featured-record:hover,
+.atlas-sidebar__featured-record:focus-within {
+  border-left-color: var(--atlas-validated);
+}
+
+.atlas-sidebar__featured-record:hover .atlas-sidebar__featured-heading h3,
+.atlas-sidebar__featured-record:focus-within .atlas-sidebar__featured-heading h3 {
+  color: var(--atlas-text-strong);
+}
+
+.atlas-sidebar__featured-record:hover .atlas-sidebar__featured-heading .console-icon,
+.atlas-sidebar__featured-record:focus-within .atlas-sidebar__featured-heading .console-icon {
+  color: var(--atlas-validated);
 }
 
 .atlas-sidebar__featured-heading span,
@@ -559,14 +578,6 @@ html {
   gap: 2px;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 160ms ease, margin-top 160ms ease, opacity 160ms ease;
-}
-
-.atlas-sidebar__featured-record:hover .atlas-sidebar__featured-details,
-.atlas-sidebar__featured-record:focus-within .atlas-sidebar__featured-details {
-  max-height: 3rem;
-  margin-top: calc(var(--atlas-space-2) + 3px);
-  opacity: 1;
 }
 
 .atlas-sidebar__featured-action {
@@ -585,7 +596,9 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .atlas-sidebar__featured-details {
+  .atlas-sidebar__featured-record,
+  .atlas-sidebar__featured-heading h3,
+  .atlas-sidebar__featured-heading .console-icon {
     transition: none;
   }
 }
@@ -1338,10 +1351,10 @@ html {
 }
 
 /* Project Atlas engineering record */
-.atlas-v2 { --av2-rule:#283138; --av2-panel:#0b0f11; --av2-muted:#8e999f; display:grid; grid-template-columns:230px minmax(0,1fr); min-height:100vh; background:#07090a; color:#edf1f2; }
+.atlas-v2 { --av2-rule:#283138; --av2-panel:#0b0f11; --av2-muted:#8e999f; display:grid; grid-template-columns:230px minmax(0,1fr); min-height:100vh; background:var(--atlas-bg); color:#edf1f2; }
 .atlas-v2 a,.atlas-v2 button { text-underline-offset:3px; }
 .atlas-v2 a:focus-visible,.atlas-v2 button:focus-visible { outline:2px solid var(--record-green); outline-offset:3px; }
-.atlas-v2-index { position:sticky; top:0; align-self:start; height:100vh; border-right:1px solid var(--av2-rule); background:#090c0e; }
+.atlas-v2-index { position:sticky; top:0; align-self:start; height:100vh; border-right:1px solid var(--av2-rule); background:var(--atlas-bg); }
 .atlas-v2-index>div { padding:1.25rem; border-bottom:1px solid var(--av2-rule); }.atlas-v2-index>div>a { color:#f4f6f7; font:700 .72rem var(--font-geist-mono); }.atlas-v2-index>div p { margin:2rem 0 .35rem; font:700 .85rem var(--font-geist-mono); }.atlas-v2-index>div span { color:var(--record-green); font:600 .64rem var(--font-geist-mono); }
 .atlas-v2-index ol { padding:.8rem 0; }.atlas-v2-index li a { display:grid; grid-template-columns:2.25rem 1fr; gap:.2rem; padding:.8rem 1.25rem; border-left:2px solid transparent; color:#a8b0b4; font:.7rem var(--font-geist-mono); text-transform:uppercase; }.atlas-v2-index li a b { color:#717d84; }.atlas-v2-index li a:hover,.atlas-v2-index li a[aria-current="location"] { border-color:var(--record-green); color:#eef5f0; background:#0f1512; }.atlas-v2-index li a[aria-current="location"] b { color:var(--record-green); }
 .atlas-v2-main { min-width:0; max-width:1540px; width:100%; margin:0 auto; padding:0 1.5rem 3rem; }
@@ -2357,6 +2370,15 @@ dd,
   line-height: .98;
 }
 
+.console-current__intro > .console-current__summary {
+  max-width: 44rem;
+  margin-bottom: var(--atlas-space-4);
+  color: var(--atlas-text);
+  font-family: var(--font-ibm-plex-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+}
+
 .console-current__intro > p:last-of-type {
   max-width: 48rem;
   color: var(--atlas-text-muted);
@@ -2372,7 +2394,7 @@ dd,
 }
 
 .console-current__panel {
-  align-self: stretch;
+  align-self: start;
 }
 
 .console-current__panel .atlas-panel__body {
