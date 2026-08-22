@@ -6,22 +6,22 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 ## Current Batch
 
-**Batch ID:** Unassigned
+**Batch ID:** BATCH-001
 
-**Status:** Not Started
+**Status:** Approved
 
-**Objective:** No execution batch has been approved.
+**Objective:** ATL-002 — Install Splunk Enterprise directly on Rocky Linux
 
-**Included Tasks:** None.
+**Included Tasks:** ATL-002.
 
-**Excluded Scope:** All backlog and proposal work remains excluded until explicit human approval.
+**Excluded Scope:** All backlog and proposal work other than ATL-002.
 
-**Dependencies:** None assigned.
+**Dependencies:** ATL-001 — Done.
 
-**Acceptance Criteria:** Not defined.
+**Acceptance Criteria:** Splunk is installed using a documented, repeatable process and its local service operation is validated without claiming the Deployment Server role is configured.
 
-**Human Validation Required:** Yes; a human must approve the batch before execution and validate its results.
+**Human Validation Required:** Yes; a human must validate the implementation and results before ATL-002 is marked Done.
 
-**Execution Notes:** Intentionally empty for Atlas EOS Stage 1. ATL-001 is not active.
+**Execution Notes:** BATCH-001 authorizes ATL-002 only. No additional backlog item is active.
 
-**Expected Report Path:** Unassigned. Use `docs/execution-reports/BATCH-NNN.md` after a batch ID is approved.
+**Expected Report Path:** `docs/execution-reports/BATCH-001.md` after execution is attempted.

@@ -46,7 +46,7 @@ function CurrentSystemState() {
   return (
     <section
       id="current-state"
-      className="console-current"
+      className="atlas-console-section console-current"
       aria-labelledby="console-title"
     >
       <div className="console-current__intro">
@@ -98,7 +98,7 @@ function MilestoneProgression() {
   return (
     <section
       id="milestones"
-      className="console-section console-milestones"
+      className="atlas-console-section console-section console-milestones"
       aria-labelledby="milestones-title"
     >
       <header className="console-section__header">
@@ -145,14 +145,14 @@ function EvidenceAndRecords() {
   return (
     <div className="console-summary-grid">
       <Panel
+        id="evidence"
         as="section"
         eyebrow="04 / Evidence"
         title="What proof exists?"
         metadata="16 REVIEWED RECORDS"
-        className="console-summary-panel"
+        className="atlas-console-section console-summary-panel"
         headingLevel="h2"
       >
-        <div id="evidence" className="console-anchor" aria-hidden="true" />
         <ul className="console-evidence-list">
           {evidenceGroups.map(([id, title, count]) => (
             <li key={id}>
@@ -171,14 +171,14 @@ function EvidenceAndRecords() {
       </Panel>
 
       <Panel
+        id="engineering-records"
         as="section"
         eyebrow="05 / Engineering Records"
         title="Where can the decisions be inspected?"
         metadata="MILESTONES 01–04"
-        className="console-summary-panel"
+        className="atlas-console-section console-summary-panel"
         headingLevel="h2"
       >
-        <div id="engineering-records" className="console-anchor" aria-hidden="true" />
         <ol className="console-record-list">
           {validatedRecords.map((milestone) => (
             <li key={milestone.id}>
@@ -236,7 +236,7 @@ function EngineerRecord() {
   return (
     <section
       id="experience"
-      className="console-section console-engineer"
+      className="atlas-console-section console-section console-engineer"
       aria-labelledby="engineer-title"
     >
       <header className="console-section__header">

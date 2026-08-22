@@ -3,6 +3,7 @@ import type { ElementType, ReactNode } from "react";
 export type PanelStatus = "validated" | "planned" | "future" | "failed";
 
 type PanelProps = {
+  id?: string;
   children: ReactNode;
   title?: string;
   eyebrow?: string;
@@ -16,6 +17,7 @@ type PanelProps = {
 };
 
 export default function Panel({
+  id,
   children,
   title,
   eyebrow,
@@ -37,7 +39,7 @@ export default function Panel({
     .join(" ");
 
   return (
-    <Component className={`atlas-panel ${variants}`}>
+    <Component id={id} className={`atlas-panel ${variants}`}>
       {(eyebrow || title || metadata) && (
         <header className="atlas-panel__header">
           <div>

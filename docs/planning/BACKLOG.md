@@ -12,7 +12,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 
 | ID | Title | Priority | Status | Milestone |
 | --- | --- | --- | --- | --- |
-| ATL-001 | M05 Phase 2 — Rocky Linux baseline hardening | P1 | Backlog | M05 |
+| ATL-001 | M05 Phase 2 — Rocky Linux baseline hardening | P1 | Done | M05 |
 | ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Backlog | M05 |
 | ATL-003 | Configure Splunk Deployment Server role | P1 | Backlog | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Backlog | M05 |
@@ -35,13 +35,14 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-021 | Canonical documentation refactor | P1 | Review | Documentation |
 | ATL-022 | Automated documentation-integrity audit | P2 | Proposed | Documentation |
 | ATL-023 | Documentation-health view | P3 | Proposed | Documentation |
+| ATL-024 | Adopt Atlas Planning Console as Daily Engineering Workflow | P1 | Backlog | Atlas EOS |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
 **Category:** Current Milestone; Infrastructure
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Validate chronyd, SSH, SELinux, firewalld, baseline administration tools, and create a clean checkpoint.
 **Why it matters:** Establishes a known, supportable operating-system baseline before Splunk installation.
 **Dependencies:** None recorded.
@@ -315,6 +316,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Human validation required:** Yes.
 **Source or related proposal:** Existing release-quality discussions.
 **Notes:** Audit results must not be represented as fixed completion percentages.
+
 ## ATL-021 — Canonical documentation refactor
 
 **Category:** Documentation; AI Governance
@@ -356,3 +358,26 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Human validation required:** Yes.
 **Source or related proposal:** EP-002.
 **Notes:** Optional and not active.
+
+## ATL-024 — Adopt Atlas Planning Console as Daily Engineering Workflow
+
+**Category:** Documentation; AI Governance
+**Milestone:** Atlas EOS
+**Priority:** P1
+**Status:** Backlog
+**Description:** Use the Atlas Planning Console as the first destination for
+each engineering session and use repository-backed Atlas EOS records instead
+of conversation as the primary planning repository.
+**Why it matters:** Daily use will expose friction, validate the workflow, and
+guide improvements from real engineering practice rather than assumptions.
+**Dependencies:** Atlas Planning Console; Idea Inbox; Active Batch;
+Documentation Governance.
+**Acceptance criteria:** The Planning Console is reviewed at the start of every
+Atlas session; new ideas are captured in `IDEAS.md`; accepted work is recorded
+in `BACKLOG.md`; only Active Batch items are executed; completed work produces
+an execution report where applicable; and new decisions and lessons are added
+to their canonical documents.
+**Human validation required:** Yes.
+**Source or related proposal:** IDEA-028; Atlas EOS governance.
+**Notes:** Backlog status does not activate this item. Human approval and
+inclusion in `ACTIVE_BATCH.md` are still required before execution.

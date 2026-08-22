@@ -87,3 +87,23 @@ state fact, they will eventually diverge. Assign one canonical owner and make
 all other views derived consumers.
 **Related milestone or task:** ATL-021; DEC-015; EP-002.
 **Status:** Confirmed
+
+## LESSON-009 — Prefer single-line Hyper-V console commands
+
+**Lesson ID:** LESSON-009
+**Title:** Hyper-V console commands are more reliable as single-line commands.
+**Context:** Rocky Linux baseline administration through the Hyper-V console.
+**What happened:** Multiline shell continuations introduced avoidable command-entry friction in the console.
+**Reusable lesson:** Write Atlas runbook commands for the Hyper-V console as single-line commands when practical; use multiline continuations only when their behavior has been validated in that interface.
+**Related milestone or task:** M05; ATL-001.
+**Status:** Confirmed
+
+## LESSON-010 — Capture the operating-system security baseline before Splunk
+
+**Lesson ID:** LESSON-010
+**Title:** Capture the operating-system security baseline before installing Splunk.
+**Context:** Rocky Linux baseline hardening for the dedicated M05 Deployment Server VM.
+**What happened:** SELinux enforcement, firewalld state, listening services, and NTP synchronization were verified before Splunk installation.
+**Reusable lesson:** Preserve a known-good pre-application baseline for SELinux, firewalld, listening services, and NTP so later troubleshooting can distinguish operating-system drift from Splunk changes.
+**Related milestone or task:** M05; ATL-001; ATL-002.
+**Status:** Confirmed

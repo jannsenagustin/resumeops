@@ -89,6 +89,7 @@ function ShortcutList({
 function SidebarActions({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="atlas-sidebar__actions">
+      <Link className="console-icon-link" href="/planning/" onClick={onNavigate}><ConsoleIcon name="file" /><span className="console-label">Planning</span></Link>
       <Link className="console-icon-link" href="/projects/atlas/#system" onClick={onNavigate}><ConsoleIcon name="server" /><span className="console-label">Systems</span></Link>
       <a className="console-icon-link" href={repositoryUrl} target="_blank" rel="noopener noreferrer" onClick={onNavigate}><ConsoleIcon name="repository" /><span className="console-label">Repository</span></a>
     </div>

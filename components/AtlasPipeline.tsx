@@ -24,7 +24,7 @@ export default function AtlasPipeline() {
   return (
     <section
       id="architecture"
-      className="console-section console-pipeline"
+      className="atlas-console-section console-section console-pipeline"
       aria-labelledby="pipeline-title"
     >
       <header className="console-section__header">

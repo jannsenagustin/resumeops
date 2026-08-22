@@ -69,3 +69,15 @@ ingestion: the running `SplunkForwarder` service, TCP 9997 loopback
 connectivity, an active Splunk forwarding destination, searchable Application,
 Security, and System data, and Job Inspector evidence of remote Indexer
 execution. Secret-bearing `server.conf` and installer screenshots are excluded.
+
+## Milestone 05 Evidence
+
+The `milestone-05-data-ingestion` folder contains reviewed infrastructure
+evidence for the dedicated Rocky Linux Deployment Server VM. The ATL-001
+baseline set covers host identity and resources, network connectivity, package
+and kernel updates, required administration tools, and NTP synchronization.
+The security-baseline result includes SELinux, firewalld, and listening-service
+validation, but its screenshot remains unpublished pending redaction of a
+persistent interface identifier. These records validate the operating-system
+foundation only; they do not claim that Splunk Enterprise is installed or that
+the Deployment Server role is configured.
