@@ -2,11 +2,11 @@
 
 ## System boundary
 
-Atlas models a Splunk data path on one Windows workstation. The Search Head and
-Indexer run as separate Docker services; Splunk Universal Forwarder 10.0.8 runs
-directly on Windows. Milestones 01 through 04 validate the Indexer, Search Head,
-distributed search, and external Windows Event Log ingestion. This remains a
-learning lab, not a production deployment.
+Atlas models distinct data and management paths on workstation-scale
+infrastructure. The Search Head and Indexer run as Docker services; Splunk
+Universal Forwarder 10.0.8 runs on Windows. The approved M05 management path
+uses a dedicated Rocky Linux Hyper-V VM as the Deployment Server. The
+[milestone record](milestones.md) owns validation status.
 
 ```mermaid
 flowchart TB
@@ -16,7 +16,8 @@ flowchart TB
     IDX["atlas-indexer<br/>receiver and search peer"]
     SH["atlas-search-head<br/>Search & Reporting"]
     Network["atlas-network<br/>Docker bridge and DNS"]
-    DS["Deployment Server<br/>not deployed"]
+    DS["Rocky Linux VM<br/>Deployment Server · M05 in progress"]
+    Admin["Management VM / workstation<br/>Git · SSH · controlled release"]
 
     Logs --> UF -->|"active Splunk-to-Splunk forward"| Loopback
     Loopback -->|"Docker host-port mapping"| IDX
@@ -24,7 +25,8 @@ flowchart TB
     IDX -->|"remote results"| SH
     Network --- SH
     Network --- IDX
-    Network --- DS
+    DS -->|"management path · configuration distribution"| UF
+    Admin -->|"administrative path"| DS
 ```
 
 ## Component responsibilities
@@ -35,7 +37,11 @@ flowchart TB
 | Universal Forwarder | Collects Application, Security, and System Event Logs and forwards to `127.0.0.1:9997` | Operational; version 10.0.8 |
 | Search Head | Search interface and distributed-search coordinator | Operational; Milestones 02–04 validated |
 | Indexer | Receives, indexes, stores, and searches Windows telemetry | Operational; Milestones 01, 03, and 04 validated |
-| Deployment Server | Planned forwarder configuration management | Configured in Compose; not deployed |
+| Deployment Server | Dedicated Rocky Linux VM for forwarder configuration management | M05 in progress; not validated |
+
+The Compose source retains an earlier `atlas-deployment-server` definition.
+That stanza is legacy source configuration, not the approved M05 architecture
+and not evidence of a deployed service.
 
 ## Validated distributed-search flow
 
@@ -90,13 +96,20 @@ instance-specific Splunk configuration and runtime data independently of the
 disposable container layer. Instance overrides belong in `system/local`, not
 `system/default`.
 
+## Management and administrative paths
+
+Deployment Server traffic manages the Universal Forwarder and does not carry
+Windows Event Log data. Administration uses a controlled Git/SSH release path
+to the Rocky Linux management node. Exact endpoints and successful distribution
+remain unvalidated until M05 evidence exists.
+
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure
 domain. It does not demonstrate Indexer clustering, Search Head clustering,
-replication, a cluster manager, a deployer, a Deployment Server, production
-high availability, or enterprise production readiness. Deployment Server,
-app-based forwarder management, additional data sources, performance telemetry,
+replication, a cluster manager, a deployer, a validated Deployment Server,
+production high availability, or enterprise production readiness. Managed
+forwarder configuration, additional data sources, performance telemetry,
 dashboards, alerts and detections, custom TLS/PKI, Azure DevOps CI/CD, and
 Kubernetes/Splunk Operator work remain future.
 

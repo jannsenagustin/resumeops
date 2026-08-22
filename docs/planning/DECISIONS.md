@@ -143,3 +143,20 @@ These entries formally record existing or newly approved Atlas decisions. Where 
 **Rationale:** Proof should disclose only what is necessary to support the engineering claim.
 **Consequences:** Evidence review includes relevance and redaction checks before publication.
 **Status:** Accepted
+
+## DEC-015 — Canonical Documentation Ownership
+
+**Recorded:** 2026-08-21
+
+**Decision:** Every engineering fact has one canonical owner. Narrative
+documents and interface views are consumers that summarize and link. Stale or
+duplicated current-state documentation must be removed, refactored, or archived.
+
+**Rationale:** Repository truth must not depend on reconciling conflicting
+narratives. Explicit ownership makes update order and validation testable.
+
+**Consequences:** Contributors update the canonical owner first, use the
+documentation ownership matrix, and preserve historical material only when its
+role is clearly labeled.
+
+**Status:** Accepted

@@ -8,13 +8,6 @@ engineering work. A roadmap entry is a direction, not a completion claim.
 Project Atlas originated as ResumeOps. The entries below preserve the original
 name where it identifies a historical release or checkpoint.
 
-### Current state
-
-- ResumeOps V2 presents engineering work as an interactive public record.
-- Project pages connect architecture, decisions, validation, evidence, build
-  records, field notes, limitations, and source documentation.
-- The repository and website use the same Project Atlas terminology.
-
 ### Next considerations
 
 - improve documentation navigation as additional engineering records are added;
@@ -24,13 +17,6 @@ name where it identifies a historical release or checkpoint.
   them.
 
 ## Project Atlas evolution
-
-### Completed and validated
-
-- Milestone 01 — Indexer Deployment
-- Milestone 02 — Search Head Deployment
-- Milestone 03 — Distributed Search
-- Milestone 04 — Windows Event Ingestion
 
 ### Planned engineering milestones
 
@@ -42,6 +28,7 @@ name where it identifies a historical release or checkpoint.
 - evaluation of clustering, high availability, CI/CD, and orchestration only
   where workstation constraints and evidence support the work.
 
-The compact Atlas status record remains in [docs/milestones.md](docs/milestones.md).
-Current constraints remain in [docs/architecture.md](docs/architecture.md) and
-[CASE_STUDY.md](CASE_STUDY.md).
+Current validation state is owned by [docs/milestones.md](docs/milestones.md).
+Priorities are owned by [the backlog](docs/planning/BACKLOG.md), executable work
+by [the active batch](docs/planning/ACTIVE_BATCH.md), and current boundaries by
+[architecture](docs/architecture.md).

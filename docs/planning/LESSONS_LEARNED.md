@@ -73,3 +73,17 @@ Lessons capture reusable engineering knowledge rather than serving as incident l
 **Reusable lesson:** Automate a validated process, not an assumed process.
 **Related milestone or task:** M05; ATL-005; ATL-006; ATL-007.
 **Status:** Confirmed
+
+## LESSON-008 — Duplicated ownership causes documentation drift
+
+**Lesson ID:** LESSON-008
+**Title:** Duplicated ownership causes documentation drift.
+**Context:** Narrative documents described an older Atlas state while the
+milestone record reflected validated Milestones 01-04 and current M05 work.
+**What happened:** Multiple narrative documents independently maintained current
+state and diverged from canonical milestone and M05 planning records.
+**Reusable lesson:** When multiple documents independently maintain the same current-
+state fact, they will eventually diverge. Assign one canonical owner and make
+all other views derived consumers.
+**Related milestone or task:** ATL-021; DEC-015; EP-002.
+**Status:** Confirmed

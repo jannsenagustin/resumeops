@@ -32,6 +32,9 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-018 | AI governance evolution | P3 | Backlog | Atlas EOS |
 | ATL-019 | Dead-code and legacy-component review | P3 | Backlog | Post-release |
 | ATL-020 | Lighthouse and performance audit | P2 | Backlog | Post-release |
+| ATL-021 | Canonical documentation refactor | P1 | Review | Documentation |
+| ATL-022 | Automated documentation-integrity audit | P2 | Proposed | Documentation |
+| ATL-023 | Documentation-health view | P3 | Proposed | Documentation |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -312,3 +315,44 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Human validation required:** Yes.
 **Source or related proposal:** Existing release-quality discussions.
 **Notes:** Audit results must not be represented as fixed completion percentages.
+## ATL-021 — Canonical documentation refactor
+
+**Category:** Documentation; AI Governance
+**Milestone:** Documentation
+**Priority:** P1
+**Status:** Review
+**Description:** Establish explicit canonical owners and refactor stale narrative consumers.
+**Why it matters:** Prevents current engineering truth from depending on conflicting documents.
+**Dependencies:** EP-002; DEC-015.
+**Acceptance criteria:** Ownership governance exists; primary narratives link to canonical status and architecture; repository validation passes.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-002.
+**Notes:** Implementation is awaiting human review; no active batch was created.
+
+## ATL-022 — Automated documentation-integrity audit
+
+**Category:** Documentation; Technical Debt
+**Milestone:** Future
+**Priority:** P2
+**Status:** Proposed
+**Description:** Check internal links, record IDs, stale phrases, and selected ownership rules automatically.
+**Why it matters:** Detects drift before publication.
+**Dependencies:** Human acceptance of EP-002 governance and audit semantics.
+**Acceptance criteria:** To be defined after rules stabilize.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-002.
+**Notes:** Future automation; not active.
+
+## ATL-023 — Documentation-health view
+
+**Category:** Documentation; Website / UX
+**Milestone:** Future
+**Priority:** P3
+**Status:** Proposed
+**Description:** Optionally project documentation-audit results in a read-only Atlas view.
+**Why it matters:** Could make governance health inspectable without creating another source of truth.
+**Dependencies:** ATL-022 and approved interface scope.
+**Acceptance criteria:** To be defined if promoted.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-002.
+**Notes:** Optional and not active.

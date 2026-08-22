@@ -35,3 +35,8 @@ Origin:
 ```
 
 Proposal IDs are permanent and must not be reused or renumbered. Decisions should be recorded in [DECISIONS.md](../planning/DECISIONS.md), and committed work should use stable `ATL-NNN` entries in [BACKLOG.md](../planning/BACKLOG.md).
+
+## Proposals
+
+- [EP-001 — Atlas Planning Console](EP-001-atlas-planning-console.md)
+- [EP-002 — Canonical Documentation Governance](EP-002-canonical-documentation-governance.md)

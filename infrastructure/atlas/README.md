@@ -1,8 +1,10 @@
 # Project Atlas Infrastructure
 
 This directory contains the reproducible Docker Compose foundation for Project
-Atlas. It defines three separate Splunk Enterprise roles, a dedicated bridge
-network, and role-specific persistent volumes.
+Atlas. Its approved current use is the Search Head and Indexer foundation, with
+a dedicated bridge network and role-specific persistent volumes. The retained
+Deployment Server stanza predates the approved dedicated Rocky Linux VM design
+and must not be used as the M05 implementation.
 
 The configuration is the source definition, not evidence of successful runtime
 behavior. Atlas is an engineering lab on one Windows workstation and is not a
@@ -10,21 +12,23 @@ production deployment.
 
 ## Contents
 
-- `docker-compose.yml` defines the Search Head, Indexer, Deployment Server, network, and volumes.
+- `docker-compose.yml` defines the active Search Head and Indexer foundation plus a legacy, non-authoritative Deployment Server stanza.
 - `.env.example` documents required local configuration without containing real secrets.
 - `.gitignore` excludes the local environment file, license files, and secret material.
 
 ## Prerequisites
 
 - Windows host with Docker Desktop and Docker Compose
-- Sufficient Docker Desktop CPU, memory, and storage allocation for three Splunk Enterprise instances
+- Sufficient Docker Desktop CPU, memory, and storage allocation for the Search Head and Indexer
 - A verified, supported `splunk/splunk` image tag
 - Review and acceptance of the applicable Splunk license and general terms
 - A strong local administrator password that meets the selected Splunk version's requirements
 - Available localhost ports for the Web interfaces and Indexer receiver
 
 Milestones 01 through 04 validate the Indexer, Search Head, distributed search,
-and Windows Event Log ingestion. The Deployment Server remains undeployed.
+and Windows Event Log ingestion. M05 implements the Deployment Server on a
+dedicated Rocky Linux VM; [architecture](../../docs/architecture.md) owns that
+current boundary.
 
 ## Local Secret Setup
 
@@ -72,8 +76,8 @@ docker compose ps
 ```
 
 Container startup does not prove role readiness. Follow the evidence sequence in
-the [Production Record](../../CASE_STUDY.md#validation-and-evidence) and update the
-[milestone record](../../docs/milestones.md) only after each result is verified.
+the [evidence map](../../docs/evidence/README.md) and update the [milestone
+record](../../docs/milestones.md) only after each result is verified.
 
 ## Stop the Environment
 
@@ -90,7 +94,6 @@ docker compose ps
 docker compose logs --tail=100
 docker compose logs --tail=100 atlas-search-head
 docker compose logs --tail=100 atlas-indexer
-docker compose logs --tail=100 atlas-deployment-server
 ```
 
 Inspect the network and volumes:
