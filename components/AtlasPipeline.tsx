@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ingestionPath, managementPath } from "../data/homeConsole";
 import TelemetryFlow from "./TelemetryFlow";
+import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 
 type PipelineNodeProps = {
   name: string;
@@ -20,7 +21,7 @@ function PipelineNode({ name, role, state, href, variant }: PipelineNodeProps) {
   );
 }
 
-export default function AtlasPipeline() {
+export default function AtlasPipeline({ projectState }: { projectState: AtlasProjectState }) {
   return (
     <section
       id="architecture"
@@ -40,7 +41,7 @@ export default function AtlasPipeline() {
 
       <div className="console-pipeline__legend" aria-label="System state legend">
         <span data-state="validated">Validated</span>
-        <span data-state="planned">In Progress / Not Validated</span>
+        <span data-state="planned">{projectState.currentMilestone.status} / {projectState.currentMilestone.validationState}</span>
         <span data-state="future">Future Relationship</span>
       </div>
 
@@ -60,10 +61,10 @@ export default function AtlasPipeline() {
       <div className="console-pipeline__path console-pipeline__path--management">
         <div className="console-pipeline__label">
           <span>MANAGEMENT PATH</span>
-          <strong>IN PROGRESS / NOT VALIDATED</strong>
+          <strong>{projectState.currentMilestone.status.toUpperCase()} / {projectState.currentMilestone.validationState.toUpperCase()}</strong>
         </div>
         <ol aria-label="Planned Atlas management path">
-          <PipelineNode {...managementPath[0]} variant="planned" />
+          <PipelineNode {...managementPath[0]} state={`${projectState.currentMilestone.status} / ${projectState.currentMilestone.validationState}`} variant="planned" />
           <PipelineNode {...managementPath[1]} variant="future" />
         </ol>
       </div>

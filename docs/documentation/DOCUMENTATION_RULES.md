@@ -10,8 +10,16 @@
 8. Consumers may use concise summaries when they clearly link to the canonical source.
 9. Reconcile AI-generated documentation against canonical sources before acceptance.
 10. Reduction must not destroy useful operational knowledge or historical traceability.
+11. Published evidence must follow the convention and appear in the canonical
+    index defined by `docs/evidence/README.md`; evidence renames use `git mv`
+    after inbound references are inventoried.
 
 If a current-state sentence requires frequent manual synchronization across multiple files, it is likely owned in the wrong place.
+
+Application interfaces must consume current milestone and executable-work state
+through the typed project-state layer. Hardcoded copies of current status,
+active objectives, evidence availability, or milestone phase are prohibited.
+Run `npm run audit:state` before treating project-state work as complete.
 
 ## Change order
 

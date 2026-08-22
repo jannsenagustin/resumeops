@@ -1,9 +1,11 @@
-import { projects } from "../data/projects";
+import { getProjects } from "../data/projects";
+import { getAtlasProjectState } from "../lib/atlasProjectState";
 import Link from "next/link";
 import ProjectCard from "./ProjectCard";
 import SectionHeader from "./SectionHeader";
 
 export default function Projects() {
+  const projects = getProjects(getAtlasProjectState());
   const atlas = projects[0];
 
   return (

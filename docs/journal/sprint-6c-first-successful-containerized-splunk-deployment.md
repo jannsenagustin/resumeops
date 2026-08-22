@@ -118,10 +118,10 @@ Head and Deployment Server were not deployed.
 The existing public artifacts remain in the
 [Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/):
 
-- [Compose configuration validation](../evidence/milestone-01-first-containerized-deployment/2026-08-01_001_compose_validation.png)
-- [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/2026-08-01_002_container_healthy.png)
-- [Docker Desktop container view](../evidence/milestone-01-first-containerized-deployment/2026-08-01_003_docker_desktop.png)
-- [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/2026-08-01_004_first_successful_login.png)
+- [Compose configuration validation](../evidence/milestone-01-first-containerized-deployment/m01-docker-compose-validation-01.png)
+- [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png)
+- [Docker Desktop container view](../evidence/milestone-01-first-containerized-deployment/m01-docker-runtime-state-01.png)
+- [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-web-login-01.png)
 
 ### Result
 

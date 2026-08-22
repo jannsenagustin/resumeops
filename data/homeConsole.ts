@@ -1,5 +1,3 @@
-import { atlasHomepageRecord } from "./atlasProject";
-
 export const consoleNavigation = [
   ["Current State", "#current-state"],
   ["Architecture", "#architecture"],
@@ -7,23 +5,6 @@ export const consoleNavigation = [
   ["Evidence", "#evidence"],
   ["Engineering Records", "#engineering-records"],
   ["Experience", "#experience"],
-] as const;
-
-export const consoleStatus = [
-  ["Project", "Atlas", "neutral"],
-  ["Location", "Edmonton, Canada", "neutral"],
-  ["Validated", "Milestones 01–04", "validated"],
-  ["Current Work", "M05 / Infrastructure Provisioning", "planned"],
-  ["Evidence", `${atlasHomepageRecord.evidenceCount} Records`, "neutral"],
-  ["Experience", "7+ Years Splunk", "neutral"],
-] as const;
-
-export const systemState = [
-  ["Distributed Search", "Validated", "validated"],
-  ["Windows Event Ingestion", "Validated", "validated"],
-  ["Deployment Server", "In Progress / Not Validated", "planned"],
-  ["Evidence Records", String(atlasHomepageRecord.evidenceCount), "neutral"],
-  ["Current Milestone", "05", "neutral"],
 ] as const;
 
 export const ingestionPath = [
@@ -61,8 +42,7 @@ export const managementPath = [
   {
     id: "deployment-server",
     name: "Rocky Linux Deployment Server",
-    role: "Planned centralized forwarder configuration management",
-    state: "In Progress / Not Validated",
+    role: "Centralized forwarder configuration management",
     href: "/projects/atlas/#limitations",
   },
   {
@@ -73,30 +53,6 @@ export const managementPath = [
     href: "/projects/atlas/#limitations",
   },
 ] as const;
-
-export const evidenceGroups = [
-  ["01", "Containerized Splunk Foundation", 4],
-  ["02", "Search Head Deployment", 4],
-  ["03", "Distributed Search", 3],
-  ["04", "Windows Event Ingestion", 5],
-  ["05", "Infrastructure Provisioning", 0],
-] as const;
-
-export const currentActivity = {
-  completed: [
-    "Atlas External Network created",
-    "Hyper-V storage standardized",
-    "atlas-deployment-server VM created",
-    "Virtual hardware configured with 4 vCPU and 8 GB RAM",
-    "Generation 2 and Linux Secure Boot configured",
-    "Production checkpoints configured",
-  ],
-  next: [
-    "Rocky Linux installation",
-    "Linux baseline configuration",
-    "Clean operating-system checkpoint",
-  ],
-} as const;
 
 export const repositoryUrl =
   "https://github.com/jannsenagustin/resumeops";
@@ -116,11 +72,6 @@ export const labState = [
     name: component.name,
     state: "Validated" as const,
   })),
-  {
-    id: managementPath[0].id,
-    name: managementPath[0].name,
-    state: "In Progress / Not Validated" as const,
-  },
   {
     id: "future-expansion",
     name: "Future Expansion",

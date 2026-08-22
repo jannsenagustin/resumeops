@@ -155,9 +155,9 @@ The following capabilities remained unimplemented and unvalidated:
 
 ### Evidence
 
-- [Search Peer status](../evidence/milestone-03-distributed-search/2026-08-06_001_search_peer_configuration.png)
-- [Distributed SPL results](../evidence/milestone-03-distributed-search/2026-08-06_001_distributed_search_results.png)
-- [Search Job Inspector](../evidence/milestone-03-distributed-search/2026-08-06_001_search_job_inspector_results.png)
+- [Search Peer status](../evidence/milestone-03-distributed-search/m03-atlas-indexer-search-peer-01.png)
+- [Distributed SPL results](../evidence/milestone-03-distributed-search/m03-atlas-search-head-distributed-search-01.png)
+- [Search Job Inspector](../evidence/milestone-03-distributed-search/m03-atlas-search-head-job-inspector-01.png)
 
 The local `server.conf` screenshot was omitted because it exposes secret-bearing
 values. The textual record preserves the engineering lesson without publishing

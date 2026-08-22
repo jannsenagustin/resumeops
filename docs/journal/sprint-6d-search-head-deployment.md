@@ -121,10 +121,10 @@ port.
 The existing public artifacts remain in the
 [Milestone 02 evidence folder](../evidence/milestone-02-search-head/):
 
-- [Search Head and Indexer healthy](../evidence/milestone-02-search-head/2026-08-05_001_search_head_and_indexer_healthy.png)
-- [First successful Search Head login](../evidence/milestone-02-search-head/2026-08-05_002_search_head_first_login.png)
-- [Docker Desktop multi-service runtime](../evidence/milestone-02-search-head/2026-08-05_003_docker_desktop_multi_service.png)
-- [Shared network membership](../evidence/milestone-02-search-head/2026-08-05_004_shared_network.png)
+- [Search Head and Indexer healthy](../evidence/milestone-02-search-head/m02-docker-container-health-01.png)
+- [First successful Search Head login](../evidence/milestone-02-search-head/m02-atlas-search-head-web-login-01.png)
+- [Docker Desktop multi-service runtime](../evidence/milestone-02-search-head/m02-docker-multi-service-state-01.png)
+- [Shared network membership](../evidence/milestone-02-search-head/m02-docker-shared-network-01.png)
 
 ### Result
 

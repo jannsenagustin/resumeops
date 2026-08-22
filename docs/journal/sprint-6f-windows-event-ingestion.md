@@ -121,11 +121,11 @@ The following capabilities remained unimplemented and unvalidated:
 
 ### Evidence
 
-- [Universal Forwarder service running](../evidence/milestone-04-windows-event-ingestion/milestone-04-01-universal-forwarder-service-running.png)
-- [Indexer receiver connectivity](../evidence/milestone-04-windows-event-ingestion/milestone-04-02-indexer-receiver-connectivity.png)
-- [Universal Forwarder active connection](../evidence/milestone-04-windows-event-ingestion/milestone-04-03-universal-forwarder-active-connection.png)
-- [Windows Event Log ingestion](../evidence/milestone-04-windows-event-ingestion/milestone-04-04-windows-event-ingestion.png)
-- [Distributed search execution](../evidence/milestone-04-windows-event-ingestion/milestone-04-05-distributed-search-execution.png)
+- [Universal Forwarder service running](../evidence/milestone-04-windows-event-ingestion/m04-windows-uf-service-status-01.png)
+- [Indexer receiver connectivity](../evidence/milestone-04-windows-event-ingestion/m04-atlas-indexer-receiver-connectivity-01.png)
+- [Universal Forwarder active connection](../evidence/milestone-04-windows-event-ingestion/m04-windows-uf-forwarding-status-01.png)
+- [Windows Event Log ingestion](../evidence/milestone-04-windows-event-ingestion/m04-windows-uf-event-ingestion-01.png)
+- [Distributed search execution](../evidence/milestone-04-windows-event-ingestion/m04-atlas-search-head-job-inspector-01.png)
 
 ### Result
 

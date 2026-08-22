@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
 import AtlasProjectExplorer from "../../../components/AtlasProjectExplorer";
 import EvidenceViewer from "../../../components/EvidenceViewer";
-import composeValidation from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_001_compose_validation.png";
-import indexerHealthy from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_002_container_healthy.png";
-import indexerDockerDesktop from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_003_docker_desktop.png";
-import indexerFirstLogin from "../../../docs/evidence/milestone-01-first-containerized-deployment/2026-08-01_004_first_successful_login.png";
-import rolesHealthy from "../../../docs/evidence/milestone-02-search-head/2026-08-05_001_search_head_and_indexer_healthy.png";
-import searchHeadFirstLogin from "../../../docs/evidence/milestone-02-search-head/2026-08-05_002_search_head_first_login.png";
-import multiServiceRuntime from "../../../docs/evidence/milestone-02-search-head/2026-08-05_003_docker_desktop_multi_service.png";
-import sharedNetwork from "../../../docs/evidence/milestone-02-search-head/2026-08-05_004_shared_network.png";
-import searchPeer from "../../../docs/evidence/milestone-03-distributed-search/2026-08-06_001_search_peer_configuration.png";
-import distributedResults from "../../../docs/evidence/milestone-03-distributed-search/2026-08-06_001_distributed_search_results.png";
-import distributedInspector from "../../../docs/evidence/milestone-03-distributed-search/2026-08-06_001_search_job_inspector_results.png";
-import forwarderService from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-01-universal-forwarder-service-running.png";
-import receiverConnectivity from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-02-indexer-receiver-connectivity.png";
-import activeForward from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-03-universal-forwarder-active-connection.png";
-import windowsIngestion from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-04-windows-event-ingestion.png";
-import windowsExecution from "../../../docs/evidence/milestone-04-windows-event-ingestion/milestone-04-05-distributed-search-execution.png";
+import { getAtlasProjectState } from "../../../lib/atlasProjectState";
+import composeValidation from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-docker-compose-validation-01.png";
+import indexerHealthy from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png";
+import indexerDockerDesktop from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-docker-runtime-state-01.png";
+import indexerFirstLogin from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-web-login-01.png";
+import rolesHealthy from "../../../docs/evidence/milestone-02-search-head/m02-docker-container-health-01.png";
+import searchHeadFirstLogin from "../../../docs/evidence/milestone-02-search-head/m02-atlas-search-head-web-login-01.png";
+import multiServiceRuntime from "../../../docs/evidence/milestone-02-search-head/m02-docker-multi-service-state-01.png";
+import sharedNetwork from "../../../docs/evidence/milestone-02-search-head/m02-docker-shared-network-01.png";
+import searchPeer from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-indexer-search-peer-01.png";
+import distributedResults from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-search-head-distributed-search-01.png";
+import distributedInspector from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-search-head-job-inspector-01.png";
+import forwarderService from "../../../docs/evidence/milestone-04-windows-event-ingestion/m04-windows-uf-service-status-01.png";
+import receiverConnectivity from "../../../docs/evidence/milestone-04-windows-event-ingestion/m04-atlas-indexer-receiver-connectivity-01.png";
+import activeForward from "../../../docs/evidence/milestone-04-windows-event-ingestion/m04-windows-uf-forwarding-status-01.png";
+import windowsIngestion from "../../../docs/evidence/milestone-04-windows-event-ingestion/m04-windows-uf-event-ingestion-01.png";
+import windowsExecution from "../../../docs/evidence/milestone-04-windows-event-ingestion/m04-atlas-search-head-job-inspector-01.png";
 
 export const metadata: Metadata = {
   title: "Engineering Record",
@@ -51,5 +52,6 @@ const evidence = [
 ] as const;
 
 export default function AtlasProjectPage() {
-  return <AtlasProjectExplorer evidence={<>{evidence.map(item=>{const isPrimary=item.id==="EVD-03-03"||item.id==="EVD-04-05";return <article id={item.id.toLowerCase()} className={`evidence-record ${isPrimary?"is-primary":""}`} key={item.id}><div><b>{item.id}</b><h3>{item.claim}</h3><dl><div><dt>OBSERVED</dt><dd>{item.observed}</dd></div><div><dt>RESULT</dt><dd className="state-value">VALIDATED</dd></div><div><dt>RELATED</dt><dd>{item.related.join(" · ")}</dd></div></dl></div><EvidenceViewer src={item.src} alt={item.alt} caption={`${item.id} · ${item.claim}`} prominence={isPrimary?"primary":"supporting"}/></article>})}</>} />;
+  const projectState = getAtlasProjectState();
+  return <AtlasProjectExplorer projectState={projectState} evidence={<>{evidence.map(item=>{const isPrimary=item.id==="EVD-03-03"||item.id==="EVD-04-05";return <article id={item.id.toLowerCase()} className={`evidence-record ${isPrimary?"is-primary":""}`} key={item.id}><div><b>{item.id}</b><h3>{item.claim}</h3><dl><div><dt>OBSERVED</dt><dd>{item.observed}</dd></div><div><dt>RESULT</dt><dd className="state-value">VALIDATED</dd></div><div><dt>RELATED</dt><dd>{item.related.join(" · ")}</dd></div></dl></div><EvidenceViewer src={item.src} alt={item.alt} caption={`${item.id} · ${item.claim}`} prominence={isPrimary?"primary":"supporting"}/></article>})}</>} />;
 }

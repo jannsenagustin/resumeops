@@ -6,6 +6,7 @@ import {
   getAtlasPlanningData,
 } from "../../lib/atlasPlanning";
 import { planningPriorities } from "../../lib/atlasPlanningTypes";
+import { getAtlasProjectState } from "../../lib/atlasProjectState";
 
 export const metadata: Metadata = {
   title: "Planning Console",
@@ -22,9 +23,7 @@ export const metadata: Metadata = {
 
 export default function PlanningPage() {
   const data = getAtlasPlanningData();
-  const currentMilestoneItems = data.backlog.filter((item) => item.milestone === "M05" && item.priority === "P1");
-  const currentObjective = currentMilestoneItems[0];
-  const nextObjective = currentMilestoneItems[1];
+  const projectState = getAtlasProjectState();
   const proposalGroups = data.proposals.reduce<Map<string, typeof data.proposals>>((groups, proposal) => {
     groups.set(proposal.status, [...(groups.get(proposal.status) ?? []), proposal]);
     return groups;
@@ -58,11 +57,12 @@ export default function PlanningPage() {
 
       <section className="planning-overview-grid" aria-label="Current planning state">
         <article className="planning-panel planning-milestone">
-          <header><span>01 / CURRENT MILESTONE</span><h2>M05</h2></header>
+          <header><span>01 / CURRENT MILESTONE</span><h2>{projectState.currentMilestone.id}</h2></header>
           <dl>
-            <div><dt>STATUS</dt><dd>{currentObjective?.status ?? "No current task"}</dd></div>
-            <div><dt>CURRENT OBJECTIVE</dt><dd>{currentObjective ? <a href={currentObjective.sourceUrl} target="_blank" rel="noopener noreferrer">{currentObjective.title} ↗</a> : "No objective recorded"}</dd></div>
-            <div><dt>NEXT RECOMMENDED OBJECTIVE</dt><dd>{nextObjective ? <a href={nextObjective.sourceUrl} target="_blank" rel="noopener noreferrer">{nextObjective.title} ↗</a> : "No next objective recorded"}</dd></div>
+            <div><dt>STATUS</dt><dd>{projectState.currentMilestone.status}</dd></div>
+            <div><dt>VALIDATION</dt><dd>{projectState.currentMilestone.validationState}</dd></div>
+            <div><dt>COMPLETED WORK</dt><dd>{projectState.completedTasks.map((task) => task.id).join(", ")}</dd></div>
+            <div><dt>ACTIVE OBJECTIVE</dt><dd><a href={data.backlog.find((item) => item.id === projectState.activeTasks[0].id)?.sourceUrl} target="_blank" rel="noopener noreferrer">{projectState.activeTasks[0].id} — {projectState.activeTasks[0].title} ↗</a></dd></div>
           </dl>
         </article>
 

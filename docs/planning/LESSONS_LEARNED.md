@@ -107,3 +107,23 @@ all other views derived consumers.
 **Reusable lesson:** Preserve a known-good pre-application baseline for SELinux, firewalld, listening services, and NTP so later troubleshooting can distinguish operating-system drift from Splunk changes.
 **Related milestone or task:** M05; ATL-001; ATL-002.
 **Status:** Confirmed
+
+## LESSON-011 — Canonical documents alone do not prevent UI drift
+
+**Lesson ID:** LESSON-011
+**Title:** Canonical documents alone do not prevent UI drift.
+**Context:** M05 was current in the milestone ledger while application consumers retained older planned-state copy.
+**What happened:** Independently maintained TypeScript objects and component prose diverged from canonical Markdown.
+**Reusable lesson:** Canonical records must feed application consumers programmatically or be checked automatically.
+**Related milestone or task:** M05; ATL-025; DEC-016.
+**Status:** Confirmed
+
+## LESSON-012 — Evidence filenames are reference-bearing interfaces
+
+**Lesson ID:** LESSON-012
+**Title:** Evidence filenames are reference-bearing interfaces.
+**Context:** Normalizing evidence used by both Markdown journals and static application imports.
+**What happened:** A naming-only migration affected multiple consumer types even though the image bytes did not change.
+**Reusable lesson:** Inventory inbound references before using `git mv`, then validate Markdown links, application imports, and the production build.
+**Related milestone or task:** ATL-026; DEC-017.
+**Status:** Confirmed

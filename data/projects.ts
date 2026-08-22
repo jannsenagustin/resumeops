@@ -1,3 +1,5 @@
+import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
+
 export type ProjectStatus =
   | "validated"
   | "configuration-complete"
@@ -27,14 +29,14 @@ export type Project = {
   outcomes?: string[];
 };
 
-export const projects: Project[] = [
+export function getProjects(projectState: AtlasProjectState): Project[] {
+return [
   {
     id: "atlas",
     slug: "atlas",
     title: "Atlas",
     subtitle: "Flagship Observability Project",
-    description:
-      "A Splunk lab evolved from a containerized Indexer to a separate Search Head, validated Distributed Search, and evidence-backed Windows Event Log ingestion.",
+    description: `A Splunk lab with Milestones 01–04 validated and ${projectState.currentMilestone.id} ${projectState.currentMilestone.status.toLowerCase()}: ${projectState.currentDetail.nextObjective}.`,
     status: "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [
@@ -43,7 +45,8 @@ export const projects: Project[] = [
       "Verified administrator access through localhost-only Splunk Web for both roles",
       "Validated remote Indexer participation in searches coordinated by the Search Head",
       "Ingested Windows Application, Security, and System logs through an active Universal Forwarder connection",
-      "Kept Deployment Server, clustering, and high availability explicitly unimplemented",
+      `${projectState.completedTasks[0].id} completed the Rocky Linux operating-system baseline`,
+      `${projectState.activeBatch.id} approves ${projectState.activeTasks[0].id} as the sole active objective`,
     ],
     route: "/projects/atlas/",
     links: [
@@ -96,3 +99,4 @@ export const projects: Project[] = [
     featured: false,
   },
 ];
+}

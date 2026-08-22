@@ -14,3 +14,6 @@
 - [ ] IDs are unique.
 - [ ] No evidence, runtime configuration, or protected artifact changed.
 - [ ] `git diff --check`, lint, TypeScript, and build results are recorded for review.
+- [ ] `npm run audit:state` passes and current UI consumers use the typed project-state layer.
+- [ ] The current milestone agrees with `ACTIVE_BATCH.md`, completed ATL references are `Done`, and active ATL references exist.
+- [ ] Active application source contains no independently maintained stale-state phrases.

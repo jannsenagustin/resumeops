@@ -36,6 +36,9 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-022 | Automated documentation-integrity audit | P2 | Proposed | Documentation |
 | ATL-023 | Documentation-health view | P3 | Proposed | Documentation |
 | ATL-024 | Adopt Atlas Planning Console as Daily Engineering Workflow | P1 | Backlog | Atlas EOS |
+| ATL-025 | Project-State Synchronization and Integrity Audit | P1 | Review | Atlas EOS |
+| ATL-026 | Normalize Evidence Naming and References | P2 | Review | Documentation |
+| ATL-027 | Final Review of M05 Evidence Publishability | P3 | Backlog | Documentation |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -381,3 +384,47 @@ to their canonical documents.
 **Source or related proposal:** IDEA-028; Atlas EOS governance.
 **Notes:** Backlog status does not activate this item. Human approval and
 inclusion in `ACTIVE_BATCH.md` are still required before execution.
+
+## ATL-025 — Project-State Synchronization and Integrity Audit
+
+**Category:** Documentation; AI Governance; Technical Debt
+**Milestone:** Atlas EOS
+**Priority:** P1
+**Status:** Review
+**Description:** Parse canonical milestone and planning records into one typed, read-only project-state layer and reject contradictions before publication.
+**Why it matters:** Prevents homepage, project, planning, and navigation views from drifting away from repository truth.
+**Dependencies:** DEC-015; DEC-016; canonical milestones; Atlas Planning Console.
+**Acceptance criteria:** Active state consumers derive from canonical records; malformed references fail clearly; `npm run audit:state`, lint, TypeScript, and build pass; deliberate mismatch testing proves the audit fails closed.
+**Human validation required:** Yes.
+**Source or related proposal:** Canonical project-state synchronization implementation.
+**Notes:** Implementation is awaiting human review. ATL-025 is not part of BATCH-001 and is not executable scope.
+
+## ATL-026 — Normalize Evidence Naming and References
+
+**Category:** Documentation; Technical Debt
+**Milestone:** Documentation
+**Priority:** P2
+**Status:** Review
+**Description:** Normalize published Atlas evidence filenames, repair every inbound reference, and establish a canonical artifact index and naming policy.
+**Why it matters:** Stable, meaningful artifact identities keep evidence traceable across journals, application imports, and future execution records.
+**Dependencies:** DEC-014; DEC-015; canonical evidence inventory.
+**Acceptance criteria:** Tracked evidence follows the approved filename pattern; all consumers resolve; artifact bytes remain unchanged; sensitive unpublished captures remain excluded; repository validation passes.
+**Human validation required:** Yes.
+**Source or related proposal:** Evidence naming normalization implementation; DEC-017.
+**Notes:** Implementation is awaiting human review. ATL-026 is not part of BATCH-001 and is not executable scope.
+**Recorded on:** 2026-08-21
+
+## ATL-027 — Final Review of M05 Evidence Publishability
+
+**Category:** Documentation
+**Milestone:** Documentation
+**Priority:** P3
+**Status:** Backlog
+**Objective:** Review the remaining unpublished M05 evidence artifacts that still contain persistent interface identifiers.
+**Description:** Determine whether each remaining artifact should be redacted, replaced, permanently excluded, or approved for publication.
+**Why it matters:** Atlas evidence should be publishable by default. Sensitive artifacts should never exist as undocumented exceptions.
+**Dependencies:** ATL-026; DEC-014; canonical evidence index.
+**Acceptance criteria:** All remaining M05 evidence has an explicit publication decision; no unreviewed sensitive evidence remains; the evidence index reflects the final disposition; and the repository contains no accidental publication risk.
+**Human validation required:** Yes.
+**Source or related proposal:** M05 evidence publishability review.
+**Notes:** Backlog status does not activate ATL-027. It is not part of BATCH-001.

@@ -13,6 +13,7 @@ import AtlasConsoleNav from "./AtlasConsoleNav";
 import ConsoleIcon, { type ConsoleIconName } from "./ConsoleIcon";
 import ResumeViewer from "./ResumeViewer";
 import ResumeViewerTrigger from "./ResumeViewerTrigger";
+import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 
 const focusableSelector =
   'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
@@ -28,12 +29,17 @@ const labIcons: Record<string, ConsoleIconName> = {
 
 const shortcutIcons: ConsoleIconName[] = ["monitor", "network", "evidence", "server", "flag", "file"];
 
-function LabState({ idPrefix }: { idPrefix: string }) {
+function LabState({ idPrefix, projectState }: { idPrefix: string; projectState: AtlasProjectState }) {
+  const currentLab = [
+    ...labState.slice(0, -1),
+    { id: "deployment-server", name: projectState.currentMilestone.title, state: `${projectState.currentMilestone.status} / ${projectState.currentMilestone.validationState}` },
+    labState[labState.length - 1],
+  ];
   return (
     <section className="atlas-sidebar__section" aria-labelledby={`${idPrefix}-lab-title`}>
       <h2 id={`${idPrefix}-lab-title`}>Current Lab</h2>
       <ul className="atlas-sidebar__lab">
-        {labState.map((item) => {
+        {currentLab.map((item) => {
           const state = item.state === "Validated"
             ? "validated"
             : item.state === "Future"
@@ -139,9 +145,11 @@ function FeaturedArtifact({
 function SidebarContent({
   idPrefix,
   onNavigate,
+  projectState,
 }: {
   idPrefix: string;
   onNavigate?: () => void;
+  projectState: AtlasProjectState;
 }) {
   return (
     <>
@@ -156,7 +164,7 @@ function SidebarContent({
         <SidebarActions onNavigate={onNavigate} />
       </section>
       <FeaturedArtifact idPrefix={idPrefix} onNavigate={onNavigate} />
-      <LabState idPrefix={idPrefix} />
+      <LabState idPrefix={idPrefix} projectState={projectState} />
       <ShortcutList idPrefix={idPrefix} onNavigate={onNavigate} />
       <aside className="atlas-sidebar__principle" aria-label="Atlas principle">
         <span className="console-icon-link"><ConsoleIcon name="lightbulb" /><span className="console-label">Atlas Principle</span></span>
@@ -169,7 +177,7 @@ function SidebarContent({
   );
 }
 
-export default function AtlasConsoleShell({ children }: { children: ReactNode }) {
+export default function AtlasConsoleShell({ children, projectState }: { children: ReactNode; projectState: AtlasProjectState }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -230,7 +238,7 @@ export default function AtlasConsoleShell({ children }: { children: ReactNode })
           aria-label="Project Atlas console context"
           data-drawer-background
         >
-          <SidebarContent idPrefix="desktop-sidebar" />
+          <SidebarContent idPrefix="desktop-sidebar" projectState={projectState} />
         </aside>
 
         <div className="console-shell__content" data-drawer-background>
@@ -265,7 +273,7 @@ export default function AtlasConsoleShell({ children }: { children: ReactNode })
                 <h2 id="atlas-drawer-title">Atlas Console Navigation</h2>
                 <button ref={closeRef} type="button" onClick={() => setDrawerOpen(false)}>Close</button>
               </header>
-              <SidebarContent idPrefix="mobile-drawer" onNavigate={() => setDrawerOpen(false)} />
+              <SidebarContent idPrefix="mobile-drawer" projectState={projectState} onNavigate={() => setDrawerOpen(false)} />
               <div className="atlas-drawer__external">
                 <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href={repositoryUrl} target="_blank" rel="noopener noreferrer">GitHub</a>

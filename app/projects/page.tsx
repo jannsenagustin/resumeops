@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectCard from "../../components/ProjectCard";
 import SectionHeader from "../../components/SectionHeader";
-import { projects } from "../../data/projects";
+import { getProjects } from "../../data/projects";
+import { getAtlasProjectState } from "../../lib/atlasProjectState";
 
 export const metadata: Metadata = {
   title: "Engineering Projects",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  const projects = getProjects(getAtlasProjectState());
   const flagship = projects.find((project) => project.featured);
   const roadmap = projects.filter((project) => !project.featured);
 

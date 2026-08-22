@@ -160,3 +160,38 @@ documentation ownership matrix, and preserve historical material only when its
 role is clearly labeled.
 
 **Status:** Accepted
+
+## DEC-016 — Canonical Project-State Rendering
+
+**Recorded:** 2026-08-21
+
+**Decision:** Current project state is rendered from canonical repository
+records. UI components may format state for their audience, but may not own
+separate copies.
+
+**Rationale:** Canonical documents cannot prevent interface drift when
+application data independently repeats their values.
+
+**Consequences:** The build-time project-state layer composes milestone,
+backlog, Active Batch, and evidence references. `npm run audit:state` rejects
+contradictions before publication.
+
+**Status:** Accepted
+
+## DEC-017 — Canonical Evidence Naming Convention
+
+**Recorded:** 2026-08-21
+
+**Decision:** Published Atlas evidence uses milestone- and task-aware lowercase
+filenames defined by `docs/evidence/README.md`, which also owns the canonical
+artifact index. Naming-only migrations preserve artifact bytes and use `git mv`.
+
+**Rationale:** Evidence paths are durable references consumed by journals,
+application imports, and validation records; predictable identities make those
+relationships auditable.
+
+**Consequences:** Contributors inventory inbound references before a rename,
+repair every consumer, validate links and builds, and keep sensitive unpublished
+captures outside the index until review and required redaction are complete.
+
+**Status:** Accepted

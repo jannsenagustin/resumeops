@@ -1,27 +1,24 @@
 import Link from "next/link";
-import { atlasMilestones } from "../data/atlasProject";
 import { enterpriseExperience } from "../data/experience";
 import {
-  consoleStatus,
-  currentActivity,
-  evidenceGroups,
   linkedInUrl,
-  systemState,
 } from "../data/homeConsole";
+import { getAtlasProjectState } from "../lib/atlasProjectState";
+import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 import AtlasPipeline from "./AtlasPipeline";
 import AtlasConsoleNav from "./AtlasConsoleNav";
 import AtlasConsoleShell from "./AtlasConsoleShell";
 import Panel from "./Panel";
 
-const homepageMilestones = atlasMilestones.filter((milestone) =>
-  ["01", "02", "03", "04", "05"].includes(milestone.id),
-);
-
-const validatedRecords = homepageMilestones.filter(
-  (milestone) => milestone.status === "Validated",
-);
-
-function ConsoleHeader() {
+function ConsoleHeader({ state }: { state: AtlasProjectState }) {
+  const consoleStatus = [
+    ["Project", "Atlas", "neutral"],
+    ["Location", "Edmonton, Canada", "neutral"],
+    ["Validated", "Milestones 01–04", "validated"],
+    ["Current Work", `${state.currentMilestone.id} / ${state.currentDetail.currentPhase}`, "planned"],
+    ["Active Batch", state.activeBatch.id, "neutral"],
+    ["Experience", "7+ Years Splunk", "neutral"],
+  ] as const;
   return (
     <header className="console-header">
       <div className="console-status" aria-label="Atlas project status">
@@ -42,7 +39,14 @@ function ConsoleHeader() {
   );
 }
 
-function CurrentSystemState() {
+function CurrentSystemState({ state }: { state: AtlasProjectState }) {
+  const systemState = [
+    ["Distributed Search", "Validated", "validated"],
+    ["Windows Event Ingestion", "Validated", "validated"],
+    [state.currentMilestone.title, `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
+    ["Active Objective", state.activeTasks[0].id, "neutral"],
+    ["Current Milestone", state.currentMilestone.id, "neutral"],
+  ] as const;
   return (
     <section
       id="current-state"
@@ -76,7 +80,7 @@ function CurrentSystemState() {
       <Panel
         eyebrow="System State"
         title="Validated foundation and current boundary"
-        metadata="M05 / ACTIVE WORK"
+        metadata={`${state.currentMilestone.id} / ACTIVE WORK`}
         status="planned"
         className="console-current__panel"
         headingLevel="h2"
@@ -94,7 +98,8 @@ function CurrentSystemState() {
   );
 }
 
-function MilestoneProgression() {
+function MilestoneProgression({ state }: { state: AtlasProjectState }) {
+  const homepageMilestones = state.milestones.filter((milestone) => Number(milestone.number) <= 5);
   return (
     <section
       id="milestones"
@@ -110,27 +115,18 @@ function MilestoneProgression() {
       </header>
       <ol>
         {homepageMilestones.map((milestone) => {
-          const state = milestone.status === "Validated" ? "validated" : "planned";
+          const visualState = milestone.validationState === "Validated" ? "validated" : "planned";
           return (
-            <li key={milestone.id} data-state={state}>
-              <span className="console-milestone__number">{milestone.id}</span>
+            <li key={milestone.id} data-state={visualState}>
+              <span className="console-milestone__number">{milestone.number}</span>
               <div>
                 <div className="console-milestone__heading">
                   <h3>{milestone.title}</h3>
-                  <span>{milestone.status === "Validated" ? "Validated" : "In Progress / Not Validated"}</span>
+                  <span>{milestone.status} / {milestone.validationState}</span>
                 </div>
-                <p>{milestone.summary}</p>
+                <p>{milestone.outcome}</p>
                 <div className="console-milestone__meta">
-                  <span>{milestone.evidenceLabel}</span>
-                  {milestone.href && milestone.external ? (
-                    <a href={milestone.href} target="_blank" rel="noopener noreferrer">
-                      {milestone.linkLabel} <span aria-hidden="true">↗</span>
-                    </a>
-                  ) : milestone.href ? (
-                    <Link href={milestone.href}>
-                      {milestone.linkLabel} <span aria-hidden="true">→</span>
-                    </Link>
-                  ) : null}
+                  <span>{milestone.evidence === "—" ? "No evidence recorded" : "Evidence linked"}</span>
                 </div>
               </div>
             </li>
@@ -141,7 +137,9 @@ function MilestoneProgression() {
   );
 }
 
-function EvidenceAndRecords() {
+function EvidenceAndRecords({ state }: { state: AtlasProjectState }) {
+  const evidenceMilestones = state.milestones.filter((milestone) => milestone.evidence !== "—");
+  const validatedRecords = state.milestones.filter((milestone) => milestone.validationState === "Validated");
   return (
     <div className="console-summary-grid">
       <Panel
@@ -149,17 +147,17 @@ function EvidenceAndRecords() {
         as="section"
         eyebrow="04 / Evidence"
         title="What proof exists?"
-        metadata="16 REVIEWED RECORDS"
+        metadata="CANONICAL EVIDENCE MAP"
         className="atlas-console-section console-summary-panel"
         headingLevel="h2"
       >
         <ul className="console-evidence-list">
-          {evidenceGroups.map(([id, title, count]) => (
-            <li key={id}>
-              <span>M{id}</span>
+          {evidenceMilestones.map((milestone) => (
+            <li key={milestone.id}>
+              <span>{milestone.id}</span>
               <div>
-                <strong>{title}</strong>
-                <small>{count === 0 ? "No evidence yet" : `${count} records`}</small>
+                <strong>{milestone.title}</strong>
+                <small>{milestone.validationState}</small>
               </div>
             </li>
           ))}
@@ -182,16 +180,11 @@ function EvidenceAndRecords() {
         <ol className="console-record-list">
           {validatedRecords.map((milestone) => (
             <li key={milestone.id}>
-              <span>{milestone.id}</span>
+              <span>{milestone.number}</span>
               <div>
                 <strong>{milestone.title}</strong>
-                <p>{milestone.summary}</p>
+                <p>{milestone.outcome}</p>
               </div>
-              {milestone.href && (
-                <a href={milestone.href} target="_blank" rel="noopener noreferrer">
-                  Open record <span aria-hidden="true">↗</span>
-                </a>
-              )}
             </li>
           ))}
         </ol>
@@ -200,7 +193,7 @@ function EvidenceAndRecords() {
   );
 }
 
-function CurrentActivity() {
+function CurrentActivity({ state }: { state: AtlasProjectState }) {
   return (
     <section
       id="current-work"
@@ -209,22 +202,22 @@ function CurrentActivity() {
     >
       <header className="console-section__header">
         <div>
-          <p className="console-section__index">06 / M05 CURRENT ACTIVITY</p>
-          <h2 id="activity-title">Infrastructure provisioning is underway</h2>
+          <p className="console-section__index">06 / {state.currentMilestone.id} CURRENT ACTIVITY</p>
+          <h2 id="activity-title">{state.currentDetail.nextObjective}</h2>
         </div>
-        <p>Rocky Linux and Splunk Deployment Server are not yet installed or validated.</p>
+        <p>{state.currentBoundary}</p>
       </header>
       <div className="console-activity__grid">
         <div>
           <h3>Completed</h3>
           <ul>
-            {currentActivity.completed.map((item) => <li key={item}>{item}</li>)}
+            {state.currentDetail.completedFoundation.map((item) => <li key={item}>{item}</li>)}
           </ul>
         </div>
         <div data-state="planned">
-          <h3>Next</h3>
+          <h3>Active · {state.activeBatch.id}</h3>
           <ul>
-            {currentActivity.next.map((item) => <li key={item}>{item}</li>)}
+            {state.activeTasks.map((item) => <li key={item.id}>{item.id} — {item.title}</li>)}
           </ul>
         </div>
       </div>
@@ -274,16 +267,17 @@ function EngineerRecord() {
 }
 
 export default function AtlasConsoleHome() {
+  const state = getAtlasProjectState();
   return (
-    <AtlasConsoleShell>
+    <AtlasConsoleShell projectState={state}>
       <a className="console-skip-link" href="#current-state">Skip to current system state</a>
-      <ConsoleHeader />
+      <ConsoleHeader state={state} />
       <main className="console-home">
-        <CurrentSystemState />
-        <AtlasPipeline />
-        <MilestoneProgression />
-        <EvidenceAndRecords />
-        <CurrentActivity />
+        <CurrentSystemState state={state} />
+        <AtlasPipeline projectState={state} />
+        <MilestoneProgression state={state} />
+        <EvidenceAndRecords state={state} />
+        <CurrentActivity state={state} />
         <EngineerRecord />
       </main>
       <footer className="console-footer">
