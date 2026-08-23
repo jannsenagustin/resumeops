@@ -47,7 +47,7 @@ const batchId = batchDocument.match(/^\*\*Batch ID:\*\*\s*(.+)$/m)?.[1].trim();
 const batchStatus = batchDocument.match(/^\*\*Status:\*\*\s*(.+)$/m)?.[1].trim();
 const batchTasks = batchDocument.match(/^\*\*Included Tasks:\*\*\s*(.+)$/m)?.[1].match(/ATL-\d{3}/g) ?? [];
 if (!batchId || !/^BATCH-\d{3}$/.test(batchId)) fail("invalid Active Batch ID");
-if (batchStatus !== "Approved") fail(`${batchId} is not Approved`);
+if (batchStatus !== "In Progress") fail(`${batchId} is not In Progress`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
 const completed = fields["Completed Work"].match(/ATL-\d{3}/g) ?? [];
 for (const id of completed) if (backlog.get(id)?.status !== "Done") fail(`completed work ${id} is not Done`);

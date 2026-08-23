@@ -28,4 +28,4 @@ Objective:
 ## Final Status
 ```
 
-Codex may draft the report from observed execution and validation results. A human reviews the account, performs required acceptance checks, and confirms the final status. BATCH-001 has not been created or activated.
+Codex may draft the report from observed execution and validation results. A human reviews the account, performs required acceptance checks, and confirms the final status. Completed and attempted reports are stored beside this index.

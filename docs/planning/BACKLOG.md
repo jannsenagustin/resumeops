@@ -13,8 +13,8 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ID | Title | Priority | Status | Milestone |
 | --- | --- | --- | --- | --- |
 | ATL-001 | M05 Phase 2 — Rocky Linux baseline hardening | P1 | Done | M05 |
-| ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Backlog | M05 |
-| ATL-003 | Configure Splunk Deployment Server role | P1 | Backlog | M05 |
+| ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Done | M05 |
+| ATL-003 | Configure Splunk Deployment Server role | P1 | Active | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Backlog | M05 |
 | ATL-005 | Deliver a harmless test deployment app manually | P1 | Backlog | M05 |
 | ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Backlog | M05 |
@@ -59,21 +59,21 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Prepare the dedicated Rocky Linux VM to act as the Splunk Deployment Server by installing Splunk Enterprise directly on the host.
 **Why it matters:** Provides the management runtime required for centralized forwarder configuration.
 **Dependencies:** ATL-001.
 **Acceptance criteria:** Splunk is installed using a documented, repeatable process and its local service operation is validated without claiming the Deployment Server role is configured.
 **Human validation required:** Yes.
 **Source or related proposal:** Existing M05 architecture.
-**Notes:** The VM is not a general Docker host.
+**Notes:** Splunk Enterprise 10.0.8 is installed under `/opt/splunk`; local service operation is validated under systemd as the dedicated `splunk` account. Deployment Server role configuration remains ATL-003 scope.
 
 ## ATL-003 — Configure Splunk Deployment Server role
 
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
+**Status:** Active
 **Description:** Configure deployment apps, server classes, and management behavior.
 **Why it matters:** Establishes the centralized management plane separately from ingestion.
 **Dependencies:** ATL-002.

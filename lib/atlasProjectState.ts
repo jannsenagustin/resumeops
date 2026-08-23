@@ -13,7 +13,7 @@ export function getAtlasProjectState(): AtlasProjectState {
     return { id, title: task.title };
   });
   if (planning.activeBatch.batchId !== milestoneData.currentDetail.activeBatchId) throw new Error(`Current milestone batch ${milestoneData.currentDetail.activeBatchId} does not match ACTIVE_BATCH.md ${planning.activeBatch.batchId}`);
-  if (planning.activeBatch.status !== "Approved") throw new Error(`Active batch ${planning.activeBatch.batchId} is not Approved`);
+  if (planning.activeBatch.status !== "In Progress") throw new Error(`Active batch ${planning.activeBatch.batchId} is not In Progress`);
   const includedTasks = planning.activeBatch.includedTasks.match(/ATL-\d{3}/g) ?? [];
   if (includedTasks.length !== milestoneData.currentDetail.activeTasks.length || includedTasks.some((id) => !milestoneData.currentDetail.activeTasks.includes(id))) throw new Error("Current milestone active tasks do not match ACTIVE_BATCH.md");
   const activeTasks = includedTasks.map((id) => {

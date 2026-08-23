@@ -74,15 +74,16 @@ execution. Secret-bearing `server.conf` and installer screenshots are excluded.
 
 ## Milestone 05 Evidence
 
-The `milestone-05-data-ingestion` folder contains reviewed infrastructure
-evidence for the dedicated Rocky Linux Deployment Server VM. The ATL-001
-baseline set covers host identity and resources, network connectivity, package
-and kernel updates, required administration tools, and NTP synchronization.
-The security-baseline result includes SELinux, firewalld, and listening-service
-validation, but its screenshot remains unpublished pending redaction of a
-persistent interface identifier. These records validate the operating-system
-foundation only; they do not claim that Splunk Enterprise is installed or that
-the Deployment Server role is configured.
+The `milestone-05-data-ingestion` folder contains reviewed infrastructure and
+host-runtime evidence for the dedicated Rocky Linux Deployment Server VM. The
+ATL-001 baseline set covers host identity and resources, network connectivity,
+package and kernel updates, required administration tools, and NTP
+synchronization. The ATL-002 set proves the RPM installation, successful first
+startup, and final systemd-managed Splunk 10.0.8 runtime under the `splunk`
+account. The security-baseline result includes
+SELinux, firewalld, and listening-service validation, but its screenshot remains
+unpublished pending redaction of a persistent interface identifier. These
+records do not claim that the Deployment Server role is configured.
 
 ## Canonical Artifact Index
 
@@ -121,6 +122,9 @@ publishability without superseding the validation claim's canonical owner.
 | `m05-atl-001-rocky-package-update-01.png` | M05 | ATL-001 | Package update completed | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-001-rocky-package-update-01.png) |
 | `m05-atl-001-rocky-storage-layout-01.png` | M05 | ATL-001 | Storage layout matches baseline | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-001-rocky-storage-layout-01.png) |
 | `m05-atl-001-rocky-time-sync-01.png` | M05 | ATL-001 | NTP and timezone are verified | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-001-rocky-time-sync-01.png) |
+| `m05-atl-002-rocky-splunk-first-start-01.png` | M05 | ATL-002 | First startup completed prerequisite, configuration, index, and installed-file checks | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-first-start-01.png) |
+| `m05-atl-002-rocky-splunk-rpm-installation-01.png` | M05 | ATL-002 | RPM installation completed and the installed package query succeeded | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-rpm-installation-01.png) |
+| `m05-atl-002-rocky-splunk-systemd-runtime-01.png` | M05 | ATL-002 | Splunk is active under systemd as `splunk` and reports version 10.0.8 | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-systemd-runtime-01.png) |
 
 ## Excluded Captures
 

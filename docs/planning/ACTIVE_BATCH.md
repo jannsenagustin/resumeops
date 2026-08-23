@@ -6,22 +6,22 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 ## Current Batch
 
-**Batch ID:** BATCH-001
+**Batch ID:** BATCH-002
 
-**Status:** Approved
+**Status:** In Progress
 
-**Objective:** ATL-002 — Install Splunk Enterprise directly on Rocky Linux
+**Objective:** ATL-003 — Configure Splunk Deployment Server role
 
-**Included Tasks:** ATL-002.
+**Included Tasks:** ATL-003.
 
-**Excluded Scope:** All backlog and proposal work other than ATL-002.
+**Excluded Scope:** All backlog and proposal work other than ATL-003.
 
-**Dependencies:** ATL-001 — Done.
+**Dependencies:** ATL-002 — Done.
 
-**Acceptance Criteria:** Splunk is installed using a documented, repeatable process and its local service operation is validated without claiming the Deployment Server role is configured.
+**Acceptance Criteria:** Deployment Server configuration is documented, inspected, and ready for a controlled client enrollment test.
 
-**Human Validation Required:** Yes; a human must validate the implementation and results before ATL-002 is marked Done.
+**Human Validation Required:** Yes; a human must validate the configuration and results before ATL-003 is marked Done.
 
-**Execution Notes:** BATCH-001 authorizes ATL-002 only. No additional backlog item is active.
+**Execution Notes:** BATCH-002 authorizes ATL-003 only. No additional backlog item is active. This record does not claim ATL-003 implementation has started.
 
-**Expected Report Path:** `docs/execution-reports/BATCH-001.md` after execution is attempted.
+**Expected Report Path:** `docs/execution-reports/BATCH-002.md` after execution is attempted.

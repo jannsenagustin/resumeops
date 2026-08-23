@@ -127,3 +127,53 @@ all other views derived consumers.
 **Reusable lesson:** Inventory inbound references before using `git mv`, then validate Markdown links, application imports, and the production build.
 **Related milestone or task:** ATL-026; DEC-017.
 **Status:** Confirmed
+
+## LESSON-013 — Isolate address-family failures during downloads
+
+**Lesson ID:** LESSON-013
+**Title:** Isolate address-family failures during downloads.
+**Context:** Downloading the Splunk Enterprise 10.0.8 RPM on Rocky Linux.
+**What happened:** `wget` automatically selected IPv6 and the large download timed out; HTTPS connectivity succeeded with `curl`, and `wget -4` completed immediately over IPv4.
+**Reusable lesson:** When HTTPS is reachable but a large download stalls, inspect the selected address family and retry explicitly over IPv4 before changing broader network configuration.
+**Related milestone or task:** M05; ATL-002.
+**Status:** Confirmed
+
+## LESSON-014 — Use explicit Splunk executable paths
+
+**Lesson ID:** LESSON-014
+**Title:** Do not assume the Splunk CLI is on `PATH`.
+**Context:** Validating the host-based Splunk Enterprise installation.
+**What happened:** The Splunk executable was installed under `/opt/splunk/bin` and was validated from that location.
+**Reusable lesson:** Use `/opt/splunk/bin/splunk` in installation and recovery procedures unless the environment explicitly manages a trusted path entry.
+**Related milestone or task:** M05; ATL-002.
+**Status:** Confirmed
+
+## LESSON-015 — Align ownership before service migration
+
+**Lesson ID:** LESSON-015
+**Title:** A root first-start creates ownership work before service migration.
+**Context:** Moving the initial Splunk startup to a dedicated systemd runtime.
+**What happened:** The initial root startup created files under `/opt/splunk` that the `splunk` runtime account could not use, causing service failures until ownership was corrected recursively.
+**Reusable lesson:** Start Splunk with its intended runtime account, or reconcile the entire Splunk home ownership before enabling a dedicated service account.
+**Related milestone or task:** M05; ATL-002; DEC-018.
+**Status:** Confirmed
+
+## LESSON-016 — Inspect service journals before correction
+
+**Lesson ID:** LESSON-016
+**Title:** Inspect the service journal before modifying a failed service.
+**Context:** Troubleshooting the Splunk systemd migration.
+**What happened:** `systemctl`, `journalctl`, and process inspection isolated a permissions failure caused by the ownership mismatch.
+**Reusable lesson:** Use service status, journal entries, and process ownership to identify the failing boundary before changing service configuration or filesystem state.
+**Related milestone or task:** M05; ATL-002.
+**Status:** Confirmed
+
+## LESSON-017 — Validate the effective runtime identity
+
+**Lesson ID:** LESSON-017
+**Title:** Service activation does not prove the intended runtime identity.
+**Context:** Final validation of the host-based Splunk service.
+**What happened:** Process inspection confirmed that active `splunkd` processes ran as `splunk` after the service migration.
+**Reusable lesson:** Validate the effective process user after installation or service-account changes; do not infer it from a unit-file setting or an active status alone.
+**Related milestone or task:** M05; ATL-002; DEC-018.
+**Status:** Confirmed
