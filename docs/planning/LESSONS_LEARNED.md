@@ -177,3 +177,13 @@ all other views derived consumers.
 **Reusable lesson:** Validate the effective process user after installation or service-account changes; do not infer it from a unit-file setting or an active status alone.
 **Related milestone or task:** M05; ATL-002; DEC-018.
 **Status:** Confirmed
+
+## LESSON-018 — Separate service health from external reachability
+
+**Lesson ID:** LESSON-018
+**Title:** A healthy service does not prove external reachability.
+**Context:** Validating Splunk Web access on the Rocky Linux Deployment Server host before ATL-003 role configuration.
+**What happened:** Splunk, systemd, the CLI, and local TCP/8000 access were healthy while the Windows browser timed out. Successful localhost and VM-address requests isolated the application from the failure; firewalld lacked an inbound TCP/8000 allowance.
+**Reusable lesson:** Validate the service locally, confirm its listening ports, test the host address, and then inspect the guest firewall before changing a healthy application. Keep application health and external reachability as separate validation claims.
+**Related milestone or task:** M05; ATL-003.
+**Status:** Confirmed

@@ -22,6 +22,6 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Human Validation Required:** Yes; a human must validate the configuration and results before ATL-003 is marked Done.
 
-**Execution Notes:** BATCH-002 authorizes ATL-003 only. No additional backlog item is active. This record does not claim ATL-003 implementation has started.
+**Execution Notes:** BATCH-002 authorizes ATL-003 only. Step 1 is complete: the existing Splunk installation and external Web access were validated before role configuration. Step 2, configuring the Deployment Server role, is next. No Deployment Server configuration has begun and no additional backlog item is active.
 
 **Expected Report Path:** `docs/execution-reports/BATCH-002.md` after execution is attempted.

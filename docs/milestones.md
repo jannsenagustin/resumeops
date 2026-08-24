@@ -17,10 +17,10 @@ sequence and the [backlog](planning/BACKLOG.md) owns priorities.
 ## M05 — Rocky Linux Deployment Server & Configuration Management
 
 **Current:** Yes
-**Current Phase:** Deployment Server configuration
+**Current Phase:** Deployment Server configuration — baseline validated
 **Completed Work:** ATL-001; ATL-002
-**Completed Foundation:** Rocky Linux VM commissioned and updated; Administration tools installed; Time synchronization validated; SELinux and firewalld baseline validated; Splunk Enterprise 10.0.8 installed and validated as a systemd-managed service under the `splunk` account
+**Completed Foundation:** Rocky Linux VM commissioned and updated; Administration tools installed; Time synchronization validated; SELinux and firewalld baseline validated; Splunk Enterprise 10.0.8 installed and validated as a systemd-managed service under the `splunk` account; ATL-003 Step 1 known-good baseline validated, including CLI health, ports 8000 and 8089, and external Splunk Web access after allowing TCP/8000 through firewalld
 **Active Work:** ATL-003 / BATCH-002
-**Next Objective:** Configure the Splunk Deployment Server role
+**Next Objective:** ATL-003 Step 2 — configure the Splunk Deployment Server role
 **Evidence:** evidence/milestone-05-data-ingestion/
-**Boundary:** Splunk Enterprise installation and local service operation are validated; Deployment Server role configuration, managed Universal Forwarder enrollment, and configuration distribution are not yet validated.
+**Boundary:** Splunk Enterprise installation, local service operation, listening ports, and workstation access to Splunk Web are validated; Deployment Server role configuration has not begun, and managed Universal Forwarder enrollment and configuration distribution are not yet validated.

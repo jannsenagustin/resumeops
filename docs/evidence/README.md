@@ -80,7 +80,10 @@ ATL-001 baseline set covers host identity and resources, network connectivity,
 package and kernel updates, required administration tools, and NTP
 synchronization. The ATL-002 set proves the RPM installation, successful first
 startup, and final systemd-managed Splunk 10.0.8 runtime under the `splunk`
-account. The security-baseline result includes
+account. ATL-003 Step 1 revalidates systemd health, the runtime identity, CLI
+operation, and TCP/8089 before Deployment Server role configuration. The
+existing ATL-002 composite also proves version 10.0.8 and listeners on TCP/8000
+and TCP/8089. The security-baseline result includes
 SELinux, firewalld, and listening-service validation, but its screenshot remains
 unpublished pending redaction of a persistent interface identifier. These
 records do not claim that the Deployment Server role is configured.
@@ -125,6 +128,10 @@ publishability without superseding the validation claim's canonical owner.
 | `m05-atl-002-rocky-splunk-first-start-01.png` | M05 | ATL-002 | First startup completed prerequisite, configuration, index, and installed-file checks | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-first-start-01.png) |
 | `m05-atl-002-rocky-splunk-rpm-installation-01.png` | M05 | ATL-002 | RPM installation completed and the installed package query succeeded | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-rpm-installation-01.png) |
 | `m05-atl-002-rocky-splunk-systemd-runtime-01.png` | M05 | ATL-002 | Splunk is active under systemd as `splunk` and reports version 10.0.8 | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-002-rocky-splunk-systemd-runtime-01.png) |
+| `m05-atl-003-rocky-splunk-cli-status-01.png` | M05 | ATL-003 | The Splunk CLI reports the instance and helpers running | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-003-rocky-splunk-cli-status-01.png) |
+| `m05-atl-003-rocky-splunk-management-port-01.png` | M05 | ATL-003 | TCP/8089 is listening on all IPv4 interfaces | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-003-rocky-splunk-management-port-01.png) |
+| `m05-atl-003-rocky-splunk-runtime-identity-01.png` | M05 | ATL-003 | Inspected Splunk processes run as the `splunk` account | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-003-rocky-splunk-runtime-identity-01.png) |
+| `m05-atl-003-rocky-splunk-systemd-health-01.png` | M05 | ATL-003 | Splunk is active under systemd before role configuration | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-003-rocky-splunk-systemd-health-01.png) |
 
 ## Excluded Captures
 
@@ -133,3 +140,8 @@ public consumers. The ignored M03 `server.conf` capture remains excluded because
 it is secret-bearing. The untracked M05 security-baseline capture remains
 excluded pending redaction of persistent interface identifiers. Neither
 exception was renamed during this migration.
+
+The ATL-003 Step 1 closeout did not include a publishable screenshot directly
+showing the new TCP/8000 firewalld allowance or the successful browser login and
+Splunk Home page. Those outcomes must not be represented as image-backed claims
+until suitable evidence is supplied and reviewed.

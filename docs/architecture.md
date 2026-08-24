@@ -16,7 +16,7 @@ flowchart TB
     IDX["atlas-indexer<br/>receiver and search peer"]
     SH["atlas-search-head<br/>Search & Reporting"]
     Network["atlas-network<br/>Docker bridge and DNS"]
-    DS["Rocky Linux VM<br/>Deployment Server · M05 in progress"]
+    DS["Rocky Linux VM<br/>Deployment Server · baseline validated"]
     Admin["Management VM / workstation<br/>Git · SSH · controlled release"]
 
     Logs --> UF -->|"active Splunk-to-Splunk forward"| Loopback
@@ -37,7 +37,7 @@ flowchart TB
 | Universal Forwarder | Collects Application, Security, and System Event Logs and forwards to `127.0.0.1:9997` | Operational; version 10.0.8 |
 | Search Head | Search interface and distributed-search coordinator | Operational; Milestones 02–04 validated |
 | Indexer | Receives, indexes, stores, and searches Windows telemetry | Operational; Milestones 01, 03, and 04 validated |
-| Deployment Server | Dedicated Rocky Linux VM for forwarder configuration management | M05 in progress; not validated |
+| Deployment Server | Dedicated Rocky Linux VM for forwarder configuration management | Host and Splunk baseline validated; role configuration not begun |
 
 The Compose source retains an earlier `atlas-deployment-server` definition.
 That stanza is legacy source configuration, not the approved M05 architecture

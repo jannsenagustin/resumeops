@@ -80,7 +80,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Acceptance criteria:** Deployment Server configuration is documented, inspected, and ready for a controlled client enrollment test.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-004, DEC-005, DEC-006.
-**Notes:** Configuration alone is not proof of successful distribution.
+**Notes:** Step 1 established the known-good pre-configuration baseline: systemd and the Splunk CLI are healthy, `splunkd` runs as `splunk`, Splunk Enterprise reports 10.0.8, ports 8000 and 8089 listen, and Splunk Web is reachable after allowing TCP/8000 through firewalld. Step 2—Deployment Server role configuration—is next. No role configuration has begun. Configuration alone is not proof of successful distribution.
 
 ## ATL-004 — Enroll Windows Universal Forwarder with the Deployment Server
 

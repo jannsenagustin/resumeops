@@ -18,8 +18,9 @@ configuration remains active work under ATL-003.
 
 ### Current Engineering Objective
 
-ATL-003 will configure the Deployment Server role. No role configuration,
-forwarder enrollment, or application distribution is claimed by this record.
+ATL-003 Step 1 validated the existing Splunk installation before any Deployment
+Server changes. Step 2 will configure the role. No role configuration, forwarder
+enrollment, or application distribution is claimed by this record.
 
 ## Installation Engineering Record
 
@@ -59,6 +60,43 @@ complete.
 
 ### Transition
 
-The host runtime foundation is complete. ATL-003 is now the only active task and
-will configure the Deployment Server role without altering the validated
-ingestion path.
+The host runtime foundation is complete. ATL-003 remains the only active task.
+Its pre-configuration baseline is validated, and Step 2 will configure the
+Deployment Server role without altering the validated ingestion path.
+
+## ATL-003 Step 1 — Pre-Configuration Baseline
+
+Before enabling the Deployment Server role, the existing Splunk Enterprise
+installation was revalidated as a known-good baseline:
+
+- `Splunkd.service` was active under systemd;
+- `splunkd` and its inspected child processes ran as `splunk`;
+- `/opt/splunk/bin/splunk status` reported a running instance and helpers;
+- Splunk Enterprise reported version 10.0.8;
+- TCP/8000 and TCP/8089 were listening;
+- local requests to `localhost:8000` and the VM address succeeded.
+
+Splunk Web initially timed out from the Windows workstation even though local
+and VM-address checks succeeded. That evidence isolated the failure away from
+Splunk. Rocky Linux firewalld did not allow inbound TCP/8000. After the port was
+opened and firewalld reloaded, browser access, login, and the Splunk Home page
+were verified successfully.
+
+### Step 1 Evidence
+
+- [systemd service health](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-splunk-systemd-health-01.png)
+- [runtime process identity](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-splunk-runtime-identity-01.png)
+- [Splunk CLI status](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-splunk-cli-status-01.png)
+- [management port listener](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-splunk-management-port-01.png)
+
+The selected screenshots directly support service health, runtime identity, CLI
+operation, and TCP/8089 listening. The existing ATL-002 composite evidence also
+shows version 10.0.8 and listeners on TCP/8000 and TCP/8089. No publishable
+screenshot supplied for this closeout directly shows the TCP/8000 firewalld rule
+or successful browser login, so those outcomes are recorded from the
+human-supplied engineering session record rather than attributed to an image.
+
+### Next Step
+
+ATL-003 remains In Progress. Step 2 is to configure and inspect the Deployment
+Server role. ATL-004 is not active.
