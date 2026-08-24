@@ -1,3 +1,26 @@
+# 👋 Before You Start
+
+If you're wondering where Project Atlas currently stands, don't start by reading random documents.
+
+Head over to the **Planning** folder first:
+
+[https://github.com/jannsenagustin/resumeops/tree/main/docs/planning](https://github.com/jannsenagustin/resumeops/tree/main/docs/planning)
+
+That's the living source of truth for the project.
+
+It tells you:
+
+- what we're currently working on
+- what's coming next
+- ideas we're parking for later
+- engineering decisions we've made
+- lessons we've learned
+- the active batch being executed
+
+Everything else in the repository should support what's documented there—not the other way around.
+
+If something appears to disagree with the Planning docs, assume the Planning docs are correct and treat the discrepancy as documentation drift that should be fixed.
+
 # Project Atlas
 
 Project Atlas is an evidence-backed Engineering Console and workstation-scale systems lab. It demonstrates Splunk role separation, Windows telemetry, controlled configuration delivery, engineering decisions, and validation without presenting planned work as complete.

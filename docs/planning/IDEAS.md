@@ -266,7 +266,10 @@ It is intended to become an original engineering product rather than only a lab 
 
 ### Notes
 
-The backlog task remains canonical for committed work; this record preserves the idea and its promotion path. Original discussion date not formally recorded.
+The backlog task remains canonical for committed work; this record preserves the
+idea and its promotion path. Configuration Intelligence is planned as Milestone
+07, after the read-only Atlas MCP Platform, and should consume MCP rather than
+integrate directly with Splunk. Original discussion date not formally recorded.
 
 ## IDEA-013 — SOC Toolkit
 
@@ -452,7 +455,7 @@ Do not fabricate activity counts, productivity metrics, or universal human-valid
 **Status:** Promoted
 **Potential Destination:** HISTORY.md
 **Related Proposal:** None
-**Related Backlog:** ATL-015
+**Related Backlog:** ATL-015, ATL-028
 
 ### Description
 
@@ -464,7 +467,9 @@ It could preserve project identity and evolution without forcing readers to reco
 
 ### Notes
 
-ATL-015 is the canonical backlog commitment. Original discussion date not formally recorded.
+ATL-015 owns the project-history document. ATL-028 owns the future repository
+identity transition after Milestone 05, active-work stabilization, and repository
+state synchronization. Original discussion date not formally recorded.
 
 ## IDEA-022 — Architecture Decision Records
 
@@ -640,3 +645,235 @@ assumptions.
 
 Promoted directly to ATL-024 at human direction. Backlog inclusion does not
 authorize execution; the task must still be placed in `ACTIVE_BATCH.md`.
+
+## IDEA-029 — Atlas MCP Platform and Splunk MCP Integration
+
+**Category:** Platform Engineering
+**Date Recorded:** 2026-08-22
+**Origin:** Atlas roadmap evolution
+**Status:** Promoted
+**Potential Destination:** EP-003
+**Related Proposal:** EP-003
+**Related Backlog:** None
+
+### Description
+
+Design an extensible Atlas MCP Platform to provide structured access to
+engineering systems used throughout Project Atlas.
+
+The first implementation will be a Splunk MCP server that exposes Splunk
+knowledge, configuration, metadata, and operational information to Atlas
+components.
+
+Config Intelligence will consume the Atlas MCP Platform rather than
+communicating directly with Splunk, allowing additional engineering systems to
+be integrated through a common interface.
+
+Potential future MCP providers include:
+
+- Splunk Enterprise
+- GitHub
+- Docker
+- Rocky Linux
+- Hyper-V
+- Azure DevOps
+- Kubernetes
+- OpenTelemetry
+- Other infrastructure and observability platforms
+
+### Phase 1
+
+Implement the Splunk MCP Server.
+
+Possible capabilities:
+
+- Search execution
+- Configuration inspection
+- App metadata
+- Knowledge object discovery
+- REST endpoint access
+- Index metadata
+- Saved searches
+- Dashboard metadata
+- Deployment information
+- Health checks
+
+### Long-Term Vision
+
+Atlas MCP becomes the engineering integration layer for Project Atlas.
+
+Rather than every Atlas component integrating separately with external
+systems, components consume standardized MCP services.
+
+This reduces coupling, encourages reuse, and allows Atlas to evolve into an
+engineering platform rather than a collection of independent tools.
+
+### Why It Might Matter
+
+- Config Intelligence gains live Splunk awareness.
+- Future Atlas capabilities can reuse one integration layer.
+- AI agents gain structured engineering context instead of relying on static
+  prompts.
+- Supports future engineering automation without changing Atlas architecture.
+
+### Notes
+
+This broader integration-layer concept is now represented by EP-003 and the
+phased Atlas MCP strategy recorded in IDEA-030. Promotion does not place work in
+the backlog or authorize implementation.
+
+## IDEA-030 — Atlas MCP Server
+
+**Category:** AI Governance
+**Date Recorded:** 2026-08-23
+**Origin:** Human-directed idea capture
+**Status:** Promoted
+**Potential Destination:** EP-003
+**Related Proposal:** EP-003
+**Related Backlog:** None
+
+### Description
+
+Atlas MCP is the planned integration layer between AI and Project Atlas. It
+exposes live engineering evidence from the Atlas Splunk environment through a
+controlled Model Context Protocol service so AI assistants can inspect evidence
+instead of relying on assumptions.
+
+Atlas MCP is not a chatbot and is not an autonomous engineer. It provides a
+bounded evidence interface; humans remain responsible for conclusions,
+approvals, and engineering actions.
+
+Following completion of Milestone 05, Atlas MCP becomes the next planned
+engineering initiative.
+
+### Core Principles
+
+- Evidence before conclusions.
+- Read-only by default.
+- Human approval required for any write operation.
+- Every AI explanation must be grounded in live Splunk data.
+- Atlas explains evidence rather than guessing.
+
+### Phased Implementation Strategy
+
+#### Version 1 — Read-Only AI Integration
+
+Version 1 establishes the MCP service, its Splunk REST API abstraction, and a
+strictly read-only tool surface for inspecting live Atlas evidence.
+
+Primary capabilities:
+
+- Splunk health
+- License inspection
+- Index inspection
+- Forwarder inspection
+- Approved SPL execution
+- Search explanation
+- Configuration discovery
+- REST API abstraction
+
+Version 1 permits no configuration changes, deployment actions, or write
+operations.
+
+#### Later Phases — Application Integration
+
+After the read-only platform is validated, Configuration Intelligence becomes
+the first major Atlas application built on top of Atlas MCP. Any broader provider
+or write capability requires separate human review and approval.
+
+### Architecture
+
+```text
+User
+↓
+ChatGPT / Claude
+↓
+Model Context Protocol
+↓
+Atlas MCP Platform (Python)
+↓
+Splunk REST API / SDK
+↓
+Project Atlas Platform
+```
+
+### Long-Term Vision
+
+```text
+Configuration Intelligence
+↓
+Atlas MCP Platform
+↓
+Splunk Enterprise
+```
+
+Future Atlas applications should consume MCP rather than communicating directly
+with Splunk. Potential future providers include GitHub, Docker, Hyper-V, Linux,
+OpenTelemetry, and Azure DevOps. These providers are possibilities only and are
+not approved work.
+
+An engineer should eventually be able to ask:
+
+> "Atlas, why isn't my Windows Security data reaching the index?"
+
+and receive a complete explanation backed by live evidence from the environment.
+
+### Why It Might Matter
+
+It could let AI assistants explain Atlas Splunk behavior from current operational
+evidence while preserving read-only defaults and human control over changes.
+
+### Dependencies
+
+Milestone 05 must be completed before Atlas MCP begins. Configuration
+Intelligence follows the validated Atlas MCP Platform and is tracked separately
+as ATL-016.
+
+### Notes
+
+Promoted to EP-003 for architectural definition. Promotion does not create a
+backlog item, activate a batch, or authorize implementation.
+
+## IDEA-031 — Engineering Session Capture and Codex Closeout Handoff
+
+**Category:** AI Governance
+**Date Recorded:** 2026-08-23
+**Origin:** Human-directed Atlas EOS planning
+**Status:** Promoted
+**Potential Destination:** EP-004
+**Related Proposal:** EP-004
+**Related Backlog:** ATL-029
+
+### Description
+
+Create a lightweight session-capture mechanism for active Atlas engineering
+work. During a session, concise breadcrumbs could record:
+
+- commands or changes executed;
+- validation performed;
+- errors encountered;
+- root causes;
+- fixes applied;
+- screenshots captured;
+- evidence excluded;
+- decisions made;
+- reusable lessons;
+- remaining work.
+
+At the end of the session, Codex would read the session record and use it to
+prepare synchronization of `BACKLOG.md`, `ACTIVE_BATCH.md`, `milestones.md`,
+evidence indexes, decisions, lessons learned, execution reports, journals,
+project state, and commit scope for human review.
+
+### Why It Might Matter
+
+Codex cannot know what happened in ChatGPT, a VM, Splunk Web, or the operator's
+head unless that context is written somewhere. A session record could reduce
+repeated prompting, lower token usage, improve closeout accuracy, and prevent
+engineering details from being lost.
+
+### Notes
+
+Promoted to EP-004 and ATL-029 for evaluation and future implementation. Raw
+session notes are non-canonical and must never override repository planning
+records or expand work beyond the Active Batch.

@@ -25,6 +25,37 @@ The human owns vision, approval, prioritization, architecture, promotion, and fi
 
 The [Idea Inbox](IDEAS.md) exists so thoughts can be captured quickly before they are forgotten. Ideas are intentionally lightweight because capture should not require premature architecture, estimates, or commitment. An idea describes a possibility; it is not approved work. An engineering proposal analyzes a possibility and its trade-offs. The backlog is the accepted work inventory, while the Active Batch is the only scope approved for execution. Not every idea needs promotion, and archived ideas remain searchable because their history may still inform future work.
 
+## Engineering session handoff
+
+Engineering work does not always happen in one place. A command may run in a
+terminal, a problem may appear in Splunk Web, and a useful lesson may surface
+while troubleshooting. Write those details in [SESSION_NOTES.md](SESSION_NOTES.md)
+while they are still fresh.
+
+The handoff is simple:
+
+```text
+Engineering
+↓
+SESSION_NOTES
+↓
+Codex
+↓
+Atlas EOS
+↓
+Commit
+```
+
+Start from the [session template](SESSION_TEMPLATE.md), keep the notes short and
+factual, and use the [session checklist](SESSION_CHECKLIST.md) before closeout.
+Codex can then use the notes to prepare updates to the canonical Atlas EOS
+records. A human still reviews the result before commit.
+
+`SESSION_NOTES.md` is a temporary handoff, not a new source of truth. It cannot
+change the Active Batch, approve evidence, or override canonical planning
+records. After synchronization, archive it when the raw history is worth keeping
+or clear it for the next session.
+
 ## Canonical documents
 
 - [IDEAS.md](IDEAS.md) is the permanent lightweight capture inbox. Humans record ideas and decide whether they are reviewed, promoted, or archived. It changes when inspiration is captured or a human reviews its destination.

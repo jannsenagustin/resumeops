@@ -27,7 +27,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-013 | Featured Artifact hover treatment | P3 | Backlog | Engineering Console |
 | ATL-014 | Atlas Planning Console | P2 | Proposed | Atlas EOS |
 | ATL-015 | Project history document | P3 | Backlog | Documentation |
-| ATL-016 | Splunk Config Intelligence | P3 | Proposed | Future |
+| ATL-016 | Splunk Config Intelligence | P3 | Proposed | M07 |
 | ATL-017 | SPLUNK.md specialist handbook | P3 | Proposed | Future |
 | ATL-018 | AI governance evolution | P3 | Backlog | Atlas EOS |
 | ATL-019 | Dead-code and legacy-component review | P3 | Backlog | Post-release |
@@ -39,6 +39,8 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-025 | Project-State Synchronization and Integrity Audit | P1 | Review | Atlas EOS |
 | ATL-026 | Normalize Evidence Naming and References | P2 | Review | Documentation |
 | ATL-027 | Final Review of M05 Evidence Publishability | P3 | Backlog | Documentation |
+| ATL-028 | Complete ResumeOps → Atlas Repository Transition | P2 | Backlog | Documentation |
+| ATL-029 | Implement Engineering Session Capture and Codex Closeout Handoff | P2 | Backlog | Atlas EOS |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -253,16 +255,16 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 ## ATL-016 — Splunk Config Intelligence
 
 **Category:** Splunk; Future Milestones
-**Milestone:** Future
+**Milestone:** M07
 **Priority:** P3
 **Status:** Proposed
-**Description:** Design and build a future Splunk application for configuration analysis, dependency mapping, health checks, and recommendations.
-**Why it matters:** Could turn validated configuration knowledge into a useful specialist tool.
-**Dependencies:** Mature operational lab, defined problem, and approved engineering proposal.
+**Description:** Design and build the first major Atlas application on top of the Atlas MCP Platform for configuration analysis, dependency mapping, health checks, and recommendations.
+**Why it matters:** Could turn validated configuration knowledge and MCP-provided live evidence into a useful specialist tool without integrating directly with Splunk.
+**Dependencies:** Milestone 05 completed; validated Milestone 06 Atlas MCP Platform; mature operational lab; defined problem; and an approved engineering proposal.
 **Acceptance criteria:** To be defined by a future proposal using real configuration needs and safe analysis boundaries.
 **Human validation required:** Yes.
-**Source or related proposal:** Existing future-product discussions.
-**Notes:** P3 is used because prerequisites and justification are not yet mature.
+**Source or related proposal:** IDEA-012; EP-003 architectural dependency.
+**Notes:** P3 is used because prerequisites and justification are not yet mature. Proposed status does not authorize execution.
 
 ## ATL-017 — SPLUNK.md specialist handbook
 
@@ -428,3 +430,31 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Human validation required:** Yes.
 **Source or related proposal:** M05 evidence publishability review.
 **Notes:** Backlog status does not activate ATL-027. It is not part of BATCH-001.
+
+## ATL-028 — Complete ResumeOps → Atlas Repository Transition
+
+**Category:** Documentation
+**Milestone:** Documentation
+**Priority:** P2
+**Status:** Backlog
+**Description:** Coordinate the future transition from ResumeOps to Atlas across the GitHub repository, documentation, project branding, URLs, metadata, GitHub Pages, navigation, and canonical references. The transition must preserve repository history while removing outdated ResumeOps branding.
+**Why it matters:** Atlas has outgrown its original recruiter-facing portfolio identity and now represents an engineering platform encompassing Atlas EOS, the Planning Console, engineering governance, the Splunk home lab, the evidence system, the project-state engine, AI governance, and the planned Atlas MCP Platform.
+**Dependencies:** Milestone 05 complete; active engineering work stabilized; repository state synchronization complete.
+**Acceptance criteria:** The GitHub repository is renamed to Atlas; remote origin references are updated; GitHub Pages continue functioning; documentation consistently refers to Project Atlas; historical references to ResumeOps remain only where discussing project history; no broken links remain; canonical ownership documentation reflects the new identity; navigation, metadata, sitemap, robots, and canonical URLs are updated if required; repository history is preserved.
+**Human validation required:** Yes.
+**Source or related proposal:** IDEA-021; human-directed repository-transition planning.
+**Notes:** Do not rename the repository, modify remote URLs, or begin branding changes during planning. The transition must wait until active infrastructure work has stabilized and should formally conclude Atlas's evolution from a portfolio project into an engineering platform. Preserve the ResumeOps-to-Atlas history as part of the project story. No Engineering Proposal is required.
+
+## ATL-029 — Implement Engineering Session Capture and Codex Closeout Handoff
+
+**Category:** AI Governance
+**Milestone:** Atlas EOS
+**Priority:** P2
+**Status:** Backlog
+**Description:** Implement a lightweight, session-scoped record of engineering breadcrumbs and a human-reviewed Codex closeout handoff for synchronizing canonical Atlas EOS records after active work.
+**Why it matters:** Written session context can preserve work, validation, errors, evidence handling, decisions, lessons, and remaining work that Codex cannot reliably recover from chat history or external systems.
+**Dependencies:** Atlas Planning Console; Active Batch workflow; Codex handoff concept; at least one manually completed Atlas batch.
+**Acceptance criteria:** An approved session-record format exists; the record captures work, validation, errors, evidence, decisions, lessons, and remaining work; Codex can generate an end-of-session synchronization plan from it; the workflow does not bypass human approval; the Planning Console remains read-only unless a separately approved local integration is introduced; no task outside the Active Batch can be included; session notes are retired, archived, or converted according to a documented lifecycle; the workflow is tested during a real engineering session.
+**Human validation required:** Yes.
+**Source or related proposal:** IDEA-031; EP-004.
+**Notes:** The documentation-only workspace, reusable template, and checklist now exist. Testing during a real engineering session and any automation remain backlog work. Backlog status does not activate ATL-029. Do not create fake session details, treat chat history as canonical, complete tasks automatically, approve evidence automatically, or commit and push autonomously.

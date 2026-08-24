@@ -1,3 +1,30 @@
+# Start Here
+
+Before doing any work, open the Planning folder:
+
+[https://github.com/jannsenagustin/resumeops/tree/main/docs/planning](https://github.com/jannsenagustin/resumeops/tree/main/docs/planning)
+
+Don't guess what to build next.
+
+Don't assume a milestone is current.
+
+Don't rely on old conversations.
+
+The Planning documents are the project's source of truth.
+
+Typical workflow:
+
+1. Read `ACTIVE_BATCH.md`.
+2. Read the relevant `BACKLOG` item.
+3. Review any related `DECISIONS` and `LESSONS_LEARNED`.
+4. Execute only the approved scope.
+5. Capture evidence.
+6. Update Atlas EOS.
+7. Validate.
+8. Commit only after human approval.
+
+If documentation outside the Planning folder conflicts with the Planning documents, the Planning documents win.
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 

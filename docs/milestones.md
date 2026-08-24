@@ -12,7 +12,8 @@ sequence and the [backlog](planning/BACKLOG.md) owns priorities.
 | 03 · Distributed Search | Complete | Validated | Registered the Indexer as a healthy search peer and verified remote execution from the Search Head | [Canonical milestone](journal/sprint-6e-distributed-search.md), [evidence](evidence/milestone-03-distributed-search/) |
 | 04 · Windows Event Ingestion via Universal Forwarder | Complete | Validated | Ingested Windows Application, Security, and System Event Logs and verified active forwarding plus distributed execution | [Canonical milestone](journal/sprint-6f-windows-event-ingestion.md), [evidence](evidence/milestone-04-windows-event-ingestion/) |
 | 05 · Rocky Linux Deployment Server & Configuration Management | In Progress | Partially Validated | Establish the dedicated management node and controlled configuration-management path | [evidence](evidence/milestone-05-data-ingestion/) |
-| 06 · Detection Engineering | Planned | Not Validated | Build detections only after suitable validated data and scope exist | — |
+| 06 · Atlas MCP Platform | Planned | Not Validated | Establish read-only AI integration with live Atlas engineering evidence | [EP-003](engineering-proposals/EP-003-atlas-mcp-platform.md) |
+| 07 · Configuration Intelligence | Planned | Not Validated | Build the first major Atlas application on the validated MCP Platform | — |
 
 ## M05 — Rocky Linux Deployment Server & Configuration Management
 
