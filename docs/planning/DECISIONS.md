@@ -212,3 +212,23 @@ status checks use systemd; validation must confirm both the active service and
 the runtime user. Deployment Server role configuration remains separate work.
 
 **Status:** Accepted
+
+## DEC-019 — Tool-independent Atlas Operations
+
+**Recorded:** 2026-08-26
+
+**Decision:** Atlas EOS documents engineering operations and approval
+boundaries, not product-specific prompts. An approved AI tool may perform a
+defined operation without changing the workflow itself.
+
+**Rationale:** The durable process is the movement from engineering capture to
+canonical synchronization, human review, and controlled closeout. Binding that
+process to one product would mix governance with a replaceable implementation
+detail.
+
+**Consequences:** ChatGPT, Codex, Claude, Atlas MCP, or another approved AI may
+support an Atlas operation when it respects the same authority, evidence,
+validation, and closeout boundaries. Replacing a tool does not by itself require
+a change to Atlas EOS.
+
+**Status:** Accepted

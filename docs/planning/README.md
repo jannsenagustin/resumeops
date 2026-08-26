@@ -23,6 +23,19 @@ Idea
 
 The human owns vision, approval, prioritization, architecture, promotion, and final acceptance. ChatGPT may support architecture, planning, critique, prioritization, and review. Codex may implement approved batch scope, run validation, and draft execution reports. AI-assisted work is never autonomous and always requires human review.
 
+## Atlas Operations
+
+Atlas uses six operations to move from focused engineering to a reviewed,
+traceable commit: Engineering Session, Engineering Session Capture, Atlas EOS
+Synchronization, Human Review, Atlas EOS Closeout, and Session Completion.
+The engineer can stay focused on implementation while temporary session notes
+carry the useful context into Atlas EOS. Synchronization and closeout are
+deliberately separate, so the engineer reviews the proposed canonical updates
+before anything is committed.
+
+See [Atlas Operations](ATLAS_OPERATIONS.md) for the complete workflow, approval
+boundary, and `SESSION_NOTES.md` lifecycle.
+
 The [Idea Inbox](IDEAS.md) exists so thoughts can be captured quickly before they are forgotten. Ideas are intentionally lightweight because capture should not require premature architecture, estimates, or commitment. An idea describes a possibility; it is not approved work. An engineering proposal analyzes a possibility and its trade-offs. The backlog is the accepted work inventory, while the Active Batch is the only scope approved for execution. Not every idea needs promotion, and archived ideas remain searchable because their history may still inform future work.
 
 ## Engineering session handoff
@@ -32,7 +45,8 @@ terminal, a problem may appear in Splunk Web, and a useful lesson may surface
 while troubleshooting. Write those details in [SESSION_NOTES.md](SESSION_NOTES.md)
 while they are still fresh.
 
-The handoff is simple:
+The handoff is part of the wider [Atlas Operations](ATLAS_OPERATIONS.md)
+workflow:
 
 ```text
 Engineering
@@ -49,12 +63,12 @@ Commit
 Start from the [session template](SESSION_TEMPLATE.md), keep the notes short and
 factual, and use the [session checklist](SESSION_CHECKLIST.md) before closeout.
 Codex can then use the notes to prepare updates to the canonical Atlas EOS
-records. A human still reviews the result before commit.
+records. A human still reviews the result before closeout and commit.
 
 `SESSION_NOTES.md` is a temporary handoff, not a new source of truth. It cannot
 change the Active Batch, approve evidence, or override canonical planning
-records. After synchronization, archive it when the raw history is worth keeping
-or clear it for the next session.
+records. After approved closeout, archive it when the raw history is worth
+keeping or clear it for the next session.
 
 ## Canonical documents
 

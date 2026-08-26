@@ -9,5 +9,7 @@ Use this checklist before asking Codex to synchronize Atlas EOS.
 - [ ] Ideas recorded
 - [ ] Lessons identified
 - [ ] Questions recorded
+- [ ] Session notes reviewed by the engineer
 - [ ] Ready for Codex synchronization
-- [ ] Ready for commit
+- [ ] Canonical updates and validation ready for human review
+- [ ] Closeout approval received before commit
