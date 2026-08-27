@@ -6,22 +6,22 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 ## Current Batch
 
-**Batch ID:** BATCH-002
+**Batch ID:** Unassigned
 
-**Status:** In Progress
+**Status:** Empty
 
-**Objective:** ATL-003 — Configure Splunk Deployment Server role
+**Objective:** None. BATCH-002 is complete; future work requires explicit human activation.
 
-**Included Tasks:** ATL-003.
+**Included Tasks:** None.
 
-**Excluded Scope:** All backlog and proposal work other than ATL-003.
+**Excluded Scope:** All backlog and proposal work.
 
-**Dependencies:** ATL-002 — Done.
+**Dependencies:** None.
 
-**Acceptance Criteria:** Deployment Server configuration is documented, inspected, and ready for a controlled client enrollment test.
+**Acceptance Criteria:** Not applicable while no batch is active.
 
-**Human Validation Required:** Yes; a human must validate the configuration and results before ATL-003 is marked Done.
+**Human Validation Required:** Yes; a human must approve the next batch before execution begins.
 
-**Execution Notes:** BATCH-002 authorizes ATL-003 only. Step 1 is complete: the existing Splunk installation and external Web access were validated before role configuration. Step 2, configuring the Deployment Server role, is next. No Deployment Server configuration has begun and no additional backlog item is active.
+**Execution Notes:** BATCH-002 completed ATL-003. ATL-004 remains in the backlog and is not active.
 
-**Expected Report Path:** `docs/execution-reports/BATCH-002.md` after execution is attempted.
+**Expected Report Path:** None until a new batch is approved. The completed BATCH-002 report is at `docs/execution-reports/BATCH-002.md`.

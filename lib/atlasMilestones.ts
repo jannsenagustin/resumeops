@@ -46,8 +46,8 @@ export function parseAtlasMilestones() {
   if (missing.length) throw new Error(`${id} is missing required fields: ${missing.join(", ")}`);
   const activeParts = values["Active Work"].split("/").map((value) => value.trim());
   const activeTasks = activeParts.filter((value) => /^ATL-\d{3}$/.test(value));
-  const activeBatchId = activeParts.find((value) => /^BATCH-\d{3}$/.test(value));
-  if (!activeTasks.length || !activeBatchId) throw new Error(`${id} Active Work must contain ATL and BATCH references`);
+  const activeBatchId = activeParts.find((value) => /^BATCH-\d{3}$/.test(value)) ?? (values["Active Work"] === "None" ? "Unassigned" : undefined);
+  if (!activeBatchId || (activeBatchId !== "Unassigned" && !activeTasks.length)) throw new Error(`${id} Active Work must contain ATL and BATCH references or be None`);
   if (!fs.existsSync(path.resolve(path.dirname(milestonesPath), values.Evidence))) throw new Error(`${id} references missing evidence path: ${values.Evidence}`);
   const currentDetail = {
     id,

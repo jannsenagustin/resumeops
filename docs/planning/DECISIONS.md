@@ -232,3 +232,39 @@ validation, and closeout boundaries. Replacing a tool does not by itself require
 a change to Atlas EOS.
 
 **Status:** Accepted
+
+## DEC-020 — Splunk CLI service-account operation
+
+**Recorded:** 2026-08-26
+
+**Decision:** Run normal administrative Splunk CLI commands as the `splunk`
+service account with its home environment unless root privileges are explicitly
+required.
+
+**Rationale:** The Splunk CLI stores authentication state in the invoking
+account's home. A plain `sudo` reload targeted `/root/.splunk` and failed, while
+`sudo -u splunk -H` matched the service ownership boundary and succeeded.
+
+**Consequences:** Atlas Splunk procedures use
+`sudo -u splunk -H /opt/splunk/bin/splunk <command>` for routine administration
+and reserve root for operating-system work.
+
+**Status:** Accepted
+
+## DEC-021 — Layered infrastructure validation
+
+**Recorded:** 2026-08-26
+
+**Decision:** Infrastructure milestones validate relevant changes through CLI,
+runtime, Web UI, and reviewed evidence, with filesystem and effective
+configuration checks where applicable.
+
+**Rationale:** Each layer proves a different boundary. ATL-003 required the app
+layout, effective server-class configuration, a successful reload, and Splunk
+Web recognition before the Deployment Server could be treated as operational.
+
+**Consequences:** Future milestone closeouts record the applicable validation
+layers and do not infer distribution or client behavior from configuration
+alone.
+
+**Status:** Accepted

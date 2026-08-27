@@ -30,6 +30,8 @@ export type Project = {
 };
 
 export function getProjects(projectState: AtlasProjectState): Project[] {
+const activeObjective = projectState.activeTasks[0];
+const latestCompletedTask = projectState.completedTasks.at(-1);
 return [
   {
     id: "atlas",
@@ -46,7 +48,8 @@ return [
       "Validated remote Indexer participation in searches coordinated by the Search Head",
       "Ingested Windows Application, Security, and System logs through an active Universal Forwarder connection",
       `${projectState.completedTasks[0].id} completed the Rocky Linux operating-system baseline`,
-      `${projectState.activeBatch.id} approves ${projectState.activeTasks[0].id} as the sole active objective`,
+      latestCompletedTask ? `${latestCompletedTask.id} completed the validated Deployment Server foundation` : "The Deployment Server foundation awaits validation",
+      activeObjective ? `${projectState.activeBatch.id} approves ${activeObjective.id} as the sole active objective` : "No batch is active; future work awaits human approval",
     ],
     route: "/projects/atlas/",
     links: [

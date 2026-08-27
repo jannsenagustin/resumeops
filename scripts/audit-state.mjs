@@ -46,14 +46,17 @@ const backlog = new Map([...backlogDocument.matchAll(/^## (ATL-\d{3}) — ([^\r\
 const batchId = batchDocument.match(/^\*\*Batch ID:\*\*\s*(.+)$/m)?.[1].trim();
 const batchStatus = batchDocument.match(/^\*\*Status:\*\*\s*(.+)$/m)?.[1].trim();
 const batchTasks = batchDocument.match(/^\*\*Included Tasks:\*\*\s*(.+)$/m)?.[1].match(/ATL-\d{3}/g) ?? [];
-if (!batchId || !/^BATCH-\d{3}$/.test(batchId)) fail("invalid Active Batch ID");
-if (batchStatus !== "In Progress") fail(`${batchId} is not In Progress`);
+if (!batchId || (batchId !== "Unassigned" && !/^BATCH-\d{3}$/.test(batchId))) fail("invalid Active Batch ID");
+const activeBatchIsEmpty = batchId === "Unassigned";
+if (activeBatchIsEmpty && batchStatus !== "Empty") fail("Unassigned Active Batch must have Empty status");
+if (!activeBatchIsEmpty && batchStatus !== "In Progress") fail(`${batchId} is not In Progress`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
 const completed = fields["Completed Work"].match(/ATL-\d{3}/g) ?? [];
 for (const id of completed) if (backlog.get(id)?.status !== "Done") fail(`completed work ${id} is not Done`);
 const activeTasks = fields["Active Work"].match(/ATL-\d{3}/g) ?? [];
 const activeBatches = fields["Active Work"].match(/BATCH-\d{3}/g) ?? [];
-if (activeBatches.length !== 1 || activeBatches[0] !== batchId) fail("milestone Active Work batch disagrees with ACTIVE_BATCH.md");
+if (activeBatchIsEmpty && fields["Active Work"] !== "None") fail("empty Active Batch requires milestone Active Work: None");
+if (!activeBatchIsEmpty && (activeBatches.length !== 1 || activeBatches[0] !== batchId)) fail("milestone Active Work batch disagrees with ACTIVE_BATCH.md");
 if (activeTasks.join() !== batchTasks.join()) fail("milestone Active Work tasks disagree with ACTIVE_BATCH.md");
 if (!fs.existsSync(path.join(root, "docs", fields.Evidence))) fail(`missing evidence path ${fields.Evidence}`);
 
@@ -72,4 +75,4 @@ for (const file of ["app/page.tsx", "app/projects/page.tsx", "app/projects/atlas
 }
 if (fs.existsSync(path.join(root, "data", "atlasProject.ts"))) fail("legacy duplicate milestone data file still exists");
 
-console.log(`State integrity audit passed: ${current[0][1]} ${currentRow[3].trim()} / ${currentRow[4].trim()}, ${batchId} -> ${batchTasks.join(", ")}.`);
+console.log(`State integrity audit passed: ${current[0][1]} ${currentRow[3].trim()} / ${currentRow[4].trim()}, ${activeBatchIsEmpty ? "no active batch" : `${batchId} -> ${batchTasks.join(", ")}`}.`);

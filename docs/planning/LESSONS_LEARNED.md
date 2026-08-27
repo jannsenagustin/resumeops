@@ -187,3 +187,23 @@ all other views derived consumers.
 **Reusable lesson:** Validate the service locally, confirm its listening ports, test the host address, and then inspect the guest firewall before changing a healthy application. Keep application health and external reachability as separate validation claims.
 **Related milestone or task:** M05; ATL-003.
 **Status:** Confirmed
+
+## LESSON-019 — Run Splunk administration as the service account
+
+**Lesson ID:** LESSON-019
+**Title:** Run normal Splunk administration as the service account.
+**Context:** Reloading the Deployment Server after ATL-003 configuration.
+**What happened:** A plain `sudo` invocation tried to write CLI authentication state under `/root/.splunk` and failed; `sudo -u splunk -H` used the intended home and completed the reload.
+**Reusable lesson:** Run normal Splunk CLI administration as `splunk` with its home environment unless a command specifically requires root privileges.
+**Related milestone or task:** M05; ATL-003; DEC-020.
+**Status:** Confirmed
+
+## LESSON-020 — Validate Deployment Server changes across layers
+
+**Lesson ID:** LESSON-020
+**Title:** Deployment Server configuration needs layered validation.
+**Context:** Validating the first deployment app and server class.
+**What happened:** Filesystem layout, effective `btool` output, a successful runtime reload, and Agent Management each proved a different part of the configuration while zero clients remained a valid pre-enrollment state.
+**Reusable lesson:** Validate Deployment Server changes through filesystem, effective configuration, runtime, and Web UI checks; do not treat a zero-client baseline as a configuration failure before enrollment.
+**Related milestone or task:** M05; ATL-003; DEC-021.
+**Status:** Confirmed

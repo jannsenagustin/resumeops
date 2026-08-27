@@ -62,7 +62,7 @@ export default function PlanningPage() {
             <div><dt>STATUS</dt><dd>{projectState.currentMilestone.status}</dd></div>
             <div><dt>VALIDATION</dt><dd>{projectState.currentMilestone.validationState}</dd></div>
             <div><dt>COMPLETED WORK</dt><dd>{projectState.completedTasks.map((task) => task.id).join(", ")}</dd></div>
-            <div><dt>ACTIVE OBJECTIVE</dt><dd><a href={data.backlog.find((item) => item.id === projectState.activeTasks[0].id)?.sourceUrl} target="_blank" rel="noopener noreferrer">{projectState.activeTasks[0].id} — {projectState.activeTasks[0].title} ↗</a></dd></div>
+            <div><dt>ACTIVE OBJECTIVE</dt><dd>{projectState.activeTasks[0] ? <a href={data.backlog.find((item) => item.id === projectState.activeTasks[0].id)?.sourceUrl} target="_blank" rel="noopener noreferrer">{projectState.activeTasks[0].id} — {projectState.activeTasks[0].title} ↗</a> : "Awaiting human approval"}</dd></div>
           </dl>
         </article>
 

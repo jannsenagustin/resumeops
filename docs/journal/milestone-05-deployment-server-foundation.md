@@ -6,21 +6,22 @@
 
 ## Engineering Summary
 
-**Abstract:** Atlas completed the Rocky Linux operating-system and Splunk
-Enterprise foundation for the dedicated management node. Deployment Server role
-configuration remains active work under ATL-003.
+**Abstract:** Atlas completed the Rocky Linux, Splunk Enterprise, and Deployment
+Server foundation for the dedicated management node. Client enrollment and
+configuration distribution remain future work.
 
 ### Completed Foundation
 
 - ATL-001 established and validated the Rocky Linux baseline.
 - ATL-002 installed Splunk Enterprise 10.0.8 directly on the host.
 - Splunk now runs as the dedicated `splunk` account under systemd.
+- ATL-003 configured and validated the first deployment app and server class.
 
 ### Current Engineering Objective
 
-ATL-003 Step 1 validated the existing Splunk installation before any Deployment
-Server changes. Step 2 will configure the role. No role configuration, forwarder
-enrollment, or application distribution is claimed by this record.
+ATL-003 is complete. The Deployment Server recognizes `TA-atlas-base` and
+`atlas-base`, and its effective configuration and reload behavior are validated.
+No forwarder enrollment or application distribution is claimed by this record.
 
 ## Installation Engineering Record
 
@@ -60,9 +61,9 @@ complete.
 
 ### Transition
 
-The host runtime foundation is complete. ATL-003 remains the only active task.
-Its pre-configuration baseline is validated, and Step 2 will configure the
-Deployment Server role without altering the validated ingestion path.
+The host runtime foundation was completed before ATL-003 configuration began.
+Its pre-configuration baseline provided the known-good state used to validate
+the Deployment Server changes without altering the ingestion path.
 
 ## ATL-003 Step 1 — Pre-Configuration Baseline
 
@@ -98,5 +99,32 @@ human-supplied engineering session record rather than attributed to an image.
 
 ### Next Step
 
-ATL-003 remains In Progress. Step 2 is to configure and inspect the Deployment
-Server role. ATL-004 is not active.
+ATL-003 is complete. ATL-004 remains in the backlog and is not active.
+
+## ATL-003 Step 2 — Deployment Server Configuration
+
+The first deployment app, `TA-atlas-base`, was created with `default`, `local`,
+and `metadata` directories and owned by `splunk:splunk`. Its `app.conf` records
+the enabled state, package-update behavior, and UI metadata.
+
+The `atlas-base` server class uses a wildcard client match, assigns
+`TA-atlas-base`, enables the app on clients, and disables automatic Splunk and
+Splunk Web restarts. `btool serverclass list --debug` confirmed that the local
+server-class settings overlay Splunk defaults as intended.
+
+A plain `sudo` reload attempted to store CLI authentication state under
+`/root/.splunk` and failed. Running the CLI as the service account with
+`sudo -u splunk -H /opt/splunk/bin/splunk` completed the reload. The CLI then
+reported no deployment clients, which is the expected baseline before ATL-004.
+Splunk Web Agent Management recognized one deployment app and one server class.
+
+### Step 2 Evidence
+
+- [deployment app layout and ownership](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-deployment-app-layout-01.png)
+- [effective app and server-class configuration](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-deployment-configuration-01.png)
+- [successful service-account reload and zero-client baseline](../evidence/milestone-05-data-ingestion/m05-atl-003-rocky-deployment-server-reload-01.png)
+
+The Agent Management screenshots corroborate the app and server class but are
+not published because their address bars expose a persistent private IP. The
+standalone `app.conf` capture is redundant with the effective-configuration
+capture. The pre-configuration state capture does not prove completed work.

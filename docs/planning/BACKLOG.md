@@ -14,7 +14,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | --- | --- | --- | --- | --- |
 | ATL-001 | M05 Phase 2 — Rocky Linux baseline hardening | P1 | Done | M05 |
 | ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Done | M05 |
-| ATL-003 | Configure Splunk Deployment Server role | P1 | Active | M05 |
+| ATL-003 | Configure Splunk Deployment Server role | P1 | Done | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Backlog | M05 |
 | ATL-005 | Deliver a harmless test deployment app manually | P1 | Backlog | M05 |
 | ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Backlog | M05 |
@@ -68,21 +68,21 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Acceptance criteria:** Splunk is installed using a documented, repeatable process and its local service operation is validated without claiming the Deployment Server role is configured.
 **Human validation required:** Yes.
 **Source or related proposal:** Existing M05 architecture.
-**Notes:** Splunk Enterprise 10.0.8 is installed under `/opt/splunk`; local service operation is validated under systemd as the dedicated `splunk` account. Deployment Server role configuration remains ATL-003 scope.
+**Notes:** Splunk Enterprise 10.0.8 is installed under `/opt/splunk`; local service operation is validated under systemd as the dedicated `splunk` account. Deployment Server role configuration was completed separately under ATL-003.
 
 ## ATL-003 — Configure Splunk Deployment Server role
 
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Active
+**Status:** Done
 **Description:** Configure deployment apps, server classes, and management behavior.
 **Why it matters:** Establishes the centralized management plane separately from ingestion.
 **Dependencies:** ATL-002.
 **Acceptance criteria:** Deployment Server configuration is documented, inspected, and ready for a controlled client enrollment test.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-004, DEC-005, DEC-006.
-**Notes:** Step 1 established the known-good pre-configuration baseline: systemd and the Splunk CLI are healthy, `splunkd` runs as `splunk`, Splunk Enterprise reports 10.0.8, ports 8000 and 8089 listen, and Splunk Web is reachable after allowing TCP/8000 through firewalld. Step 2—Deployment Server role configuration—is next. No role configuration has begun. Configuration alone is not proof of successful distribution.
+**Notes:** The `TA-atlas-base` deployment app and `atlas-base` server class are configured and recognized by the Deployment Server. Effective configuration was inspected with `btool`, the Deployment Server reloaded successfully under the `splunk` service account, and Agent Management showed the app and server class with zero enrolled forwarders. ATL-004 remains separate backlog scope; no client enrollment or configuration distribution is claimed.
 
 ## ATL-004 — Enroll Windows Universal Forwarder with the Deployment Server
 

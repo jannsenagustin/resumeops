@@ -44,7 +44,7 @@ function CurrentSystemState({ state }: { state: AtlasProjectState }) {
     ["Distributed Search", "Validated", "validated"],
     ["Windows Event Ingestion", "Validated", "validated"],
     [state.currentMilestone.title, `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
-    ["Active Objective", state.activeTasks[0].id, "neutral"],
+    ["Active Objective", state.activeTasks[0]?.id ?? "Awaiting approval", "neutral"],
     ["Current Milestone", state.currentMilestone.id, "neutral"],
   ] as const;
   return (
@@ -215,9 +215,9 @@ function CurrentActivity({ state }: { state: AtlasProjectState }) {
           </ul>
         </div>
         <div data-state="planned">
-          <h3>Active · {state.activeBatch.id}</h3>
+          <h3>{state.activeTasks.length ? `Active · ${state.activeBatch.id}` : "No active batch"}</h3>
           <ul>
-            {state.activeTasks.map((item) => <li key={item.id}>{item.id} — {item.title}</li>)}
+            {state.activeTasks.length ? state.activeTasks.map((item) => <li key={item.id}>{item.id} — {item.title}</li>) : <li>Future work awaits human approval.</li>}
           </ul>
         </div>
       </div>
