@@ -4,6 +4,13 @@ Atlas engineering moves through six operations. The operations describe what
 must happen and where human approval belongs; they do not depend on a specific
 AI product. Planning remains authoritative throughout the workflow.
 
+![Atlas EOS Engineering Workflow](images/atlas-eos-engineering-workflow.png)
+
+This is the official visual representation of Atlas EOS. It covers Engineering
+Session, Engineering Session Capture, Atlas EOS Synchronization, Human Review,
+Atlas EOS Closeout, and Session Completion. Planning documents remain the
+canonical source of truth; `SESSION_NOTES.md` remains temporary.
+
 ## 1. Engineering Session
 
 The engineer performs the implementation work. Documentation updates should not

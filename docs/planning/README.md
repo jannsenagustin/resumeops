@@ -33,8 +33,8 @@ carry the useful context into Atlas EOS. Synchronization and closeout are
 deliberately separate, so the engineer reviews the proposed canonical updates
 before anything is committed.
 
-See [Atlas Operations](ATLAS_OPERATIONS.md) for the complete workflow, approval
-boundary, and `SESSION_NOTES.md` lifecycle.
+See [Atlas Operations](ATLAS_OPERATIONS.md) for the official workflow diagram,
+approval boundary, and `SESSION_NOTES.md` lifecycle.
 
 The [Idea Inbox](IDEAS.md) exists so thoughts can be captured quickly before they are forgotten. Ideas are intentionally lightweight because capture should not require premature architecture, estimates, or commitment. An idea describes a possibility; it is not approved work. An engineering proposal analyzes a possibility and its trade-offs. The backlog is the accepted work inventory, while the Active Batch is the only scope approved for execution. Not every idea needs promotion, and archived ideas remain searchable because their history may still inform future work.
 
