@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AtlasNavigation from "./AtlasNavigation";
 import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 
@@ -36,7 +35,6 @@ export default function PlanningSidebar({ projectState, latestCommit }: Planning
       <section className="planning-sidebar__shortcuts" aria-labelledby="planning-shortcuts">
         <h2 id="planning-shortcuts">Engineering Shortcuts</h2>
         <ul>
-          <li><Link href="/projects/atlas/">Engineering Record</Link></li>
           <li><a href="https://github.com/jannsenagustin/resumeops/tree/main/docs/execution-reports" target="_blank" rel="noopener noreferrer">Execution Reports ↗</a></li>
           <li><a href="https://github.com/jannsenagustin/resumeops/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">Architecture ↗</a></li>
           <li><a href="https://github.com/jannsenagustin/resumeops/tree/main/docs/evidence" target="_blank" rel="noopener noreferrer">Evidence ↗</a></li>

@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "evidence:generate": "node scripts/generate-evidence-image-registry.mjs",
+    "prebuild": "node scripts/generate-evidence-image-registry.mjs --check",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

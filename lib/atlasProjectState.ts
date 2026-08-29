@@ -1,9 +1,11 @@
 import { getAtlasPlanningData } from "./atlasPlanning";
+import { getAtlasEvidenceArtifacts } from "./atlasEvidence";
 import { parseAtlasMilestones } from "./atlasMilestones";
 import type { AtlasProjectState } from "./atlasMilestoneTypes";
 
 export function getAtlasProjectState(): AtlasProjectState {
   const milestoneData = parseAtlasMilestones();
+  const evidenceArtifacts = getAtlasEvidenceArtifacts();
   const planning = getAtlasPlanningData();
   const backlog = new Map(planning.backlog.map((task) => [task.id, task]));
   const completedTasks = milestoneData.currentDetail.completedWork.map((id) => {
@@ -29,6 +31,7 @@ export function getAtlasProjectState(): AtlasProjectState {
     completedTasks,
     activeBatch: { id: planning.activeBatch.batchId, status: planning.activeBatch.status, objective: planning.activeBatch.objective },
     activeTasks,
+    evidenceArtifacts,
     evidenceSummary: `${milestoneData.currentMilestone.validationState} · ${milestoneData.currentDetail.evidencePath}`,
     currentBoundary: milestoneData.currentDetail.boundary,
   };

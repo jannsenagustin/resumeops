@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PlanningBacklog from "../../components/PlanningBacklog";
 import PlanningSidebar from "../../components/PlanningSidebar";
 import PlanningQuickNav from "../../components/PlanningQuickNav";
@@ -37,12 +36,7 @@ export default function PlanningPage() {
   return (
     <main className="planning-console">
       <header className="planning-topbar">
-        <Link href="/" className="planning-wordmark">PROJECT ATLAS <span>/ PLANNING CONSOLE</span></Link>
-        <nav aria-label="Primary navigation">
-          <Link href="/">Console</Link>
-          <Link href="/projects/atlas/">Engineering Record</Link>
-          <Link href="/planning/" aria-current="page">Planning</Link>
-        </nav>
+        <p className="planning-wordmark">PROJECT ATLAS <span>/ PLANNING CONSOLE</span></p>
       </header>
       <PlanningQuickNav />
 

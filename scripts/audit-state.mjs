@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { parseAtlasEvidenceIndex } from "../lib/atlasEvidenceIndex.mjs";
+import { renderEvidenceImageRegistry } from "./generate-evidence-image-registry.mjs";
 
 const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
@@ -15,6 +17,17 @@ if (process.argv.includes("--test-mismatch")) {
 }
 const backlogDocument = read("docs/planning/BACKLOG.md");
 const batchDocument = read("docs/planning/ACTIVE_BATCH.md");
+const evidenceArtifacts = parseAtlasEvidenceIndex(root);
+const evidenceRoot = path.join(root, "docs", "evidence");
+const evidenceFiles = fs.readdirSync(evidenceRoot, { recursive: true, withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith(".png"))
+  .map((entry) => path.join(entry.parentPath, entry.name));
+const indexedPaths = new Set(evidenceArtifacts.map((artifact) => path.resolve(root, artifact.canonicalPath)));
+const unindexedEvidence = evidenceFiles.filter((file) => !indexedPaths.has(path.resolve(file)));
+if (unindexedEvidence.length) fail(`published evidence is missing from the canonical index: ${unindexedEvidence.map((file) => path.relative(root, file)).join(", ")}`);
+if (evidenceFiles.length !== evidenceArtifacts.length) fail(`evidence count mismatch: ${evidenceFiles.length} filesystem / ${evidenceArtifacts.length} index`);
+const registryPath = path.join(root, "lib", "atlasEvidenceImages.generated.ts");
+if (!fs.existsSync(registryPath) || fs.readFileSync(registryPath, "utf8") !== renderEvidenceImageRegistry(evidenceArtifacts)) fail("static evidence image registry is stale; run npm run evidence:generate");
 
 const rows = [...milestoneDocument.matchAll(/^\| (\d{2}) · ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$/gm)];
 if (!rows.length) fail("no canonical milestone records found");
@@ -62,7 +75,7 @@ if (!fs.existsSync(path.join(root, "docs", fields.Evidence))) fail(`missing evid
 
 const activeConsumers = [
   "app/page.tsx", "app/projects/page.tsx", "app/projects/atlas/page.tsx", "app/planning/page.tsx",
-  "components/AtlasConsoleHome.tsx", "components/AtlasConsoleShell.tsx", "components/AtlasPipeline.tsx", "components/AtlasProjectExplorer.tsx",
+  "components/AtlasConsoleHome.tsx", "components/AtlasConsoleShell.tsx", "components/AtlasEvidenceBrowser.tsx", "components/AtlasPipeline.tsx", "components/AtlasProjectExplorer.tsx",
 ];
 const stalePhrases = [/implementation has not begun/i, /no validation evidence exists/i, /05 planned/i, /milestone 05[^\n]*planned/i];
 for (const file of activeConsumers) {
@@ -74,5 +87,11 @@ for (const file of ["app/page.tsx", "app/projects/page.tsx", "app/projects/atlas
   if (!source.includes("AtlasProjectState") && !source.includes("getAtlasProjectState") && file !== "app/page.tsx") fail(`${file} does not consume canonical project state`);
 }
 if (fs.existsSync(path.join(root, "data", "atlasProject.ts"))) fail("legacy duplicate milestone data file still exists");
+const atlasPage = read("app/projects/atlas/page.tsx");
+const evidenceBrowser = read("components/AtlasEvidenceBrowser.tsx");
+if (!atlasPage.includes("artifacts={projectState.evidenceArtifacts}") || !evidenceBrowser.includes("artifacts.filter") || !evidenceBrowser.includes("artifacts: AtlasEvidenceArtifact[]")) fail("Atlas page does not render the canonical evidence model");
+if (/const\s+evidence\s*=\s*\[/.test(atlasPage) || atlasPage.includes("docs/evidence/")) fail("Atlas page contains a legacy hard-coded evidence inventory");
+const projectStateSource = read("lib/atlasProjectState.ts");
+if (!projectStateSource.includes("getAtlasEvidenceArtifacts") || !projectStateSource.includes("evidenceArtifacts")) fail("typed project state does not include canonical evidence artifacts");
 
-console.log(`State integrity audit passed: ${current[0][1]} ${currentRow[3].trim()} / ${currentRow[4].trim()}, ${activeBatchIsEmpty ? "no active batch" : `${batchId} -> ${batchTasks.join(", ")}`}.`);
+console.log(`State integrity audit passed: ${current[0][1]} ${currentRow[3].trim()} / ${currentRow[4].trim()}, ${activeBatchIsEmpty ? "no active batch" : `${batchId} -> ${batchTasks.join(", ")}`}. Evidence: ${evidenceFiles.length} filesystem / ${evidenceArtifacts.length} index / ${evidenceArtifacts.length} model / ${evidenceArtifacts.length} UI source.`);

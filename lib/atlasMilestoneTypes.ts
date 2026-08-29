@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export const milestoneStatuses = ["Planned", "In Progress", "Complete"] as const;
 export const validationStates = ["Not Validated", "Partially Validated", "Validated"] as const;
 
@@ -27,6 +29,23 @@ export type CurrentMilestoneDetail = {
   boundary: string;
 };
 
+export type AtlasEvidenceArtifact = {
+  id: string;
+  filename: string;
+  canonicalPath: string;
+  relativePath: string;
+  milestone: string;
+  batch: string;
+  atlTask: string;
+  shortDescription: string;
+  validationPurpose: string;
+  reviewState: "Reviewed";
+  component: string;
+  sequence: number;
+  order: number;
+  image: StaticImageData;
+};
+
 export type AtlasProjectState = {
   milestones: AtlasMilestoneRecord[];
   currentMilestone: AtlasMilestoneRecord;
@@ -34,6 +53,7 @@ export type AtlasProjectState = {
   completedTasks: Array<{ id: string; title: string }>;
   activeBatch: { id: string; status: string; objective: string };
   activeTasks: Array<{ id: string; title: string }>;
+  evidenceArtifacts: AtlasEvidenceArtifact[];
   evidenceSummary: string;
   currentBoundary: string;
 };
