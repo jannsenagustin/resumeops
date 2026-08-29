@@ -15,7 +15,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-001 | M05 Phase 2 — Rocky Linux baseline hardening | P1 | Done | M05 |
 | ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Done | M05 |
 | ATL-003 | Configure Splunk Deployment Server role | P1 | Done | M05 |
-| ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Backlog | M05 |
+| ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Done | M05 |
 | ATL-005 | Deliver a harmless test deployment app manually | P1 | Backlog | M05 |
 | ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Backlog | M05 |
 | ATL-007 | Automate validated deployment through GitHub Actions | P2 | Proposed | Future |
@@ -89,14 +89,14 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Configure the existing Windows Universal Forwarder to communicate with the Rocky Linux Deployment Server.
 **Why it matters:** Connects the validated ingestion client to the new management plane.
 **Dependencies:** ATL-003.
 **Acceptance criteria:** The forwarder is enrolled, the management connection is verified, and existing ingestion remains validated.
 **Human validation required:** Yes.
 **Source or related proposal:** Existing M05 planning.
-**Notes:** Enrollment must not conflate management traffic with event flow.
+**Notes:** The Windows Universal Forwarder was configured for `10.0.0.84:8089`. After firewalld allowed TCP/8089, phone-home and client registration succeeded. Reloading the Deployment Server applied the `atlas-base` match, and `TA-atlas-base` installed successfully on the client. Management enrollment remains distinct from event ingestion.
 
 ## ATL-005 — Deliver a harmless test deployment app manually
 
@@ -104,13 +104,13 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Milestone:** M05
 **Priority:** P1
 **Status:** Backlog
-**Description:** Prove the Deployment Server can deliver a controlled, harmless test configuration before automation is introduced.
+**Description:** Deploy production-style Splunk configuration such as `inputs.conf`, `outputs.conf`, or `props.conf` through the validated Deployment Server lifecycle.
 **Why it matters:** Validates the manual process that later automation will reproduce.
 **Dependencies:** ATL-004.
-**Acceptance criteria:** A benign deployment app is received and applied as intended, with evidence and a documented rollback path.
+**Acceptance criteria:** A reviewed production-style configuration is received and applied as intended, with evidence, effective-configuration validation, and a documented rollback path.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007; LESSON-007.
-**Notes:** Do not automate an unvalidated process.
+**Notes:** ATL-004 proved placeholder app delivery. ATL-005 must demonstrate centralized management of real Splunk configuration before automation is considered.
 
 ## ATL-006 — Recreate Git-controlled Splunk configuration workflow
 

@@ -49,7 +49,7 @@ const batchTasks = batchDocument.match(/^\*\*Included Tasks:\*\*\s*(.+)$/m)?.[1]
 if (!batchId || (batchId !== "Unassigned" && !/^BATCH-\d{3}$/.test(batchId))) fail("invalid Active Batch ID");
 const activeBatchIsEmpty = batchId === "Unassigned";
 if (activeBatchIsEmpty && batchStatus !== "Empty") fail("Unassigned Active Batch must have Empty status");
-if (!activeBatchIsEmpty && batchStatus !== "In Progress") fail(`${batchId} is not In Progress`);
+if (!activeBatchIsEmpty && !["In Progress", "Review"].includes(batchStatus)) fail(`${batchId} is not In Progress or Review`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
 const completed = fields["Completed Work"].match(/ATL-\d{3}/g) ?? [];
 for (const id of completed) if (backlog.get(id)?.status !== "Done") fail(`completed work ${id} is not Done`);

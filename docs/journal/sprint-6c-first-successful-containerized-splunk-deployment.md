@@ -118,10 +118,13 @@ Head and Deployment Server were not deployed.
 The existing public artifacts remain in the
 [Milestone 01 evidence folder](../evidence/milestone-01-first-containerized-deployment/):
 
-- [Compose configuration validation](../evidence/milestone-01-first-containerized-deployment/m01-docker-compose-validation-01.png)
 - [Healthy `atlas-indexer` container](../evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png)
 - [Docker Desktop container view](../evidence/milestone-01-first-containerized-deployment/m01-docker-runtime-state-01.png)
 - [Successful Splunk administrator login](../evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-web-login-01.png)
+
+The original Compose validation capture is excluded from publication because
+the resolved output displays a credential value. The completed configuration
+validation remains part of the engineering record but is not image-backed.
 
 ### Result
 

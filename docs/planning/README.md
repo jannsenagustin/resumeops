@@ -65,8 +65,8 @@ factual, and use the [session checklist](SESSION_CHECKLIST.md) before closeout.
 Codex can then use the notes to prepare updates to the canonical Atlas EOS
 records. A human still reviews the result before closeout and commit.
 
-`SESSION_NOTES.md` is a temporary handoff, not a new source of truth. It cannot
-change the Active Batch, approve evidence, or override canonical planning
+`SESSION_NOTES.md` is the authoritative record of the engineering session it
+captures. It cannot replace human approval or permanently override canonical planning
 records. After approved closeout, archive it when the raw history is worth
 keeping or clear it for the next session.
 

@@ -124,7 +124,10 @@ The existing public artifacts remain in the
 - [Search Head and Indexer healthy](../evidence/milestone-02-search-head/m02-docker-container-health-01.png)
 - [First successful Search Head login](../evidence/milestone-02-search-head/m02-atlas-search-head-web-login-01.png)
 - [Docker Desktop multi-service runtime](../evidence/milestone-02-search-head/m02-docker-multi-service-state-01.png)
-- [Shared network membership](../evidence/milestone-02-search-head/m02-docker-shared-network-01.png)
+
+The original network-inspection capture is excluded from publication because
+it exposes Docker endpoint IDs and MAC addresses. Shared `atlas-network`
+membership remains documented without linking the sensitive screenshot.
 
 ### Result
 

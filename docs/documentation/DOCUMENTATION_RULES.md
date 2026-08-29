@@ -13,6 +13,9 @@
 11. Published evidence must follow the convention and appear in the canonical
     index defined by `docs/evidence/README.md`; evidence renames use `git mv`
     after inbound references are inventoried.
+12. Atlas EOS synchronization reads `docs/planning/SESSION_NOTES.md` first as
+    the authoritative record of that engineering session; it never uses
+    `SESSION_TEMPLATE.md` as evidence of completed work.
 
 If a current-state sentence requires frequent manual synchronization across multiple files, it is likely owned in the wrong place.
 

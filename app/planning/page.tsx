@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PlanningBacklog from "../../components/PlanningBacklog";
+import PlanningSidebar from "../../components/PlanningSidebar";
 import {
   canonicalPlanningSources,
   getAtlasPlanningData,
 } from "../../lib/atlasPlanning";
 import { planningPriorities } from "../../lib/atlasPlanningTypes";
 import { getAtlasProjectState } from "../../lib/atlasProjectState";
+import { getLatestCommit } from "../../lib/repositoryMetadata";
 
 export const metadata: Metadata = {
   title: "Planning Console",
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
 export default function PlanningPage() {
   const data = getAtlasPlanningData();
   const projectState = getAtlasProjectState();
+  const latestCommit = getLatestCommit();
   const proposalGroups = data.proposals.reduce<Map<string, typeof data.proposals>>((groups, proposal) => {
     groups.set(proposal.status, [...(groups.get(proposal.status) ?? []), proposal]);
     return groups;
@@ -41,7 +44,10 @@ export default function PlanningPage() {
         </nav>
       </header>
 
-      <section className="planning-hero" aria-labelledby="planning-title">
+      <div className="planning-workspace">
+        <PlanningSidebar projectState={projectState} latestCommit={latestCommit} />
+        <div className="planning-workspace__content">
+      <section id="planning-overview" className="planning-hero" aria-labelledby="planning-title">
         <div>
           <p>ATLAS EOS / READ-ONLY REPOSITORY PROJECTION</p>
           <h1 id="planning-title">Engineering Planning Console</h1>
@@ -86,9 +92,9 @@ export default function PlanningPage() {
         </article>
       </section>
 
-      <PlanningBacklog items={data.backlog} ideas={data.ideas} />
+      <div id="planning-backlog"><PlanningBacklog items={data.backlog} ideas={data.ideas} /></div>
 
-      <section className="planning-section" aria-labelledby="proposals-title">
+      <section id="planning-proposals" className="planning-section" aria-labelledby="proposals-title">
         <header className="planning-section__header"><div><span>05 / EVALUATION</span><h2 id="proposals-title">Engineering Proposals</h2></div><p>Ideas requiring evaluation before executable commitment.</p></header>
         <div className="planning-proposal-groups">
           {[...proposalGroups.entries()].map(([status, proposals]) => (
@@ -106,7 +112,7 @@ export default function PlanningPage() {
       </section>
 
       <div className="planning-record-grid">
-        <section className="planning-section" aria-labelledby="decisions-title">
+        <section id="planning-decisions" className="planning-section" aria-labelledby="decisions-title">
           <header className="planning-section__header"><div><span>06 / GOVERNANCE</span><h2 id="decisions-title">Recent Decisions</h2></div></header>
           <ol className="planning-record-list">
             {data.decisions.slice(-5).reverse().map((decision) => (
@@ -115,7 +121,7 @@ export default function PlanningPage() {
           </ol>
         </section>
 
-        <section className="planning-section" aria-labelledby="lessons-title">
+        <section id="planning-lessons" className="planning-section" aria-labelledby="lessons-title">
           <header className="planning-section__header"><div><span>07 / REUSABLE KNOWLEDGE</span><h2 id="lessons-title">Lessons Learned</h2></div></header>
           <ol className="planning-record-list">
             {data.lessons.slice(-5).reverse().map((lesson) => (
@@ -125,7 +131,7 @@ export default function PlanningPage() {
         </section>
       </div>
 
-      <section className="planning-section planning-sources" aria-labelledby="sources-title">
+      <section id="planning-sources" className="planning-section planning-sources" aria-labelledby="sources-title">
         <header className="planning-section__header"><div><span>08 / SOURCE OF TRUTH</span><h2 id="sources-title">Canonical Sources</h2></div><p>Every planning record begins and ends in the repository.</p></header>
         <ul>
           {canonicalPlanningSources.map(([label, href], index) => <li key={href}><a href={href} target="_blank" rel="noopener noreferrer"><span>{String(index + 1).padStart(2, "0")}</span>{label}<b>↗</b></a></li>)}
@@ -136,6 +142,8 @@ export default function PlanningPage() {
         <span>ATLAS EOS / REPOSITORY AUTHORITY</span>
         <p>{planningPriorities.join(" · ")} / Human approval required</p>
       </footer>
+        </div>
+      </div>
     </main>
   );
 }

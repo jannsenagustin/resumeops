@@ -17,8 +17,8 @@ const lensLinks: [string, Lens, string][] = [["MILESTONES","milestones","milesto
 const atlasNavIcons: ConsoleIconName[] = ["activity", "flag", "network", "file", "evidence", "file", "activity", "repository"];
 const lensIcons: Record<Lens, ConsoleIconName> = { milestones:"flag", system:"server", ingestion:"transfer", search:"search", decisions:"file", validation:"evidence", "field-notes":"file" };
 const validatedMilestones = [
-  { id:"01", title:"Containerized Splunk Foundation", steps:["Compose configuration resolved","atlas-indexer captured healthy","Docker runtime captured","Administrator login confirmed"], related:["EVD-01-01","EVD-01-04"] },
-  { id:"02", title:"Search Head Deployment", steps:["Search Head and Indexer captured healthy","Search Head login confirmed","Multi-service runtime captured","Shared atlas-network membership confirmed"], related:["EVD-02-01","EVD-02-04"] },
+  { id:"01", title:"Containerized Splunk Foundation", steps:["Compose configuration resolved","atlas-indexer captured healthy","Docker runtime captured","Administrator login confirmed"], related:["EVD-01-02","EVD-01-04"] },
+  { id:"02", title:"Search Head Deployment", steps:["Search Head and Indexer captured healthy","Search Head login confirmed","Multi-service runtime captured","Shared atlas-network membership confirmed"], related:["EVD-02-01","EVD-02-03"] },
   { id:"03", title:"Distributed Search", steps:["Search peer configured","Peer captured Up / Healthy / Enabled","Metadata search returned Indexer-associated data","Job Inspector showed dispatch.stream.remote.atlas-indexer"], related:["D-007","EVD-03-01","EVD-03-03"] },
   { id:"04", title:"Windows Event Ingestion via Universal Forwarder", steps:["SplunkForwarder service running","Windows reached TCP 9997","127.0.0.1:9997 listed under active forwards","Application, Security, and System logs searchable","Job Inspector confirmed remote Indexer execution"], related:["D-005","FN-004","EVD-04-03","EVD-04-05"] },
 ] as const;

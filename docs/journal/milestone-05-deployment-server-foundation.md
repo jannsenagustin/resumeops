@@ -1,14 +1,16 @@
 # Milestone 05 — Deployment Server Foundation
 
 **Milestone:** 05
-**Date:** 2026-08-22
+**Date:** 2026-08-28
 **Status:** In Progress / Partially Validated
 
 ## Engineering Summary
 
 **Abstract:** Atlas completed the Rocky Linux, Splunk Enterprise, and Deployment
-Server foundation for the dedicated management node. Client enrollment and
-configuration distribution remain future work.
+Server foundation for the dedicated management node. The first Windows
+Universal Forwarder is now enrolled, assigned to `atlas-base`, and receiving
+the placeholder `TA-atlas-base` deployment app. Production-style configuration
+delivery remains future work.
 
 ### Completed Foundation
 
@@ -16,12 +18,13 @@ configuration distribution remain future work.
 - ATL-002 installed Splunk Enterprise 10.0.8 directly on the host.
 - Splunk now runs as the dedicated `splunk` account under systemd.
 - ATL-003 configured and validated the first deployment app and server class.
+- ATL-004 enrolled the first Windows Universal Forwarder and validated the
+  complete Deployment Server lifecycle.
 
 ### Current Engineering Objective
 
-ATL-003 is complete. The Deployment Server recognizes `TA-atlas-base` and
-`atlas-base`, and its effective configuration and reload behavior are validated.
-No forwarder enrollment or application distribution is claimed by this record.
+ATL-004 is complete and BATCH-003 is in Review. The next engineering objective,
+once separately activated, is ATL-005 production-style configuration delivery.
 
 ## Installation Engineering Record
 
@@ -128,3 +131,50 @@ The Agent Management screenshots corroborate the app and server class but are
 not published because their address bars expose a persistent private IP. The
 standalone `app.conf` capture is redundant with the effective-configuration
 capture. The pre-configuration state capture does not prove completed work.
+
+## ATL-004 — Windows Universal Forwarder Enrollment
+
+The Windows Universal Forwarder loaded `deploymentclient.conf` with the
+Deployment Server target `10.0.0.84:8089`, but its DeploymentClient logs
+initially reported `err=not_connected`. Splunk configuration and local service
+health were valid, while `Test-NetConnection` isolated the failure to TCP/8089
+transport.
+
+Rocky Linux firewalld exposed TCP/8000 but not the management port. Allowing
+TCP/8089 and reloading firewalld changed `TcpTestSucceeded` from false to true.
+After the forwarder restarted, the Deployment Server received phone-home
+requests and listed the Windows client.
+
+The client initially showed no server-class assignment because the updated
+`serverclass.conf` had not been loaded into the running Deployment Server.
+`splunk reload deploy-server` applied the match immediately. The client joined
+`atlas-base`, received `TA-atlas-base` with an enabled `stateOnClient` and an
+`Ok` result, and the app was verified under the Windows Universal Forwarder
+`etc\apps` directory with its expected `default`, `local`, and `metadata`
+structure.
+
+### ATL-004 Validation Boundary
+
+- Deployment Server health, configuration, and TCP/8089 listener were validated.
+- Windows TCP/8089 connectivity was validated after firewall remediation.
+- Phone-home, client registration, server-class assignment, app installation,
+  and client-side app presence were validated.
+- This work proves centralized client management and placeholder app delivery.
+- It does not prove production-style `inputs.conf`, `outputs.conf`, or
+  `props.conf` delivery; that remains ATL-005.
+
+### ATL-004 Evidence Disposition
+
+The session record requested evidence for the firewall change, successful TCP
+test, phone-home, client registration, server-class assignment, deployment
+result, and Windows app installation. The repository repair pass recovered two
+misfiled publishable captures and assigned them to ATL-004: the Windows
+deployment-client configuration and installed `TA-atlas-base` app structure.
+Client-registration, phone-home, and deployment-result captures remain excluded
+because they expose the persistent deployment-client GUID. No publishable
+firewall or successful `Test-NetConnection` screenshot was supplied.
+
+### ATL-004 Evidence
+
+- [deployment client configuration](../evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-client-config-01.png)
+- [deployed app installation](../evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-app-installation-01.png)

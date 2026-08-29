@@ -9,7 +9,8 @@ AI product. Planning remains authoritative throughout the workflow.
 This is the official visual representation of Atlas EOS. It covers Engineering
 Session, Engineering Session Capture, Atlas EOS Synchronization, Human Review,
 Atlas EOS Closeout, and Session Completion. Planning documents remain the
-canonical source of truth; `SESSION_NOTES.md` remains temporary.
+canonical source of truth after synchronization; `SESSION_NOTES.md` is the
+authoritative engineering record for the session it captures.
 
 ## 1. Engineering Session
 
@@ -35,9 +36,10 @@ handoff. It may capture:
 - ideas; and
 - remaining work.
 
-Session notes are reviewed before synchronization. They are not canonical and
-cannot approve scope, evidence, lessons, decisions, or completion. Their only
-job is to carry engineering context into Atlas EOS.
+Session notes are reviewed before synchronization. They authoritatively record
+what occurred during that engineering session, but they do not replace human
+approval or the canonical owners of ongoing repository state. Their job is to
+carry verified engineering context into Atlas EOS.
 
 ## 3. Atlas EOS Synchronization
 
@@ -90,9 +92,10 @@ Next Engineering Session
 
 ## Session notes lifecycle
 
-`SESSION_NOTES.md` is temporary, non-canonical, and used only as an engineering
-handoff. The engineer reviews it before synchronization. Codex reconciles it
-with Planning and evidence, then proposes updates to the canonical records.
+`SESSION_NOTES.md` is temporary and authoritative for the engineering session
+it records. The engineer reviews it before synchronization. Codex reads it
+first, never substitutes `SESSION_TEMPLATE.md`, and reconciles its documented
+outcomes into Planning and evidence before proposing canonical updates.
 
 After approved closeout, retire the notes by clearing them for the next session
 or archiving them when their raw history has lasting value. An archive remains

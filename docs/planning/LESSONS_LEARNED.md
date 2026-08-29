@@ -207,3 +207,33 @@ all other views derived consumers.
 **Reusable lesson:** Validate Deployment Server changes through filesystem, effective configuration, runtime, and Web UI checks; do not treat a zero-client baseline as a configuration failure before enrollment.
 **Related milestone or task:** M05; ATL-003; DEC-021.
 **Status:** Confirmed
+
+## LESSON-021 — Troubleshoot Deployment Server enrollment in layers
+
+**Lesson ID:** LESSON-021
+**Title:** Troubleshoot Deployment Server enrollment in layers.
+**Context:** Enrolling the first Windows Universal Forwarder under ATL-004.
+**What happened:** Splunk configuration and service health were valid while TCP/8089 remained unreachable. A transport test isolated firewalld before later checks exposed a separate Deployment Server reload requirement.
+**Reusable lesson:** Validate deployment app, Deployment Server, listener, firewall, TCP connectivity, deployment client configuration, phone-home, registration, server class, and deployment in order so each failure is assigned to the correct layer.
+**Related milestone or task:** M05; ATL-004.
+**Status:** Confirmed
+
+## LESSON-022 — Reload Deployment Server matching rules
+
+**Lesson ID:** LESSON-022
+**Title:** Reload Deployment Server matching rules after server-class changes.
+**Context:** The enrolled ATL-004 client initially reported no server classes.
+**What happened:** The updated `serverclass.conf` existed on disk, but the running Deployment Server had not loaded it. `splunk reload deploy-server` applied `atlas-base` immediately.
+**Reusable lesson:** After changing `serverclass.conf`, reload the Deployment Server before diagnosing client matching or app-assignment failures.
+**Related milestone or task:** M05; ATL-004.
+**Status:** Confirmed
+
+## LESSON-023 — Use direct TCP tests to isolate transport failures
+
+**Lesson ID:** LESSON-023
+**Title:** Use direct TCP tests before over-reading application logs.
+**Context:** DeploymentClient repeatedly reported `err=not_connected` during ATL-004.
+**What happened:** `Test-NetConnection` showed that ping succeeded while TCP/8089 failed, quickly separating network transport from Splunk configuration.
+**Reusable lesson:** When a remote service appears healthy but a client cannot connect, test the exact destination port from the client before repeatedly inspecting application logs.
+**Related milestone or task:** M05; ATL-004.
+**Status:** Confirmed

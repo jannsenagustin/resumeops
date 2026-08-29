@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import AtlasProjectExplorer from "../../../components/AtlasProjectExplorer";
 import EvidenceViewer from "../../../components/EvidenceViewer";
 import { getAtlasProjectState } from "../../../lib/atlasProjectState";
-import composeValidation from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-docker-compose-validation-01.png";
 import indexerHealthy from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png";
 import indexerDockerDesktop from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-docker-runtime-state-01.png";
 import indexerFirstLogin from "../../../docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-web-login-01.png";
 import rolesHealthy from "../../../docs/evidence/milestone-02-search-head/m02-docker-container-health-01.png";
 import searchHeadFirstLogin from "../../../docs/evidence/milestone-02-search-head/m02-atlas-search-head-web-login-01.png";
 import multiServiceRuntime from "../../../docs/evidence/milestone-02-search-head/m02-docker-multi-service-state-01.png";
-import sharedNetwork from "../../../docs/evidence/milestone-02-search-head/m02-docker-shared-network-01.png";
 import searchPeer from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-indexer-search-peer-01.png";
 import distributedResults from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-search-head-distributed-search-01.png";
 import distributedInspector from "../../../docs/evidence/milestone-03-distributed-search/m03-atlas-search-head-job-inspector-01.png";
@@ -33,14 +31,12 @@ export const metadata: Metadata = {
 };
 
 const evidence = [
-  { id:"EVD-01-01", claim:"Compose configuration resolved", observed:"docker compose config completed successfully with the configured environment values.", src:composeValidation, alt:"Terminal output showing successful Docker Compose configuration validation for Atlas.", related:["Milestone 01"] },
   { id:"EVD-01-02", claim:"Indexer container healthy", observed:"Docker reported atlas-indexer running with a healthy status.", src:indexerHealthy, alt:"Docker command output showing the atlas-indexer container in a healthy state.", related:["Milestone 01"] },
   { id:"EVD-01-03", claim:"Container runtime established", observed:"Docker Desktop showed the running atlas-indexer service.", src:indexerDockerDesktop, alt:"Docker Desktop showing the running Atlas Indexer container.", related:["Milestone 01"] },
   { id:"EVD-01-04", claim:"Indexer login confirmed", observed:"Splunk Web accepted the first Atlas administrator login through the Indexer.", src:indexerFirstLogin, alt:"Splunk Web displayed after the first successful administrator login to the Atlas Indexer.", related:["Milestone 01"] },
   { id:"EVD-02-01", claim:"Both Splunk roles healthy", observed:"Docker reported atlas-search-head and atlas-indexer healthy at the same time.", src:rolesHealthy, alt:"Docker command output showing healthy Search Head and Indexer containers.", related:["D-001","Milestone 02"] },
   { id:"EVD-02-02", claim:"Search Head login confirmed", observed:"Splunk Web accepted administrator access through the Search Head.", src:searchHeadFirstLogin, alt:"Splunk Search Head interface after the first successful administrator login.", related:["Milestone 02"] },
   { id:"EVD-02-03", claim:"Multi-service runtime established", observed:"Docker Desktop showed the Search Head and Indexer running as separate services.", src:multiServiceRuntime, alt:"Docker Desktop showing separate Atlas Search Head and Indexer containers running together.", related:["D-001","Milestone 02"] },
-  { id:"EVD-02-04", claim:"Shared network membership confirmed", observed:"Docker network inspection showed both Splunk services attached to atlas-network with separate private addresses.", src:sharedNetwork, alt:"Docker network inspection showing atlas-search-head and atlas-indexer attached to atlas-network.", related:["D-003","Milestone 02"] },
   { id:"EVD-03-01", claim:"Search peer configured", observed:"atlas-indexer:8089 captured as Up, Healthy, and Enabled.", src:searchPeer, alt:"Splunk Search Peers page showing atlas-indexer on port 8089 as Up, Healthy, and Enabled.", related:["D-003","FN-003"] },
   { id:"EVD-03-02", claim:"Distributed results returned", observed:"Metadata search returned Indexer-associated data; shown counts are point-in-time observations.", src:distributedResults, alt:"Search Head metadata results showing atlas-indexer and atlas-search-head.", related:["D-001","Milestone 03"] },
   { id:"EVD-03-03", claim:"Remote execution confirmed", observed:"Job Inspector showed dispatch.stream.remote.atlas-indexer.", src:distributedInspector, alt:"Search Job Inspector showing dispatch.stream.remote.atlas-indexer for the distributed metadata search.", related:["D-007","Milestone 03"] },

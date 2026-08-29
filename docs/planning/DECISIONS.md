@@ -268,3 +268,44 @@ layers and do not infer distribution or client behavior from configuration
 alone.
 
 **Status:** Accepted
+
+## DEC-022 — Session notes drive Atlas EOS synchronization
+
+**Recorded:** 2026-08-28
+
+**Decision:** Use `docs/planning/SESSION_NOTES.md` as the authoritative
+engineering record for a completed session and require the Atlas EOS
+Documentation Pass to consume it before synchronizing canonical repository
+records. `SESSION_TEMPLATE.md` is only a reusable template and is never an
+engineering input.
+
+**Rationale:** Separating the engineering session from repository
+synchronization reduces documentation interruption while preserving a single,
+reviewable account of what actually occurred.
+
+**Consequences:** Engineering produces and reviews `SESSION_NOTES.md`; Codex
+synchronizes only documented outcomes; canonical planning, milestone, journal,
+and evidence records become authoritative after review and closeout. The notes
+are retired only after the approved commit and push.
+
+**Status:** Accepted
+
+## DEC-023 — Persistent Planning Console navigation
+
+**Recorded:** 2026-08-28
+
+**Decision:** Give the Planning Console a persistent left sidebar while
+retaining the top bar for Atlas identity. Group navigation by engineering
+purpose and include repository-derived project status plus engineering
+shortcuts.
+
+**Rationale:** Atlas now spans planning, engineering records, execution
+reports, architecture, evidence, milestones, and future platform work. A
+persistent, context-aware navigation model reduces friction as the engineering
+platform grows.
+
+**Consequences:** The sidebar must preserve the Atlas visual language, remain
+responsive and keyboard accessible, and consume canonical state through the
+existing project-state and planning parsers rather than duplicating it.
+
+**Status:** Accepted
