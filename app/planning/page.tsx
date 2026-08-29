@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PlanningBacklog from "../../components/PlanningBacklog";
 import PlanningSidebar from "../../components/PlanningSidebar";
+import PlanningQuickNav from "../../components/PlanningQuickNav";
 import {
   canonicalPlanningSources,
   getAtlasPlanningData,
@@ -43,6 +44,7 @@ export default function PlanningPage() {
           <Link href="/planning/" aria-current="page">Planning</Link>
         </nav>
       </header>
+      <PlanningQuickNav />
 
       <div className="planning-workspace">
         <PlanningSidebar projectState={projectState} latestCommit={latestCommit} />
@@ -62,7 +64,7 @@ export default function PlanningPage() {
       </section>
 
       <section className="planning-overview-grid" aria-label="Current planning state">
-        <article className="planning-panel planning-milestone">
+        <article id="current-milestone" className="planning-panel planning-milestone">
           <header><span>01 / CURRENT MILESTONE</span><h2>{projectState.currentMilestone.id}</h2></header>
           <dl>
             <div><dt>STATUS</dt><dd>{projectState.currentMilestone.status}</dd></div>
@@ -72,7 +74,7 @@ export default function PlanningPage() {
           </dl>
         </article>
 
-        <article className="planning-panel planning-active-batch">
+        <article id="active-batch" className="planning-panel planning-active-batch">
           <header><span>02 / ACTIVE BATCH</span><h2>{activeBatchIsEmpty ? "No Active Batch" : data.activeBatch.batchId}</h2></header>
           {activeBatchIsEmpty ? (
             <div className="planning-empty-state">
@@ -92,7 +94,7 @@ export default function PlanningPage() {
         </article>
       </section>
 
-      <div id="planning-backlog"><PlanningBacklog items={data.backlog} ideas={data.ideas} /></div>
+      <div id="planning-backlog"><PlanningBacklog items={data.backlog} ideas={data.ideas} currentMilestone={projectState.currentMilestone.id} /></div>
 
       <section id="planning-proposals" className="planning-section" aria-labelledby="proposals-title">
         <header className="planning-section__header"><div><span>05 / EVALUATION</span><h2 id="proposals-title">Engineering Proposals</h2></div><p>Ideas requiring evaluation before executable commitment.</p></header>

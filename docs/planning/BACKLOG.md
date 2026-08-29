@@ -41,6 +41,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-027 | Final Review of M05 Evidence Publishability | P3 | Backlog | Documentation |
 | ATL-028 | Complete ResumeOps → Atlas Repository Transition | P2 | Backlog | Documentation |
 | ATL-029 | Implement Engineering Session Capture and Codex Closeout Handoff | P2 | Backlog | Atlas EOS |
+| ATL-030 | Shared Atlas Navigation and Planning Console Progressive Disclosure | P1 | Done | Engineering Console |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -458,3 +459,17 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Human validation required:** Yes.
 **Source or related proposal:** IDEA-031; EP-004.
 **Notes:** The documentation-only workspace, reusable template, and checklist now exist. Testing during a real engineering session and any automation remain backlog work. Backlog status does not activate ATL-029. Do not create fake session details, treat chat history as canonical, complete tasks automatically, approve evidence automatically, or commit and push autonomously.
+
+## ATL-030 — Shared Atlas Navigation and Planning Console Progressive Disclosure
+
+**Category:** Website / UX
+**Milestone:** Engineering Console
+**Priority:** P1
+**Status:** Done
+**Description:** Provide one shared sidebar navigation panel across Console, Atlas, and Planning, and make large Backlog and Idea Inbox inventories easier to scan through canonical grouping, progressive disclosure, search, and quick access.
+**Why it matters:** The primary Atlas surfaces were difficult to move between consistently, while permanently expanded Planning inventories required excessive scrolling and made current work harder to recover.
+**Dependencies:** Existing Atlas shell, Planning Console, canonical planning parsers, and typed project-state model.
+**Acceptance criteria:** All three primary surfaces use one shared major-route navigation component with an accessible active state; Backlog is grouped by canonical milestone; Idea Inbox is grouped by canonical category; search and existing category filters work together; current work and Planning sections have direct links; responsive, keyboard, type, lint, state-audit, and production-build validation pass.
+**Human validation required:** Yes; this implementation is an approved immediate-publication workflow exception.
+**Source or related proposal:** Human-approved Atlas navigation and Planning Console usability task.
+**Notes:** Implementation and available automated validation completed on 2026-08-29. The in-app browser was unavailable for visual review and that limitation is recorded in the session notes. This exception did not activate ATL-005, create an Active Batch, or change M05 engineering state.

@@ -10,6 +10,7 @@ import {
   repositoryUrl,
 } from "../data/homeConsole";
 import AtlasConsoleNav from "./AtlasConsoleNav";
+import AtlasNavigation from "./AtlasNavigation";
 import ConsoleIcon, { type ConsoleIconName } from "./ConsoleIcon";
 import ResumeViewer from "./ResumeViewer";
 import ResumeViewerTrigger from "./ResumeViewerTrigger";
@@ -158,8 +159,9 @@ function SidebarContent({
         <span>Engineering Console</span>
         <small>Edmonton, Canada</small>
       </div>
+      <AtlasNavigation active="console" onNavigate={onNavigate} />
       <section className="atlas-sidebar__section" aria-labelledby={`${idPrefix}-navigation-title`}>
-        <h2 id={`${idPrefix}-navigation-title`}>Navigation</h2>
+        <h2 id={`${idPrefix}-navigation-title`}>Console Sections</h2>
         <AtlasConsoleNav variant="sidebar" onNavigate={onNavigate} />
         <SidebarActions onNavigate={onNavigate} />
       </section>
