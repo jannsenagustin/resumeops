@@ -12,11 +12,9 @@ import Panel from "./Panel";
 
 function ConsoleHeader({ state }: { state: AtlasProjectState }) {
   const consoleStatus = [
-    ["Project", "Atlas", "neutral"],
-    ["Location", "Edmonton, Canada", "neutral"],
-    ["Validated", "Milestones 01–04", "validated"],
-    ["Current Work", `${state.currentMilestone.id} / ${state.currentDetail.currentPhase}`, "planned"],
-    ["Active Batch", state.activeBatch.id, "neutral"],
+    ["Current State", `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
+    ["Current Milestone", `${state.currentMilestone.id} / ${state.currentMilestone.title}`, "neutral"],
+    ["Current Objective", state.activeTasks[0]?.id ?? "Awaiting approval", "neutral"],
     ["Experience", "7+ Years Splunk", "neutral"],
   ] as const;
   return (
@@ -44,8 +42,6 @@ function CurrentSystemState({ state }: { state: AtlasProjectState }) {
     ["Distributed Search", "Validated", "validated"],
     ["Windows Event Ingestion", "Validated", "validated"],
     [state.currentMilestone.title, `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
-    ["Active Objective", state.activeTasks[0]?.id ?? "Awaiting approval", "neutral"],
-    ["Current Milestone", state.currentMilestone.id, "neutral"],
   ] as const;
   return (
     <section
@@ -145,8 +141,8 @@ function EvidenceAndRecords({ state }: { state: AtlasProjectState }) {
       <Panel
         id="evidence"
         as="section"
-        eyebrow="04 / Evidence"
-        title="What proof exists?"
+        eyebrow="04 / Engineering Proof"
+        title="How has Atlas been validated?"
         metadata="CANONICAL EVIDENCE MAP"
         className="atlas-console-section console-summary-panel"
         headingLevel="h2"
@@ -171,8 +167,8 @@ function EvidenceAndRecords({ state }: { state: AtlasProjectState }) {
       <Panel
         id="engineering-records"
         as="section"
-        eyebrow="05 / Engineering Records"
-        title="Where can the decisions be inspected?"
+        eyebrow="05 / Decision Record"
+        title="Why was Atlas built this way?"
         metadata="MILESTONES 01–04"
         className="atlas-console-section console-summary-panel"
         headingLevel="h2"

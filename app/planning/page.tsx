@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PlanningBacklog from "../../components/PlanningBacklog";
 import PlanningSidebar from "../../components/PlanningSidebar";
 import PlanningQuickNav from "../../components/PlanningQuickNav";
+import PlanningSources from "../../components/PlanningSources";
 import {
   canonicalPlanningSources,
   getAtlasPlanningData,
@@ -32,6 +33,8 @@ export default function PlanningPage() {
     return groups;
   }, new Map());
   const activeBatchIsEmpty = data.activeBatch.batchId === "Unassigned";
+  const decisionsUrl = canonicalPlanningSources.find(([label]) => label === "Decisions")?.[1];
+  const lessonsUrl = canonicalPlanningSources.find(([label]) => label === "Lessons Learned")?.[1];
 
   return (
     <main className="planning-console">
@@ -111,27 +114,27 @@ export default function PlanningPage() {
         <section id="planning-decisions" className="planning-section" aria-labelledby="decisions-title">
           <header className="planning-section__header"><div><span>06 / GOVERNANCE</span><h2 id="decisions-title">Recent Decisions</h2></div></header>
           <ol className="planning-record-list">
-            {data.decisions.slice(-5).reverse().map((decision) => (
+            {data.decisions.slice(-3).reverse().map((decision) => (
               <li key={decision.id}><a href={decision.sourceUrl} target="_blank" rel="noopener noreferrer"><span>{decision.id}</span><strong>{decision.title}</strong><p>{decision.decision}</p></a></li>
             ))}
           </ol>
+          {decisionsUrl && <a className="planning-view-all" href={decisionsUrl} target="_blank" rel="noopener noreferrer">View all decisions →</a>}
         </section>
 
         <section id="planning-lessons" className="planning-section" aria-labelledby="lessons-title">
           <header className="planning-section__header"><div><span>07 / REUSABLE KNOWLEDGE</span><h2 id="lessons-title">Lessons Learned</h2></div></header>
           <ol className="planning-record-list">
-            {data.lessons.slice(-5).reverse().map((lesson) => (
+            {data.lessons.slice(-3).reverse().map((lesson) => (
               <li key={lesson.id}><a href={lesson.sourceUrl} target="_blank" rel="noopener noreferrer"><span>{lesson.id}</span><strong>{lesson.title}</strong><p>{lesson.reusableLesson}</p></a></li>
             ))}
           </ol>
+          {lessonsUrl && <a className="planning-view-all" href={lessonsUrl} target="_blank" rel="noopener noreferrer">View all lessons →</a>}
         </section>
       </div>
 
       <section id="planning-sources" className="planning-section planning-sources" aria-labelledby="sources-title">
         <header className="planning-section__header"><div><span>08 / SOURCE OF TRUTH</span><h2 id="sources-title">Canonical Sources</h2></div><p>Every planning record begins and ends in the repository.</p></header>
-        <ul>
-          {canonicalPlanningSources.map(([label, href], index) => <li key={href}><a href={href} target="_blank" rel="noopener noreferrer"><span>{String(index + 1).padStart(2, "0")}</span>{label}<b>↗</b></a></li>)}
-        </ul>
+        <PlanningSources sources={canonicalPlanningSources} />
       </section>
 
       <footer className="planning-footer">

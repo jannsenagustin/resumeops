@@ -2,8 +2,8 @@ export const consoleNavigation = [
   ["Current State", "#current-state"],
   ["Architecture", "#architecture"],
   ["Milestones", "#milestones"],
-  ["Evidence", "#evidence"],
-  ["Engineering Records", "#engineering-records"],
+  ["Engineering Proof", "#evidence"],
+  ["Decision Record", "#engineering-records"],
   ["Experience", "#experience"],
 ] as const;
 

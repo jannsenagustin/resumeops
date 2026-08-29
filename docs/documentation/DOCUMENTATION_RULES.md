@@ -16,6 +16,9 @@
 12. Atlas EOS synchronization reads `docs/planning/SESSION_NOTES.md` first as
     the authoritative record of that engineering session; it never uses
     `SESSION_TEMPLATE.md` as evidence of completed work.
+13. Website evidence records must be derived from the canonical artifact index
+    in `docs/evidence/README.md`; application pages must not maintain separate
+    evidence inventories.
 
 If a current-state sentence requires frequent manual synchronization across multiple files, it is likely owned in the wrong place.
 
@@ -23,6 +26,16 @@ Application interfaces must consume current milestone and executable-work state
 through the typed project-state layer. Hardcoded copies of current status,
 active objectives, evidence availability, or milestone phase are prohibited.
 Run `npm run audit:state` before treating project-state work as complete.
+
+This is the
+[Canonical Projection Principle](../../ai/ENGINEERING_PHILOSOPHY.md#canonical-projection-principle):
+repository documents own engineering truth, while applications and services
+project it through reproducible, audited parsers and models.
+
+Documentation interfaces also follow
+[Engineering Narrative](../../ai/ENGINEERING_PHILOSOPHY.md#engineering-narrative):
+each page answers one primary question while supporting detail remains available
+without competing with the main story.
 
 ## Change order
 
