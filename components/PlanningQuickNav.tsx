@@ -1,14 +1,11 @@
-const sections = [
-  ["Current Milestone", "#current-milestone"],
-  ["Active Batch", "#active-batch"],
-  ["Backlog", "#backlog"],
-  ["Idea Inbox", "#idea-inbox"],
-  ["Proposals", "#planning-proposals"],
-  ["Decisions", "#planning-decisions"],
-  ["Lessons", "#planning-lessons"],
-  ["Canonical Sources", "#planning-sources"],
+import OnThisPageNav, { type OnThisPageGroup } from "./OnThisPageNav";
+
+const groups = [
+  { label: "Overview", links: [{ label: "Current Milestone", href: "#current-milestone" }, { label: "Active Batch", href: "#active-batch" }] },
+  { label: "Planning", links: [{ label: "Backlog", href: "#backlog" }, { label: "Idea Inbox", href: "#idea-inbox" }, { label: "Proposals", href: "#planning-proposals" }] },
+  { label: "Knowledge", links: [{ label: "Decisions", href: "#planning-decisions" }, { label: "Lessons", href: "#planning-lessons" }, { label: "Canonical Sources", href: "#planning-sources" }] },
 ] as const;
 
 export default function PlanningQuickNav() {
-  return <nav className="planning-quick-nav" aria-label="Planning quick navigation">{sections.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</nav>;
+  return <OnThisPageNav groups={groups satisfies readonly OnThisPageGroup[]} label="Planning page sections" />;
 }

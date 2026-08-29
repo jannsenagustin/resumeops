@@ -16,7 +16,7 @@ function IdeaRecord({ idea }: { idea: Idea }) {
 
 function DisclosureGroup({ children, defaultExpanded, label, count, kind }: { children: ReactNode; defaultExpanded: boolean; label: string; count: number; kind: "Milestone" | "Category" }) {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  return <details className="planning-record-group" open={expanded} onToggle={(event: SyntheticEvent<HTMLDetailsElement>) => setExpanded(event.currentTarget.open)}><summary><span><strong>{label}</strong><small>{count} records</small></span><em>{kind}</em></summary>{children}</details>;
+  return <details className="planning-record-group" open={expanded} onToggle={(event: SyntheticEvent<HTMLDetailsElement>) => setExpanded(event.currentTarget.open)}><summary aria-expanded={expanded}><span><strong>{label}</strong><small>{count} records</small></span><em>{kind}</em></summary>{children}</details>;
 }
 
 export default function PlanningBacklog({ items, ideas, currentMilestone }: { items: BacklogItem[]; ideas: Idea[]; currentMilestone: string }) {

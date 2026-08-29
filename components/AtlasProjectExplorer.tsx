@@ -1,21 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ConsoleIcon, { type ConsoleIconName } from "./ConsoleIcon";
 import AtlasNavigation from "./AtlasNavigation";
+import OnThisPageNav, { type OnThisPageGroup } from "./OnThisPageNav";
 import ResumeViewer from "./ResumeViewer";
 import ResumeViewerTrigger from "./ResumeViewerTrigger";
 import TelemetryFlow from "./TelemetryFlow";
 import { managementPath } from "../data/homeConsole";
-import { atlasComponents, atlasDecisionsV2, atlasSectionNav, fieldNotes, limitationsV2 } from "../data/atlasV2";
+import { atlasComponents, atlasDecisionsV2, fieldNotes, limitationsV2 } from "../data/atlasV2";
 import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 
 type ComponentId = keyof typeof atlasComponents;
 type Lens = "system" | "ingestion" | "search" | "decisions" | "validation" | "field-notes" | "milestones";
 
 const lensLinks: [string, Lens, string][] = [["MILESTONES","milestones","milestones"],["SYSTEM","system","system"],["DECISIONS","decisions","decision-trail"],["VALIDATION","validation","validation"],["FIELD NOTES","field-notes","field-notes"]];
-const atlasNavIcons: ConsoleIconName[] = ["activity", "flag", "network", "file", "evidence", "file", "activity", "repository"];
 const lensIcons: Record<Lens, ConsoleIconName> = { milestones:"flag", system:"server", ingestion:"transfer", search:"search", decisions:"file", validation:"evidence", "field-notes":"file" };
+const atlasPageGroups = [
+  { label: "Overview", links: [{ label: "Current State", href: "#current-state" }, { label: "Milestones", href: "#milestones" }] },
+  { label: "Engineering", links: [{ label: "System", href: "#system" }, { label: "Decision Trail", href: "#decision-trail" }, { label: "Validation & Evidence", href: "#validation" }] },
+  { label: "Reference", links: [{ label: "Field Notes", href: "#field-notes" }, { label: "Limitations", href: "#limitations" }, { label: "Source of Truth", href: "#source-of-truth" }] },
+] as const;
 const validatedMilestones = [
   { id:"01", title:"Containerized Splunk Foundation", steps:["Compose configuration resolved","atlas-indexer captured healthy","Docker runtime captured","Administrator login confirmed"], related:["EVD-01-02","EVD-01-04"] },
   { id:"02", title:"Search Head Deployment", steps:["Search Head and Indexer captured healthy","Search Head login confirmed","Multi-service runtime captured","Shared atlas-network membership confirmed"], related:["EVD-02-01","EVD-02-03"] },
@@ -43,15 +48,14 @@ export default function AtlasProjectExplorer({ evidence, projectState }: { evide
   }];
   const [selected,setSelected]=useState<ComponentId>("indexer");
   const [lens,setLens]=useState<Lens>("system");
-  const [current,setCurrent]=useState("current-state");
   const component=atlasComponents[selected];
-  useEffect(()=>{const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)setCurrent(visible.target.id);},{rootMargin:"-15% 0px -70%",threshold:[0,.2,.6]});atlasSectionNav.forEach(([, ,id])=>{const el=document.getElementById(id);if(el)observer.observe(el)});return()=>observer.disconnect()},[]);
   const traceClass = lens === "ingestion" ? "trace-ingestion" : lens === "search" ? "trace-search" : `lens-${lens}`;
   const node=(id:ComponentId,label:string,sub:string)=><button type="button" className={`atlas-v2-node node-${id} ${selected===id?"is-selected":""}`} onClick={()=>setSelected(id)} aria-pressed={selected===id}><span>{label}</span><strong>{atlasComponents[id].name}</strong><small>{sub}</small><em>● VALIDATED</em></button>;
 
   return <><main id="atlas-console-shell" className="atlas-v2">
-    <aside className="atlas-v2-index" aria-label="Project Atlas index"><div><strong>PROJECT ATLAS / J.A.</strong><p>ENGINEERING CONSOLE</p><span className="atlas-status atlas-status--active">ACTIVE</span></div><AtlasNavigation active="atlas" /><nav aria-label="Atlas page sections"><ol>{atlasSectionNav.map(([n,label,id],index)=><li key={id}><a className="console-icon-link console-icon-link--indexed" href={`#${id}`} aria-current={current===id?"location":undefined}><b>{n}</b><ConsoleIcon name={atlasNavIcons[index]} /><span className="console-label">{label}</span></a></li>)}</ol></nav><div className="atlas-v2-index-actions"><ResumeViewerTrigger className="console-icon-link"><ConsoleIcon name="resume" /><span className="console-label">View Professional Resume</span></ResumeViewerTrigger><a className="console-icon-link" href="https://github.com/jannsenagustin/resumeops" target="_blank" rel="noopener noreferrer"><ConsoleIcon name="repository" /><span className="console-label">Repository</span></a></div></aside>
+    <aside className="atlas-v2-index" aria-label="Project Atlas sidebar"><div><strong>PROJECT ATLAS / J.A.</strong><p>ENGINEERING CONSOLE</p><span className="atlas-status atlas-status--active">ACTIVE</span></div><AtlasNavigation active="atlas" /><div className="atlas-v2-index-actions"><ResumeViewerTrigger className="console-icon-link"><ConsoleIcon name="resume" /><span className="console-label">View Professional Resume</span></ResumeViewerTrigger><a className="console-icon-link" href="https://github.com/jannsenagustin/resumeops" target="_blank" rel="noopener noreferrer"><ConsoleIcon name="repository" /><span className="console-label">Repository</span></a></div></aside>
     <div className="atlas-v2-main">
+      <OnThisPageNav groups={atlasPageGroups satisfies readonly OnThisPageGroup[]} label="Atlas page sections" />
       <section id="current-state" className="atlas-v2-current atlas-v2-section"><p className="atlas-v2-kicker">PROJECTS / ATLAS</p><div className="atlas-v2-current-grid"><div><h1>PROJECT ATLAS</h1><p className="atlas-v2-subtitle">TECHNICAL PROVING GROUND</p><p>A distributed Splunk environment used to rebuild, extend, and publicly validate hands-on engineering knowledge.</p></div><dl><div><dt>STATUS</dt><dd className="state-value">{projectState.currentMilestone.status}</dd></div><div><dt>CURRENT CHECKPOINT</dt><dd>{projectState.currentMilestone.number}</dd></div><div><dt>CURRENT PHASE</dt><dd>{projectState.currentDetail.currentPhase}</dd></div><div><dt>ACTIVE BATCH</dt><dd>{projectState.activeBatch.id}</dd></div><div><dt>ACTIVE OBJECTIVE</dt><dd>{projectState.activeTasks[0]?.id ?? "Awaiting approval"}</dd></div><div><dt>VALIDATION</dt><dd className="state-value">{projectState.currentMilestone.validationState}</dd></div><div><dt>SOURCE</dt><dd><a href="https://github.com/jannsenagustin/resumeops/blob/main/docs/milestones.md">Milestones</a></dd></div></dl></div><div className="atlas-method"><span>METHOD</span><strong>BUILD <i>→</i> VALIDATE <i>→</i> EXPLAIN</strong></div></section>
       <div className="atlas-v2-lenses" aria-label="Investigation lenses">{lensLinks.map(([label,value,target])=><button className="console-icon-link" key={label} type="button" aria-pressed={lens===value} onClick={()=>{setLens(value);if(target!=="system")document.getElementById(target)?.scrollIntoView()}}><ConsoleIcon name={lensIcons[value]} /><span className="console-label">{label}</span></button>)}</div>
       <section id="milestones" className="atlas-v2-section atlas-record-section"><header><p>01 / MILESTONES</p><h2>Engineering evolution from foundation to telemetry</h2><span>Each validated capability created the prerequisite for the next.</span></header><ol className="build-record">{publicMilestones.map(milestone=><li key={milestone.id}><b>{milestone.number}</b><div><h3>{milestone.title}</h3><p>{milestone.outcome}</p><span>{milestone.status.toUpperCase()} / {milestone.validationState.toUpperCase()}</span></div></li>)}</ol></section>

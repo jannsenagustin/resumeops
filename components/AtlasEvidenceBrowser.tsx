@@ -11,7 +11,7 @@ const primaryEvidence = new Set([
 
 function EvidenceGroup({ children, count, current, defaultExpanded, label }: { children: ReactNode; count: number; current: boolean; defaultExpanded: boolean; label: string }) {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  return <details className="evidence-group" open={expanded} onToggle={(event: SyntheticEvent<HTMLDetailsElement>) => setExpanded(event.currentTarget.open)}><summary><span><strong>{label}</strong>{current && <small>Current</small>}</span><em>{count} artifacts</em></summary>{children}</details>;
+  return <details className="evidence-group" open={expanded} onToggle={(event: SyntheticEvent<HTMLDetailsElement>) => setExpanded(event.currentTarget.open)}><summary aria-expanded={expanded}><span><strong>{label}</strong>{current && <small>Current</small>}</span><em>{count} artifacts</em></summary>{children}</details>;
 }
 
 function EvidenceRecord({ artifact }: { artifact: AtlasEvidenceArtifact }) {
