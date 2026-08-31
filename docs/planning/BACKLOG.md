@@ -17,8 +17,8 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-003 | Configure Splunk Deployment Server role | P1 | Done | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Done | M05 |
 | ATL-005 | Deliver production-style configuration through the Deployment Server | P1 | Done | M05 |
-| ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Backlog | M05 |
-| ATL-007 | Automate validated deployment through GitHub Actions | P2 | Proposed | Future |
+| ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Active | M05 |
+| ATL-007 | Automate validated deployment through GitHub Actions | P2 | Backlog | Future |
 | ATL-008 | Atlas Operations Center / Grafana dashboard | P3 | Proposed | Future |
 | ATL-009 | Embedded evidence previews | P2 | Backlog | Future |
 | ATL-010 | Plain-English recruiter summary | P2 | Done | Engineering Console |
@@ -118,28 +118,28 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
+**Status:** Active
 **Description:** Reproduce the enterprise-style flow: feature branch -> configuration change -> Git review and merge -> controlled release -> Deployment Server distribution.
 **Why it matters:** Makes configuration delivery reviewable, traceable, and reproducible.
 **Dependencies:** ATL-005.
 **Acceptance criteria:** A reviewed repository change is released through a documented manual control point and distributed successfully.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007, DEC-008.
-**Notes:** Automation is separate future scope.
+**Notes:** Activated as the only task in BATCH-005 on 2026-08-31. Activation authorizes the documented manual workflow only; implementation has not started, and automation remains separate future scope.
 
 ## ATL-007 — Automate validated deployment through GitHub Actions
 
 **Category:** Future Milestones; Splunk
 **Milestone:** Future
 **Priority:** P2
-**Status:** Proposed
+**Status:** Backlog
 **Description:** Create a future CI/CD path equivalent in principle to the prior Azure DevOps workflow.
 **Why it matters:** Could make validated configuration releases consistent and auditable.
 **Dependencies:** ATL-006.
 **Acceptance criteria:** To be defined after the manual workflow is validated and the automation boundary is approved.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007, DEC-008.
-**Notes:** Proposed rather than committed under the new governance model.
+**Notes:** Inactive and explicitly excluded from BATCH-005. Automation remains separate future scope and is not authorized by ATL-006 activation.
 
 ## ATL-008 — Atlas Operations Center / Grafana dashboard
 

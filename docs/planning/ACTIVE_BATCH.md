@@ -6,22 +6,22 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 ## Current Batch
 
-**Batch ID:** Unassigned
+**Batch ID:** BATCH-005
 
-**Status:** Empty
+**Status:** In Progress
 
-**Objective:** None. BATCH-004 completed ATL-005; future work requires explicit human activation.
+**Objective:** Complete ATL-006 by recreating and validating the reviewed Git-controlled Splunk configuration delivery workflow from repository change through controlled Deployment Server distribution.
 
-**Included Tasks:** None.
+**Included Tasks:** ATL-006.
 
-**Excluded Scope:** All backlog and proposal work, including ATL-006.
+**Excluded Scope:** ATL-007 and all other backlog or proposal work; CI/CD automation; unattended deployment; automatic merge, release, or rollback; unrelated Splunk configuration work; architecture redesign; Config Intelligence work; and unrelated documentation cleanup.
 
-**Dependencies:** None.
+**Dependencies:** ATL-005 (Done); DEC-007; DEC-008; current Atlas architecture; M05 milestone state; Atlas Operations; Documentation Rules; Ownership Matrix.
 
-**Acceptance Criteria:** Not applicable while no batch is active.
+**Acceptance Criteria:** A reviewed repository change is released through a documented manual control point and distributed successfully.
 
-**Human Validation Required:** Yes; a human must approve the next batch before execution begins.
+**Human Validation Required:** Yes; activation does not satisfy the acceptance criterion, and a human must validate the engineering outcome.
 
-**Execution Notes:** BATCH-004 completed ATL-005. The approved closeout records centralized input and output delivery, effective client configuration, active forwarding, and searchable `atlas:demo` data. ATL-006 remains Backlog and inactive.
+**Execution Notes:** Human-authorized activation occurred on 2026-08-31. Authorized execution is the manual feature branch -> configuration change -> human review -> merge -> controlled manual release -> Deployment Server distribution -> client/runtime validation -> evidence and reporting workflow. Implementation has not started; no engineering result, validation outcome, evidence, or completion is claimed.
 
-**Expected Report Path:** None until a new batch is approved. The completed BATCH-004 report is at `docs/execution-reports/BATCH-004.md`.
+**Expected Report Path:** `docs/execution-reports/BATCH-005.md` after execution is attempted; no placeholder report exists at activation.

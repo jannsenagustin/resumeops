@@ -23,10 +23,10 @@ task or batch status field; never append status text or other prose to
 ## M05 — Rocky Linux Deployment Server & Configuration Management
 
 **Current:** Yes
-**Current Phase:** ATL-005 centralized configuration delivery is complete; no batch is active
+**Current Phase:** ATL-006 Git-controlled configuration workflow is active in BATCH-005; implementation has not started
 **Completed Work:** ATL-001; ATL-002; ATL-003; ATL-004; ATL-005
 **Completed Foundation:** Rocky Linux VM commissioned and updated; Administration tools installed; Time synchronization validated; SELinux and firewalld baseline validated; Splunk Enterprise 10.0.8 installed and validated as a systemd-managed service under the `splunk` account; `TA-atlas-base` deployment app and `atlas-base` server class configured; TCP/8089 exposed; Windows Universal Forwarder phone-home and registration validated; `atlas-base` assignment and `TA-atlas-base` delivery validated on the client; separate `TA-atlas-demo-inputs` and `TA-atlas-outputs` apps distributed; effective client input and output configuration validated; active forwarding and searchable `atlas:demo` ingestion validated
-**Active Work:** None
-**Next Objective:** Human review and activation of ATL-006 for the Git-controlled Splunk configuration workflow
+**Active Work:** BATCH-005 / ATL-006
+**Next Objective:** Execute and validate the reviewed manual Git-controlled Splunk configuration delivery workflow without automation
 **Evidence:** evidence/milestone-05-data-ingestion/
 **Boundary:** The first Windows Universal Forwarder is centrally managed by the Deployment Server. Published ATL-005 evidence proves deployed output configuration, effective `btool` state, an active TCP/9997 forward, the installed output app, and searchable events from the centrally managed `atlas:demo` input. A GUID-bearing client capture and captures showing the superseded input path remain excluded. Git-controlled release and automation are not complete. The session notes do not document a rollback exercise, so no rollback-validation claim is made.
