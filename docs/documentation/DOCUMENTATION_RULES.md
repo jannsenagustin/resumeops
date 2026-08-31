@@ -19,6 +19,9 @@
 13. Website evidence records must be derived from the canonical artifact index
     in `docs/evidence/README.md`; application pages must not maintain separate
     evidence inventories.
+14. Milestone `Active Work` contains identifiers only: `None` or exactly
+    `BATCH-NNN / ATL-NNN`. Review, Done, and In Progress belong in task or batch
+    status fields; never append status prose to `Active Work`.
 
 If a current-state sentence requires frequent manual synchronization across multiple files, it is likely owned in the wrong place.
 

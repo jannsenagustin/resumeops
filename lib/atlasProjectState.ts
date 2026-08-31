@@ -25,7 +25,12 @@ export function getAtlasProjectState(): AtlasProjectState {
     if (!task) throw new Error(`Active batch references unknown backlog task: ${id}`);
     return { id, title: task.title };
   });
-  if (!activeBatchIsEmpty && !activeTasks.some((task) => planning.activeBatch.objective.includes(task.id))) throw new Error("Active Batch objective does not reference an included task");
+  const objectiveTaskIds: string[] = planning.activeBatch.objective.match(/ATL-\d{3}/g) ?? [];
+  const objectiveMatchesTasks = objectiveTaskIds.length === activeTasks.length
+    && activeTasks.every((task) => objectiveTaskIds.includes(task.id));
+  if (!activeBatchIsEmpty && !objectiveMatchesTasks) {
+    throw new Error(`Active Batch objective task references do not match Included Tasks.\n\nFound objective:\n${planning.activeBatch.objective}\n\nExpected:\nObjective must reference included task${activeTasks.length === 1 ? "" : "s"} ${activeTasks.map((task) => task.id).join(", ")}`);
+  }
   return {
     ...milestoneData,
     completedTasks,

@@ -4,7 +4,14 @@
 
 Atlas EOS is the repository-backed planning and engineering-governance system for Project Atlas. Git is canonical: proposals, approved work, execution scope, decisions, lessons, and results must be recorded here rather than existing only in a conversation or website.
 
-The future `/planning` console will be a read-only projection of these records. It will not edit state, store browser-only state, maintain a database, or become authoritative.
+The `/planning` console is a read-only projection of these records. It does not edit state, store browser-only state, maintain a database, or become authoritative.
+
+Atlas applies the
+[Canonical Projection Principle](../../ai/ENGINEERING_PHILOSOPHY.md#canonical-projection-principle):
+repository records own engineering facts, and interfaces derive from them.
+`BACKLOG.md` owns task state, `ACTIVE_BATCH.md` owns executable scope,
+`milestones.md` owns milestone state, the evidence index owns published evidence
+metadata, and the lesson and decision ledgers own their durable records.
 
 ## Operating workflow
 
@@ -65,10 +72,11 @@ factual, and use the [session checklist](SESSION_CHECKLIST.md) before closeout.
 Codex can then use the notes to prepare updates to the canonical Atlas EOS
 records. A human still reviews the result before closeout and commit.
 
-`SESSION_NOTES.md` is the authoritative record of the engineering session it
-captures. It cannot replace human approval or permanently override canonical planning
-records. After approved closeout, archive it when the raw history is worth
-keeping or clear it for the next session.
+`SESSION_NOTES.md` temporarily owns the engineering session record it captures.
+It cannot replace human approval or permanently override canonical planning
+records. Once synchronization is complete, the durable canonical documents
+resume ownership of ongoing state. After approved closeout, archive the notes
+when the raw history is worth keeping or clear them for the next session.
 
 ## Canonical documents
 
@@ -81,6 +89,11 @@ keeping or clear it for the next session.
 - [Execution Reports](../execution-reports/README.md) are immutable historical accounts of attempted or completed approved batches. Codex drafts actual results after execution; a human validates the report and final status.
 
 Ideas may be promoted into proposals or another explicitly recorded destination only after human review. Proposals may produce decisions and approved backlog items. Backlog inclusion records commitment but does not authorize execution. Approved backlog items become executable only when a human places them in the active batch. Every attempted batch receives an execution report, and reusable findings may become decisions, lessons, or follow-up backlog items.
+
+The current milestone's `Active Work` field contains identifiers only: `None`
+or exactly `BATCH-NNN / ATL-NNN`. Execution state such as Review, Done, or In
+Progress belongs in the task or batch status field. Never append status text or
+other prose to `Active Work`.
 
 ## Identifier schema
 
@@ -148,4 +161,4 @@ execution authorization.
 6. A human validates the outcome and accepts, rejects, or redirects it.
 7. Create an execution report for the attempted batch, update task state, and record any durable decisions or lessons.
 
-The planned `/planning` visualization must parse this stable Markdown at build time and link every displayed record to its canonical repository source. A display error or UI state must never change repository planning state.
+The `/planning` visualization parses this stable Markdown at build time and links displayed records to their canonical repository sources. A display error or UI state must never change repository planning state.

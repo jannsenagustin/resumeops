@@ -10,6 +10,8 @@
     "start": "next start",
     "lint": "eslint",
     "audit:state": "node scripts/audit-state.mjs",
+    "audit:active-work": "node scripts/audit-state.mjs --test-active-work-format",
+    "audit:batch-objective": "node scripts/audit-state.mjs --test-batch-objective",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

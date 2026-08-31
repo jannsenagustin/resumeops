@@ -10,11 +10,11 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Status:** Empty
 
-**Objective:** None. BATCH-003 is complete; future work requires explicit human activation.
+**Objective:** None. BATCH-004 completed ATL-005; future work requires explicit human activation.
 
 **Included Tasks:** None.
 
-**Excluded Scope:** All backlog and proposal work.
+**Excluded Scope:** All backlog and proposal work, including ATL-006.
 
 **Dependencies:** None.
 
@@ -22,6 +22,6 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Human Validation Required:** Yes; a human must approve the next batch before execution begins.
 
-**Execution Notes:** BATCH-003 completed ATL-004. ATL-005 remains in the backlog and is not active.
+**Execution Notes:** BATCH-004 completed ATL-005. The approved closeout records centralized input and output delivery, effective client configuration, active forwarding, and searchable `atlas:demo` data. ATL-006 remains Backlog and inactive.
 
-**Expected Report Path:** None until a new batch is approved. The completed BATCH-003 report is at `docs/execution-reports/BATCH-003.md`.
+**Expected Report Path:** None until a new batch is approved. The completed BATCH-004 report is at `docs/execution-reports/BATCH-004.md`.

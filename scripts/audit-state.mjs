@@ -6,6 +6,48 @@ import { renderEvidenceImageRegistry } from "./generate-evidence-image-registry.
 const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const fail = (message) => { throw new Error(`State integrity audit: ${message}`); };
+const activeWorkPattern = /^(?:None|BATCH-\d{3} \/ ATL-\d{3})$/;
+const validateActiveWork = (value) => {
+  if (!activeWorkPattern.test(value)) fail(`Active Work uses a non-canonical value. Found: ${value}. Expected: None or BATCH-NNN / ATL-NNN`);
+};
+const objectiveTaskReferencesMatch = (objective, includedTaskIds) => {
+  const objectiveTaskIds = objective.match(/ATL-\d{3}/g) ?? [];
+  return objectiveTaskIds.length === includedTaskIds.length
+    && includedTaskIds.every((id) => objectiveTaskIds.includes(id));
+};
+
+if (process.argv.includes("--test-active-work-format")) {
+  const rejected = [
+    "BATCH-004 / ATL-005 review",
+    "BATCH-004 / ATL-005 pending Closeout",
+    "BATCH-04 / ATL-005",
+    "BATCH-004 / ATL-05",
+    "BATCH-004 ATL-005",
+    "BATCH-004 / BATCH-005 / ATL-005",
+    "BATCH-004 / ATL-005 / ATL-006",
+  ];
+  for (const value of ["None", "BATCH-004 / ATL-005"]) {
+    if (!activeWorkPattern.test(value)) throw new Error(`Active Work regression fixture should be accepted: ${value}`);
+  }
+  for (const value of rejected) {
+    if (activeWorkPattern.test(value)) throw new Error(`Active Work regression fixture should be rejected: ${value}`);
+  }
+  console.log(`Active Work format regression passed: 2 accepted / ${rejected.length} rejected.`);
+}
+if (process.argv.includes("--test-batch-objective")) {
+  const cases = [
+    { objective: "Complete centralized configuration delivery.", included: ["ATL-005"], accepted: false },
+    { objective: "Complete ATL-005 and ATL-006.", included: ["ATL-005"], accepted: false },
+    { objective: "Complete ATL-005.", included: ["ATL-005", "ATL-006"], accepted: false },
+    { objective: "Complete ATL-005.", included: ["ATL-005"], accepted: true },
+    { objective: "Complete ATL-005 and ATL-006.", included: ["ATL-005", "ATL-006"], accepted: true },
+  ];
+  for (const testCase of cases) {
+    const actual = objectiveTaskReferencesMatch(testCase.objective, testCase.included);
+    if (actual !== testCase.accepted) throw new Error(`Active Batch objective regression failed: ${testCase.objective}`);
+  }
+  console.log("Active Batch objective regression passed: missing, extra, and partial task references rejected.");
+}
 let milestoneDocument = process.env.ATLAS_AUDIT_MILESTONES_PATH
   ? fs.readFileSync(process.env.ATLAS_AUDIT_MILESTONES_PATH, "utf8")
   : read("docs/milestones.md");
@@ -58,16 +100,22 @@ const backlog = new Map([...backlogDocument.matchAll(/^## (ATL-\d{3}) — ([^\r\
 }));
 const batchId = batchDocument.match(/^\*\*Batch ID:\*\*\s*(.+)$/m)?.[1].trim();
 const batchStatus = batchDocument.match(/^\*\*Status:\*\*\s*(.+)$/m)?.[1].trim();
+const batchObjective = batchDocument.match(/^\*\*Objective:\*\*\s*(.+)$/m)?.[1].trim();
 const batchTasks = batchDocument.match(/^\*\*Included Tasks:\*\*\s*(.+)$/m)?.[1].match(/ATL-\d{3}/g) ?? [];
 if (!batchId || (batchId !== "Unassigned" && !/^BATCH-\d{3}$/.test(batchId))) fail("invalid Active Batch ID");
 const activeBatchIsEmpty = batchId === "Unassigned";
 if (activeBatchIsEmpty && batchStatus !== "Empty") fail("Unassigned Active Batch must have Empty status");
 if (!activeBatchIsEmpty && !["In Progress", "Review"].includes(batchStatus)) fail(`${batchId} is not In Progress or Review`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
+if (!batchObjective) fail(`${batchId} is missing an Objective`);
+if (!activeBatchIsEmpty && !objectiveTaskReferencesMatch(batchObjective, batchTasks)) {
+  fail(`Active Batch objective task references do not match Included Tasks. Found objective: ${batchObjective}. Expected: Objective must reference included task${batchTasks.length === 1 ? "" : "s"} ${batchTasks.join(", ")}`);
+}
 const completed = fields["Completed Work"].match(/ATL-\d{3}/g) ?? [];
 for (const id of completed) if (backlog.get(id)?.status !== "Done") fail(`completed work ${id} is not Done`);
 const activeTasks = fields["Active Work"].match(/ATL-\d{3}/g) ?? [];
 const activeBatches = fields["Active Work"].match(/BATCH-\d{3}/g) ?? [];
+validateActiveWork(fields["Active Work"]);
 if (activeBatchIsEmpty && fields["Active Work"] !== "None") fail("empty Active Batch requires milestone Active Work: None");
 if (!activeBatchIsEmpty && (activeBatches.length !== 1 || activeBatches[0] !== batchId)) fail("milestone Active Work batch disagrees with ACTIVE_BATCH.md");
 if (activeTasks.join() !== batchTasks.join()) fail("milestone Active Work tasks disagree with ACTIVE_BATCH.md");

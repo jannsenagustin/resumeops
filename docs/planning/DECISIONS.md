@@ -14,6 +14,56 @@ These entries formally record existing or newly approved Atlas decisions. Where 
 **Consequences:** Public documentation leads with Project Atlas; ResumeOps may appear only as history.
 **Status:** Accepted
 
+## DEC-024 — Separate input and output deployment applications
+
+**Recorded:** 2026-08-30
+
+**Decision:** Manage ATL-005 monitoring and forwarding through separate
+`TA-atlas-demo-inputs` and `TA-atlas-outputs` Deployment Server applications.
+
+**Rationale:** The responsibilities have independent lifecycles and validation
+boundaries, and separating them mirrors maintainable production administration.
+
+**Consequences:** Input and output changes can be reviewed, distributed, and
+validated independently. Future configuration must preserve clear ownership
+rather than silently combining unrelated responsibilities.
+
+**Status:** Accepted
+
+## DEC-025 — Deployment Server is the sole source of managed client configuration
+
+**Recorded:** 2026-08-30
+
+**Decision:** ATL-005 production configuration originates under
+`/opt/splunk/etc/deployment-apps/` and is distributed by the Deployment Server;
+no manual production configuration is added to Universal Forwarder app
+directories.
+
+**Rationale:** The milestone exists to prove centralized configuration
+management rather than workstation-local administration.
+
+**Consequences:** Effective client state must remain traceable to deployed apps,
+and client-side validation does not authorize local configuration edits.
+
+**Status:** Accepted
+
+## DEC-026 — Keep the controlled validation log in the Atlas workspace
+
+**Recorded:** 2026-08-30
+
+**Decision:** Monitor the controlled ATL-005 validation log at
+`E:\04_PROJECTS\ResumeOps\Atlas\logs\atlas-demo2.log` instead of the originally
+considered `C:\Atlas\logs\atlas-demo.log` path.
+
+**Rationale:** The Atlas workspace keeps engineering validation artifacts away
+from the Windows system drive and within a dedicated project boundary.
+
+**Consequences:** ATL-005 evidence and validation claims use the final
+`atlas-demo2.log` source. Captures showing the superseded path are not published
+as proof of the completed outcome.
+
+**Status:** Accepted
+
 ## DEC-002 — Evidence-first Engineering Console
 
 **Decision:** The Engineering Console is evidence-first and must not present unsupported claims.
@@ -169,12 +219,19 @@ role is clearly labeled.
 records. UI components may format state for their audience, but may not own
 separate copies.
 
+This is the Canonical Projection Principle: the repository owns engineering
+truth, and software projects it.
+
 **Rationale:** Canonical documents cannot prevent interface drift when
 application data independently repeats their values.
 
-**Consequences:** The build-time project-state layer composes milestone,
-backlog, Active Batch, and evidence references. `npm run audit:state` rejects
-contradictions before publication.
+**Consequences:** Parsers and typed models replace hard-coded inventories.
+Integrity checks compare canonical sources, parsers, models, and generated
+output, and `npm run audit:state` rejects contradictions before publication.
+Generated registries are acceptable only when they are reproducible and
+audited. UI rewrites cannot erase engineering truth. Future MCP services consume
+canonical parsers and models rather than scraping HTML or maintaining separate
+task, milestone, evidence, lesson, or decision inventories.
 
 **Status:** Accepted
 

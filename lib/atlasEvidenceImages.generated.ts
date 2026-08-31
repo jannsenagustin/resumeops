@@ -39,6 +39,12 @@ import evidenceImage036 from "../docs/evidence/milestone-05-data-ingestion/m05-a
 import evidenceImage037 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-003-rocky-deployment-server-reload-01.png";
 import evidenceImage038 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-client-config-01.png";
 import evidenceImage039 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-app-installation-01.png";
+import evidenceImage040 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-end-to-end-ingestion-01.png";
+import evidenceImage041 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-tcp-9997-firewall-01.png";
+import evidenceImage042 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-active-forward-01.png";
+import evidenceImage043 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png";
+import evidenceImage044 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png";
+import evidenceImage045 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png";
 
 export const atlasEvidenceImages: Readonly<Record<string, StaticImageData>> = {
   "docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png": evidenceImage001,
@@ -80,4 +86,10 @@ export const atlasEvidenceImages: Readonly<Record<string, StaticImageData>> = {
   "docs/evidence/milestone-05-data-ingestion/m05-atl-003-rocky-deployment-server-reload-01.png": evidenceImage037,
   "docs/evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-client-config-01.png": evidenceImage038,
   "docs/evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-app-installation-01.png": evidenceImage039,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-end-to-end-ingestion-01.png": evidenceImage040,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-tcp-9997-firewall-01.png": evidenceImage041,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-active-forward-01.png": evidenceImage042,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png": evidenceImage043,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png": evidenceImage044,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png": evidenceImage045,
 };

@@ -34,10 +34,10 @@ flowchart TB
 | Component | Responsibility | Status |
 | --- | --- | --- |
 | Windows workstation `JNNSN` | Hosts Docker Desktop and the external Universal Forwarder | Operational; Milestone 04 validated |
-| Universal Forwarder | Collects Application, Security, and System Event Logs and forwards to `127.0.0.1:9997` | Operational; version 10.0.8 |
+| Universal Forwarder | Collects Windows Event Logs and the controlled ATL-005 file input; forwarding configuration is centrally managed | Operational; version 10.0.8; ATL-005 validated |
 | Search Head | Search interface and distributed-search coordinator | Operational; Milestones 02–04 validated |
 | Indexer | Receives, indexes, stores, and searches Windows telemetry | Operational; Milestones 01, 03, and 04 validated |
-| Deployment Server | Dedicated Rocky Linux VM for forwarder configuration management | Host and Splunk baseline validated; role configuration not begun |
+| Deployment Server | Dedicated Rocky Linux VM distributing independently managed input and output applications | Operational; enrollment and production-style distribution validated through ATL-005 |
 
 The Compose source retains an earlier `atlas-deployment-server` definition.
 That stanza is legacy source configuration, not the approved M05 architecture
@@ -70,6 +70,14 @@ boundary. Binding it to `127.0.0.1` keeps the receiver off the LAN;
 `0.0.0.0:9997` is deliberately not used. Milestone 04 made the existing
 receiver reachable from Windows and does not claim to have created it.
 
+ATL-005 adds a separately validated centrally managed path. The Deployment
+Server distributes `TA-atlas-demo-inputs` and `TA-atlas-outputs`; the input
+monitors `E:\04_PROJECTS\ResumeOps\Atlas\logs\atlas-demo2.log`, and the output
+targets `10.0.0.84:9997`. Client-side effective configuration, active
+forwarding, indexing, and search were validated. The session record identifies
+the receiving role as the Indexer; it does not document a topology change or
+replacement of the earlier Milestone 04 loopback path.
+
 ## Host-facing access versus internal communication
 
 | Purpose | Address | Boundary |
@@ -99,17 +107,17 @@ disposable container layer. Instance overrides belong in `system/local`, not
 ## Management and administrative paths
 
 Deployment Server traffic manages the Universal Forwarder and does not carry
-Windows Event Log data. Administration uses a controlled Git/SSH release path
-to the Rocky Linux management node. Exact endpoints and successful distribution
-remain unvalidated until M05 evidence exists.
+ingested event data. ATL-005 validated application distribution from
+`/opt/splunk/etc/deployment-apps/`, effective client configuration, and the
+resulting data path. A controlled Git release workflow remains ATL-006 scope.
 
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure
 domain. It does not demonstrate Indexer clustering, Search Head clustering,
-replication, a cluster manager, a deployer, a validated Deployment Server,
-production high availability, or enterprise production readiness. Managed
-forwarder configuration, additional data sources, performance telemetry,
+replication, a cluster manager, a deployer, production high availability, or
+enterprise production readiness. Git-controlled release, automation,
+additional data sources, performance telemetry,
 dashboards, alerts and detections, custom TLS/PKI, Azure DevOps CI/CD, and
 Kubernetes/Splunk Operator work remain future.
 
@@ -119,5 +127,6 @@ Milestone 01 validated the Indexer. Milestone 02 validated the Search Head.
 Milestone 03 validated their distributed-search relationship. Milestone 04
 validated the Windows service, TCP reachability, an active Splunk forwarding
 session, searchable Application/Security/System data, and remote execution on
-`atlas-indexer`. Captured event counts are point-in-time observations, not fixed
-dataset sizes.
+`atlas-indexer`. Milestone 05 now validates centralized input and output
+distribution plus searchable ingestion from the controlled `atlas:demo` log.
+Captured event counts are point-in-time observations, not fixed dataset sizes.

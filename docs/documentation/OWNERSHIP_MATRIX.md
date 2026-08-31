@@ -2,6 +2,7 @@
 
 | Information type | Canonical owner | Allowed consumers | Consumers may summarize | Consumers must not redefine | Update trigger | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
+| Canonical Projection Principle | `ai/ENGINEERING_PHILOSOPHY.md` | All repository documents, applications, automation, and future MCP services | The short rule that the repository owns truth and software projects it | Ownership boundaries or permission for duplicate state | Governance review | Source → parser → typed model → output integrity checks |
 | Project identity | `README.md` | Site, narrative, governance | Purpose and historical path note | Current name or purpose | Identity decision | Repository terminology audit |
 | Milestone and validation state | `docs/milestones.md` | Typed project-state layer, README, site, architecture, narrative, roadmap | High-level validated boundary | Status, outcome, active phase, or proof | Validation decision | `npm run audit:state`, evidence links, and status audit |
 | Future work and priorities | `docs/planning/BACKLOG.md` | Roadmap, site, proposals | Themes and sequence | Priority or commitment | Human planning decision | ID/status parser and review |
@@ -14,7 +15,7 @@
 | Lessons | `docs/planning/LESSONS_LEARNED.md` | Narrative, site, proposals | Reusable lesson | Canonical wording or validation | Reviewed finding | Unique ID and source audit |
 | Execution results | `docs/execution-reports/` | Milestones, planning views | Outcome and links | Historical result | Attempted approved batch | Report schema and evidence audit |
 | Architecture | `docs/architecture.md` | README, narrative, site, proposals | Boundaries and relationships | Current topology | Approved boundary change | Config/evidence/decision reconciliation |
-| Evidence | Artifacts under `docs/evidence/`; naming and canonical index in `docs/evidence/README.md` | Milestones, journals, site | Supported claim and link | Artifact identity, naming, publication state, or proof strength | Evidence review or rename | Index completeness, naming, link, import, byte-integrity, and redaction review |
+| Evidence | Artifacts under `docs/evidence/`; naming and canonical metadata index in `docs/evidence/README.md` | Typed project-state layer, milestones, journals, site | Supported claim and link | Artifact identity, naming, publication state, proof strength, or a separate application inventory | Evidence review or rename | `npm run audit:state`, index/filesystem/model/UI count parity, naming, link, static import, byte-integrity, and redaction review |
 | AI governance | `ai/` | Agent instructions, proposals | Applicable principles | Governance requirements | Governance decision | Cross-document consistency review |
 | Roadmap | `ROADMAP.md` | README, site | Forward sequence | Validation or active scope | Strategic direction change | Compare with backlog/milestones |
 | Project history | `docs/journal/`, `docs/adr/`, `CHANGELOG.md` | Narrative, roadmap | Historical context | Current state | Historical event | Historical labels and links |

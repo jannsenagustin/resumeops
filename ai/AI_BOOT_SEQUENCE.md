@@ -79,11 +79,12 @@ Read [SESSION_NOTES.md](../docs/planning/SESSION_NOTES.md) when it contains a
 current handoff. Notes can preserve recent commands, observations, and pending
 checks that have not yet reached canonical records.
 
-Treat session notes as a temporary, non-canonical engineering handoff. Review
-them before synchronization and verify their claims against Planning,
-[milestone state](../docs/milestones.md), evidence, and repository state. They
-cannot change scope, approve evidence, or override Atlas EOS. Their purpose is
-continuity, not authority. Follow the lifecycle in
+Treat session notes as the temporary authoritative record of the session they
+capture. Review them before synchronization and verify their claims against
+Planning, [milestone state](../docs/milestones.md), evidence, and repository
+state. They cannot change scope, approve evidence, or permanently override Atlas
+EOS. Once synchronization is complete, durable canonical documents resume
+ownership of ongoing state. Follow the lifecycle in
 [Atlas Operations](../docs/planning/ATLAS_OPERATIONS.md).
 
 ## 9. Inspect the Affected System

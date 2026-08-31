@@ -35,7 +35,7 @@ Atlas originated as ResumeOps; the repository and GitHub Pages path retain `resu
 
 ## Validated at a glance
 
-Milestones 01-04 validate the containerized Indexer and Search Head, distributed search, and Windows Application, Security, and System Event Log ingestion. Milestone 05 is current infrastructure and configuration-management work. [Milestones](docs/milestones.md) owns status; [evidence](docs/evidence/README.md) owns proof.
+Milestones 01-04 validate the containerized Indexer and Search Head, distributed search, and Windows Application, Security, and System Event Log ingestion. Milestone 05 has now validated centralized input and output delivery plus searchable ingestion through the Deployment Server and remains current pending review and later Git-controlled release work. [Milestones](docs/milestones.md) owns status; [evidence](docs/evidence/README.md) owns proof.
 
 ## Canonical documentation map
 
@@ -43,6 +43,7 @@ Milestones 01-04 validate the containerized Indexer and Search Head, distributed
 - Engineering: [architecture](docs/architecture.md), [milestones](docs/milestones.md), [evidence](docs/evidence/README.md), [infrastructure guide](infrastructure/atlas/README.md)
 - Planning: [Atlas EOS](docs/planning/README.md), [backlog](docs/planning/BACKLOG.md), [active batch](docs/planning/ACTIVE_BATCH.md), [ideas](docs/planning/IDEAS.md), [proposals](docs/engineering-proposals/README.md), [decisions](docs/planning/DECISIONS.md), [lessons](docs/planning/LESSONS_LEARNED.md), [execution reports](docs/execution-reports/README.md)
 - Governance: [Project Philosophy](ai/PROJECT_PHILOSOPHY.md), [AI Rules](ai/AI_RULES.md), [Constitution](ai/CONSTITUTION.md), [documentation rules](docs/documentation/DOCUMENTATION_RULES.md)
+- Engineering method: [Canonical Projection Principle](ai/ENGINEERING_PHILOSOPHY.md#canonical-projection-principle)
 - Direction: [roadmap](ROADMAP.md)
 
 ## Local development

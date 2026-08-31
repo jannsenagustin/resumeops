@@ -16,7 +16,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-002 | Install Splunk Enterprise directly on Rocky Linux | P1 | Done | M05 |
 | ATL-003 | Configure Splunk Deployment Server role | P1 | Done | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Done | M05 |
-| ATL-005 | Deliver a harmless test deployment app manually | P1 | Backlog | M05 |
+| ATL-005 | Deliver production-style configuration through the Deployment Server | P1 | Done | M05 |
 | ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Backlog | M05 |
 | ATL-007 | Automate validated deployment through GitHub Actions | P2 | Proposed | Future |
 | ATL-008 | Atlas Operations Center / Grafana dashboard | P3 | Proposed | Future |
@@ -99,19 +99,19 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Source or related proposal:** Existing M05 planning.
 **Notes:** The Windows Universal Forwarder was configured for `10.0.0.84:8089`. After firewalld allowed TCP/8089, phone-home and client registration succeeded. Reloading the Deployment Server applied the `atlas-base` match, and `TA-atlas-base` installed successfully on the client. Management enrollment remains distinct from event ingestion.
 
-## ATL-005 — Deliver a harmless test deployment app manually
+## ATL-005 — Deliver production-style configuration through the Deployment Server
 
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Backlog
-**Description:** Deploy production-style Splunk configuration such as `inputs.conf`, `outputs.conf`, or `props.conf` through the validated Deployment Server lifecycle.
+**Status:** Done
+**Description:** Deploy production-style `inputs.conf` and `outputs.conf` through the validated Deployment Server lifecycle.
 **Why it matters:** Validates the manual process that later automation will reproduce.
 **Dependencies:** ATL-004.
 **Acceptance criteria:** A reviewed production-style configuration is received and applied as intended, with evidence, effective-configuration validation, and a documented rollback path.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007; LESSON-007.
-**Notes:** ATL-004 proved placeholder app delivery. ATL-005 must demonstrate centralized management of real Splunk configuration before automation is considered.
+**Notes:** BATCH-004 completed and closed ATL-005 on 2026-08-30. Separate `TA-atlas-demo-inputs` and `TA-atlas-outputs` apps centrally configured the monitored `E:\04_PROJECTS\ResumeOps\Atlas\logs\atlas-demo2.log` source and forwarding to `10.0.0.84:9997`. Client-side `btool`, active-forward status, TCP reachability, indexing, and search validated the end-to-end path. No manual production configuration was added under the Universal Forwarder app directories. ATL-006 remains Backlog and inactive.
 
 ## ATL-006 — Recreate Git-controlled Splunk configuration workflow
 

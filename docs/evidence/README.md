@@ -97,6 +97,12 @@ unpublished pending redaction of a persistent interface identifier. These
 older ATL-001 through ATL-003 artifacts are not repurposed as enrollment or
 application-distribution evidence.
 
+ATL-005 proves the next configuration-management boundary: separate
+`TA-atlas-demo-inputs` and `TA-atlas-outputs` apps were delivered centrally,
+the client loaded the output configuration, forwarding became active, and the
+controlled `atlas:demo` event became searchable from the final
+`atlas-demo2.log` source. Six reviewed captures support the final outcome.
+
 ## Canonical Artifact Index
 
 `Reviewed` means visually inspected for unintended sensitive content. `Pre-batch`
@@ -145,6 +151,12 @@ purpose states the completed outcome it supports.
 | `m05-atl-003-rocky-deployment-server-reload-01.png` | M05 | BATCH-002 | ATL-003 | Corrected reload and zero-client baseline | Confirms service-account reload and pre-enrollment state | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-003-rocky-deployment-server-reload-01.png) |
 | `m05-atl-004-windows-deployment-client-config-01.png` | M05 | BATCH-003 | ATL-004 | Running forwarder and deployment target | Confirms the Windows client loaded the Deployment Server URI | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-004-windows-deployment-client-config-01.png) |
 | `m05-atl-004-windows-deployment-app-installation-01.png` | M05 | BATCH-003 | ATL-004 | Installed `TA-atlas-base` tree | Confirms deployment app presence and expected client-side structure | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-004-windows-deployment-app-installation-01.png) |
+| `m05-atl-005-end-to-end-ingestion-01.png` | M05 | BATCH-004 | ATL-005 | Search result for the controlled validation event | Confirms the final `atlas-demo2.log` event is searchable with `sourcetype=atlas:demo` | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-end-to-end-ingestion-01.png) |
+| `m05-atl-005-tcp-9997-firewall-01.png` | M05 | BATCH-004 | ATL-005 | TCP/9997 listener and firewalld allowance | Confirms the receiving port is listening and allowed by the host firewall | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-tcp-9997-firewall-01.png) |
+| `m05-atl-005-windows-active-forward-01.png` | M05 | BATCH-004 | ATL-005 | Active Universal Forwarder destination | Confirms the Windows forwarder has an active connection to `10.0.0.84:9997` | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-active-forward-01.png) |
+| `m05-atl-005-windows-deployed-outputs-01.png` | M05 | BATCH-004 | ATL-005 | Deployed `TA-atlas-outputs` configuration | Confirms the client received the intended output group and target | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png) |
+| `m05-atl-005-windows-effective-outputs-01.png` | M05 | BATCH-004 | ATL-005 | Client-side `btool outputs list --debug` | Confirms the effective output values originate from the deployed app | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png) |
+| `m05-atl-005-windows-output-app-installation-01.png` | M05 | BATCH-004 | ATL-005 | Running forwarder and installed output-app tree | Confirms the output deployment app is installed with its expected files | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png) |
 
 ## Excluded Captures
 
@@ -158,6 +170,10 @@ tree contains only indexed artifacts.
 - The M03 `server.conf` capture exposes encrypted credential material.
 - The M05 ATL-001 interface capture exposes a MAC address and IPv6 identifiers.
 - Two ATL-004 Deployment Server captures expose the persistent deployment-client GUID.
+- The ATL-005 deployment-client listing exposes the persistent deployment-client GUID.
+- Two ATL-005 input-app captures show the superseded `atlas-demo.log` source
+  rather than the final `atlas-demo2.log` source, so they are stale and
+  redundant as proof of the completed outcome.
 - One pre-enrollment Deployment Server baseline is redundant with published
   ATL-003 service and zero-client evidence.
 - The earlier M05 security-baseline capture was removed before this pass because

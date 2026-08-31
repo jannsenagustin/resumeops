@@ -14,6 +14,56 @@ Lessons capture reusable engineering knowledge rather than serving as incident l
 **Related milestone or task:** M05; ATL-001.
 **Status:** Confirmed
 
+## LESSON-024 — Allow a complete deployment cycle before concluding propagation failed
+
+**Lesson ID:** LESSON-024
+**Title:** Allow a complete deployment cycle before concluding propagation failed.
+**Context:** Distributing the ATL-005 input and output applications.
+**What happened:** The client did not immediately reflect the new applications and forwarding state; the expected state appeared after a Deployment Server reload and a subsequent phone-home cycle.
+**Reusable lesson:** Treat Deployment Server propagation as asynchronous and validate again after a complete reload and phone-home cycle before diagnosing the bundle as failed.
+**Related milestone or task:** M05; ATL-005.
+**Status:** Confirmed
+
+## LESSON-025 — Validate forwarding on the forwarding client
+
+**Lesson ID:** LESSON-025
+**Title:** Validate forwarding on the forwarding client.
+**Context:** Confirming the ATL-005 output deployment.
+**What happened:** `splunk list forward-server` was initially run on the Deployment Server, where it could not validate the Universal Forwarder's runtime forwarding state.
+**Reusable lesson:** Run forwarding-status checks on the Universal Forwarder that owns the forwarding connection, not on the Deployment Server that distributes configuration.
+**Related milestone or task:** M05; ATL-005.
+**Status:** Confirmed
+
+## LESSON-026 — Use btool to verify effective deployed configuration
+
+**Lesson ID:** LESSON-026
+**Title:** Use `btool` to verify effective deployed configuration.
+**Context:** Verifying the centrally delivered ATL-005 output configuration.
+**What happened:** Client-side `btool outputs list --debug` showed both the effective values and the deployed app file that supplied them.
+**Reusable lesson:** Validate centrally delivered Splunk configuration with `btool --debug` so the effective setting and its source file are proven together.
+**Related milestone or task:** M05; ATL-005.
+**Status:** Confirmed
+
+## LESSON-027 — Validate every stage of an ingestion delivery path
+
+**Lesson ID:** LESSON-027
+**Title:** Validate every stage of an ingestion delivery path.
+**Context:** Completing ATL-005 end-to-end validation.
+**What happened:** App delivery alone did not prove success; the session separately verified deployment, effective configuration, TCP connectivity, active forwarding, indexing, and search.
+**Reusable lesson:** Treat centralized ingestion as complete only when each stage from configuration delivery through searchable data is validated.
+**Related milestone or task:** M05; ATL-005; DEC-021.
+**Status:** Confirmed
+
+## LESSON-028 — Separate deployment apps by configuration responsibility
+
+**Lesson ID:** LESSON-028
+**Title:** Separate deployment apps by configuration responsibility.
+**Context:** Designing the ATL-005 production-style configuration deployment.
+**What happened:** Inputs and outputs were delivered as `TA-atlas-demo-inputs` and `TA-atlas-outputs` instead of one combined application.
+**Reusable lesson:** Independent deployment apps make configuration ownership, lifecycle changes, validation, and maintenance clearer.
+**Related milestone or task:** M05; ATL-005; DEC-024.
+**Status:** Confirmed
+
 ## LESSON-002 — Enabled does not equal validated
 
 **Lesson ID:** LESSON-002

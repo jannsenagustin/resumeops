@@ -1,16 +1,17 @@
 # Milestone 05 — Deployment Server Foundation
 
 **Milestone:** 05
-**Date:** 2026-08-28
+**Date:** 2026-08-30
 **Status:** In Progress / Partially Validated
 
 ## Engineering Summary
 
 **Abstract:** Atlas completed the Rocky Linux, Splunk Enterprise, and Deployment
 Server foundation for the dedicated management node. The first Windows
-Universal Forwarder is now enrolled, assigned to `atlas-base`, and receiving
-the placeholder `TA-atlas-base` deployment app. Production-style configuration
-delivery remains future work.
+Universal Forwarder is enrolled and now receives production-style input and
+output configuration through separate Deployment Server applications.
+End-to-end `atlas:demo` ingestion is validated; Git-controlled release remains
+future work.
 
 ### Completed Foundation
 
@@ -20,11 +21,13 @@ delivery remains future work.
 - ATL-003 configured and validated the first deployment app and server class.
 - ATL-004 enrolled the first Windows Universal Forwarder and validated the
   complete Deployment Server lifecycle.
+- ATL-005 distributed separate input and output apps, validated the effective
+  client configuration, and proved searchable end-to-end ingestion.
 
 ### Current Engineering Objective
 
-ATL-004 is complete and BATCH-003 is in Review. The next engineering objective,
-once separately activated, is ATL-005 production-style configuration delivery.
+ATL-005 is complete under the closed BATCH-004. ATL-006 remains Backlog and
+inactive; it requires separate human activation.
 
 ## Installation Engineering Record
 
@@ -178,3 +181,43 @@ firewall or successful `Test-NetConnection` screenshot was supplied.
 
 - [deployment client configuration](../evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-client-config-01.png)
 - [deployed app installation](../evidence/milestone-05-data-ingestion/m05-atl-004-windows-deployment-app-installation-01.png)
+
+## ATL-005 — Centralized Configuration Delivery
+
+ATL-005 created two independently managed Deployment Server applications:
+`TA-atlas-demo-inputs` owns the controlled file-monitor input, while
+`TA-atlas-outputs` owns forwarding. All production configuration originated in
+`/opt/splunk/etc/deployment-apps/`; no manual production edits were made in the
+Universal Forwarder application directories.
+
+The final input monitors
+`E:\04_PROJECTS\ResumeOps\Atlas\logs\atlas-demo2.log`, assigns
+`sourcetype=atlas:demo`, and writes to `main`. The output app targets
+`10.0.0.84:9997`. Client-side `btool` traced the effective output configuration
+to the deployed app, and `list forward-server` reported the destination active.
+
+Deployment was not instantaneous. Initial checks did not show the input app or
+active forwarding. Reloading the Deployment Server and allowing another client
+phone-home cycle completed propagation. TCP/9997 was also initially
+unreachable; the documented firewall correction restored connectivity.
+
+The final search for `index=main sourcetype=atlas:demo` returned the generated
+ATL-005 validation event from the final `atlas-demo2.log` source on host
+`JNNSN`. This validates deployment, effective configuration, connectivity,
+forwarding, indexing, and search as one end-to-end path.
+
+### ATL-005 Evidence
+
+- [active forward](../evidence/milestone-05-data-ingestion/m05-atl-005-windows-active-forward-01.png)
+- [effective output configuration](../evidence/milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png)
+- [deployed output configuration](../evidence/milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png)
+- [installed output app](../evidence/milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png)
+- [TCP/9997 listener and firewall allowance](../evidence/milestone-05-data-ingestion/m05-atl-005-tcp-9997-firewall-01.png)
+- [searchable validation event](../evidence/milestone-05-data-ingestion/m05-atl-005-end-to-end-ingestion-01.png)
+
+The client listing is excluded because it exposes the persistent deployment
+client GUID. The two supplied input-app captures are excluded because they show
+the superseded `atlas-demo.log` source rather than the final `atlas-demo2.log`
+source and therefore do not directly prove the completed outcome. The session
+notes do not document a rollback exercise, so this journal makes no rollback
+validation claim.
