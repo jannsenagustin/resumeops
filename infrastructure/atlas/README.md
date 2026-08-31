@@ -13,6 +13,8 @@ production deployment.
 ## Contents
 
 - `docker-compose.yml` defines the active Search Head and Indexer foundation plus a legacy, non-authoritative Deployment Server stanza.
+- `deployment-server/` contains the reviewed Git-controlled source and manual
+  release procedure for the dedicated Rocky Linux Deployment Server.
 - `.env.example` documents required local configuration without containing real secrets.
 - `.gitignore` excludes the local environment file, license files, and secret material.
 
