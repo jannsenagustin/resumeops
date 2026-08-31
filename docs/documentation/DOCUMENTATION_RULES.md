@@ -22,6 +22,10 @@
 14. Milestone `Active Work` contains identifiers only: `None` or exactly
     `BATCH-NNN / ATL-NNN`. Review, Done, and In Progress belong in task or batch
     status fields; never append status prose to `Active Work`.
+15. AARs under `docs/aar/` own architecture analysis. They are analytical
+    historical records, not implementation authorization. Downstream documents
+    must cite rather than redefine their findings, and corrections to completed
+    AARs must be explicit and traceable.
 
 If a current-state sentence requires frequent manual synchronization across multiple files, it is likely owned in the wrong place.
 

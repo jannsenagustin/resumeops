@@ -11,6 +11,7 @@ This is the single documentation map. Canonical records define facts; narrative 
 ## Engineering
 
 - [Architecture](../architecture.md)
+- [Architecture analysis reviews](../aar/README.md)
 - [Milestones](../milestones.md)
 - [Evidence](../evidence/README.md)
 - [Infrastructure operations](../../infrastructure/atlas/README.md)
