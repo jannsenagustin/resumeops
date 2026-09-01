@@ -36,7 +36,7 @@ The merged change was reviewed to confirm:
 
 - the branch contains only ATL-006 scope;
 - the source-to-target mapping is unchanged;
-- `inputs.conf` still monitors the approved `atlas-demo2.log` source;
+- `inputs.conf` still monitors the approved `*.log` wildcard under the Atlas logs directory;
 - `index = main`, `sourcetype = atlas:demo`, and `disabled = false` remain
   unchanged;
 - the only intended runtime-neutral change is `version = 1.0.1`;
@@ -164,7 +164,7 @@ input configuration without making local configuration changes:
 Get-Content 'C:\Program Files\SplunkUniversalForwarder\etc\apps\TA-atlas-demo-inputs\default\app.conf'
 Get-Content 'C:\Program Files\SplunkUniversalForwarder\etc\apps\TA-atlas-demo-inputs\default\inputs.conf'
 Set-Location 'C:\Program Files\SplunkUniversalForwarder\bin'
-.\splunk.exe btool inputs list --debug | Select-String -Pattern 'TA-atlas-demo-inputs|atlas-demo2.log|atlas:demo' -Context 1,3
+.\splunk.exe btool inputs list --debug | Select-String -Pattern 'TA-atlas-demo-inputs|logs\\\*\.log|atlas:demo' -Context 1,3
 Get-Service SplunkForwarder
 ```
 
