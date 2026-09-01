@@ -32,20 +32,15 @@ export default function PlanningPage() {
     groups.set(proposal.status, [...(groups.get(proposal.status) ?? []), proposal]);
     return groups;
   }, new Map());
-  const activeBatchIsEmpty = data.activeBatch.batchId === "Unassigned";
+  const activeBatchIsEmpty = projectState.activeBatch.id === "Unassigned";
   const decisionsUrl = canonicalPlanningSources.find(([label]) => label === "Decisions")?.[1];
   const lessonsUrl = canonicalPlanningSources.find(([label]) => label === "Lessons Learned")?.[1];
 
   return (
-    <main className="planning-console">
-      <header className="planning-topbar">
-        <p className="planning-wordmark">PROJECT ATLAS <span>/ PLANNING CONSOLE</span></p>
-      </header>
-      <PlanningQuickNav />
-
-      <div className="planning-workspace">
-        <PlanningSidebar projectState={projectState} latestCommit={latestCommit} />
-        <div className="planning-workspace__content">
+    <main id="atlas-console-shell" className="atlas-app-shell planning-console planning-workspace">
+      <PlanningSidebar projectState={projectState} latestCommit={latestCommit} />
+      <div className="planning-workspace__content">
+        <PlanningQuickNav />
       <section id="planning-overview" className="planning-hero" aria-labelledby="planning-title">
         <div>
           <p>ATLAS EOS / READ-ONLY REPOSITORY PROJECTION</p>
@@ -55,7 +50,7 @@ export default function PlanningPage() {
         <dl>
           <div><dt>AUTHORITY</dt><dd>Git repository</dd></div>
           <div><dt>INTERACTION</dt><dd>Read-only</dd></div>
-          <div><dt>ACTIVE BATCH</dt><dd>{data.activeBatch.status}</dd></div>
+          <div><dt>ACTIVE BATCH</dt><dd data-state={projectState.activeBatch.statusTone}>{projectState.activeBatch.status}</dd></div>
           <div><dt>WORKFLOW</dt><dd>Human approved</dd></div>
         </dl>
       </section>
@@ -64,15 +59,15 @@ export default function PlanningPage() {
         <article id="current-milestone" className="planning-panel planning-milestone">
           <header><span>01 / CURRENT MILESTONE</span><h2>{projectState.currentMilestone.id}</h2></header>
           <dl>
-            <div><dt>STATUS</dt><dd>{projectState.currentMilestone.status}</dd></div>
-            <div><dt>VALIDATION</dt><dd>{projectState.currentMilestone.validationState}</dd></div>
+            <div><dt>STATUS</dt><dd data-state={projectState.currentMilestone.statusTone}>{projectState.currentMilestone.status}</dd></div>
+            <div><dt>VALIDATION</dt><dd data-state={projectState.currentMilestone.statusTone}>{projectState.currentMilestone.validationState}</dd></div>
             <div><dt>COMPLETED WORK</dt><dd>{projectState.completedTasks.map((task) => task.id).join(", ")}</dd></div>
-            <div><dt>ACTIVE OBJECTIVE</dt><dd>{projectState.activeTasks[0] ? <a href={data.backlog.find((item) => item.id === projectState.activeTasks[0].id)?.sourceUrl} target="_blank" rel="noopener noreferrer">{projectState.activeTasks[0].id} — {projectState.activeTasks[0].title} ↗</a> : "Awaiting human approval"}</dd></div>
+            <div><dt>ACTIVE OBJECTIVE</dt><dd>{projectState.activeTasks.length ? projectState.activeTasks.map((task, index) => <span key={task.id}>{index > 0 && ", "}<a href={data.backlog.find((item) => item.id === task.id)?.sourceUrl} target="_blank" rel="noopener noreferrer">{task.id} — {task.title} ↗</a></span>) : "Awaiting human approval"}</dd></div>
           </dl>
         </article>
 
         <article id="active-batch" className="planning-panel planning-active-batch">
-          <header><span>02 / ACTIVE BATCH</span><h2>{activeBatchIsEmpty ? "No Active Batch" : data.activeBatch.batchId}</h2></header>
+          <header><span>02 / ACTIVE BATCH</span><h2>{activeBatchIsEmpty ? "No Active Batch" : projectState.activeBatch.id}</h2></header>
           {activeBatchIsEmpty ? (
             <div className="planning-empty-state">
               <p>Work begins only after explicit human approval.</p>
@@ -80,9 +75,9 @@ export default function PlanningPage() {
             </div>
           ) : (
             <dl>
-              <div><dt>STATUS</dt><dd>{data.activeBatch.status}</dd></div>
-              <div><dt>OBJECTIVE</dt><dd>{data.activeBatch.objective}</dd></div>
-              <div><dt>INCLUDED TASKS</dt><dd>{data.activeBatch.includedTasks}</dd></div>
+              <div><dt>STATUS</dt><dd data-state={projectState.activeBatch.statusTone}>{projectState.activeBatch.status}</dd></div>
+              <div><dt>OBJECTIVE</dt><dd>{projectState.activeBatch.objective}</dd></div>
+              <div><dt>INCLUDED TASKS</dt><dd>{projectState.activeTasks.map((task) => task.id).join(", ")}</dd></div>
               <div><dt>DEPENDENCIES</dt><dd>{data.activeBatch.dependencies}</dd></div>
               <div><dt>HUMAN VALIDATION</dt><dd>{data.activeBatch.humanValidationRequired}</dd></div>
             </dl>
@@ -141,7 +136,6 @@ export default function PlanningPage() {
         <span>ATLAS EOS / REPOSITORY AUTHORITY</span>
         <p>{planningPriorities.join(" · ")} / Human approval required</p>
       </footer>
-        </div>
       </div>
     </main>
   );

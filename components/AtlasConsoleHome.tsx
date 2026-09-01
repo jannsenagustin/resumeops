@@ -5,6 +5,7 @@ import {
 } from "../data/homeConsole";
 import { getAtlasProjectState } from "../lib/atlasProjectState";
 import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
+import { getAtlasStatusTone } from "../lib/atlasStatus";
 import AtlasPipeline from "./AtlasPipeline";
 import AtlasConsoleNav from "./AtlasConsoleNav";
 import AtlasConsoleShell from "./AtlasConsoleShell";
@@ -12,9 +13,9 @@ import Panel from "./Panel";
 
 function ConsoleHeader({ state }: { state: AtlasProjectState }) {
   const consoleStatus = [
-    ["Current State", `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
+    ["Current State", `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, state.currentMilestone.statusTone],
     ["Current Milestone", `${state.currentMilestone.id} / ${state.currentMilestone.title}`, "neutral"],
-    ["Current Objective", state.activeTasks[0]?.id ?? "Awaiting approval", "neutral"],
+    ["Current Objective", state.activeTasks.map((task) => task.id).join(" / ") || "Awaiting approval", state.activeBatch.statusTone],
     ["Experience", "7+ Years Splunk", "neutral"],
   ] as const;
   return (
@@ -39,9 +40,9 @@ function ConsoleHeader({ state }: { state: AtlasProjectState }) {
 
 function CurrentSystemState({ state }: { state: AtlasProjectState }) {
   const systemState = [
-    ["Distributed Search", "Validated", "validated"],
-    ["Windows Event Ingestion", "Validated", "validated"],
-    [state.currentMilestone.title, `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, "planned"],
+    ["Distributed Search", "Validated", getAtlasStatusTone("Validated")],
+    ["Windows Event Ingestion", "Validated", getAtlasStatusTone("Validated")],
+    [state.currentMilestone.title, `${state.currentMilestone.status} / ${state.currentMilestone.validationState}`, state.currentMilestone.statusTone],
   ] as const;
   return (
     <section
@@ -61,8 +62,8 @@ function CurrentSystemState({ state }: { state: AtlasProjectState }) {
         <p>
           Project Atlas documents the construction and validation of a Splunk
           platform from its first containerized runtime through distributed
-          search, Windows event ingestion, and the current move toward
-          centralized configuration management.
+          search and Windows event ingestion to {state.currentMilestone.title},
+          now {state.currentMilestone.status.toLowerCase()} and {state.currentMilestone.validationState.toLowerCase()}.
         </p>
         <div className="console-actions" aria-label="Primary paths">
           <Link className="atlas-button atlas-button--primary" href="/projects/atlas/">
@@ -77,7 +78,7 @@ function CurrentSystemState({ state }: { state: AtlasProjectState }) {
         eyebrow="System State"
         title="Validated foundation and current boundary"
         metadata={`${state.currentMilestone.id} / ACTIVE WORK`}
-        status="planned"
+        status={state.currentMilestone.statusTone}
         className="console-current__panel"
         headingLevel="h2"
       >
@@ -111,9 +112,8 @@ function MilestoneProgression({ state }: { state: AtlasProjectState }) {
       </header>
       <ol>
         {homepageMilestones.map((milestone) => {
-          const visualState = milestone.validationState === "Validated" ? "validated" : "planned";
           return (
-            <li key={milestone.id} data-state={visualState}>
+            <li key={milestone.id} data-state={milestone.statusTone}>
               <span className="console-milestone__number">{milestone.number}</span>
               <div>
                 <div className="console-milestone__heading">
@@ -270,7 +270,7 @@ export default function AtlasConsoleHome() {
       <ConsoleHeader state={state} />
       <main className="console-home">
         <CurrentSystemState state={state} />
-        <AtlasPipeline projectState={state} />
+        <AtlasPipeline />
         <MilestoneProgression state={state} />
         <EvidenceAndRecords state={state} />
         <CurrentActivity state={state} />

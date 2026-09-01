@@ -1,6 +1,7 @@
 import type { ElementType, ReactNode } from "react";
+import type { AtlasStatusTone } from "../lib/atlasStatus";
 
-export type PanelStatus = "validated" | "planned" | "future" | "failed";
+export type PanelStatus = AtlasStatusTone | "planned" | "failed";
 
 type PanelProps = {
   id?: string;

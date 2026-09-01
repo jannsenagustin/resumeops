@@ -42,6 +42,9 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-028 | Complete ResumeOps → Atlas Repository Transition | P2 | Backlog | Documentation |
 | ATL-029 | Implement Engineering Session Capture and Codex Closeout Handoff | P2 | Backlog | Atlas EOS |
 | ATL-030 | Shared Atlas Navigation and Planning Console Progressive Disclosure | P1 | Done | Engineering Console |
+| ATL-031 | Synchronize Atlas UI with validated Milestone 05 state | P1 | Done | Engineering Console |
+| ATL-032 | Normalize shared Atlas navigation | P1 | Done | Engineering Console |
+| ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -473,3 +476,45 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Human validation required:** Yes; this implementation is an approved immediate-publication workflow exception.
 **Source or related proposal:** Human-approved Atlas navigation and Planning Console usability task.
 **Notes:** Implementation and available automated validation completed on 2026-08-29. A same-day real-usage refinement removed redundant cross-page controls and added milestone-grouped evidence disclosure and canonical evidence search. The in-app browser was unavailable for visual review and that limitation is recorded in the session notes. This exception did not activate ATL-005, create an Active Batch, or change M05 engineering state.
+
+## ATL-031 — Synchronize Atlas UI with validated Milestone 05 state
+
+**Category:** Website / UX; Documentation
+**Milestone:** Engineering Console
+**Priority:** P1
+**Status:** Done
+**Description:** Update the Engineering Console and Atlas project page so their management-path projection reflects the completed and validated Milestone 05 Deployment Server workflow.
+**Why it matters:** The current interface still presents the Deployment Server relationship, Universal Forwarder enrollment, and centralized app management as future or unimplemented even though ATL-004 through ATL-006 validated those capabilities.
+**Dependencies:** Milestone 05 (Complete / Validated); ATL-004; ATL-005; ATL-006; canonical architecture and evidence records; typed project-state layer.
+**Acceptance criteria:** The Rocky Linux Deployment Server is shown as complete and validated; the Universal Forwarder is shown as an enrolled and managed client; their management relationship is shown as validated; Deployment Server and UF app management are removed from active limitations; Milestone 04 decisions remain historically accurate without being presented as current state; ingestion-path claims remain unchanged; ATL-007 remains inactive; and rollback is described only as verified available and unexercised.
+**Human validation required:** Yes; focused visual review and human acceptance are required before closeout.
+**Source or related proposal:** Human-authorized Milestone 05 UI synchronization; `docs/milestones.md`; `docs/architecture.md`; BATCH-003 through BATCH-005 execution reports.
+**Notes:** Do not redesign the UI, add automation or infrastructure work, change ingestion claims, activate ATL-007, or imply that rollback was exercised.
+
+## ATL-032 — Normalize shared Atlas navigation
+
+**Category:** Website / UX; Technical Debt
+**Milestone:** Engineering Console
+**Priority:** P1
+**Status:** Done
+**Description:** Replace the separate Console, Atlas, and Planning sidebar shells with one shared navigation implementation based on the current Engineering Console sidebar.
+**Why it matters:** Page-specific sidebar markup and CSS have drifted in width, spacing, typography, active-state treatment, and responsive behavior despite sharing the same primary destinations.
+**Dependencies:** ATL-030; existing Console sidebar; `AtlasNavigation`; Console, Atlas, and Planning page shells; typed project-state layer.
+**Acceptance criteria:** Console, Atlas, and Planning use one shared sidebar component with consistent width, spacing, typography, dividers, active-page treatment, focus behavior, and compact behavior; existing navigation labels, routes, destinations, and semantics are preserved; replaced sidebar-specific markup and styles are removed; plain `Validated` Console status uses the validated green treatment; state, regression, type, lint, build, diff, and focused visual checks pass or are reported accurately.
+**Human validation required:** Yes; desktop and responsive visual review across all three primary surfaces is required before closeout.
+**Source or related proposal:** Human-authorized shared-navigation normalization; ATL-030; DEC-023.
+**Notes:** Do not redesign or reorder navigation, change page content, alter unrelated planning or milestone facts, or stage, commit, or push.
+
+## ATL-033 — Centralize Atlas UI state projection
+
+**Category:** Website / UX; Technical Debt
+**Milestone:** Engineering Console
+**Priority:** P1
+**Status:** Done
+**Description:** Eliminate duplicated hard-coded engineering state across Console, Atlas, Planning, milestone chapters, and system summaries by deriving visible state from one canonical repository-backed UI projection.
+**Why it matters:** Milestone and validation transitions currently drift between interfaces because page-specific data and styling can redefine facts already owned by canonical planning records.
+**Dependencies:** ATL-031; ATL-032; canonical `docs/milestones.md`, `docs/planning/ACTIVE_BATCH.md`, and `docs/planning/BACKLOG.md` records; typed project-state layer; evidence registry.
+**Acceptance criteria:** The typed project-state layer is the website's single authoritative engineering-state projection; all visible milestone state, milestone validation, active batch, active ATL work, current engineering work, and project completion state consume it; Milestone 05 displays Complete / Validated while ATL-032 and ATL-033 remain honestly Active; the Planning-only top navigation is removed and useful links remain available; status-to-style semantics are shared and plain Validated renders green; duplicate or stale Milestone 05 declarations are removed; required audits, regressions, type, lint, build, evidence alignment, diff, search, and focused visual checks pass or are reported accurately.
+**Human validation required:** Yes; focused review of Console state and management path, Atlas Milestone 05, Planning shell, and responsive navigation is required before closeout.
+**Source or related proposal:** Human-authorized canonical UI state synchronization; Canonical Projection Principle; `docs/milestones.md`; `docs/planning/ACTIVE_BATCH.md`; `docs/planning/BACKLOG.md`.
+**Notes:** Implementation did not redesign page content, change unrelated milestones or evidence, activate ATL-007, or stage, commit, or push. Human closeout approval moved ATL-031 through ATL-033 to Done on 2026-09-01.

@@ -6,9 +6,9 @@ import { renderEvidenceImageRegistry } from "./generate-evidence-image-registry.
 const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const fail = (message) => { throw new Error(`State integrity audit: ${message}`); };
-const activeWorkPattern = /^(?:None|BATCH-\d{3} \/ ATL-\d{3})$/;
+const activeWorkPattern = /^(?:None|BATCH-\d{3} \/ ATL-\d{3}(?:, ATL-\d{3})*)$/;
 const validateActiveWork = (value) => {
-  if (!activeWorkPattern.test(value)) fail(`Active Work uses a non-canonical value. Found: ${value}. Expected: None or BATCH-NNN / ATL-NNN`);
+  if (!activeWorkPattern.test(value)) fail(`Active Work uses a non-canonical value. Found: ${value}. Expected: None or BATCH-NNN / ATL-NNN[, ATL-NNN...]`);
 };
 const objectiveTaskReferencesMatch = (objective, includedTaskIds) => {
   const objectiveTaskIds = objective.match(/ATL-\d{3}/g) ?? [];
@@ -25,14 +25,15 @@ if (process.argv.includes("--test-active-work-format")) {
     "BATCH-004 ATL-005",
     "BATCH-004 / BATCH-005 / ATL-005",
     "BATCH-004 / ATL-005 / ATL-006",
+    "BATCH-004 / ATL-005; ATL-006",
   ];
-  for (const value of ["None", "BATCH-004 / ATL-005"]) {
+  for (const value of ["None", "BATCH-004 / ATL-005", "BATCH-004 / ATL-005, ATL-006"]) {
     if (!activeWorkPattern.test(value)) throw new Error(`Active Work regression fixture should be accepted: ${value}`);
   }
   for (const value of rejected) {
     if (activeWorkPattern.test(value)) throw new Error(`Active Work regression fixture should be rejected: ${value}`);
   }
-  console.log(`Active Work format regression passed: 2 accepted / ${rejected.length} rejected.`);
+  console.log(`Active Work format regression passed: 3 accepted / ${rejected.length} rejected.`);
 }
 if (process.argv.includes("--test-batch-objective")) {
   const cases = [
@@ -53,7 +54,7 @@ let milestoneDocument = process.env.ATLAS_AUDIT_MILESTONES_PATH
   : read("docs/milestones.md");
 if (process.argv.includes("--test-mismatch")) {
   milestoneDocument = milestoneDocument.replace(
-    /^(\| 05 · [^|]+ \|) In Progress (\| Partially Validated \|)/m,
+    /^(\| 05 · [^|]+ \|) Complete (\| Validated \|)/m,
     "$1 Planned $2",
   );
 }
@@ -103,10 +104,8 @@ if (!batchId || (batchId !== "Unassigned" && !/^BATCH-\d{3}$/.test(batchId))) fa
 const activeBatchIsEmpty = batchId === "Unassigned";
 if (activeBatchIsEmpty && batchStatus !== "Empty") fail("Unassigned Active Batch must have Empty status");
 if (!activeBatchIsEmpty && !["In Progress", "Review"].includes(batchStatus)) fail(`${batchId} is not In Progress or Review`);
-const expectedCurrentStatus = activeBatchIsEmpty ? "Complete" : "In Progress";
-const expectedCurrentValidation = activeBatchIsEmpty ? "Validated" : "Partially Validated";
-if (currentRow[3].trim() !== expectedCurrentStatus) fail(`${current[0][1]} must render ${expectedCurrentStatus}`);
-if (currentRow[4].trim() !== expectedCurrentValidation) fail(`${current[0][1]} must render ${expectedCurrentValidation}`);
+if (currentRow[3].trim() === "Complete" && currentRow[4].trim() !== "Validated") fail(`${current[0][1]} Complete milestone must be Validated`);
+if (currentRow[3].trim() === "Planned" && currentRow[4].trim() !== "Not Validated") fail(`${current[0][1]} Planned milestone must be Not Validated`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
 if (!batchObjective) fail(`${batchId} is missing an Objective`);
 if (!activeBatchIsEmpty && !objectiveTaskReferencesMatch(batchObjective, batchTasks)) {
@@ -142,5 +141,11 @@ if (!atlasPage.includes("artifacts={projectState.evidenceArtifacts}") || !eviden
 if (/const\s+evidence\s*=\s*\[/.test(atlasPage) || atlasPage.includes("docs/evidence/")) fail("Atlas page contains a legacy hard-coded evidence inventory");
 const projectStateSource = read("lib/atlasProjectState.ts");
 if (!projectStateSource.includes("getAtlasEvidenceArtifacts") || !projectStateSource.includes("evidenceArtifacts")) fail("typed project state does not include canonical evidence artifacts");
+const pipelineSource = read("components/AtlasPipeline.tsx");
+const globalStyles = read("app/globals.css");
+if (!pipelineSource.includes('getAtlasStatusTone("Validated")') || !pipelineSource.includes("data-state={validatedTone}")) fail("Console pipeline does not consume the canonical validated semantic");
+if (/console-pipeline__path--management\s+\.console-pipeline__label\s+strong/.test(globalStyles) || /console-pipeline__node--(?:planned|future)/.test(globalStyles)) fail("Console pipeline contains page-specific status color mapping");
+const planningPageSource = read("app/planning/page.tsx");
+if (!/className="atlas-app-shell planning-console planning-workspace"[\s\S]*?<PlanningSidebar[\s\S]*?<PlanningQuickNav/.test(planningPageSource)) fail("Planning does not place the shared sidebar before page-local navigation inside the canonical application shell");
 
 console.log(`State integrity audit passed: ${current[0][1]} ${currentRow[3].trim()} / ${currentRow[4].trim()}, ${activeBatchIsEmpty ? "no active batch" : `${batchId} -> ${batchTasks.join(", ")}`}. Evidence: ${evidenceFiles.length} filesystem / ${evidenceArtifacts.length} index / ${evidenceArtifacts.length} model / ${evidenceArtifacts.length} UI source.`);

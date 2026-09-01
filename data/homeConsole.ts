@@ -42,15 +42,16 @@ export const managementPath = [
   {
     id: "deployment-server",
     name: "Rocky Linux Deployment Server",
-    role: "Centralized forwarder configuration management",
-    href: "/projects/atlas/#limitations",
+    role: "Distributes centrally managed forwarder applications",
+    state: "Validated",
+    href: "/projects/atlas/#system",
   },
   {
     id: "managed-forwarder",
     name: "Universal Forwarder",
-    role: "Future management client; current direct forwarding remains in place",
-    state: "Future Relationship",
-    href: "/projects/atlas/#limitations",
+    role: "Enrolled client receiving managed applications",
+    state: "Validated",
+    href: "/projects/atlas/#system",
   },
 ] as const;
 

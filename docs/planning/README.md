@@ -91,7 +91,7 @@ when the raw history is worth keeping or clear them for the next session.
 Ideas may be promoted into proposals or another explicitly recorded destination only after human review. Proposals may produce decisions and approved backlog items. Backlog inclusion records commitment but does not authorize execution. Approved backlog items become executable only when a human places them in the active batch. Every attempted batch receives an execution report, and reusable findings may become decisions, lessons, or follow-up backlog items.
 
 The current milestone's `Active Work` field contains identifiers only: `None`
-or exactly `BATCH-NNN / ATL-NNN`. Execution state such as Review, Done, or In
+or exactly `BATCH-NNN / ATL-NNN[, ATL-NNN...]`. Execution state such as Review, Done, or In
 Progress belongs in the task or batch status field. Never append status text or
 other prose to `Active Work`.
 

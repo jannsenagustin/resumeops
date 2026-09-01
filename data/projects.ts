@@ -30,7 +30,6 @@ export type Project = {
 };
 
 export function getProjects(projectState: AtlasProjectState): Project[] {
-const activeObjective = projectState.activeTasks[0];
 const latestCompletedTask = projectState.completedTasks.at(-1);
 return [
   {
@@ -38,8 +37,8 @@ return [
     slug: "atlas",
     title: "Atlas",
     subtitle: "Flagship Observability Project",
-    description: `A Splunk lab with Milestones 01–04 validated and ${projectState.currentMilestone.id} ${projectState.currentMilestone.status.toLowerCase()}: ${projectState.currentDetail.nextObjective}.`,
-    status: "in-progress",
+    description: `A Splunk lab with Milestones 01–${projectState.currentMilestone.number} ${projectState.currentMilestone.validationState.toLowerCase()}. Active website work: ${projectState.currentDetail.nextObjective}.`,
+    status: projectState.currentMilestone.statusTone === "validated" ? "validated" : "in-progress",
     technologies: ["Splunk Enterprise", "Docker Compose", "Linux", "Git"],
     outcomes: [
       "Deployed the Splunk Indexer and Search Head as healthy Docker containers",
@@ -49,7 +48,7 @@ return [
       "Ingested Windows Application, Security, and System logs through an active Universal Forwarder connection",
       `${projectState.completedTasks[0].id} completed the Rocky Linux operating-system baseline`,
       latestCompletedTask ? `${latestCompletedTask.id} completed the validated Deployment Server foundation` : "The Deployment Server foundation awaits validation",
-      activeObjective ? `${projectState.activeBatch.id} approves ${activeObjective.id} as the sole active objective` : "No batch is active; future work awaits human approval",
+      projectState.activeTasks.length ? `${projectState.activeBatch.id} includes ${projectState.activeTasks.map((task) => task.id).join(" and ")}` : "No batch is active; future work awaits human approval",
     ],
     route: "/projects/atlas/",
     links: [

@@ -8,6 +8,7 @@ import {
   type MilestoneStatus,
   type ValidationState,
 } from "./atlasMilestoneTypes";
+import { getAtlasStatusTone } from "./atlasStatus";
 
 const milestonesPath = path.join(process.cwd(), "docs", "milestones.md");
 
@@ -34,7 +35,7 @@ export function parseAtlasMilestones() {
     for (const link of evidence.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
       if (!fs.existsSync(path.resolve(path.dirname(milestonesPath), link[1]))) throw new Error(`${id} references missing evidence path: ${link[1]}`);
     }
-    return { id, number: row[1], title: row[2].trim(), status, validationState, outcome: row[5].trim(), evidence, evidenceHref } satisfies AtlasMilestoneRecord;
+    return { id, number: row[1], title: row[2].trim(), status, validationState, outcome: row[5].trim(), evidence, evidenceHref, statusTone: getAtlasStatusTone(`${status} / ${validationState}`) } satisfies AtlasMilestoneRecord;
   });
 
   const detailMatches = [...document.matchAll(/^## (M\d{2}) — ([^\r\n]+)\r?\n+([\s\S]*?)(?=\r?\n## |(?![\s\S]))/gm)];
@@ -45,15 +46,15 @@ export function parseAtlasMilestones() {
   const missing = required.filter((field) => !values[field]);
   if (missing.length) throw new Error(`${id} is missing required fields: ${missing.join(", ")}`);
   const activeWork = values["Active Work"];
-  const activeWorkPattern = /^(?:None|BATCH-\d{3} \/ ATL-\d{3})$/;
+  const activeWorkPattern = /^(?:None|BATCH-\d{3} \/ ATL-\d{3}(?:, ATL-\d{3})*)$/;
   if (!activeWorkPattern.test(activeWork)) {
     const batchReference = activeWork.match(/BATCH-\d{3}/)?.[0] ?? "BATCH-NNN";
     const taskReference = activeWork.match(/ATL-\d{3}/)?.[0] ?? "ATL-NNN";
-    throw new Error(`${id} Active Work uses a non-canonical value.\n\nFound:\n${activeWork}\n\nExpected:\n${batchReference} / ${taskReference}`);
+    throw new Error(`${id} Active Work uses a non-canonical value.\n\nFound:\n${activeWork}\n\nExpected:\n${batchReference} / ${taskReference}[, ATL-NNN...]`);
   }
-  const activeParts = activeWork.split("/").map((value) => value.trim());
-  const activeTasks = activeParts.filter((value) => /^ATL-\d{3}$/.test(value));
-  const activeBatchId = activeParts.find((value) => /^BATCH-\d{3}$/.test(value)) ?? (activeWork === "None" ? "Unassigned" : undefined);
+  const [batchPart, tasksPart] = activeWork.split(" / ");
+  const activeTasks = activeWork === "None" ? [] : tasksPart.split(", ");
+  const activeBatchId = activeWork === "None" ? "Unassigned" : batchPart;
   if (!activeBatchId || (activeBatchId !== "Unassigned" && !activeTasks.length)) throw new Error(`${id} Active Work could not be parsed after canonical-format validation`);
   if (!fs.existsSync(path.resolve(path.dirname(milestonesPath), values.Evidence))) throw new Error(`${id} references missing evidence path: ${values.Evidence}`);
   const currentDetail = {

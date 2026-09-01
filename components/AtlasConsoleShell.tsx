@@ -1,23 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode } from "react";
 import {
   atlasPrinciple,
   engineeringShortcuts,
   labState,
-  linkedInUrl,
   repositoryUrl,
 } from "../data/homeConsole";
 import AtlasConsoleNav from "./AtlasConsoleNav";
-import AtlasNavigation from "./AtlasNavigation";
+import AtlasSidebar from "./AtlasSidebar";
 import ConsoleIcon, { type ConsoleIconName } from "./ConsoleIcon";
 import ResumeViewer from "./ResumeViewer";
 import ResumeViewerTrigger from "./ResumeViewerTrigger";
 import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
-
-const focusableSelector =
-  'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
+import { getAtlasStatusTone } from "../lib/atlasStatus";
 
 const labIcons: Record<string, ConsoleIconName> = {
   "windows-host": "monitor",
@@ -41,11 +38,9 @@ function LabState({ idPrefix, projectState }: { idPrefix: string; projectState: 
       <h2 id={`${idPrefix}-lab-title`}>Current Lab</h2>
       <ul className="atlas-sidebar__lab">
         {currentLab.map((item) => {
-          const state = item.state === "Validated"
-            ? "validated"
-            : item.state === "Future"
-              ? "future"
-              : "planned";
+          const state = item.id === "deployment-server"
+            ? projectState.currentMilestone.statusTone
+            : getAtlasStatusTone(item.state);
 
           return (
             <li key={item.id} data-state={state} className="console-lab-row">
@@ -153,12 +148,6 @@ function SidebarContent({
 }) {
   return (
     <>
-      <div className="atlas-sidebar__identity">
-        <p>Project Atlas</p>
-        <span>Engineering Console</span>
-        <small>Edmonton, Canada</small>
-      </div>
-      <AtlasNavigation active="console" onNavigate={onNavigate} />
       <section className="atlas-sidebar__section" aria-labelledby={`${idPrefix}-navigation-title`}>
         <h2 id={`${idPrefix}-navigation-title`}>Console Sections</h2>
         <AtlasConsoleNav variant="sidebar" onNavigate={onNavigate} />
@@ -179,109 +168,16 @@ function SidebarContent({
 }
 
 export default function AtlasConsoleShell({ children, projectState }: { children: ReactNode; projectState: AtlasProjectState }) {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const drawerRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!drawerOpen) return;
-
-    const background = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-drawer-background]"),
-    );
-    const drawerTrigger = triggerRef.current;
-    const previousOverflow = document.body.style.overflow;
-
-    background.forEach((element) => element.setAttribute("inert", ""));
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setDrawerOpen(false);
-        return;
-      }
-
-      if (event.key !== "Tab" || !drawerRef.current) return;
-      const focusable = Array.from(
-        drawerRef.current.querySelectorAll<HTMLElement>(focusableSelector),
-      );
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (!first || !last) {
-        event.preventDefault();
-      } else if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-      background.forEach((element) => element.removeAttribute("inert"));
-      drawerTrigger?.focus();
-    };
-  }, [drawerOpen]);
-
   return (
     <>
-      <div id="atlas-console-shell" className="console-shell">
-        <aside
-          className="atlas-sidebar"
-          aria-label="Project Atlas console context"
-          data-drawer-background
-        >
+      <div id="atlas-console-shell" className="atlas-app-shell console-shell">
+        <AtlasSidebar active="console" ariaLabel="Project Atlas console context">
           <SidebarContent idPrefix="desktop-sidebar" projectState={projectState} />
-        </aside>
+        </AtlasSidebar>
 
-        <div className="console-shell__content" data-drawer-background>
-          <div className="console-mobile-bar">
-            <div><span>Project Atlas</span><small>Engineering Console</small></div>
-            <button
-              ref={triggerRef}
-              type="button"
-              aria-haspopup="dialog"
-              aria-expanded={drawerOpen}
-              aria-controls="atlas-mobile-drawer"
-              onClick={() => setDrawerOpen(true)}
-            >
-              Menu
-            </button>
-          </div>
+        <div className="console-shell__content">
           {children}
         </div>
-
-        {drawerOpen && (
-          <div className="atlas-drawer__backdrop" onMouseDown={() => setDrawerOpen(false)}>
-            <div
-              ref={drawerRef}
-              id="atlas-mobile-drawer"
-              className="atlas-drawer"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="atlas-drawer-title"
-              onMouseDown={(event) => event.stopPropagation()}
-            >
-              <header>
-                <h2 id="atlas-drawer-title">Atlas Console Navigation</h2>
-                <button ref={closeRef} type="button" onClick={() => setDrawerOpen(false)}>Close</button>
-              </header>
-              <SidebarContent idPrefix="mobile-drawer" projectState={projectState} onNavigate={() => setDrawerOpen(false)} />
-              <div className="atlas-drawer__external">
-                <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href={repositoryUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
       <ResumeViewer />
     </>

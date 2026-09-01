@@ -109,14 +109,34 @@ disposable container layer. Instance overrides belong in `system/local`, not
 Deployment Server traffic manages the Universal Forwarder and does not carry
 ingested event data. ATL-005 validated application distribution from
 `/opt/splunk/etc/deployment-apps/`, effective client configuration, and the
-resulting data path. A controlled Git release workflow remains ATL-006 scope.
+resulting data path. ATL-006 validated the reviewed manual Git-controlled
+release workflow. Rollback was verified as available but remained unexercised;
+ATL-007 deployment automation remains inactive.
+
+## Atlas website application architecture
+
+Console, Atlas, and Planning use one `atlas-app-shell` layout with one shared
+`AtlasSidebar` implementation. Page-local navigation remains inside each
+surface's content column, so it does not create a competing application shell.
+
+Repository planning records remain authoritative for engineering state.
+`lib/atlasProjectState.ts` is the website's single canonical derived projection
+for milestone state, validation, active batch, active ATL work, current work,
+project completion, and evidence metadata. UI surfaces consume that projection
+instead of maintaining page-specific copies. `lib/atlasStatus.ts` owns the
+semantic status-to-tone mapping, including the validated green treatment used
+by plain `Validated` states.
+
+This website architecture does not change the Milestone 05 engineering result.
+Milestone 05 remains Complete / Validated; BATCH-007 tracked later website
+maintenance separately.
 
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure
 domain. It does not demonstrate Indexer clustering, Search Head clustering,
 replication, a cluster manager, a deployer, production high availability, or
-enterprise production readiness. Git-controlled release, automation,
+enterprise production readiness. Deployment automation,
 additional data sources, performance telemetry,
 dashboards, alerts and detections, custom TLS/PKI, Azure DevOps CI/CD, and
 Kubernetes/Splunk Operator work remain future.

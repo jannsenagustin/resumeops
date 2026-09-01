@@ -2,6 +2,7 @@ import { getAtlasPlanningData } from "./atlasPlanning";
 import { getAtlasEvidenceArtifacts } from "./atlasEvidence";
 import { parseAtlasMilestones } from "./atlasMilestones";
 import type { AtlasProjectState } from "./atlasMilestoneTypes";
+import { getAtlasStatusTone } from "./atlasStatus";
 
 export function getAtlasProjectState(): AtlasProjectState {
   const milestoneData = parseAtlasMilestones();
@@ -12,7 +13,7 @@ export function getAtlasProjectState(): AtlasProjectState {
     const task = backlog.get(id);
     if (!task) throw new Error(`Current milestone references unknown completed task: ${id}`);
     if (task.status !== "Done") throw new Error(`Current milestone completed work ${id} is not Done`);
-    return { id, title: task.title };
+    return { id, title: task.title, status: task.status, statusTone: getAtlasStatusTone(task.status) };
   });
   if (planning.activeBatch.batchId !== milestoneData.currentDetail.activeBatchId) throw new Error(`Current milestone batch ${milestoneData.currentDetail.activeBatchId} does not match ACTIVE_BATCH.md ${planning.activeBatch.batchId}`);
   const activeBatchIsEmpty = planning.activeBatch.batchId === "Unassigned";
@@ -23,7 +24,7 @@ export function getAtlasProjectState(): AtlasProjectState {
   const activeTasks = includedTasks.map((id) => {
     const task = backlog.get(id);
     if (!task) throw new Error(`Active batch references unknown backlog task: ${id}`);
-    return { id, title: task.title };
+    return { id, title: task.title, status: task.status, statusTone: getAtlasStatusTone(task.status) };
   });
   const objectiveTaskIds: string[] = planning.activeBatch.objective.match(/ATL-\d{3}/g) ?? [];
   const objectiveMatchesTasks = objectiveTaskIds.length === activeTasks.length
@@ -34,7 +35,7 @@ export function getAtlasProjectState(): AtlasProjectState {
   return {
     ...milestoneData,
     completedTasks,
-    activeBatch: { id: planning.activeBatch.batchId, status: planning.activeBatch.status, objective: planning.activeBatch.objective },
+    activeBatch: { id: planning.activeBatch.batchId, status: planning.activeBatch.status, objective: planning.activeBatch.objective, statusTone: getAtlasStatusTone(planning.activeBatch.status) },
     activeTasks,
     evidenceArtifacts,
     evidenceSummary: `${milestoneData.currentMilestone.validationState} · ${milestoneData.currentDetail.evidencePath}`,

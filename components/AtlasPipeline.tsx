@@ -1,19 +1,18 @@
 import Link from "next/link";
 import { ingestionPath, managementPath } from "../data/homeConsole";
+import { getAtlasStatusTone } from "../lib/atlasStatus";
 import TelemetryFlow from "./TelemetryFlow";
-import type { AtlasProjectState } from "../lib/atlasMilestoneTypes";
 
 type PipelineNodeProps = {
   name: string;
   role: string;
   state: string;
   href: string;
-  variant: "validated" | "planned" | "future";
 };
 
-function PipelineNode({ name, role, state, href, variant }: PipelineNodeProps) {
+function PipelineNode({ name, role, state, href }: PipelineNodeProps) {
   return (
-    <li className={`console-pipeline__node console-pipeline__node--${variant}`}>
+    <li className="console-pipeline__node" data-state={getAtlasStatusTone(state)}>
       <p><Link href={href}>{name}</Link></p>
       <span>{role}</span>
       <strong>{state}</strong>
@@ -21,7 +20,9 @@ function PipelineNode({ name, role, state, href, variant }: PipelineNodeProps) {
   );
 }
 
-export default function AtlasPipeline({ projectState }: { projectState: AtlasProjectState }) {
+export default function AtlasPipeline() {
+  const validatedTone = getAtlasStatusTone("Validated");
+
   return (
     <section
       id="architecture"
@@ -34,38 +35,37 @@ export default function AtlasPipeline({ projectState }: { projectState: AtlasPro
           <h2 id="pipeline-title">How telemetry moves through Atlas</h2>
         </div>
         <p>
-          The validated ingestion path remains separate from Milestone 05
-          management work.
+          Validated ingestion and management paths remain separate system
+          relationships.
         </p>
       </header>
 
       <div className="console-pipeline__legend" aria-label="System state legend">
-        <span data-state="validated">Validated</span>
-        <span data-state="planned">{projectState.currentMilestone.status} / {projectState.currentMilestone.validationState}</span>
-        <span data-state="future">Future Relationship</span>
+        <span data-state={validatedTone}>Validated</span>
       </div>
 
-      <div className="console-pipeline__path">
+      <div className="console-pipeline__path" data-state={validatedTone}>
         <div className="console-pipeline__label">
           <span>INGESTION PATH</span>
           <strong>VALIDATED</strong>
         </div>
         <ol aria-label="Validated Atlas ingestion path">
           {ingestionPath.map((node) => (
-            <PipelineNode key={node.id} {...node} variant="validated" />
+            <PipelineNode key={node.id} {...node} />
           ))}
         </ol>
         <TelemetryFlow className="console-pipeline__flow" />
       </div>
 
-      <div className="console-pipeline__path console-pipeline__path--management">
+      <div className="console-pipeline__path console-pipeline__path--management" data-state={validatedTone}>
         <div className="console-pipeline__label">
           <span>MANAGEMENT PATH</span>
-          <strong>{projectState.currentMilestone.status.toUpperCase()} / {projectState.currentMilestone.validationState.toUpperCase()}</strong>
+          <strong>VALIDATED</strong>
         </div>
-        <ol aria-label="Planned Atlas management path">
-          <PipelineNode {...managementPath[0]} state={`${projectState.currentMilestone.status} / ${projectState.currentMilestone.validationState}`} variant="planned" />
-          <PipelineNode {...managementPath[1]} variant="future" />
+        <ol aria-label="Validated Atlas management path">
+          {managementPath.map((node) => (
+            <PipelineNode key={node.id} {...node} />
+          ))}
         </ol>
       </div>
 

@@ -20,7 +20,7 @@
     in `docs/evidence/README.md`; application pages must not maintain separate
     evidence inventories.
 14. Milestone `Active Work` contains identifiers only: `None` or exactly
-    `BATCH-NNN / ATL-NNN`. Review, Done, and In Progress belong in task or batch
+    `BATCH-NNN / ATL-NNN[, ATL-NNN...]`. Review, Done, and In Progress belong in task or batch
     status fields; never append status prose to `Active Work`.
 15. AARs under `docs/aar/` own architecture analysis. They are analytical
     historical records, not implementation authorization. Downstream documents

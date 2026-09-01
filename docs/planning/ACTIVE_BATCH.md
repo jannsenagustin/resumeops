@@ -22,6 +22,6 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Human Validation Required:** Human approval is required before this file is populated with a new active batch.
 
-**Execution Notes:** BATCH-005 was accepted and closed on 2026-09-01. ATL-006 and Milestone 05 are Done. ATL-007 and all future work remain inactive.
+**Execution Notes:** BATCH-007 was accepted and closed on 2026-09-01. ATL-032 and ATL-033 are Done. ATL-031 also moved from Review to Done after its independent acceptance criteria and human visual review were verified during closeout. ATL-007 remains inactive.
 
-**Expected Report Path:** None. Historical closeout: `docs/execution-reports/BATCH-005.md`.
+**Expected Report Path:** None. Historical closeout: `docs/execution-reports/BATCH-007.md`.

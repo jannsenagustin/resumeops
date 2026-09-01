@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import type { AtlasStatusTone } from "./atlasStatus";
 
 export const milestoneStatuses = ["Planned", "In Progress", "Complete"] as const;
 export const validationStates = ["Not Validated", "Partially Validated", "Validated"] as const;
@@ -15,6 +16,7 @@ export type AtlasMilestoneRecord = {
   outcome: string;
   evidence: string;
   evidenceHref?: string;
+  statusTone: AtlasStatusTone;
 };
 
 export type CurrentMilestoneDetail = {
@@ -51,8 +53,8 @@ export type AtlasProjectState = {
   currentMilestone: AtlasMilestoneRecord;
   currentDetail: CurrentMilestoneDetail;
   completedTasks: Array<{ id: string; title: string }>;
-  activeBatch: { id: string; status: string; objective: string };
-  activeTasks: Array<{ id: string; title: string }>;
+  activeBatch: { id: string; status: string; objective: string; statusTone: AtlasStatusTone };
+  activeTasks: Array<{ id: string; title: string; status: string; statusTone: AtlasStatusTone }>;
   evidenceArtifacts: AtlasEvidenceArtifact[];
   evidenceSummary: string;
   currentBoundary: string;
