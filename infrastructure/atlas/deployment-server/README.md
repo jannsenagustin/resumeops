@@ -4,9 +4,9 @@ This directory is the Git-controlled source for configuration released manually
 to the dedicated Rocky Linux Deployment Server. It implements the reviewed
 ATL-006 workflow without CI/CD or unattended deployment.
 
-The source tree mirrors paths below `/opt/splunk/etc/deployment-apps/`. It does
-not authorize a release by itself. A human must review the feature-branch diff,
-approve the merge, and separately approve the manual release commands.
+The source tree mirrors paths below `/opt/splunk/etc/deployment-apps/`. The
+feature change has been reviewed and merged, but that does not authorize a
+release. A human must separately approve the manual release commands.
 
 ## Current Change
 
@@ -30,9 +30,9 @@ target remains documented by the M05 records.
 The Deployment Server remains the sole source of managed client configuration.
 Do not edit the Universal Forwarder application directories manually.
 
-## Review Gate
+## Merged Change Review Record
 
-Before merge, the human reviewer must confirm:
+The merged change was reviewed to confirm:
 
 - the branch contains only ATL-006 scope;
 - the source-to-target mapping is unchanged;
@@ -63,10 +63,22 @@ This is a read-only verification of the ATL-005 mapping. Do not edit
 Do not publish client GUIDs, private addresses, or other persistent client
 identifiers captured during this verification.
 
+### Prepare Reviewed Release Source
+
+Before beginning the manual release:
+
+- obtain a local checkout of the reviewed repository on the Deployment Server;
+- ensure it contains the approved merged commit;
+- checkout that exact commit;
+- set `ATLAS_RELEASE_SOURCE` to that working copy.
+
+The runtime release procedure assumes the repository already exists locally.
+It does not clone, fetch, or update the repository automatically.
+
 ## Manual Release Control Point
 
-After the reviewed change is merged, record the exact merged commit SHA that has
-been approved for release and obtain explicit human release approval.
+For the reviewed merged change, record the exact final commit SHA approved for
+release and obtain explicit human release approval.
 
 ```bash
 # Record the reviewed merged commit that is being released.
