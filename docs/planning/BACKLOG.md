@@ -125,7 +125,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Acceptance criteria:** A reviewed repository change is released through a documented manual control point and distributed successfully.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007, DEC-008.
-**Notes:** Activated as the only task in BATCH-005 on 2026-08-31. Activation authorizes the documented manual workflow only; implementation has not started, and automation remains separate future scope.
+**Notes:** Activated as the only task in BATCH-005 on 2026-08-31. The authorized workflow includes a prerequisite substep to inspect current SSH client and server state and restore key-based access to the approved Rocky Linux Deployment Server before any live release action. The substep must preserve the intended account and host trust where possible, modify only required SSH files, use least-privilege sudo limited to exact release-runbook commands, validate remote identity, hostname, command execution, exit-status propagation, filesystem boundaries, and applicable `sudo -n` behavior, then stop for human review. It must not expose or commit authentication material; weaken host-key checking; enable password authentication for convenience or direct root login; grant unrestricted passwordless sudo; publish sensitive host, key, client, or account identifiers without review; alter Splunk configuration; or begin the release. SSH restoration is subordinate to ATL-006 and does not satisfy its acceptance criterion. No SSH restoration, release, or new runtime validation is claimed, and automation remains separate future scope.
 
 ## ATL-007 — Automate validated deployment through GitHub Actions
 
