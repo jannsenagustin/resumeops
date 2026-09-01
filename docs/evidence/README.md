@@ -103,6 +103,15 @@ the client loaded the output configuration, forwarding became active, and the
 controlled `atlas:demo` event became searchable from the final
 `atlas-demo2.log` source. Six reviewed captures support the final outcome.
 
+ATL-006 proves the reviewed manual Git-controlled release boundary. The
+pre-release comparison exposed a source-to-runtime mismatch before live change;
+a reviewed correction preserved the deployed `logs\*.log` behavior. The final
+evidence set records the approved release source, installed version `1.0.1`,
+commit-specific rollback checkpoint, exact release delta, successful app
+delivery, deployed and effective client input state, running forwarder service,
+and a unique searchable ATL-006 validation event. Rollback remained an
+unexercised recovery path because all validation passed.
+
 ## Canonical Artifact Index
 
 `Reviewed` means visually inspected for unintended sensitive content. `Pre-batch`
@@ -157,6 +166,15 @@ purpose states the completed outcome it supports.
 | `m05-atl-005-windows-deployed-outputs-01.png` | M05 | BATCH-004 | ATL-005 | Deployed `TA-atlas-outputs` configuration | Confirms the client received the intended output group and target | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png) |
 | `m05-atl-005-windows-effective-outputs-01.png` | M05 | BATCH-004 | ATL-005 | Client-side `btool outputs list --debug` | Confirms the effective output values originate from the deployed app | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png) |
 | `m05-atl-005-windows-output-app-installation-01.png` | M05 | BATCH-004 | ATL-005 | Running forwarder and installed output-app tree | Confirms the output deployment app is installed with its expected files | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png) |
+| `m05-atl-006-git-release-source-01.png` | M05 | BATCH-005 | ATL-006 | Approved detached Git release source | Confirms the Deployment Server checkout is bound to the human-approved release commit with a clean worktree | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-git-release-source-01.png) |
+| `m05-atl-006-rocky-deployed-input-config-01.png` | M05 | BATCH-005 | ATL-006 | Installed Deployment Server input app | Confirms version `1.0.1`, unchanged wildcard input behavior, ownership, and permissions on the Deployment Server | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-rocky-deployed-input-config-01.png) |
+| `m05-atl-006-rocky-release-delta-01.png` | M05 | BATCH-005 | ATL-006 | Deployed change compared with rollback checkpoint | Confirms the release changed only app metadata version and preserved `inputs.conf` | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-rocky-release-delta-01.png) |
+| `m05-atl-006-rocky-rollback-checkpoint-01.png` | M05 | BATCH-005 | ATL-006 | Commit-specific rollback files | Confirms the pre-release app and input files were retained under the approved release commit boundary | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-rocky-rollback-checkpoint-01.png) |
+| `m05-atl-006-windows-input-app-delivery-01.png` | M05 | BATCH-005 | ATL-006 | Successful input-app delivery in Agent Management | Confirms `TA-atlas-demo-inputs` is successfully deployed to the expected single client through `atlas-base` | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-windows-input-app-delivery-01.png) |
+| `m05-atl-006-windows-deployed-input-config-01.png` | M05 | BATCH-005 | ATL-006 | Deployed Windows input-app files | Confirms the client received version `1.0.1` and the preserved `logs\*.log` stanza | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-windows-deployed-input-config-01.png) |
+| `m05-atl-006-windows-effective-input-config-01.png` | M05 | BATCH-005 | ATL-006 | Client-side effective input configuration | Confirms `btool` resolves the wildcard input, index, and sourcetype through the deployed app | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-windows-effective-input-config-01.png) |
+| `m05-atl-006-windows-forwarder-service-01.png` | M05 | BATCH-005 | ATL-006 | Running Universal Forwarder service | Confirms `SplunkForwarder` remained running after delivery | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-windows-forwarder-service-01.png) |
+| `m05-atl-006-end-to-end-ingestion-01.png` | M05 | BATCH-005 | ATL-006 | Search result for unique controlled-release event | Confirms the ATL-006 validation marker from `atlas-demo2.log` is searchable with `sourcetype=atlas:demo` | Reviewed | [Artifact](milestone-05-data-ingestion/m05-atl-006-end-to-end-ingestion-01.png) |
 
 ## Excluded Captures
 

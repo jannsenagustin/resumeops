@@ -2,7 +2,7 @@
 
 **Milestone:** 05
 **Date:** 2026-08-30
-**Status:** In Progress / Partially Validated
+**Status:** Complete / Validated
 
 ## Engineering Summary
 
@@ -10,8 +10,8 @@
 Server foundation for the dedicated management node. The first Windows
 Universal Forwarder is enrolled and now receives production-style input and
 output configuration through separate Deployment Server applications.
-End-to-end `atlas:demo` ingestion is validated; Git-controlled release remains
-future work.
+End-to-end `atlas:demo` ingestion and the reviewed manual Git-controlled release
+workflow are validated.
 
 ### Completed Foundation
 
@@ -23,11 +23,13 @@ future work.
   complete Deployment Server lifecycle.
 - ATL-005 distributed separate input and output apps, validated the effective
   client configuration, and proved searchable end-to-end ingestion.
+- ATL-006 validated a reviewed, commit-bound manual release with a rollback
+  checkpoint, client delivery, effective configuration, and searchable ingestion.
 
 ### Current Engineering Objective
 
-ATL-005 is complete under the closed BATCH-004. ATL-006 remains Backlog and
-inactive; it requires separate human activation.
+Milestone 05 is complete. BATCH-005 closed ATL-006 after human acceptance on
+2026-09-01. No subsequent batch or milestone is active.
 
 ## Installation Engineering Record
 
@@ -191,8 +193,9 @@ ATL-005 created two independently managed Deployment Server applications:
 Universal Forwarder application directories.
 
 The final input monitors
-`E:\04_PROJECTS\ResumeOps\Atlas\logs\atlas-demo2.log`, assigns
-`sourcetype=atlas:demo`, and writes to `main`. The output app targets
+`E:\04_PROJECTS\ResumeOps\Atlas\logs\*.log`, assigns `sourcetype=atlas:demo`,
+and writes to `main`. The validation event originated from `atlas-demo2.log`.
+The output app targets
 `10.0.0.84:9997`. Client-side `btool` traced the effective output configuration
 to the deployed app, and `list forward-server` reported the destination active.
 
@@ -221,3 +224,34 @@ the superseded `atlas-demo.log` source rather than the final `atlas-demo2.log`
 source and therefore do not directly prove the completed outcome. The session
 notes do not document a rollback exercise, so this journal makes no rollback
 validation claim.
+
+## ATL-006 — Git-Controlled Manual Release
+
+ATL-006 recreated the enterprise-style path from reviewed Git source through a
+manual Deployment Server release. The pre-release comparison prevented an
+unintended narrowing of the deployed wildcard input. Corrective pull request #1
+preserved `logs\*.log`, and the human approved merge commit
+`5b53785beb2a134342b6c24a5854c55d6c00129a` as the release source.
+
+The release used a detached, commit-verified checkout and a commit-specific
+rollback checkpoint. Version `1.0.1` and the preserved input were installed,
+the Deployment Server reload returned exit code `0`, and the expected Windows
+Universal Forwarder received the application. Deployed files, effective
+`btool` state, the running forwarder service, and the unique searchable event
+`ATL006-20260901-094342` validated the complete path.
+
+Rollback was not required and was not exercised. The checkpoint was verified,
+so it is a documented but unexercised recovery path. CI/CD automation remains
+separate ATL-007 scope and is not active.
+
+### ATL-006 Evidence
+
+- [reviewed Git release source](../evidence/milestone-05-data-ingestion/m05-atl-006-git-release-source-01.png)
+- [release delta](../evidence/milestone-05-data-ingestion/m05-atl-006-rocky-release-delta-01.png)
+- [rollback checkpoint](../evidence/milestone-05-data-ingestion/m05-atl-006-rocky-rollback-checkpoint-01.png)
+- [Deployment Server installed configuration](../evidence/milestone-05-data-ingestion/m05-atl-006-rocky-deployed-input-config-01.png)
+- [client application delivery](../evidence/milestone-05-data-ingestion/m05-atl-006-windows-input-app-delivery-01.png)
+- [client deployed input](../evidence/milestone-05-data-ingestion/m05-atl-006-windows-deployed-input-config-01.png)
+- [client effective input](../evidence/milestone-05-data-ingestion/m05-atl-006-windows-effective-input-config-01.png)
+- [forwarder service](../evidence/milestone-05-data-ingestion/m05-atl-006-windows-forwarder-service-01.png)
+- [searchable validation event](../evidence/milestone-05-data-ingestion/m05-atl-006-end-to-end-ingestion-01.png)

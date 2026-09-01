@@ -45,6 +45,15 @@ import evidenceImage042 from "../docs/evidence/milestone-05-data-ingestion/m05-a
 import evidenceImage043 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png";
 import evidenceImage044 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png";
 import evidenceImage045 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png";
+import evidenceImage046 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-git-release-source-01.png";
+import evidenceImage047 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-deployed-input-config-01.png";
+import evidenceImage048 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-release-delta-01.png";
+import evidenceImage049 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-rollback-checkpoint-01.png";
+import evidenceImage050 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-input-app-delivery-01.png";
+import evidenceImage051 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-deployed-input-config-01.png";
+import evidenceImage052 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-effective-input-config-01.png";
+import evidenceImage053 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-forwarder-service-01.png";
+import evidenceImage054 from "../docs/evidence/milestone-05-data-ingestion/m05-atl-006-end-to-end-ingestion-01.png";
 
 export const atlasEvidenceImages: Readonly<Record<string, StaticImageData>> = {
   "docs/evidence/milestone-01-first-containerized-deployment/m01-atlas-indexer-container-health-01.png": evidenceImage001,
@@ -92,4 +101,13 @@ export const atlasEvidenceImages: Readonly<Record<string, StaticImageData>> = {
   "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-deployed-outputs-01.png": evidenceImage043,
   "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-effective-outputs-01.png": evidenceImage044,
   "docs/evidence/milestone-05-data-ingestion/m05-atl-005-windows-output-app-installation-01.png": evidenceImage045,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-git-release-source-01.png": evidenceImage046,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-deployed-input-config-01.png": evidenceImage047,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-release-delta-01.png": evidenceImage048,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-rocky-rollback-checkpoint-01.png": evidenceImage049,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-input-app-delivery-01.png": evidenceImage050,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-deployed-input-config-01.png": evidenceImage051,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-effective-input-config-01.png": evidenceImage052,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-windows-forwarder-service-01.png": evidenceImage053,
+  "docs/evidence/milestone-05-data-ingestion/m05-atl-006-end-to-end-ingestion-01.png": evidenceImage054,
 };

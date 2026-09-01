@@ -91,9 +91,6 @@ for (const field of ["Current Phase", "Completed Work", "Completed Foundation", 
 }
 const currentRow = rows.find((row) => `M${row[1]}` === current[0][1]);
 if (!currentRow) fail("current milestone is missing from table");
-if (currentRow[3].trim() !== "In Progress") fail(`${current[0][1]} must render In Progress`);
-if (currentRow[4].trim() !== "Partially Validated") fail(`${current[0][1]} must remain Partially Validated`);
-
 const backlog = new Map([...backlogDocument.matchAll(/^## (ATL-\d{3}) — ([^\r\n]+)\r?\n+([\s\S]*?)(?=\r?\n## |(?![\s\S]))/gm)].map((match) => {
   const status = match[3].match(/^\*\*Status:\*\*\s*(.+)$/m)?.[1].trim();
   return [match[1], { title: match[2].trim(), status }];
@@ -106,6 +103,10 @@ if (!batchId || (batchId !== "Unassigned" && !/^BATCH-\d{3}$/.test(batchId))) fa
 const activeBatchIsEmpty = batchId === "Unassigned";
 if (activeBatchIsEmpty && batchStatus !== "Empty") fail("Unassigned Active Batch must have Empty status");
 if (!activeBatchIsEmpty && !["In Progress", "Review"].includes(batchStatus)) fail(`${batchId} is not In Progress or Review`);
+const expectedCurrentStatus = activeBatchIsEmpty ? "Complete" : "In Progress";
+const expectedCurrentValidation = activeBatchIsEmpty ? "Validated" : "Partially Validated";
+if (currentRow[3].trim() !== expectedCurrentStatus) fail(`${current[0][1]} must render ${expectedCurrentStatus}`);
+if (currentRow[4].trim() !== expectedCurrentValidation) fail(`${current[0][1]} must render ${expectedCurrentValidation}`);
 for (const id of batchTasks) if (!backlog.has(id)) fail(`${batchId} references missing backlog item ${id}`);
 if (!batchObjective) fail(`${batchId} is missing an Objective`);
 if (!activeBatchIsEmpty && !objectiveTaskReferencesMatch(batchObjective, batchTasks)) {

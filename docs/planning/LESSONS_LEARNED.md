@@ -287,3 +287,13 @@ all other views derived consumers.
 **Reusable lesson:** When a remote service appears healthy but a client cannot connect, test the exact destination port from the client before repeatedly inspecting application logs.
 **Related milestone or task:** M05; ATL-004.
 **Status:** Confirmed
+
+## LESSON-029 — Compare approved release source with live configuration
+
+**Lesson ID:** LESSON-029
+**Title:** Compare approved release source with live configuration before installation.
+**Context:** ATL-006 manual Git-controlled release under BATCH-005.
+**What happened:** The pre-release comparison found that the first approved candidate would have narrowed the live `logs\*.log` monitor to one file. The release stopped before mutation, the source was corrected through review, and approval was repeated against the corrected merge commit.
+**Reusable lesson:** Treat a source-to-live comparison as a release gate, and invalidate an approval whenever corrective work changes the candidate commit.
+**Related milestone or task:** M05; ATL-006; BATCH-005.
+**Status:** Confirmed

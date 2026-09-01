@@ -17,7 +17,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-003 | Configure Splunk Deployment Server role | P1 | Done | M05 |
 | ATL-004 | Enroll Windows Universal Forwarder with the Deployment Server | P1 | Done | M05 |
 | ATL-005 | Deliver production-style configuration through the Deployment Server | P1 | Done | M05 |
-| ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Active | M05 |
+| ATL-006 | Recreate Git-controlled Splunk configuration workflow | P1 | Done | M05 |
 | ATL-007 | Automate validated deployment through GitHub Actions | P2 | Backlog | Future |
 | ATL-008 | Atlas Operations Center / Grafana dashboard | P3 | Proposed | Future |
 | ATL-009 | Embedded evidence previews | P2 | Backlog | Future |
@@ -118,14 +118,14 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 **Category:** Current Milestone; Splunk
 **Milestone:** M05
 **Priority:** P1
-**Status:** Active
+**Status:** Done
 **Description:** Reproduce the enterprise-style flow: feature branch -> configuration change -> Git review and merge -> controlled release -> Deployment Server distribution.
 **Why it matters:** Makes configuration delivery reviewable, traceable, and reproducible.
 **Dependencies:** ATL-005.
 **Acceptance criteria:** A reviewed repository change is released through a documented manual control point and distributed successfully.
 **Human validation required:** Yes.
 **Source or related proposal:** DEC-007, DEC-008.
-**Notes:** Activated as the only task in BATCH-005 on 2026-08-31. The authorized workflow includes a prerequisite substep to inspect current SSH client and server state and restore key-based access to the approved Rocky Linux Deployment Server before any live release action. The substep must preserve the intended account and host trust where possible, modify only required SSH files, use least-privilege sudo limited to exact release-runbook commands, validate remote identity, hostname, command execution, exit-status propagation, filesystem boundaries, and applicable `sudo -n` behavior, then stop for human review. It must not expose or commit authentication material; weaken host-key checking; enable password authentication for convenience or direct root login; grant unrestricted passwordless sudo; publish sensitive host, key, client, or account identifiers without review; alter Splunk configuration; or begin the release. SSH restoration is subordinate to ATL-006 and does not satisfy its acceptance criterion. No SSH restoration, release, or new runtime validation is claimed, and automation remains separate future scope.
+**Notes:** BATCH-005 completed and closed ATL-006 on 2026-09-01. The pre-release diff caught a repository-to-runtime mismatch before live changes; reviewed pull request #1 preserved `logs\*.log` and produced approved release commit `5b53785beb2a134342b6c24a5854c55d6c00129a`. The commit-specific checkpoint, manual release, Deployment Server reload, client delivery, deployed and effective configuration, forwarder service, unique event ingestion, and search all passed. Rollback was not exercised because validation succeeded. Nine reviewed artifacts and `BATCH-005.md` were accepted at closeout. Automation remains separate ATL-007 scope.
 
 ## ATL-007 — Automate validated deployment through GitHub Actions
 
