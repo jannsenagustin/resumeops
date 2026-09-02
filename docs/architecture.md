@@ -131,6 +131,56 @@ This website architecture does not change the Milestone 05 engineering result.
 Milestone 05 remains Complete / Validated; BATCH-007 tracked later website
 maintenance separately.
 
+## Validated Search Head management and KV TLS
+
+ATL-042 and BATCH-009 replaced only the Search Head's default splunkd
+management/KV certificate path with the standards-valid trust model approved in
+EP-005. The Search Head-local `[sslConfig]` enables splunkd TLS, keeps client
+certificates optional, and references one restricted Search Head server bundle
+and the public Atlas root. The Indexer, forwarding, Deployment Server, Splunk
+Web certificate, host-port, and MCP boundaries did not change.
+
+The dedicated Atlas root is self-issued with critical `CA:TRUE, pathlen:0` and
+critical certificate-signing and CRL-signing usage. Its SHA-256 fingerprint is
+`02:DC:7A:72:D6:6A:E3:84:E5:E5:E6:E8:13:D6:41:E2:C5:FB:EC:91:C6:38:6B:57:AF:5D:05:98:58:9F:9D:A0`.
+Its subject and issuer are `CN=Atlas-Internal-Root-CA, O=Project-Atlas`, its
+serial is `3F407E63DE5B616DAECC8419B8A76D4C5C55C96F`, and its validity is
+2026-09-02 through 2036-08-30.
+Its encrypted private key remains under human control outside Git, Docker,
+Splunk, evidence, and backup storage.
+
+The shared Search Head leaf has `subjectAltName = DNS:atlas-search-head`,
+critical `basicConstraints = CA:FALSE`, critical digital-signature and
+key-encipherment usage, and
+`extendedKeyUsage = critical, serverAuth, clientAuth`. Its serial is
+`6657C3D4D746B79CAE8AF9E77CFC88D1`, and its SHA-256 fingerprint is
+`FF:9E:A7:A1:48:88:F1:27:45:CD:0B:9E:6F:08:E0:B8:78:F4:77:3C:35:EF:2A:E3:FA:6E:D8:EA:35:69:B8:3D`.
+Its validity is 2026-09-02 through 2028-12-05. The effective Search Head-local
+paths are `/opt/splunk/etc/auth/atlas/atlas-search-head-server.pem` for
+`serverCert` and `/opt/splunk/etc/auth/atlas/atlas-root-ca.pem` for
+`sslRootCAPath`; `[kvstoreSslClientConfig]` remains absent.
+Both internal TCP 8089 and KV Store TCP 8191 present this Atlas chain.
+
+Normal OpenSSL hostname verification and Python's default `SSLContext` validate
+the chain for `atlas-search-head`. The pinned Splunk SDK reaches the HTTP
+authentication boundary through that same verified context. Tests with the old
+CA, an unrelated CA, a wrong hostname, missing trust, and an out-of-validity
+verification time fail closed. TCP 8089 remains internal to `atlas-network`,
+Search Head and Indexer health remain intact, and distributed-search peer health
+and bounded remote execution remain validated.
+
+Splunk 10.0.8 separately owns `[dataplaneSslConfig]` for HTTP servers inside
+helper processes. Its `server_dp.pem` is issued by the automatically generated
+`dp_ca.pem`, with `dp_ca.srl` maintaining issuance serial state. This data-plane
+chain is expected runtime state, does not participate in the splunkd
+management/KV chain, and is not an additional Atlas trust owner.
+
+The authoritative pre-change Search Head `etc` checkpoint is
+`E:\Projects\atlas-backups\2026-09-02-batch-009-search-head-etc-cold-20260902-153720\atlas-search-head-etc.tar.gz`
+with SHA-256
+`BB070E518638C8FBF17356D2AA282D2682A8B815BFE7689BBA2E7BD4C69B81E3`.
+Rollback remains available but was not exercised.
+
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure
@@ -138,7 +188,7 @@ domain. It does not demonstrate Indexer clustering, Search Head clustering,
 replication, a cluster manager, a deployer, production high availability, or
 enterprise production readiness. Deployment automation,
 additional data sources, performance telemetry,
-dashboards, alerts and detections, custom TLS/PKI, Azure DevOps CI/CD, and
+dashboards, alerts and detections, broader TLS/PKI expansion, Azure DevOps CI/CD, and
 Kubernetes/Splunk Operator work remain future.
 
 ## Validation status

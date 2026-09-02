@@ -53,7 +53,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-039 | M06 additional Search Head metadata tools | P2 | Backlog | M06 |
 | ATL-040 | M06 bounded search capability | P2 | Backlog | M06 |
 | ATL-041 | M06 validation and closeout | P1 | Backlog | M06 |
-| ATL-042 | Search Head management TLS remediation | P1 | Backlog | M06 |
+| ATL-042 | Search Head management TLS remediation | P1 | Done | M06 |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -645,11 +645,11 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Infrastructure; Splunk
 **Milestone:** M06
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Replace only the Search Head's default splunkd management/KV certificate path with the standards-valid Atlas internal CA trust model approved in EP-005.
 **Why it matters:** ATL-034 cannot complete normal certificate and hostname verification while TCP 8089 presents the extensionless Splunk default CA chain.
 **Dependencies:** Approved EP-005; recoverable Search Head `etc` backup; known-good M05 baseline; human-controlled offline CA private-key storage; separately approved Active Batch.
 **Acceptance criteria:** Preflight records the effective Search Head `[sslConfig]`, `[kvstore]`, and `[kvstoreSslClientConfig]` certificate consumers without exposing secrets; an offline Atlas root with critical CA constraints issues one SAN-valid `atlas-search-head` leaf with `extendedKeyUsage = critical, serverAuth, clientAuth`; only the Search Head splunkd management/KV certificate and trust paths change; one controlled Search Head restart preserves container health, Splunk Web, Indexer health, distributed-search peer health and remote execution, and KV Store health; default OpenSSL, Python `SSLContext`, and the pinned Splunk SDK verify the chain and hostname; the old CA, wrong CA, wrong hostname, and missing trust fail closed; TCP 8089 remains internal with no MCP listener or new host publication; rollback is exercised or explicitly recorded as available but unexercised; and published evidence contains metadata only and passes secret review.
 **Human validation required:** Yes; activation, certificate profile, backup checkpoint, validation evidence, rollback disposition, remediation acceptance, and any later BATCH-008 resumption require human approval.
 **Source or related proposal:** EP-005; EP-003 Decision 7; BATCH-008; ATL-034.
-**Notes:** Human created this bounded prerequisite on 2026-09-02. Backlog status does not activate ATL-042. It is not part of BATCH-008, does not authorize certificate generation or Splunk configuration, and does not resume ATL-034. BATCH-008 remains stopped at the verified-TLS gate with ATL-034 active; ATL-035 through ATL-041 remain inactive.
+**Notes:** Human accepted ATL-042 and BATCH-009 closeout on 2026-09-02 after the gated preflight, authoritative cold backup, Search Head-only TLS remediation, complete positive and negative validation, and read-only Splunk data-plane certificate investigation. The Search Head management and KV Store endpoints now present the standards-valid Atlas chain for `atlas-search-head`; normal OpenSSL, Python `SSLContext`, and pinned SDK verification passed. Rollback remains available from the authoritative Gate 2 cold backup but was not exercised. This completion does not validate M06 or resume ATL-034/BATCH-008. ATL-035 through ATL-041 remain inactive.

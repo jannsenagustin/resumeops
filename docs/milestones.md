@@ -34,10 +34,10 @@ task or batch status field; never append status text or other prose to
 ## M06 — Atlas MCP Platform
 
 **Current:** Yes
-**Current Phase:** Planned / Not Validated; BATCH-008 and ATL-034 are stopped at the verified-TLS gate pending separately authorized ATL-042 remediation
-**Completed Work:** None
-**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Approved; ATL-034 through ATL-041 accepted; ATL-042 recorded as an inactive prerequisite
-**Active Work:** BATCH-008 / ATL-034
-**Next Objective:** Keep BATCH-008 stopped; obtain separate human activation and acceptance of ATL-042 before any human-authorized ATL-034 resumption
+**Current Phase:** Planned / Not Validated; ATL-042 and BATCH-009 are complete, while BATCH-008 and ATL-034 remain stopped pending separate human authorization
+**Completed Work:** ATL-042
+**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Implemented; ATL-034 through ATL-041 accepted; standards-valid Atlas Search Head management/KV TLS validated through BATCH-009
+**Active Work:** None
+**Next Objective:** Preserve the validated TLS prerequisite and keep BATCH-008 and ATL-034 stopped until a human separately authorizes resumption
 **Evidence:** evidence/
-**Boundary:** M06 remains Planned / Not Validated. BATCH-008 contains only ATL-034 and is stopped after the stdio lifecycle and one-tool registry passed but default TLS verification rejected the extensionless Splunk CA. EP-005 establishes the approved Atlas internal CA trust model, and ATL-042 records the inactive Search Head TLS-remediation prerequisite; neither grants execution authority. Do not activate ATL-042, resume ATL-034, implement the production MCP foundation or tools, expose new network ports, access the Deployment Server, activate ATL-035 through ATL-041, or change milestone state without separate human approval and evidence.
+**Boundary:** M06 remains Planned / Not Validated. ATL-042 and BATCH-009 validated the standards-valid Atlas internal CA and shared Search Head management/KV leaf without validating MCP behavior or M06. Rollback is available from the authoritative Gate 2 cold backup but was not exercised. BATCH-008 and ATL-034 remain open and stopped; do not resume them, implement the production MCP foundation or tools, expose new network ports, access the Deployment Server, activate ATL-035 through ATL-041, or change milestone state without separate human approval and evidence.

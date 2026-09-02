@@ -3,7 +3,7 @@
 > Parser-readiness note: Preserve this proposal's heading levels, field labels,
 > identifier, and controlled status.
 
-**Status:** Approved
+**Status:** Implemented
 
 **Origin:** ATL-034 / BATCH-008 verified-TLS architecture blocker under approved EP-003
 
@@ -234,10 +234,16 @@ resumes.
 
 Human approved EP-005 on 2026-09-02 with
 `extendedKeyUsage = critical, serverAuth, clientAuth` for the single shared
-Search Head certificate. Approval establishes the standards-valid Atlas
-internal CA trust model and creates ATL-042 as an inactive prerequisite. It does
-not authorize certificate generation, configuration change, restart, backlog
-activation, BATCH-008 resumption, or milestone-state change.
+Search Head certificate. BATCH-009 implemented and validated that trust model
+through ATL-042 on 2026-09-02. The Search Head management and KV Store endpoints
+now present the SAN-valid Atlas leaf and public-root chain under normal
+certificate and hostname verification. The automatically generated
+`[dataplaneSslConfig]` certificate remains a separate Splunk-owned helper-process
+boundary and does not alter the management/KV decision.
+
+Implementation does not authorize BATCH-008 or ATL-034 resumption and does not
+change M06 from Planned / Not Validated. Those transitions require separate
+human approval.
 
 ## Related backlog items
 
@@ -247,6 +253,7 @@ activation, BATCH-008 resumption, or milestone-state change.
 
 - [EP-003 — Atlas MCP Platform](EP-003-atlas-mcp-platform.md)
 - [BATCH-008 execution report](../execution-reports/BATCH-008.md)
+- [BATCH-009 execution report](../execution-reports/BATCH-009.md)
 - [Milestone 06 Vision](../milestone-06-vision.md)
 - [Project Atlas Milestones](../milestones.md)
 - [DEC-027 — Atlas MCP Version 1 architecture](../planning/DECISIONS.md#dec-027--atlas-mcp-version-1-architecture)
