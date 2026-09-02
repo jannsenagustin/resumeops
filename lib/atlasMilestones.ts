@@ -60,7 +60,9 @@ export function parseAtlasMilestones() {
   const currentDetail = {
     id,
     currentPhase: values["Current Phase"],
-    completedWork: values["Completed Work"].split(/[;,]/).map((value) => value.trim()),
+    completedWork: values["Completed Work"] === "None"
+      ? []
+      : values["Completed Work"].split(/[;,]/).map((value) => value.trim()),
     completedFoundation: values["Completed Foundation"].split(";").map((value) => value.trim()),
     activeTasks,
     activeBatchId,

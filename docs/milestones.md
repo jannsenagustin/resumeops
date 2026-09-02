@@ -22,7 +22,7 @@ task or batch status field; never append status text or other prose to
 
 ## M05 — Rocky Linux Deployment Server & Configuration Management
 
-**Current:** Yes
+**Current:** No
 **Current Phase:** Milestone 05 complete and validated; no active engineering batch
 **Completed Work:** ATL-001; ATL-002; ATL-003; ATL-004; ATL-005; ATL-006
 **Completed Foundation:** Rocky Linux VM commissioned and updated; Administration tools installed; Time synchronization validated; SELinux and firewalld baseline validated; Splunk Enterprise 10.0.8 installed and validated as a systemd-managed service under the `splunk` account; `TA-atlas-base` deployment app and `atlas-base` server class configured; TCP/8089 exposed; Windows Universal Forwarder phone-home and registration validated; `atlas-base` assignment and `TA-atlas-base` delivery validated on the client; separate `TA-atlas-demo-inputs` and `TA-atlas-outputs` apps distributed; effective client input and output configuration validated; active forwarding and searchable `atlas:demo` ingestion validated
@@ -30,3 +30,14 @@ task or batch status field; never append status text or other prose to
 **Next Objective:** Await explicit human activation of future work; ATL-007 automation remains inactive
 **Evidence:** evidence/milestone-05-data-ingestion/
 **Boundary:** The first Windows Universal Forwarder is centrally managed by the Deployment Server. ATL-006 evidence proves the reviewed Git source, commit-specific checkpoint, version `1.0.1` delivery, unchanged wildcard input behavior, effective client state, running service, and searchable unique validation event. The manual release and Milestone 05 closeout are accepted. Rollback was not exercised, so no rollback-validation claim is made. ATL-007 automation is not active.
+
+## M06 — Atlas MCP Platform
+
+**Current:** Yes
+**Current Phase:** Planned / Not Validated; BATCH-008 and ATL-034 are stopped at the verified-TLS gate pending separately authorized ATL-042 remediation
+**Completed Work:** None
+**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Approved; ATL-034 through ATL-041 accepted; ATL-042 recorded as an inactive prerequisite
+**Active Work:** BATCH-008 / ATL-034
+**Next Objective:** Keep BATCH-008 stopped; obtain separate human activation and acceptance of ATL-042 before any human-authorized ATL-034 resumption
+**Evidence:** evidence/
+**Boundary:** M06 remains Planned / Not Validated. BATCH-008 contains only ATL-034 and is stopped after the stdio lifecycle and one-tool registry passed but default TLS verification rejected the extensionless Splunk CA. EP-005 establishes the approved Atlas internal CA trust model, and ATL-042 records the inactive Search Head TLS-remediation prerequisite; neither grants execution authority. Do not activate ATL-042, resume ATL-034, implement the production MCP foundation or tools, expose new network ports, access the Deployment Server, activate ATL-035 through ATL-041, or change milestone state without separate human approval and evidence.

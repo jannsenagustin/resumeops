@@ -877,3 +877,58 @@ engineering details from being lost.
 Promoted to EP-004 and ATL-029 for evaluation and future implementation. Raw
 session notes are non-canonical and must never override repository planning
 records or expand work beyond the Active Batch.
+
+## IDEA-032 — Atlas Fieldbook UI Refactor
+
+**Category:** Website / UX; Design System
+**Date Recorded:** 2026-09-02
+**Origin:** Human-directed idea capture
+**Status:** New
+**Potential Destination:** Engineering Proposal / Design Proposal
+**Related Proposal:** None
+**Related Backlog:** None
+
+### Description
+
+Explore a visual-only refactor that moves Atlas from its current dark theme to
+a light engineering-fieldbook aesthetic. The direction would use IBM Plex,
+warm drafting-paper tones, graphite and dark-navy typography, restrained
+burnt-orange accents, and green reserved for validated state. Hard rules,
+asymmetric technical layouts, sparse topology lines, and field-note or
+engineering-record influences should replace conventional SaaS-card styling
+where the existing information architecture permits.
+
+The governing design principle is:
+
+> Atlas should look documented, not decorated.
+
+### Why It Might Matter
+
+The fieldbook direction could give Atlas a more distinctive engineering-record
+identity while improving the visual relationship between planning, telemetry,
+evidence, decisions, and validated technical work. A future proposal should
+evaluate typography, tokens, layout rules, responsive behavior, accessibility,
+and a migration strategy before any implementation is approved.
+
+### Preservation Constraints
+
+This idea is strictly a visual refactor. Any future proposal or implementation
+must preserve all meaningful Atlas UI elements and functionality, including:
+
+- the current sidebar navigation and routes;
+- telemetry and state visibility;
+- milestone, task, and batch information;
+- evidence, decision, and planning surfaces;
+- existing interactions; and
+- canonical state projections and their real Atlas data.
+
+The visual direction must not remove or simplify away meaningful information,
+replace real Atlas data with decorative or fabricated content, or weaken the
+repository-backed ownership and projection model.
+
+### Notes
+
+This record captures a future design direction only. It is not an engineering
+proposal, backlog commitment, active batch, or authorization to modify the
+application. Human review is required before promotion into an EP or design
+proposal and any resulting `ATL-NNN` backlog items.

@@ -45,7 +45,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-031 | Synchronize Atlas UI with validated Milestone 05 state | P1 | Done | Engineering Console |
 | ATL-032 | Normalize shared Atlas navigation | P1 | Done | Engineering Console |
 | ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
-| ATL-034 | M06 Atlas MCP architecture spike | P1 | Backlog | M06 |
+| ATL-034 | M06 Atlas MCP architecture spike | P1 | In Progress | M06 |
 | ATL-035 | M06 security boundary and tool contract | P1 | Backlog | M06 |
 | ATL-036 | M06 containerized MCP foundation | P1 | Backlog | M06 |
 | ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
@@ -53,6 +53,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-039 | M06 additional Search Head metadata tools | P2 | Backlog | M06 |
 | ATL-040 | M06 bounded search capability | P2 | Backlog | M06 |
 | ATL-041 | M06 validation and closeout | P1 | Backlog | M06 |
+| ATL-042 | Search Head management TLS remediation | P1 | Backlog | M06 |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -532,14 +533,14 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Infrastructure; Splunk
 **Milestone:** M06
 **Priority:** P1
-**Status:** Backlog
+**Status:** In Progress
 **Description:** Prove the smallest connectivity and trust path from VS Code + Codex through containerized stdio to the Search Head over internal TLS.
 **Why it matters:** Validates the approved lifecycle, network, SDK, certificate, secret-injection, sanitization, and audit assumptions before broader foundation work.
 **Dependencies:** Milestone 05 Complete / Validated; EP-003; DEC-027; stable Search Head and Indexer on `atlas-network`.
 **Acceptance criteria:** Codex can launch and stop a dedicated foreground container over stdio; the container reaches internal Search Head TCP 8089 using the pinned Splunk Python SDK; runtime Docker secret injection and explicit certificate trust work; a bounded diagnostic observation and safe local audit record prove the path; no MCP listener or host publication of Splunk TCP 8089 exists; invalid trust and authentication fail closed; and no production MCP tool surface beyond the spike is created.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027.
-**Notes:** Human accepted this backlog scope on 2026-09-01. Backlog status does not authorize implementation; explicit Active Batch activation remains required.
+**Notes:** Human accepted this backlog scope and approved BATCH-008 execution on 2026-09-01. The stdio lifecycle and one-tool registry passed, but verified TLS failed closed because modern OpenSSL rejected the extensionless `SplunkCommonCA`. Human confirmed the short-lived token was revoked and the protected host token file deleted. Human approved EP-005 and created ATL-042 in Backlog on 2026-09-02; ATL-042 is not active and no remediation work is authorized. BATCH-008 remains stopped at the verified-TLS gate with ATL-034 active. ATL-035 through ATL-041 remain Backlog and inactive.
 
 ## ATL-035 — M06 security boundary and tool contract
 
@@ -638,3 +639,17 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027; ATL-034 through ATL-038.
 **Notes:** Human accepted this backlog scope on 2026-09-01. This item cannot self-approve M06 or change Atlas EOS state automatically. It is not active.
+
+## ATL-042 — Search Head management TLS remediation
+
+**Category:** Future Milestones; Infrastructure; Splunk
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Replace only the Search Head's default splunkd management/KV certificate path with the standards-valid Atlas internal CA trust model approved in EP-005.
+**Why it matters:** ATL-034 cannot complete normal certificate and hostname verification while TCP 8089 presents the extensionless Splunk default CA chain.
+**Dependencies:** Approved EP-005; recoverable Search Head `etc` backup; known-good M05 baseline; human-controlled offline CA private-key storage; separately approved Active Batch.
+**Acceptance criteria:** Preflight records the effective Search Head `[sslConfig]`, `[kvstore]`, and `[kvstoreSslClientConfig]` certificate consumers without exposing secrets; an offline Atlas root with critical CA constraints issues one SAN-valid `atlas-search-head` leaf with `extendedKeyUsage = critical, serverAuth, clientAuth`; only the Search Head splunkd management/KV certificate and trust paths change; one controlled Search Head restart preserves container health, Splunk Web, Indexer health, distributed-search peer health and remote execution, and KV Store health; default OpenSSL, Python `SSLContext`, and the pinned Splunk SDK verify the chain and hostname; the old CA, wrong CA, wrong hostname, and missing trust fail closed; TCP 8089 remains internal with no MCP listener or new host publication; rollback is exercised or explicitly recorded as available but unexercised; and published evidence contains metadata only and passes secret review.
+**Human validation required:** Yes; activation, certificate profile, backup checkpoint, validation evidence, rollback disposition, remediation acceptance, and any later BATCH-008 resumption require human approval.
+**Source or related proposal:** EP-005; EP-003 Decision 7; BATCH-008; ATL-034.
+**Notes:** Human created this bounded prerequisite on 2026-09-02. Backlog status does not activate ATL-042. It is not part of BATCH-008, does not authorize certificate generation or Splunk configuration, and does not resume ATL-034. BATCH-008 remains stopped at the verified-TLS gate with ATL-034 active; ATL-035 through ATL-041 remain inactive.

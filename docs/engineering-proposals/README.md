@@ -42,3 +42,4 @@ Proposal IDs are permanent and must not be reused or renumbered. Decisions shoul
 - [EP-002 — Canonical Documentation Governance](EP-002-canonical-documentation-governance.md)
 - [EP-003 — Atlas MCP Platform](EP-003-atlas-mcp-platform.md)
 - [EP-004 — Engineering Session Capture and Codex Closeout Handoff](EP-004-engineering-session-capture-and-codex-closeout-handoff.md)
+- [EP-005 — Standards-valid Search Head Management TLS](EP-005-search-head-management-tls.md)

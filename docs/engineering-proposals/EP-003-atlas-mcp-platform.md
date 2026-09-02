@@ -290,13 +290,16 @@ infrastructure is unnecessary for Version 1.
 The recommended container communicates with the Search Head over the existing
 Docker network. No Splunk management port is added to the host.
 
-The service will validate the Search Head's identity by explicitly trusting the
-certificate presented by its management interface. The architecture spike will
-inspect that certificate and install the required trust material in the MCP
-runtime. Steady-state operation fails closed on certificate validation failure.
-A verification bypass is diagnostic only and cannot satisfy M06 validation. M06
-will not introduce a new Atlas PKI or certificate authority unless inspection
-proves one is required.
+The service will validate the Search Head's identity through the standards-valid
+Atlas internal CA trust model approved in EP-005. The MCP runtime will trust only
+the public Atlas root needed for this path and verify the SAN-valid Search Head
+leaf for `atlas-search-head`; the single shared management/KV leaf has critical
+`serverAuth, clientAuth` extended key usage. BATCH-008 proved that replacing the
+extensionless Splunk default CA is required. Steady-state operation fails closed
+on certificate or hostname validation failure. A verification bypass is
+diagnostic only and cannot satisfy M06 validation. This amendment records the
+resolved trust material for Decision 7 without changing the approved transport,
+identity, secret, adapter, policy, audit, or tool boundaries.
 
 ## Read-only guarantee
 
@@ -541,7 +544,11 @@ the initial architecture.
 Human approved EP-003 on 2026-09-01. DEC-027 records the accepted architecture,
 and the human accepted ATL-034 through ATL-041 as the M06 backlog decomposition
 on 2026-09-01. Approval and Backlog status do not activate any item, authorize
-implementation, or change the M06 milestone or validation state.
+implementation, or change the M06 milestone or validation state. On 2026-09-02,
+human approval of EP-005 amended Decision 7 only to identify the standards-valid
+Atlas internal CA, public Atlas root, and SAN-valid shared Search Head leaf as
+the approved certificate-trust model. ATL-042 remains an inactive prerequisite,
+and BATCH-008 remains stopped with ATL-034 active.
 
 ## Related backlog items
 
@@ -553,6 +560,7 @@ implementation, or change the M06 milestone or validation state.
 - ATL-039 — M06 additional Search Head metadata tools
 - ATL-040 — M06 bounded search capability
 - ATL-041 — M06 validation and closeout
+- ATL-042 — Search Head management TLS remediation
 
 ## Source documents
 

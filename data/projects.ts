@@ -31,6 +31,7 @@ export type Project = {
 
 export function getProjects(projectState: AtlasProjectState): Project[] {
 const latestCompletedTask = projectState.completedTasks.at(-1);
+const firstCompletedTask = projectState.completedTasks.at(0);
 return [
   {
     id: "atlas",
@@ -46,8 +47,8 @@ return [
       "Verified administrator access through localhost-only Splunk Web for both roles",
       "Validated remote Indexer participation in searches coordinated by the Search Head",
       "Ingested Windows Application, Security, and System logs through an active Universal Forwarder connection",
-      `${projectState.completedTasks[0].id} completed the Rocky Linux operating-system baseline`,
-      latestCompletedTask ? `${latestCompletedTask.id} completed the validated Deployment Server foundation` : "The Deployment Server foundation awaits validation",
+      firstCompletedTask ? `${firstCompletedTask.id} completed the Rocky Linux operating-system baseline` : "The Rocky Linux operating-system baseline remains validated from Milestone 05",
+      latestCompletedTask ? `${latestCompletedTask.id} completed the validated Deployment Server foundation` : "The Deployment Server foundation remains validated from Milestone 05",
       projectState.activeTasks.length ? `${projectState.activeBatch.id} includes ${projectState.activeTasks.map((task) => task.id).join(" and ")}` : "No batch is active; future work awaits human approval",
     ],
     route: "/projects/atlas/",
