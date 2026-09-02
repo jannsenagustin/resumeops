@@ -14,6 +14,35 @@ These entries formally record existing or newly approved Atlas decisions. Where 
 **Consequences:** Public documentation leads with Project Atlas; ResumeOps may appear only as history.
 **Status:** Accepted
 
+## DEC-027 — Atlas MCP Version 1 architecture
+
+**Recorded:** 2026-09-01
+
+**Decision:** Build Atlas MCP Version 1 as a dedicated, single-purpose Python
+container launched by VS Code + Codex over stdio. The service joins
+`atlas-network`, uses the pinned Splunk Enterprise SDK for Python behind an
+Atlas policy and adapter boundary, and reaches only the Search Head management
+interface over TLS without publishing TCP 8089 or an MCP listener to the host.
+The first tool is `get_server_info`. A dedicated non-human Splunk identity with
+a purpose-built read-only role and revocable token independently prevents
+mutation; local host secret storage with runtime Docker secret injection,
+explicit certificate trust, output sanitization, an explicit tool registry, and
+host-mounted structured audit logs complete the initial security boundary.
+
+**Rationale:** A containerized stdio path proves the smallest complete local
+evidence flow while preserving Atlas network isolation, separating narrow MCP
+exposure from the underlying read-permission ceiling, and avoiding a generic
+credentialed Splunk proxy.
+
+**Consequences:** MCP exposes no arbitrary SDK, REST, SPL, shell, mutation, or
+administrative interface. Search Head evidence is the initial boundary.
+Additional metadata tools, bounded search, Deployment Server inspection,
+secondary clients, and network transport require later explicit scope and
+validation. EP-003 approval creates no implementation authority; only an
+approved Active Batch may activate proposed ATL work.
+
+**Status:** Accepted
+
 ## DEC-024 — Separate input and output deployment applications
 
 **Recorded:** 2026-08-30

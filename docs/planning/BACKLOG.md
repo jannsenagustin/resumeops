@@ -45,6 +45,14 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-031 | Synchronize Atlas UI with validated Milestone 05 state | P1 | Done | Engineering Console |
 | ATL-032 | Normalize shared Atlas navigation | P1 | Done | Engineering Console |
 | ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
+| ATL-034 | M06 Atlas MCP architecture spike | P1 | Backlog | M06 |
+| ATL-035 | M06 security boundary and tool contract | P1 | Backlog | M06 |
+| ATL-036 | M06 containerized MCP foundation | P1 | Backlog | M06 |
+| ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
+| ATL-038 | M06 read-only security-boundary validation | P1 | Backlog | M06 |
+| ATL-039 | M06 additional Search Head metadata tools | P2 | Backlog | M06 |
+| ATL-040 | M06 bounded search capability | P2 | Backlog | M06 |
+| ATL-041 | M06 validation and closeout | P1 | Backlog | M06 |
 
 ## ATL-001 — M05 Phase 2 — Rocky Linux baseline hardening
 
@@ -518,3 +526,115 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Human validation required:** Yes; focused review of Console state and management path, Atlas Milestone 05, Planning shell, and responsive navigation is required before closeout.
 **Source or related proposal:** Human-authorized canonical UI state synchronization; Canonical Projection Principle; `docs/milestones.md`; `docs/planning/ACTIVE_BATCH.md`; `docs/planning/BACKLOG.md`.
 **Notes:** Implementation did not redesign page content, change unrelated milestones or evidence, activate ATL-007, or stage, commit, or push. Human closeout approval moved ATL-031 through ATL-033 to Done on 2026-09-01.
+
+## ATL-034 — M06 Atlas MCP architecture spike
+
+**Category:** Future Milestones; Infrastructure; Splunk
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Prove the smallest connectivity and trust path from VS Code + Codex through containerized stdio to the Search Head over internal TLS.
+**Why it matters:** Validates the approved lifecycle, network, SDK, certificate, secret-injection, sanitization, and audit assumptions before broader foundation work.
+**Dependencies:** Milestone 05 Complete / Validated; EP-003; DEC-027; stable Search Head and Indexer on `atlas-network`.
+**Acceptance criteria:** Codex can launch and stop a dedicated foreground container over stdio; the container reaches internal Search Head TCP 8089 using the pinned Splunk Python SDK; runtime Docker secret injection and explicit certificate trust work; a bounded diagnostic observation and safe local audit record prove the path; no MCP listener or host publication of Splunk TCP 8089 exists; invalid trust and authentication fail closed; and no production MCP tool surface beyond the spike is created.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this backlog scope on 2026-09-01. Backlog status does not authorize implementation; explicit Active Batch activation remains required.
+
+## ATL-035 — M06 security boundary and tool contract
+
+**Category:** Future Milestones; Splunk; AI Governance
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Define the enforceable Version 1 security policy, Splunk identity and role, tool registry, `get_server_info` contract, evidence envelope, sanitization rules, audit schema, retention approach, and negative-test matrix.
+**Why it matters:** Read-only behavior must be independently enforced by Splunk authorization and Atlas policy rather than prompts or tool descriptions.
+**Dependencies:** ATL-034; EP-003; DEC-027.
+**Acceptance criteria:** Human-reviewed specifications define the zero-mutation Splunk role, revocable token lifecycle, runtime secret interface, TLS trust material, reject-by-default registry, approved `get_server_info` inputs and output fields, sanitization and error behavior, structured audit fields and local retention, and representative prohibited operations and bypass tests.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this backlog scope on 2026-09-01. Contract approval does not expose additional tools or activate implementation.
+
+## ATL-036 — M06 containerized MCP foundation
+
+**Category:** Future Milestones; Infrastructure; AI Governance
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Build the pinned Python MCP runtime, dedicated container, stdio lifecycle, explicit tool registry, reject-by-default policy layer, Splunk SDK adapter boundary, sanitization pipeline, structured errors, and host-mounted local audit sink.
+**Why it matters:** Establishes the reusable transport-independent platform boundary before a live MCP tool is exposed.
+**Dependencies:** ATL-034; ATL-035.
+**Acceptance criteria:** The dedicated container starts and stops cleanly through stdio; protocol output is separated from operational logging; dependencies are pinned; no persistent MCP listener exists; the registry exposes nothing implicitly; policy rejects unregistered tools; secrets are consumed only through the approved runtime interface; TLS verification is enabled; structured audit rotation and retention are documented; and unit and negative tests pass without implementing tools beyond the approved foundation scope.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this backlog scope on 2026-09-01. The MCP core must remain client- and transport-independent despite primary validation with VS Code + Codex.
+
+## ATL-037 — M06 `get_server_info` end-to-end path
+
+**Category:** Future Milestones; Splunk; AI Governance
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Implement `get_server_info` as the sole first MCP tool and prove the complete authenticated, TLS-verified, sanitized, attributable, and audited Search Head evidence path.
+**Why it matters:** One deliberately bounded observation validates the architecture without prematurely expanding the privileged tool surface.
+**Dependencies:** ATL-036; approved ATL-035 contract.
+**Acceptance criteria:** VS Code + Codex discovers and invokes only the registered `get_server_info` tool; the adapter uses the Splunk Python SDK and dedicated identity; the response contains only approved server-information fields in the versioned evidence envelope; source, observation time, warnings, limitations, and sanitization state are truthful; an appropriate metadata-only audit record is persisted; and secrets are absent from responses, errors, logs, process arguments, screenshots, and evidence.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this backlog scope on 2026-09-01. Successful execution does not authorize additional tools.
+
+## ATL-038 — M06 read-only security-boundary validation
+
+**Category:** Future Milestones; Splunk; AI Governance
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Validate permitted and prohibited behavior across the complete Version 1 boundary.
+**Why it matters:** A successful read does not prove that mutation, credential disclosure, unregistered operations, or trust bypasses are impossible.
+**Dependencies:** ATL-037.
+**Acceptance criteria:** Evidence proves no MCP network listener is exposed; Splunk TCP 8089 remains internal; invalid TLS trust and authentication fail closed; unregistered tools, arbitrary SDK or REST access, SPL, shell execution, and representative mutation operations are unavailable; the Splunk role independently rejects mutation; secrets are absent from all reviewed surfaces; audit records cover success, rejection, failure, and timeout without sensitive payloads; and restart and revocation behavior are documented.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this backlog scope on 2026-09-01. Validation claims must remain no broader than captured evidence.
+
+## ATL-039 — M06 additional Search Head metadata tools
+
+**Category:** Future Milestones; Splunk; AI Governance
+**Milestone:** M06
+**Priority:** P2
+**Status:** Backlog
+**Description:** Propose and add individual purpose-built Search Head metadata tools only after the one-tool security boundary is validated.
+**Why it matters:** Incremental expansion can support later Configuration Intelligence while preserving explicit contracts and narrow client exposure.
+**Dependencies:** ATL-038; separately approved tool contracts and Active Batch scope.
+**Acceptance criteria:** Each tool has a unique purpose, contract version, source, required permission, accepted parameters, hard bounds, normalized output schema, sanitization rules, audit requirements, and positive and negative evidence; no tool exposes a generic SDK or REST interface; and adding code does not automatically register availability.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this deferred backlog scope on 2026-09-01. It is not required to prove the initial one-tool M06 boundary and is not active.
+
+## ATL-040 — M06 bounded search capability
+
+**Category:** Future Milestones; Splunk; AI Governance
+**Milestone:** M06
+**Priority:** P2
+**Status:** Backlog
+**Description:** Introduce search only through separately approved named searches and bounded parameterized contracts after the core MCP path is validated.
+**Why it matters:** Search can support richer evidence questions but creates distinct data-disclosure and resource-consumption risks.
+**Dependencies:** ATL-038; separately approved search policy, contracts, and Active Batch scope.
+**Acceptance criteria:** Approved indexes, time ranges, result limits, timeouts, concurrency, output fields, sanitization, prohibited commands, and audit metadata are enforced server-side; bypass and resource-boundary tests pass; unrestricted SPL and generic `run_any_spl` remain unavailable; and evidence demonstrates attributable, bounded behavior.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027.
+**Notes:** Human accepted this deferred backlog scope on 2026-09-01. It is not required to prove the initial one-tool M06 boundary and is not active.
+
+## ATL-041 — M06 validation and closeout
+
+**Category:** Future Milestones; Documentation; AI Governance
+**Milestone:** M06
+**Priority:** P1
+**Status:** Backlog
+**Description:** Reconcile the implemented core MCP boundary with EP-003, execute the complete M06 validation suite, review evidence and limitations, and seek human milestone acceptance.
+**Why it matters:** M06 can become Complete / Validated only through reviewed evidence that proves both the permitted one-tool path and the prohibited-operation boundary.
+**Dependencies:** ATL-034 through ATL-038; approved evidence and closeout scope. ATL-039 and ATL-040 are optional expansions and are not prerequisites for the initial M06 success criteria.
+**Acceptance criteria:** Evidence demonstrates the twelve EP-003 success criteria; repository, architecture, operational guidance, tool registry, audit policy, execution reports, and evidence index agree; secrets and sensitive material pass publication review; limitations and deferred capabilities remain explicit; state, lint, type, and build validations pass; and a human explicitly approves any milestone status transition.
+**Human validation required:** Yes.
+**Source or related proposal:** EP-003; DEC-027; ATL-034 through ATL-038.
+**Notes:** Human accepted this backlog scope on 2026-09-01. This item cannot self-approve M06 or change Atlas EOS state automatically. It is not active.
