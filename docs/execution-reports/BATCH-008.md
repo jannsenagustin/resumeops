@@ -2,7 +2,7 @@
 
 **Batch ID:** BATCH-008
 **Date:** 2026-09-01
-**Status:** In Progress — stopped for human review
+**Status:** Done
 
 ## Objective
 
@@ -48,13 +48,13 @@ network boundary.
 - Confirmed the first tool invocation failed closed at TLS verification and
   returned no Splunk observation or secret.
 
-## Blocked
+## Historical Blocker
 
 The initial automated dedicated-identity design was correctly rejected before
 execution. Human review then approved a manual Splunk Web provisioning and
 protected host-secret design, and the human completed those actions.
 
-The active blocker is TLS trust. The copied public Splunk CA bundle did not
+The original blocker was TLS trust. The copied public Splunk CA bundle did not
 validate the certificate chain presented by the Search Head management
 interface. Python/OpenSSL failed with `CERTIFICATE_VERIFY_FAILED: self-signed
 certificate in certificate chain`. A follow-up attempt to replace the CA bundle
@@ -93,6 +93,64 @@ was revoked through Splunk Web and the protected host token file was deleted.
 MCP execution did not resume. No token value entered Git, evidence, logs,
 command arguments, build context, audit output, or MCP output.
 
+## Resumed Execution — 2026-09-02
+
+After the human accepted ATL-042/BATCH-009 and the Docker Desktop data
+relocation, BATCH-008/ATL-034 resumed for the remaining bounded proof only. M06
+remained Planned / Not Validated, and ATL-035 through ATL-041 remained inactive.
+
+- Reconciled `ACTIVE_BATCH.md`, Backlog, and milestone projection state before
+  resuming execution.
+- Reused the pinned `mcp==1.26.0` and `splunk-sdk==2.1.1` dependencies, non-root
+  image, stdio transport, runtime token-file interface, normal Python
+  `SSLContext`, fixed `server/info` operation, sanitization envelope, and
+  metadata-only audit path.
+- Did not execute or copy the rejected automated identity provisioner into the
+  image.
+- Human interactively issued a new short-lived token for the existing bounded
+  spike identity. The protected host token file was verified as non-empty with
+  NTFS inheritance disabled and access limited to the current Windows user and
+  SYSTEM; its contents and length were not read or reported.
+- Copied only the public Atlas root into the protected runtime trust boundary.
+  Its certificate SHA-256 fingerprint is
+  `02:DC:7A:72:D6:6A:E3:84:E5:E5:E6:E8:13:D6:41:E2:C5:FB:EC:91:C6:38:6B:57:AF:5D:05:98:58:9F:9D:A0`.
+- Renamed the sole spike tool to `get_server_info`, added an explicit one-tool
+  allowlist, isolated the fixed `server/info` call in a purpose-built adapter,
+  added Search Head attribution to the audit record, and sanitized upstream
+  failures to a bounded generic error.
+- Rebuilt `atlas-mcp-spike:batch-008`. The image runs as
+  `atlas-mcp-spike`, declares no exposed ports, and contains no provisioning
+  script.
+- Ran the spike as a disposable foreground container with a read-only root
+  filesystem, all capabilities dropped, `no-new-privileges`, no published
+  ports, only `atlas-network`, and narrowly mounted token, public-root, and
+  audit paths.
+- Completed MCP initialization using protocol version `2025-06-18` and
+  confirmed discovery returned exactly one tool: `get_server_info`.
+- Completed the live tool call through the policy, purpose-built adapter,
+  pinned SDK, and normal verified TLS path to
+  `https://atlas-search-head:8089`.
+- Returned only the bounded normalized version, server name, and server role,
+  with source `atlas-search-head`, source role `search-head`, explicit
+  `server/info` bounds, and sanitization metadata.
+- Rejected the unregistered `run_search` request at the MCP tool registry.
+- Rejected a deliberately invalid non-secret token with a generic error that
+  exposed no HTTP, exception, token, or credential detail. The temporary test
+  fixture was removed immediately afterward.
+- Wrote structured metadata-only success and authentication-failure audit
+  records. Repeated harness/parser checks produced five success and three
+  expected authentication-failure records; all passed the secret-marker scan.
+- Confirmed the Search Head and Indexer retained their original container IDs,
+  remained healthy on `atlas-network`, kept their original port bindings, and
+  did not publish TCP 8089.
+
+The original ATL-034 end-to-end architecture question is now answered: the
+approved containerized stdio, reject-by-default registry, purpose-built adapter,
+pinned SDK, runtime secret, standards-valid TLS, bounded output, sanitization,
+attribution, audit, and negative-authentication path operates without Splunk
+mutation or a broader MCP surface. This result does not close ATL-034, validate
+M06, or authorize implementation work.
+
 ## Stop Condition Applied
 
 BATCH-008 requires an immediate return to human review when certificate
@@ -109,7 +167,7 @@ scope expansion was performed.
   from the recommended checkpoint.
 - This in-progress execution report and the approved EP-005 trust proposal.
 
-## Validation Performed
+## Initial Validation Performed
 
 - Existing Search Head and Indexer container health: passed after Docker startup.
 - Existing host port boundary: passed; no host-published TCP 8089.
@@ -129,19 +187,39 @@ scope expansion was performed.
 - Short-lived spike token revocation: human-confirmed.
 - Protected host token-file deletion: human-confirmed.
 
+## Resumed Validation Performed
+
+- Canonical state audit: passed with M06 Planned / Not Validated and
+  BATCH-008 mapped only to ATL-034.
+- Public Atlas root copy and fingerprint: passed.
+- Image source parse and pinned dependency versions: passed.
+- Non-root image identity, absent exposed-port declaration, and absent rejected
+  provisioner: passed.
+- MCP initialization and clean disposable exit: passed.
+- Tool registry: passed with exactly `get_server_info`.
+- Normal Atlas-root certificate-chain and `atlas-search-head` hostname
+  verification through the pinned SDK: passed.
+- Fixed adapter endpoint: passed with `server/info` only.
+- Bounded sanitized output and Search Head attribution: passed.
+- Metadata-only audit success record and secret-marker scan: passed.
+- Invalid authentication: failed closed with a generic sanitized error.
+- Unregistered `run_search`: rejected by the MCP registry.
+- Search Head and Indexer container identity, health, network, Web, and
+  published-port boundary: unchanged and passed.
+- Splunk mutation: none performed.
+
 ## Human Review Required
 
-Human architecture review accepted EP-005 on 2026-09-02 with
-`extendedKeyUsage = critical, serverAuth, clientAuth` for the single shared
-Search Head certificate. ATL-042 records the bounded remediation prerequisite
-in Backlog. Neither approval nor backlog creation authorizes certificate
-generation, installation, restart, Splunk configuration, ATL-042 activation, or
-BATCH-008 resumption. The existing public root cannot satisfy modern default CA
-validation, and weakening OpenSSL verification remains prohibited.
+Human accepted the resumed architecture proof and authorized BATCH-008/ATL-034
+closeout on 2026-09-02. The human revoked the short-lived
+`atlas_mcp_spike` token through the approved Splunk Web boundary. The protected
+host token file was then removed without reading or exposing its contents. The
+dedicated bounded user and role remain unchanged. The proof does not activate
+ATL-035 through ATL-041 or change M06 from Planned / Not Validated.
 
 ## Final Status
 
-In Progress — stopped at the approved security boundary. ATL-034 and BATCH-008
-remain open and stopped at the verified-TLS gate. ATL-042 is an inactive
-prerequisite. M06 remains Planned / Not Validated. ATL-035 through ATL-041 remain
-inactive.
+Done. Human accepted the original ATL-034 architecture question as answered and
+closed BATCH-008 on 2026-09-02. The temporary token was revoked and its host
+file removed. ATL-042 remains Done. M06 remains Planned / Not Validated, and
+ATL-035 through ATL-041 remain inactive.

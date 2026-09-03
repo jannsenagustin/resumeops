@@ -14,14 +14,14 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Included Tasks:** None.
 
-**Excluded Scope:** All engineering work until a new batch is explicitly activated, including ATL-034/BATCH-008 resumption and ATL-035 through ATL-041.
+**Excluded Scope:** All engineering work until a new batch is explicitly activated, including ATL-035 through ATL-041.
 
 **Dependencies:** None.
 
 **Acceptance Criteria:** Not applicable while no batch is active.
 
-**Human Validation Required:** Human approval is required before this file is populated with a new active batch. ATL-042 and BATCH-009 are closed, but ATL-034/BATCH-008 require separate human authorization before resumption.
+**Human Validation Required:** Human approval is required before this file is populated with a new active batch.
 
-**Execution Notes:** Human accepted the BATCH-009 Gate 1 preflight, Gate 2 authoritative cold-backup checkpoint, Gate 3 TLS remediation, and the final read-only Splunk data-plane certificate investigation on 2026-09-02. ATL-042 is Done and BATCH-009 is closed. The standards-valid Search Head management/KV TLS prerequisite is validated, but M06 remains Planned / Not Validated and ATL-034/BATCH-008 remain open and stopped pending a separate human decision.
+**Execution Notes:** Human accepted the resumed BATCH-008/ATL-034 architecture proof on 2026-09-02. The short-lived spike token was revoked through the approved human-authenticated Splunk boundary, and the protected host token file was removed. ATL-034 is Done and BATCH-008 is closed. M06 remains Planned / Not Validated, ATL-035 through ATL-041 remain inactive, and ATL-042 remains Done.
 
-**Expected Report Path:** Historical closeout: `docs/execution-reports/BATCH-009.md`.
+**Expected Report Path:** Historical closeout: `docs/execution-reports/BATCH-008.md`.

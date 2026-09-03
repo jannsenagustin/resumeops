@@ -45,7 +45,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-031 | Synchronize Atlas UI with validated Milestone 05 state | P1 | Done | Engineering Console |
 | ATL-032 | Normalize shared Atlas navigation | P1 | Done | Engineering Console |
 | ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
-| ATL-034 | M06 Atlas MCP architecture spike | P1 | In Progress | M06 |
+| ATL-034 | M06 Atlas MCP architecture spike | P1 | Done | M06 |
 | ATL-035 | M06 security boundary and tool contract | P1 | Backlog | M06 |
 | ATL-036 | M06 containerized MCP foundation | P1 | Backlog | M06 |
 | ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
@@ -533,14 +533,14 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Infrastructure; Splunk
 **Milestone:** M06
 **Priority:** P1
-**Status:** In Progress
+**Status:** Done
 **Description:** Prove the smallest connectivity and trust path from VS Code + Codex through containerized stdio to the Search Head over internal TLS.
 **Why it matters:** Validates the approved lifecycle, network, SDK, certificate, secret-injection, sanitization, and audit assumptions before broader foundation work.
 **Dependencies:** Milestone 05 Complete / Validated; EP-003; DEC-027; stable Search Head and Indexer on `atlas-network`.
 **Acceptance criteria:** Codex can launch and stop a dedicated foreground container over stdio; the container reaches internal Search Head TCP 8089 using the pinned Splunk Python SDK; runtime Docker secret injection and explicit certificate trust work; a bounded diagnostic observation and safe local audit record prove the path; no MCP listener or host publication of Splunk TCP 8089 exists; invalid trust and authentication fail closed; and no production MCP tool surface beyond the spike is created.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027.
-**Notes:** Human accepted this backlog scope and approved BATCH-008 execution on 2026-09-01. The stdio lifecycle and one-tool registry passed, but verified TLS failed closed because modern OpenSSL rejected the extensionless `SplunkCommonCA`. Human confirmed the short-lived token was revoked and the protected host token file deleted. Human approved EP-005 and created ATL-042 in Backlog on 2026-09-02; ATL-042 is not active and no remediation work is authorized. BATCH-008 remains stopped at the verified-TLS gate with ATL-034 active. ATL-035 through ATL-041 remain Backlog and inactive.
+**Notes:** Human accepted ATL-034/BATCH-008 closeout on 2026-09-02 after the resumed proof completed the MCP stdio, sole `get_server_info` registry, reject-by-default policy, purpose-built adapter, pinned SDK, normal verified TLS, approved read-only authentication, bounded sanitization, attribution, metadata-only audit, invalid-authentication, and unregistered-tool checks. The short-lived token was revoked and its protected host file removed. This completion answers the architecture question only; M06 remains Planned / Not Validated, and ATL-035 through ATL-041 remain Backlog and inactive.
 
 ## ATL-035 — M06 security boundary and tool contract
 

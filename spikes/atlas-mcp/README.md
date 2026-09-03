@@ -5,5 +5,7 @@ TLS trust, Splunk Python SDK, runtime secret, bounded observation, sanitization,
 and local audit path.
 
 This directory is not the production Atlas MCP foundation. It exposes only the
-spike-only `atlas_mcp_spike_server_info` diagnostic. It must not grow into
-ATL-035 or later scope.
+spike-only `get_server_info` diagnostic through an explicit allowlist and a
+purpose-built `server/info` adapter. It must not grow into ATL-035 or later
+scope. The rejected `provision_identity.py` design is retained only as history
+and must not be executed or copied into the image.

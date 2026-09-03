@@ -34,10 +34,10 @@ task or batch status field; never append status text or other prose to
 ## M06 — Atlas MCP Platform
 
 **Current:** Yes
-**Current Phase:** Planned / Not Validated; ATL-042 and BATCH-009 are complete, while BATCH-008 and ATL-034 remain stopped pending separate human authorization
-**Completed Work:** ATL-042
-**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Implemented; ATL-034 through ATL-041 accepted; standards-valid Atlas Search Head management/KV TLS validated through BATCH-009
+**Current Phase:** Planned / Not Validated; ATL-034/BATCH-008 and ATL-042/BATCH-009 are complete, with no active implementation batch
+**Completed Work:** ATL-034; ATL-042
+**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Implemented; ATL-034 architecture spike validated; standards-valid Atlas Search Head management/KV TLS validated through BATCH-009
 **Active Work:** None
-**Next Objective:** Preserve the validated TLS prerequisite and keep BATCH-008 and ATL-034 stopped until a human separately authorizes resumption
+**Next Objective:** Await separate human activation of any next bounded M06 task; do not infer authorization from the successful architecture spike
 **Evidence:** evidence/
-**Boundary:** M06 remains Planned / Not Validated. ATL-042 and BATCH-009 validated the standards-valid Atlas internal CA and shared Search Head management/KV leaf without validating MCP behavior or M06. Rollback is available from the authoritative Gate 2 cold backup but was not exercised. BATCH-008 and ATL-034 remain open and stopped; do not resume them, implement the production MCP foundation or tools, expose new network ports, access the Deployment Server, activate ATL-035 through ATL-041, or change milestone state without separate human approval and evidence.
+**Boundary:** M06 remains Planned / Not Validated. ATL-034/BATCH-008 proved only the bounded architecture path, and ATL-042/BATCH-009 validated its TLS prerequisite. Neither result authorizes implementation, additional MCP tools, new network exposure, Deployment Server access, ATL-035 through ATL-041 activation, or milestone-state change without separate human approval and evidence.

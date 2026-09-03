@@ -181,6 +181,33 @@ with SHA-256
 `BB070E518638C8FBF17356D2AA282D2682A8B815BFE7689BBA2E7BD4C69B81E3`.
 Rollback remains available but was not exercised.
 
+## Validated Atlas MCP architecture spike
+
+ATL-034 and BATCH-008 proved the smallest approved MCP evidence path without
+creating a production MCP service. MCP protocol negotiation succeeded over
+containerized stdio, and the explicit registry exposed exactly one tool:
+`get_server_info`. A reject-by-default allowlist routed that tool through a
+purpose-built `server/info` adapter and pinned `splunk-sdk==2.1.1` to
+`https://atlas-search-head:8089`.
+
+The dedicated non-root spike container published no ports and joined only
+`atlas-network`. Python's normal default `SSLContext`, rooted only in the public
+Atlas CA, validated both the certificate chain and the `atlas-search-head`
+hostname. The approved temporary read-only identity authenticated successfully;
+its token was supplied only through the protected runtime file boundary and was
+revoked and removed after human acceptance.
+
+The successful result contained only bounded normalized server information,
+Search Head attribution, and explicit sanitization metadata. Audit output was
+structured and metadata-only. Invalid authentication failed closed with a
+generic error, and an unregistered `run_search` request was rejected. No Splunk
+mutation, generic REST or SPL surface, MCP listener, host publication of TCP
+8089, or additional tool was introduced. Search Head and Indexer health and
+their existing network and published-port boundaries remained intact.
+
+This spike answers the architecture question only. It does not constitute the
+production MCP foundation, validate M06, or activate ATL-035 through ATL-041.
+
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure
