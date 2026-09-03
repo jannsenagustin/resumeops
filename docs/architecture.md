@@ -208,6 +208,12 @@ their existing network and published-port boundaries remained intact.
 This spike answers the architecture question only. It does not constitute the
 production MCP foundation, validate M06, or activate ATL-035 through ATL-041.
 
+The production-oriented Version 1 security policy and sole initial tool schema
+are specified in the
+[Atlas MCP Version 1 Security Boundary and Tool Contract](atlas-mcp-v1-security-and-tool-contract.md).
+That contract preserves the accepted architecture and does not itself implement
+the production service or validate M06.
+
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure

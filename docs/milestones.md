@@ -34,10 +34,10 @@ task or batch status field; never append status text or other prose to
 ## M06 — Atlas MCP Platform
 
 **Current:** Yes
-**Current Phase:** Planned / Not Validated; ATL-034/BATCH-008 and ATL-042/BATCH-009 are complete, with no active implementation batch
-**Completed Work:** ATL-034; ATL-042
-**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Implemented; ATL-034 architecture spike validated; standards-valid Atlas Search Head management/KV TLS validated through BATCH-009
+**Current Phase:** Planned / Not Validated; ATL-034/BATCH-008, ATL-035/BATCH-010, and ATL-042/BATCH-009 are complete, with no active implementation batch
+**Completed Work:** ATL-034; ATL-035; ATL-042
+**Completed Foundation:** Milestone 05 Complete / Validated; EP-003 Approved; DEC-027 Accepted; EP-005 Implemented; ATL-034 architecture spike validated; ATL-035 security boundary and narrow `get_server_info` contract approved; standards-valid Atlas Search Head management/KV TLS validated through BATCH-009
 **Active Work:** None
-**Next Objective:** Await separate human activation of any next bounded M06 task; do not infer authorization from the successful architecture spike
+**Next Objective:** Await separate human activation of ATL-036 or another bounded M06 task; do not infer implementation authority from the approved ATL-035 contract
 **Evidence:** evidence/
-**Boundary:** M06 remains Planned / Not Validated. ATL-034/BATCH-008 proved only the bounded architecture path, and ATL-042/BATCH-009 validated its TLS prerequisite. Neither result authorizes implementation, additional MCP tools, new network exposure, Deployment Server access, ATL-035 through ATL-041 activation, or milestone-state change without separate human approval and evidence.
+**Boundary:** M06 remains Planned / Not Validated. ATL-035/BATCH-010 approved the production-oriented security boundary and narrow `get_server_info` contract only. ATL-034/BATCH-008 proved the bounded architecture path, and ATL-042/BATCH-009 validated its TLS prerequisite. No production MCP implementation, additional tools, new network exposure, Deployment Server access, ATL-036 through ATL-041 activation, or milestone-state change is authorized.

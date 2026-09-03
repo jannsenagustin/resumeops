@@ -46,7 +46,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-032 | Normalize shared Atlas navigation | P1 | Done | Engineering Console |
 | ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
 | ATL-034 | M06 Atlas MCP architecture spike | P1 | Done | M06 |
-| ATL-035 | M06 security boundary and tool contract | P1 | Backlog | M06 |
+| ATL-035 | M06 security boundary and tool contract | P1 | Done | M06 |
 | ATL-036 | M06 containerized MCP foundation | P1 | Backlog | M06 |
 | ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
 | ATL-038 | M06 read-only security-boundary validation | P1 | Backlog | M06 |
@@ -547,14 +547,14 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Splunk; AI Governance
 **Milestone:** M06
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Define the enforceable Version 1 security policy, Splunk identity and role, tool registry, `get_server_info` contract, evidence envelope, sanitization rules, audit schema, retention approach, and negative-test matrix.
 **Why it matters:** Read-only behavior must be independently enforced by Splunk authorization and Atlas policy rather than prompts or tool descriptions.
 **Dependencies:** ATL-034; EP-003; DEC-027.
 **Acceptance criteria:** Human-reviewed specifications define the zero-mutation Splunk role, revocable token lifecycle, runtime secret interface, TLS trust material, reject-by-default registry, approved `get_server_info` inputs and output fields, sanitization and error behavior, structured audit fields and local retention, and representative prohibited operations and bypass tests.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027.
-**Notes:** Human accepted this backlog scope on 2026-09-01. Contract approval does not expose additional tools or activate implementation.
+**Notes:** Human accepted this backlog scope on 2026-09-01, activated ATL-035 as the sole BATCH-010 task on 2026-09-03, and accepted the amended durable Version 1 security and `get_server_info` contract at closeout on 2026-09-03. Contract approval does not expose additional tools, activate production implementation, validate M06, or activate ATL-036.
 
 ## ATL-036 — M06 containerized MCP foundation
 
