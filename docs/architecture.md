@@ -214,6 +214,29 @@ are specified in the
 That contract preserves the accepted architecture and does not itself implement
 the production service or validate M06.
 
+## Atlas MCP foundation
+
+ATL-036/BATCH-011 implements the production-oriented foundation under
+`infrastructure/atlas-mcp/`. The digest-pinned Python 3.13.7 image uses a fully
+pinned dependency set, runs as UID 10001 over stdio, and defines no listener or
+published port. Its explicit production registry is empty during ATL-036, so
+the live `get_server_info` path remains ATL-037 scope.
+
+The foundation provides reject-by-default policy dispatch, bounded Unicode and
+serialized-result sanitization, secret-safe error envelopes, approved runtime
+file-path interfaces, a fixed private Splunk SDK
+connection boundary, normal fail-closed TLS context construction, and a
+metadata-only local audit sink with the approved 10-MiB rotation, 30-day
+retention, and 100-MiB ceiling. The Compose boundary joins only the existing
+external `atlas-network`, drops all capabilities, prevents privilege
+escalation, uses a read-only root filesystem, and mounts only the token, public
+Atlas root, and audit directory required by the approved contract.
+
+Accepted foundation validation used no live credential or Splunk operation. The isolated
+container negotiates MCP over stdio, reports an empty tool list, and exits
+cleanly. The human accepted ATL-036/BATCH-011 on 2026-09-03. That completion
+does not activate ATL-037 or validate M06.
+
 ## Constraints and deferred capabilities
 
 The lab has one Search Head, one Indexer, one workstation, and one failure

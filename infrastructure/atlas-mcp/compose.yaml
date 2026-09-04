@@ -1,0 +1,46 @@
+name: atlas-mcp
+
+services:
+  atlas-mcp:
+    build:
+      context: .
+      target: runtime
+    image: atlas-mcp:v1-foundation
+    container_name: atlas-mcp
+    stdin_open: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      ATLAS_MCP_TOKEN_FILE: /run/secrets/atlas_mcp_token
+      ATLAS_MCP_CA_FILE: /run/trust/atlas-root-ca.pem
+      ATLAS_MCP_AUDIT_DIR: /audit
+    secrets:
+      - source: atlas_mcp_token
+        target: atlas_mcp_token
+        uid: "10001"
+        gid: "10001"
+        mode: 0400
+    volumes:
+      - type: bind
+        source: ${ATLAS_MCP_CA_HOST_FILE:?Set ATLAS_MCP_CA_HOST_FILE to the public Atlas root file}
+        target: /run/trust/atlas-root-ca.pem
+        read_only: true
+      - type: bind
+        source: ${ATLAS_MCP_AUDIT_HOST_DIR:?Set ATLAS_MCP_AUDIT_HOST_DIR to the protected local audit directory}
+        target: /audit
+    networks:
+      - atlas-network
+
+secrets:
+  atlas_mcp_token:
+    file: ${ATLAS_MCP_TOKEN_HOST_FILE:?Set ATLAS_MCP_TOKEN_HOST_FILE to the protected token file}
+
+networks:
+  atlas-network:
+    name: atlas-network
+    external: true

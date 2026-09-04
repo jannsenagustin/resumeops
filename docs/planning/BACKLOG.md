@@ -47,7 +47,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-033 | Centralize Atlas UI state projection | P1 | Done | Engineering Console |
 | ATL-034 | M06 Atlas MCP architecture spike | P1 | Done | M06 |
 | ATL-035 | M06 security boundary and tool contract | P1 | Done | M06 |
-| ATL-036 | M06 containerized MCP foundation | P1 | Backlog | M06 |
+| ATL-036 | M06 containerized MCP foundation | P1 | Done | M06 |
 | ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
 | ATL-038 | M06 read-only security-boundary validation | P1 | Backlog | M06 |
 | ATL-039 | M06 additional Search Head metadata tools | P2 | Backlog | M06 |
@@ -561,14 +561,14 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Infrastructure; AI Governance
 **Milestone:** M06
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Build the pinned Python MCP runtime, dedicated container, stdio lifecycle, explicit tool registry, reject-by-default policy layer, Splunk SDK adapter boundary, sanitization pipeline, structured errors, and host-mounted local audit sink.
 **Why it matters:** Establishes the reusable transport-independent platform boundary before a live MCP tool is exposed.
 **Dependencies:** ATL-034; ATL-035.
 **Acceptance criteria:** The dedicated container starts and stops cleanly through stdio; protocol output is separated from operational logging; dependencies are pinned; no persistent MCP listener exists; the registry exposes nothing implicitly; policy rejects unregistered tools; secrets are consumed only through the approved runtime interface; TLS verification is enabled; structured audit rotation and retention are documented; and unit and negative tests pass without implementing tools beyond the approved foundation scope.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027.
-**Notes:** Human accepted this backlog scope on 2026-09-01. The MCP core must remain client- and transport-independent despite primary validation with VS Code + Codex.
+**Notes:** Human accepted this backlog scope on 2026-09-01, activated it as the sole BATCH-011 task on 2026-09-03, and accepted the validated containerized foundation at closeout on 2026-09-03. The production registry remains empty and the MCP core remains client- and transport-independent. Completion does not activate ATL-037, expose a live tool, or validate M06.
 
 ## ATL-037 — M06 `get_server_info` end-to-end path
 
