@@ -5,7 +5,7 @@ import time
 from uuid import uuid4
 
 from .audit import AuditSink
-from .errors import AtlasMCPError
+from .errors import AtlasMCPError, ErrorCode
 from .registry import ExplicitToolRegistry
 
 
@@ -25,13 +25,19 @@ class AtlasApplication:
         self._audit = audit
 
     def authorize(self, requested_tool: object, requested_version: object) -> None:
+        tool_label = _safe_tool_label(requested_tool)
+        version_label = requested_version if isinstance(requested_version, str) and len(requested_version) <= 32 else "unknown"
+        try:
+            self._registry.authorize(tool_label, version_label)
+        except AtlasMCPError:
+            self.reject(tool_label, version_label, "TOOL_NOT_REGISTERED")
+
+    def reject(self, requested_tool: object, requested_version: object, code: ErrorCode) -> None:
         started = time.monotonic()
         correlation_id = uuid4().hex
         tool_label = _safe_tool_label(requested_tool)
         version_label = requested_version if isinstance(requested_version, str) and len(requested_version) <= 32 else "unknown"
         try:
-            self._registry.authorize(tool_label, version_label)
-        except AtlasMCPError as error:
             self._audit.write(
                 {
                     "schema_version": "1.0.0",
@@ -49,8 +55,10 @@ class AtlasApplication:
                     "duration_ms": max(0, round((time.monotonic() - started) * 1000)),
                     "upstream_status_category": "not_started",
                     "result_count": None,
-                    "rejection_reason": "tool_not_registered",
+                    "rejection_reason": code.lower(),
                     "sanitization_applied": False,
                 }
             )
-            raise AtlasMCPError(code=error.code, correlation_id=correlation_id) from None
+        except AtlasMCPError:
+            raise AtlasMCPError(code="INTERNAL_ERROR", correlation_id=correlation_id) from None
+        raise AtlasMCPError(code=code, correlation_id=correlation_id)

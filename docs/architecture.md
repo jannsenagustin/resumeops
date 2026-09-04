@@ -228,14 +228,39 @@ file-path interfaces, a fixed private Splunk SDK
 connection boundary, normal fail-closed TLS context construction, and a
 metadata-only local audit sink with the approved 10-MiB rotation, 30-day
 retention, and 100-MiB ceiling. The Compose boundary joins only the existing
-external `atlas-network`, drops all capabilities, prevents privilege
+external `atlas-network`, drops all runtime capabilities, prevents privilege
 escalation, uses a read-only root filesystem, and mounts only the token, public
-Atlas root, and audit directory required by the approved contract.
+Atlas root, and audit directory required by the approved contract. On Docker
+Desktop for Windows, the supported `compose.windows.yaml` model uses a one-shot
+initializer with only the `CHOWN` capability to stage the protected host token
+into a Linux-backed volume as UID/GID 10001 and mode `0400`, and to set the
+Linux-backed audit directory to UID/GID 10001 and mode `0700`. The MCP runtime
+remains non-root and capability-free, receives the token volume read-only, and
+writes mode-`0600` metadata-only records to the audit volume. A separate
+non-root, capability-free exporter copies only reviewed audit JSONL files to
+the protected Windows host directory before both runtime volumes are removed.
+The token value never enters arguments, environment values, logs, protocol
+output, evidence, or Git; the public Atlas root remains a read-only bind.
 
 Accepted foundation validation used no live credential or Splunk operation. The isolated
 container negotiates MCP over stdio, reports an empty tool list, and exits
 cleanly. The human accepted ATL-036/BATCH-011 on 2026-09-03. That completion
 does not activate ATL-037 or validate M06.
+
+ATL-037/BATCH-012 now registers the sole approved `get_server_info` contract
+through that foundation. The low-level MCP surface publishes an exact
+empty-object schema with additional properties prohibited, audits invalid or
+unregistered calls before any adapter access, and routes the accepted call to
+one fixed, five-second `server/info` SDK read. Normalization retains only
+`version`, `server_name`, and `server_role` in the approved attributable,
+sanitized, 8-KiB-bounded envelope.
+
+Fixture and isolated protocol validation are complete. The first authenticated
+live result was accepted at human review on 2026-09-04, together with the
+Windows Linux-volume runtime adjustment described above. Revalidation of that
+documented boundary was also accepted at BATCH-012 closeout on 2026-09-04.
+ATL-037 is complete, no later M06 task is active, and M06 remains Planned / Not
+Validated.
 
 ## Constraints and deferred capabilities
 

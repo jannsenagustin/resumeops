@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir --requirement requirements.txt
 
 COPY src/ src/
 COPY tests/ tests/
+COPY compose.windows.yaml .
 RUN python -m unittest discover --start-directory tests --verbose
 
 FROM python:3.13.7-slim-bookworm@sha256:adafcc17694d715c905b4c7bebd96907a1fd5cf183395f0ebc4d3428bd22d92d AS runtime

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       target: runtime
-    image: atlas-mcp:v1-foundation
+    image: atlas-mcp:v1-get-server-info
     container_name: atlas-mcp
     stdin_open: true
     read_only: true

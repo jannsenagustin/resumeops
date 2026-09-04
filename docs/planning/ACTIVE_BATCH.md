@@ -14,7 +14,7 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Included Tasks:** None.
 
-**Excluded Scope:** All engineering work until a new batch is explicitly activated, including ATL-037 through ATL-041.
+**Excluded Scope:** All engineering work until a new batch is explicitly activated, including ATL-038 through ATL-041.
 
 **Dependencies:** None.
 
@@ -22,6 +22,6 @@ Only one active batch may exist. Codex may execute only tasks explicitly include
 
 **Human Validation Required:** Human approval is required before this file is populated with a new active batch.
 
-**Execution Notes:** Human accepted ATL-036 and BATCH-011 closeout on 2026-09-03 after reviewing the containerized MCP foundation and its validation results. ATL-036 is Done. M06 remains Planned / Not Validated, and ATL-037 through ATL-041 remain inactive.
+**Execution Notes:** Human accepted ATL-037 and BATCH-012 closeout on 2026-09-04 after reviewing the authenticated, TLS-verified, sanitized, and audited live `get_server_info` path and the supported Docker Desktop for Windows runtime model. ATL-037 is Done. M06 remains Planned / Not Validated, and ATL-038 through ATL-041 remain inactive.
 
-**Expected Report Path:** Historical closeout: `docs/execution-reports/BATCH-011.md`.
+**Expected Report Path:** Historical closeout: `docs/execution-reports/BATCH-012.md`.

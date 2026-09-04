@@ -48,7 +48,7 @@ Current Milestone; Future Milestones; Infrastructure; Splunk; Observability; Web
 | ATL-034 | M06 Atlas MCP architecture spike | P1 | Done | M06 |
 | ATL-035 | M06 security boundary and tool contract | P1 | Done | M06 |
 | ATL-036 | M06 containerized MCP foundation | P1 | Done | M06 |
-| ATL-037 | M06 `get_server_info` end-to-end path | P1 | Backlog | M06 |
+| ATL-037 | M06 `get_server_info` end-to-end path | P1 | Done | M06 |
 | ATL-038 | M06 read-only security-boundary validation | P1 | Backlog | M06 |
 | ATL-039 | M06 additional Search Head metadata tools | P2 | Backlog | M06 |
 | ATL-040 | M06 bounded search capability | P2 | Backlog | M06 |
@@ -575,14 +575,14 @@ inclusion in `ACTIVE_BATCH.md` are still required before execution.
 **Category:** Future Milestones; Splunk; AI Governance
 **Milestone:** M06
 **Priority:** P1
-**Status:** Backlog
+**Status:** Done
 **Description:** Implement `get_server_info` as the sole first MCP tool and prove the complete authenticated, TLS-verified, sanitized, attributable, and audited Search Head evidence path.
 **Why it matters:** One deliberately bounded observation validates the architecture without prematurely expanding the privileged tool surface.
 **Dependencies:** ATL-036; approved ATL-035 contract.
 **Acceptance criteria:** VS Code + Codex discovers and invokes only the registered `get_server_info` tool; the adapter uses the Splunk Python SDK and dedicated identity; the response contains only approved server-information fields in the versioned evidence envelope; source, observation time, warnings, limitations, and sanitization state are truthful; an appropriate metadata-only audit record is persisted; and secrets are absent from responses, errors, logs, process arguments, screenshots, and evidence.
 **Human validation required:** Yes.
 **Source or related proposal:** EP-003; DEC-027.
-**Notes:** Human accepted this backlog scope on 2026-09-01. Successful execution does not authorize additional tools.
+**Notes:** Human accepted this backlog scope on 2026-09-01, activated it as the sole BATCH-012 task on 2026-09-03, accepted the first live result and the platform-specific Docker Desktop for Windows runtime model on 2026-09-04, and accepted final revalidation and closeout on 2026-09-04. The fixed `get_server_info` path is authenticated, TLS-verified, sanitized, attributable, and audited without broader Splunk permissions. Completion does not activate ATL-038, authorize additional tools, or validate M06.
 
 ## ATL-038 — M06 read-only security-boundary validation
 

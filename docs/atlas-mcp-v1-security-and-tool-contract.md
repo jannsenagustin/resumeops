@@ -8,7 +8,7 @@
 
 **Owner:** Project Atlas
 
-**Implemented by:** Future ATL-036 and ATL-037 work only after separate human activation
+**Implemented by:** ATL-036 foundation and ATL-037 sole live tool path; later expansion requires separate human activation
 
 ## Authority and purpose
 
@@ -147,7 +147,13 @@ The lifecycle MUST be:
 4. Disable inherited filesystem permissions and restrict access to the human
    operator, SYSTEM where operationally required, and the narrowly required
    runtime path.
-5. Mount the file read-only into the disposable container at runtime.
+5. Mount the file read-only into the disposable container at runtime. On
+   Docker Desktop for Windows, where bind mounts cannot enforce the required
+   POSIX ownership and modes, a one-shot least-privilege initialization
+   container MAY copy the file into a Linux-backed Docker volume, assign it to
+   UID/GID 10001, enforce mode `0400`, and mount that volume read-only into the
+   MCP runtime. The initialization path MUST never print, transform, inspect,
+   or place the token value in an argument or environment variable.
 6. Read it through the stable application interface `ATLAS_MCP_TOKEN_FILE`.
    The variable contains a file path, never the token value.
 7. Reject missing, empty, unreadable, malformed, or unexpectedly permissive
@@ -376,10 +382,25 @@ values, tokens, authorization material, secret paths, certificate bodies,
 tracebacks, raw URLs or query strings, headers, cookies, SPL, event content,
 host-persistent identifiers, or unbounded client text.
 
-Audit files MUST be written only to the approved host-mounted local audit
-directory, outside Git and publishable evidence, with inheritance disabled and
-least-privilege access. The runtime container receives only the narrow write
-mount required for audit output; it receives no broad host mount.
+Audit files MUST be written only to the approved local audit boundary, outside
+Git and suitable for controlled review, with least-privilege access. On hosts
+with enforceable POSIX bind semantics, this is the protected host-mounted local
+audit directory. On Docker Desktop for Windows, the runtime MAY instead use a
+Linux-backed Docker volume owned by UID/GID 10001 with directory mode `0700`
+and audit-file mode `0600`. A separate non-root, capability-dropped export step
+MAY mount that volume read-only and copy only the approved audit JSONL files to
+the protected Windows host directory. It MUST NOT export the token volume,
+application files, raw request or response content, or any other container
+state. The MCP runtime receives only the narrow audit write mount and no broad
+host mount.
+
+Linux-backed token and audit volumes are runtime security boundaries, not
+backup stores. They MUST be created and initialized through the reviewed
+Compose definition, must not be shared with unrelated services, and MUST be
+removed after the controlled audit export when the disposable session ends.
+This Windows adjustment does not authorize token disclosure, broader Splunk
+permissions, weaker TLS, additional MCP tools, listeners, or relaxed audit
+schema, rotation, retention, or size bounds.
 
 ### Retention and rotation requirements
 

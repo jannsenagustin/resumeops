@@ -37,6 +37,11 @@ class ExplicitToolRegistry:
         return contract
 
 
-# ATL-036 intentionally exposes no live tool. ATL-037 must add the sole approved
-# get_server_info contract explicitly; code existence alone can never register it.
-PRODUCTION_REGISTRY = ExplicitToolRegistry()
+from . import CONTRACT_VERSION
+from .tool import TOOL_NAME, get_server_info
+
+# ATL-037 adds exactly the sole approved contract. Code existence alone never
+# registers a tool; every production entry remains literal and reviewable.
+PRODUCTION_REGISTRY = ExplicitToolRegistry(
+    [ToolContract(TOOL_NAME, CONTRACT_VERSION, get_server_info)]
+)

@@ -14,11 +14,12 @@ from atlas_mcp.registry import ExplicitToolRegistry, PRODUCTION_REGISTRY, ToolCo
 from atlas_mcp.runtime import RuntimePaths, create_tls_context, read_runtime_token
 from atlas_mcp.sanitization import enforce_serialized_result_bound, sanitize_string, sanitize_string_array
 from atlas_mcp.server import build_server
+from atlas_mcp.tool import LIMITATION, ServerInfoTool
 
 
 class RegistryTests(unittest.TestCase):
-    def test_production_registry_is_empty_for_foundation_scope(self) -> None:
-        self.assertEqual(PRODUCTION_REGISTRY.names(), ())
+    def test_production_registry_contains_only_approved_tool(self) -> None:
+        self.assertEqual(PRODUCTION_REGISTRY.names(), ("get_server_info",))
         build_server()
 
     def test_unknown_case_alias_and_version_are_rejected(self) -> None:
@@ -36,7 +37,7 @@ class RegistryTests(unittest.TestCase):
             audit_dir = Path(directory)
             application = AtlasApplication(PRODUCTION_REGISTRY, AuditSink(audit_dir))
             with self.assertRaises(AtlasMCPError) as raised:
-                application.authorize("get_server_info", "1.0.0")
+                application.authorize("run_search", "1.0.0")
             event = json.loads((audit_dir / ACTIVE_NAME).read_text(encoding="utf-8"))
             self.assertEqual(raised.exception.code, "TOOL_NOT_REGISTERED")
             self.assertEqual(event["decision"], "rejected")
@@ -45,6 +46,19 @@ class RegistryTests(unittest.TestCase):
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_windows_compose_preserves_linux_runtime_permission_boundary(self) -> None:
+        compose = (Path(__file__).parents[1] / "compose.windows.yaml").read_text(encoding="utf-8")
+        self.assertIn("ATLAS_MCP_TOKEN_HOST_FILE", compose)
+        self.assertIn("ATLAS_MCP_AUDIT_HOST_DIR", compose)
+        self.assertIn("chmod 0400", compose)
+        self.assertIn("chmod 0700", compose)
+        self.assertIn("user: \"10001:10001\"", compose)
+        self.assertIn("target: /run/secrets\n        read_only: true", compose)
+        self.assertIn("target: /audit\n        read_only: true", compose)
+        self.assertNotIn("SPLUNK_TOKEN", compose)
+        self.assertNotIn("ports:", compose)
+        self.assertNotIn("expose:", compose)
+
     def test_only_file_path_environment_interfaces_are_read(self) -> None:
         environment = {
             "ATLAS_MCP_TOKEN_FILE": "/run/secrets/token",
@@ -152,6 +166,64 @@ class SanitizationTests(unittest.TestCase):
         enforce_serialized_result_bound({"value": "safe"})
         with self.assertRaises(AtlasMCPError):
             enforce_serialized_result_bound({"value": "x" * 8192})
+
+
+class _FakeAdapter:
+    def __init__(self, response=None, error=None) -> None:
+        self._response = response
+        self._error = error
+
+    def get_server_info(self):
+        if self._error:
+            raise self._error
+        return self._response
+
+
+class ToolTests(unittest.TestCase):
+    def _runtime(self, directory: str) -> RuntimePaths:
+        token = Path(directory) / "token"
+        token.write_text("fixture-token", encoding="utf-8")
+        token.chmod(0o600)
+        return RuntimePaths(
+            token_file=token,
+            ca_file=Path(ssl.get_default_verify_paths().cafile),
+            audit_dir=Path(directory) / "audit",
+        )
+
+    def test_success_is_minimized_attributable_bounded_and_audited(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            raw = {
+                "version": " 10.0.8 ",
+                "serverName": "atlas-search-head",
+                "server_roles": ["search_head", "indexer"],
+                "guid": "must-not-pass",
+            }
+            tool = ServerInfoTool(self._runtime(directory), lambda token, context: _FakeAdapter(raw))
+            result = tool.invoke()
+            self.assertEqual(
+                set(result),
+                {"tool", "contract_version", "source", "source_role", "observed_at", "applied_bounds", "data", "sanitization", "warnings", "limitations"},
+            )
+            self.assertEqual(result["data"], {"version": "10.0.8", "server_name": "atlas-search-head", "server_role": ["indexer", "search_head"]})
+            self.assertEqual(result["limitations"], [LIMITATION])
+            self.assertNotIn("guid", json.dumps(result))
+            event = json.loads((Path(directory) / "audit" / ACTIVE_NAME).read_text(encoding="utf-8"))
+            self.assertEqual(event["decision"], "succeeded")
+            self.assertEqual(event["source"], "atlas-search-head")
+            self.assertEqual(event["result_count"], 1)
+
+    def test_upstream_failure_is_categorized_and_audited_without_detail(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            failure = AtlasMCPError.create("AUTHENTICATION_FAILED")
+            tool = ServerInfoTool(self._runtime(directory), lambda token, context: _FakeAdapter(error=failure))
+            with self.assertRaises(AtlasMCPError) as raised:
+                tool.invoke()
+            self.assertEqual(raised.exception.code, "AUTHENTICATION_FAILED")
+            event_text = (Path(directory) / "audit" / ACTIVE_NAME).read_text(encoding="utf-8")
+            self.assertNotIn("fixture-token", event_text)
+            event = json.loads(event_text)
+            self.assertEqual(event["decision"], "failed")
+            self.assertEqual(event["source"], "atlas-search-head")
 
 
 if __name__ == "__main__":

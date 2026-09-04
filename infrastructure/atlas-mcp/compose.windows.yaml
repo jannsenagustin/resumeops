@@ -1,0 +1,112 @@
+name: atlas-mcp-windows
+
+services:
+  runtime-boundary-init:
+    build:
+      context: .
+      target: runtime
+    image: atlas-mcp:v1-get-server-info
+    user: "0:0"
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - FOWNER
+    security_opt:
+      - no-new-privileges:true
+    network_mode: none
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        set -eu;
+        umask 077;
+        rm -f /token-runtime/.atlas_mcp_token.new;
+        cp /token-source/atlas-mcp-v1.token /token-runtime/.atlas_mcp_token.new;
+        chmod 0400 /token-runtime/.atlas_mcp_token.new;
+        chown 10001:10001 /token-runtime/.atlas_mcp_token.new;
+        mv -f /token-runtime/.atlas_mcp_token.new /token-runtime/atlas_mcp_token;
+        chmod 0700 /audit;
+        chown 10001:10001 /audit
+    volumes:
+      - type: bind
+        source: ${ATLAS_MCP_TOKEN_HOST_FILE:?Set ATLAS_MCP_TOKEN_HOST_FILE to the protected token file}
+        target: /token-source/atlas-mcp-v1.token
+        read_only: true
+      - type: volume
+        source: atlas_mcp_token_runtime
+        target: /token-runtime
+      - type: volume
+        source: atlas_mcp_audit_runtime
+        target: /audit
+
+  atlas-mcp:
+    build:
+      context: .
+      target: runtime
+    image: atlas-mcp:v1-get-server-info
+    stdin_open: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      ATLAS_MCP_TOKEN_FILE: /run/secrets/atlas_mcp_token
+      ATLAS_MCP_CA_FILE: /run/trust/atlas-root-ca.pem
+      ATLAS_MCP_AUDIT_DIR: /audit
+    volumes:
+      - type: volume
+        source: atlas_mcp_token_runtime
+        target: /run/secrets
+        read_only: true
+      - type: volume
+        source: atlas_mcp_audit_runtime
+        target: /audit
+      - type: bind
+        source: ${ATLAS_MCP_CA_HOST_FILE:?Set ATLAS_MCP_CA_HOST_FILE to the public Atlas root file}
+        target: /run/trust/atlas-root-ca.pem
+        read_only: true
+    networks:
+      - atlas-network
+
+  audit-export:
+    build:
+      context: .
+      target: runtime
+    image: atlas-mcp:v1-get-server-info
+    user: "10001:10001"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    network_mode: none
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        set -eu;
+        cp /audit/atlas-mcp.jsonl /evidence/atlas-mcp.jsonl;
+        for record in /audit/atlas-mcp-*.jsonl; do
+          [ -f "$${record}" ] || continue;
+          cp "$${record}" "/evidence/$${record##*/}";
+        done
+    volumes:
+      - type: volume
+        source: atlas_mcp_audit_runtime
+        target: /audit
+        read_only: true
+      - type: bind
+        source: ${ATLAS_MCP_AUDIT_HOST_DIR:?Set ATLAS_MCP_AUDIT_HOST_DIR to the protected local audit directory}
+        target: /evidence
+
+volumes:
+  atlas_mcp_token_runtime:
+  atlas_mcp_audit_runtime:
+
+networks:
+  atlas-network:
+    name: atlas-network
+    external: true
